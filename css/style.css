@@ -101,11 +101,11 @@ h3.category-title{
 	color: #F5548F;
 } 
 
-a.icons{
+.icons{
 	margin-right: 20px;
 	fill: #4B4099;
 }
-a.icons:hover{
+.icons:hover{
 	fill: #F5548F;
 }
 
