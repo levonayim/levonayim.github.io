@@ -104,8 +104,10 @@ h3.category-title{
 .icons{
 	margin-right: 20px;
 	fill: #4B4099;
+	-webkit-text-fill-color: #4B4099;
 }
 .icons:hover{
+	-webkit-text-fill-color: #F5548F;
 	fill: #F5548F;
 }
 
