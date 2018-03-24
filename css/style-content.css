@@ -4,6 +4,7 @@ body {
 	width: 100%;
 	height: 100%;
 	font-family: 'Karla', sans-serif;
+	line-height: 1.5
 }
 
 /*NAV BAR*/
@@ -61,8 +62,8 @@ body {
 
 .container{
 	width: 85%;
-	height: 100%;
-	margin: 25px auto 25px auto;
+	/*height: 100%;
+*/	margin: 25px auto 25px auto;
 	padding: 50px 50px 50px 50px;
 	background-color: white;
 	box-shadow: 0 0 20px #ccc;
@@ -93,15 +94,47 @@ h1.cover-title{
 	text-align: center;
 }
 h3{
+	margin-top:0;
 	margin-bottom: -3px;
 }
+h3.subtitle{
+	margin-bottom: -30px;
+    margin-top: 15px;
+}
+h1.inner-title{
+	text-align: left;
+}
 .columns{
-	width: 47%;
-    float: left;
-    margin-left: 15px;
     margin-right: 15px;
+    width: 48%;
+    display: inline-block;
+    vertical-align: top;
+}
+.columns3{
+    margin: 15px;
+    width: 30%;
+    display: inline-block;
+}
+img.fsp-screens{
+	width: 100%;
+	padding-top: 35px;
 }
 
+ul.skill{
+	padding-bottom: 35px;
+}
 li{
 	margin: 10px 0;
 }
+a.content-links{
+	color:#f3578f;
+}
+a.content-links>h3{
+	font-family: 'Karla', sans-serif;
+	font-weight: 400;
+}
+img.mac-fsp{
+	width: 100%;
+
+}
+
