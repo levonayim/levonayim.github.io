@@ -128,11 +128,13 @@ li{
 	margin: 10px 0;
 }
 a.content-links{
-	color:#f3578f;
+    color: #4B4099;
+    font-size: 18px;
+    font-family: 'butlerregular';
+    text-decoration: none;
 }
-a.content-links>h3{
-	font-family: 'Karla', sans-serif;
-	font-weight: 400;
+a.content-links:hover,a.content-links:active{
+	color: #f3578f;
 }
 img.mac-fsp{
 	width: 100%;
@@ -166,10 +168,10 @@ p.inner-longtext{
     color: #4B4099;
 	font-family: 'butlerregular';
     cursor: pointer;
-    padding: 30px 25px 25px 0px;
+    padding: 0px 25px 25px 0px;
     width: 100%;
     border: none;
-    text-align: center;
+    text-align: left;
     outline: none;
     font-size: 18px;
 }
