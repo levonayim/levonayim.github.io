@@ -249,7 +249,7 @@ footer {
 /*laptop -macbookpro size*/
 @media only screen and (max-width: 1366px) {
     .content{
-    	margin:10px;
+    	margin:15px;
     }
     .title-container{
     	width: 90%;
