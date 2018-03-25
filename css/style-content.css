@@ -275,6 +275,10 @@ footer {
 	font-family: 'Karla', sans-serif;
 	line-height: 1.5
     }
+    h3{
+    	margin-top: 5px;
+    	margin-bottom: 0;
+    }
     .container{
     	width:90%;
     	height:100%;
@@ -371,4 +375,25 @@ footer {
 	    width: 100%;
 	    display: inline-block;
 	}
+
+	/*styling brs*/
+	h3.subtitle {
+	    margin-top: 15px;
+	    margin-left: 0px;
+	    margin-bottom: 15px;
+	}
+	.brs-old-image {
+	    padding: 15px 0px 25px 0px;
+	}
+	.columns1 {
+	    margin: 10px auto;
+	    width: 100%;
+	    display: block;
+	    padding: 0; 
+	}
+	img.brs-screen {
+	    width: 100%;
+	    padding-bottom: 0; 
+	}
+
 }
