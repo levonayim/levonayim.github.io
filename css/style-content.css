@@ -245,3 +245,14 @@ footer {
     text-align: center;
     font-size: 12px;
 }
+
+/*laptop -macbookpro size*/
+@media only screen and (max-width: 1366px) {
+    .content{
+    	margin:10px;
+    }
+    .title-container{
+    	width: 90%;
+    	margin: 80px auto 0px auto;
+    }
+}
