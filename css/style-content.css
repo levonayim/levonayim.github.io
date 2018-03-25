@@ -255,6 +255,13 @@ footer {
     	width: 90%;
     	margin: 80px auto 0px auto;
     }
+/*    .columns{
+		margin-right:15px;
+		width:100%;
+		display:inline-block;
+		vertical-align:top;
+		margin-top: 15px;
+	}*/
 }
 
 /*laptop -mobile size*/
@@ -324,6 +331,7 @@ footer {
 		width:100%;
 		display:inline-block;
 		vertical-align:top;
+		margin-top: 15px;
 	}
 
 }
