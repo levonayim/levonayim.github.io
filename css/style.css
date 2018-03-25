@@ -169,3 +169,16 @@ footer {
 	font-size: 12px;
 }
 
+/*laptop -macbookpro size*/
+@media only screen and (max-width: 1366px) {
+    .card-container {
+		width: 90%;
+		height: 90%;
+		margin: auto;
+		box-shadow: 0 0 20px #ccc;
+		position: absolute;
+		left: 50%;
+		transform: translate(-50%, -50%);
+
+	}
+}
