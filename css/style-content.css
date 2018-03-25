@@ -232,7 +232,7 @@ img.brs-screens{
     padding: 0 18px;
     display: none;
     overflow: hidden;
-    /*transition: max-height 0.2s ease-out;*/
+    transition: max-height 0.2s ease-out;
 } 
 
 footer {
