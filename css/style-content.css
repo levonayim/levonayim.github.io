@@ -232,7 +232,7 @@ img.brs-screens{
     padding: 0 18px;
     display: none;
     overflow: hidden;
-    transition: max-height 0.2s ease-out;
+    /*transition: max-height 0.2s ease-out;*/
 } 
 
 footer {
@@ -327,11 +327,9 @@ footer {
 		text-align:center;
 	}
 	.columns{
-		margin-right:15px;
+		margin:0;
 		width:100%;
 		display:inline-block;
-		vertical-align:top;
-		margin-top: 15px;
 	}
 
 	.collapsible {
@@ -346,5 +344,31 @@ footer {
 	    outline: none;
 	    font-size: 16px;
 	}
-
+	.collapseContent{
+		padding:0;
+	}
+	img.mac-fsp-form {
+	    width: 95%;
+	    border: 1px solid #d1d4db;
+	    margin:0;
+	}
+	img.mac-fsp-smallpic {
+	    width: 100%;
+	    margin: 20px auto;
+	    border: 1px solid #d1d4db;
+	}
+	.inner-content {
+	    padding: 0;
+	    padding-bottom: 25px;
+	}
+	.fsp-final-images {
+	    margin: 0;
+	    text-align: center;
+	    padding: 15px;
+	}
+	.columns3 {
+	    margin: 0;
+	    width: 100%;
+	    display: inline-block;
+	}
 }
