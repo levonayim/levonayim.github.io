@@ -334,4 +334,17 @@ footer {
 		margin-top: 15px;
 	}
 
+	.collapsible {
+	    background-color: #ffffff;
+	    color: #4B4099;
+	    font-family: 'butlerregular';
+	    cursor: pointer;
+	    padding: 25px 25px 25px 0px;
+	    width: 100%;
+	    border: none;
+	    text-align: center;
+	    outline: none;
+	    font-size: 18px;
+	}
+
 }
