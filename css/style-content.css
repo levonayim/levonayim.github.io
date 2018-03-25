@@ -119,6 +119,7 @@ h1.inner-title{
 	margin: 0;
     width: 100%;
     display: block;
+    padding-top:25px;
 }
 img.fsp-screens{
 	width: 100%;
@@ -157,6 +158,7 @@ img.mac-fsp-smallpic{
 }
 img.brs-screen{
 	width: 100%;
+	padding-bottom: 25px;
 }
 img.brs-screens{
 	border: 1px solid #d1d4db;
