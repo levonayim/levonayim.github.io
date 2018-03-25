@@ -256,3 +256,40 @@ footer {
     	margin: 80px auto 0px auto;
     }
 }
+
+/*laptop -mobile size*/
+@media only screen and (max-width: 768px) {
+    .logo-image{
+    	width:70px;
+    	margin-left: 50%;
+    }
+    .navlinks{
+    	float: right;
+    	margin-right: 10%;
+    	margin-top: -1%;
+    }
+    	
+    .cover-text {
+		width: 80%;
+		margin-top: 25%;
+		margin-left: 50px;
+		float:left;
+	}
+	
+	.title-container{
+		width: 75%;
+		margin-top:35%;
+		margin-left: 60px;
+	}
+	.title-container>h1{
+		font-size: 24px;
+	}
+	.otherhalf{
+		width: 100%;
+	}
+
+	.image-covers{
+		width: 100%;
+		margin-top: 5%;
+	}
+}
