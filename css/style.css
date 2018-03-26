@@ -182,10 +182,44 @@ footer {
 
 	}
 }
-
-
-/*laptop -mobile size*/
+/*tablet size*/
+@media only screen and (max-width: 1024px) {
+   	.cover-text {
+	    width: 30%;
+	    margin-top: 20%;
+	    margin-left: 100px;
+	    float: left;
+	}
+	.otherhalf {
+	    width: 55%;
+	    float: right;
+	    margin: 10% auto;
+	}
+}
+/*mobile size*/
 @media only screen and (max-width: 769px) {
+	h1.cover-title {
+	    font-size: 26px;
+	}
+	.image-covers {
+	    width: 100%;
+	    margin-top: 50%;
+	}
+	.title-container {
+	    width: 40%;
+	    margin-top: 35%;
+	    margin-left: 60px;
+	}
+	.otherhalf {
+	    width: 45%;
+	}
+	.button{
+		padding:12px 40px;
+	}
+}
+
+/*mobile size*/
+@media only screen and (max-width: 600px) {
    	body{
 		margin:0;
 		font-size:14px;
@@ -202,15 +236,6 @@ footer {
     	padding:0;
     	box-shadow: 0 0 20px #ccc;
     }
-/*    #nav-container{
-    	padding:25px 25px 0;
-    	z-index: 2;
-    	position: absolute;
-    	width: 100%;
-    	top:0;
-    	left: 0;
-    }*/
-
     .logo-image{
     	width:70px;
     	margin-left: 50%;

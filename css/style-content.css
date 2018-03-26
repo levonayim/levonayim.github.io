@@ -93,6 +93,10 @@ h1.cover-title{
 	font-size: 28px;
 	text-align: center;
 }
+.cover-description{
+	color: #F5548F;
+	padding: 15px 0;
+}
 h3{
 	margin-top:0;
 	margin-bottom: -3px;
