@@ -271,14 +271,19 @@ footer {
 /*laptop -mobile size*/
 @media only screen and (max-width: 769px) {
 	body{
-	margin:0;
-	font-size:14px;
-	position: relative;
-	width: 100%;
-	height: 100%;
-	font-family: 'Karla', sans-serif;
-	line-height: 1.5
+		margin:0;
+		font-size:14px;
+		position: relative;
+		width: 100%;
+		height: 100%;
+		font-family: 'Karla', sans-serif;
+		line-height: 1.5
     }
+	.cover-description{
+		color: #4B4099;
+		padding: 0;
+		margin:0;
+	}
     h3{
     	margin-top: 10px;
     	margin-bottom: 0;
