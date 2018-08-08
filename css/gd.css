@@ -1,0 +1,11 @@
+.gd-banner{
+	padding:25px;
+	background-color:#FBFCFF;
+}
+.full-column{
+	display: inline-block;
+}
+
+.prod-no-shad{
+	box-shadow: none !important;
+}

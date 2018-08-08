@@ -136,6 +136,11 @@ h1.inner-title{
     padding-top:25px;
     padding-left: 50px
 }
+.columns2{
+    margin: 10px;
+    width: 45%;
+    display: inline-block;
+}
 .columns3{
     margin: 10px;
     width: 30%;
@@ -163,6 +168,7 @@ img.fsp-screens{
 	width: 100%;
 	margin-top: 35px;
 	box-shadow: 0 0 20px #d1d4db;
+	vertical-align: top;
 }
 
 ul.skill{
