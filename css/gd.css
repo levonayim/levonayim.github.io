@@ -9,3 +9,26 @@
 .prod-no-shad{
 	box-shadow: none !important;
 }
+
+/*for products redesigned*/
+.columns2-special{
+    margin: 10px;
+    width: 60%;
+    display: inline-block;
+    vertical-align: middle;
+}
+.columns2b-special{
+    margin: 10px;
+    width: 30%;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.columns2{
+	text-align: center;
+	background-color:#FBFCFF;
+    padding: 15px 0;
+    width: 49%;
+    margin: 0;
+    color: #4B4099;
+}
