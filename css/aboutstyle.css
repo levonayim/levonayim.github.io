@@ -1,0 +1,20 @@
+.title-container{
+	background-color:#FBFCFF;
+}
+
+.content{
+	padding: 15px;
+}
+
+.experience-text{
+	line-height: 1.25em;
+	margin-bottom:5px;
+	margin-top: 0;
+}
+
+.skills-smaller-font{
+	font-size: 14px;
+}
+a.connect-link{
+	text-decoration: none;
+}
