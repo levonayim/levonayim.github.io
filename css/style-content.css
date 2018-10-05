@@ -7,6 +7,12 @@ body {
 	line-height: 1.5;
 	letter-spacing: 0.5px;
 }
+/*in MMC titles of the screenshots*/
+h5.titles{
+	text-align: center;
+    margin-bottom: -25px;
+    color: #4B4099;
+}
 
 /*makes text purple*/
 .add-purple{
