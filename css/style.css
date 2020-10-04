@@ -16,6 +16,11 @@ body {
     box-shadow: 0 0.3em 1em #000;
 }
 
+.links-title{
+	text-decoration: none;
+	fill: #4B4099;
+}
+
 .card-container {
 /*	width: 999px;
 	height: 504px;*/
