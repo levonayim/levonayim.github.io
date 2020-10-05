@@ -27,6 +27,15 @@ h5.titles{
 	color:#F5548F;
 }
 
+.mmc-style-img{
+	width:34.5%;
+}
+
+.centering{
+	margin: auto;
+	width: 85%;
+}
+
 /*NAV BAR*/
 
 #nav-container{
