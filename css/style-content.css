@@ -13,7 +13,13 @@ h5.titles{
     margin-bottom: -25px;
     color: #4B4099;
 }
-
+.kashoo-smaller-image{
+	width: 75% !important;
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+	position: relative;
+}
 /*makes text purple*/
 .add-purple{
 	color:#4B4099;
@@ -34,6 +40,12 @@ h5.titles{
 .centering{
 	margin: auto;
 	width: 85%;
+}
+.center-text{
+	text-align: center;
+}
+.section{
+	padding-top: 3rem;
 }
 
 /*NAV BAR*/
@@ -136,6 +148,12 @@ h3.subtitle{
 }
 h1.inner-title{
 	text-align: left;
+}
+.center-list{
+	margin-top: 3rem;
+	margin-left: auto;
+	margin-right: auto;
+	width: 70%;
 }
 .columns{
     margin-right: 15px;
