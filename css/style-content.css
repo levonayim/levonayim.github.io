@@ -20,6 +20,17 @@ h5.titles{
 	display: block;
 	position: relative;
 }
+.border-image{
+	border: solid #d1d4db 1px;
+}
+
+.kashoo-gifs{
+	width: 50% !important;
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+	position: relative;
+}
 /*makes text purple*/
 .add-purple{
 	color:#4B4099;
