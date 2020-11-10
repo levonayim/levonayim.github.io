@@ -21,7 +21,7 @@
   <component name="ChangeListManager">
     <list default="true" id="a72640b6-626a-4fc4-888f-981200a7b4a4" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/about-me.html" beforeDir="false" afterPath="$PROJECT_DIR$/about-me.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kashoo.html" beforeDir="false" afterPath="$PROJECT_DIR$/kashoo.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,6 +47,8 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="settings.editor.selected.configurable" value="preferences.editor" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -64,7 +66,8 @@
       <workItem from="1601838678722" duration="5762000" />
       <workItem from="1601859524109" duration="16437000" />
       <workItem from="1603318003481" duration="190000" />
-      <workItem from="1603998167153" duration="322000" />
+      <workItem from="1603998167153" duration="398000" />
+      <workItem from="1605049650482" duration="812000" />
     </task>
     <servers />
   </component>
@@ -82,5 +85,15 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="642" y="409" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1605049770136">
+      <screen x="0" y="23" width="1792" height="1049" />
+    </state>
+    <state x="642" y="409" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.23.1792.1049/107.-1417.2560.1417@0.23.1792.1049" timestamp="1605049770136" />
+    <state x="397" y="186" key="SettingsEditor" timestamp="1605049932516">
+      <screen x="0" y="23" width="1792" height="1049" />
+    </state>
+    <state x="397" y="186" key="SettingsEditor/0.23.1792.1049/107.-1417.2560.1417@0.23.1792.1049" timestamp="1605049932516" />
   </component>
 </project>
