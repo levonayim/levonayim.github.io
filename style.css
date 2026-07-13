@@ -91,7 +91,8 @@ body {
 
 /* ---- The window frame ---- */
 .window {
-  width: 100%;
+  width: 95%;
+  position: fixed;
   max-width: 1000px;
   max-height: calc(90vh - 2.5rem); /* leaves clearance so the fixed credit bar never overlaps the window's content */
   display: flex;                 /* NEW: lets the title bar stay fixed while .terminal scrolls independently */
