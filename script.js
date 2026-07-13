@@ -170,23 +170,23 @@ const commands = {
    '.         .'
      '-.....-'
 
-I’m Levona (le-voe-na), a multidisciplinary product designer based in Vancouver BC with 7+ years of experience.
+Hi! I’m Levona, a multidisciplinary product designer based in Vancouver, BC with 7 years of experience.
 
 I believe that delightful experiences come from understanding user interactions and learning their mental models and context. This allows me to not only see the entire system, but also discover the smaller experiences in between.
 
-On the side, I love drawing cartoon characters and experimenting through vibe coding small apps, memes, and reading. When I’m not designing, I like to relax and read, doom-scrolling reels but majority of the time I enjoy lifting weights, jogging, and going on nature hikes.`,
+On the side, I love drawing cartoon characters and experimenting through vibe coding small apps. When I’m not designing, I like to relax and read. I enjoy lifting weights, jogging, and going on nature hikes.`,
 
   skills: () => {
     // Each entry: [skill name, percentage]. Edit freely.
     const skillList = [
       ['Product Design', 90],
       ['Design Systems', 80],
-      ['UX Research', 70],
+      ['UX Research', 80],
       ['Figma', 90],
       ['Prototyping', 90],
       ['Illustrating', 90],
-      ['HTML / CSS', 60],
-      ['AI / Prompt Design', 60],
+      ['HTML / CSS', 80],
+      ['AI / Prompt Design', 70],
     ];
 
     // Find the longest name in the list, so the pad width always fits
@@ -241,7 +241,7 @@ dogsay: (args) => {
 },
 
   neofetch: () => `OS:        LevonaYimOS 2026
-Host:      levonayim.com
+Host:      levonayim.ca
 Shell:     fake-sh 1.0
 Theme:     ${document.documentElement.getAttribute('data-theme')}
 Languages: HTML, CSS, JavaScript`,
@@ -268,7 +268,7 @@ Just kidding, you can't leave that easily. 😏`,
       'Code never lies, comments sometimes do.',
       'It works on my machine. 😏',
       'The best error message is the one that never shows up.',
-      'Ctrl+Z is my favorite superpower.',
+      'Ctrl+Z is my best friend',
     ];
     // Math.random() gives a decimal between 0 (inclusive) and 1 (exclusive).
     // Multiplying by the array's length and flooring it gives a random valid index.
