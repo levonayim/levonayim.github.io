@@ -94,7 +94,8 @@ body {
   width: 95%;
   position: fixed;
   max-width: 1000px;
-  max-height: calc(90vh - 2.5rem); /* leaves clearance so the fixed credit bar never overlaps the window's content */
+  max-height: calc(90vh - 2.5rem);  /* fallback for older browsers that don't support dvh */
+  max-height: calc(90dvh - 2.5rem); /* dvh accounts for mobile browser toolbars showing/hiding, so this stays accurate instead of drifting and overlapping the credit bar */
   display: flex;                 /* NEW: lets the title bar stay fixed while .terminal scrolls independently */
   flex-direction: column;
   background: var(--bg);
@@ -131,17 +132,19 @@ body {
 }
 
 .credit {
-  position: absolute;      
+  position: fixed;      /* pins it to the actual browser viewport, so it stays put while scrolling */
   bottom: 0;
   left: 0;
   right: 0;
   margin: 0;
   padding: 0.6rem 1rem;
+  /* extra bottom padding on phones with a home-indicator/gesture bar, so text isn't crowded against it */
+  padding-bottom: calc(0.6rem + env(safe-area-inset-bottom, 0px));
   opacity: 0.95;
   color: var(--muted);
   font-size: 0.7rem;
   text-align: center;
-  z-index: 50;          
+  z-index: 50;
 }
 
 .terminal {
