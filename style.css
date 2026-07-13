@@ -60,7 +60,7 @@
 }
 
 [data-theme="solarized"] {
-  --app-bg: #304C54;          /* Slightly lighter than terminal #002b36 */
+  --app-bg: #073642;          /* Slightly lighter than terminal #002b36 */
   --bg: #002b36;
   --fg: #839496;
   --prompt-color: #859900;
@@ -93,7 +93,7 @@ body {
 .window {
   width: 100%;
   max-width: 1000px;
-  max-height: calc(95vh - 2.5rem); /* leaves clearance so the fixed credit bar never overlaps the window's content */
+  max-height: calc(90vh - 2.5rem); /* leaves clearance so the fixed credit bar never overlaps the window's content */
   display: flex;                 /* NEW: lets the title bar stay fixed while .terminal scrolls independently */
   flex-direction: column;
   background: var(--bg);
@@ -130,7 +130,7 @@ body {
 }
 
 .credit {
-  position: fixed;      
+  position: relative;      
   bottom: 0;
   left: 0;
   right: 0;
@@ -138,7 +138,7 @@ body {
   padding: 0.6rem 1rem;
   opacity: 0.95;
   color: var(--muted);
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   text-align: center;
   z-index: 50;          
 }
