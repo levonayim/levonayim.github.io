@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dracula">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Levona Yim — Product Designer</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="window">
+
+    <!-- The "title bar" — just a styled div, no image involved -->
+    <div class="window-titlebar">
+      <span class="dot dot-red"></span>
+      <span class="dot dot-yellow"></span>
+      <span class="dot dot-green"></span>
+      <span class="window-title">visitor@levona: ~</span>
+    </div>
+
+    <div class="terminal">
+
+    <!-- ASCII art header -->
+    <pre class="ascii-art">
+       ,gggg,                                                                      ,ggg,         gg                          
+      d8" "8I                                                                     dP""Y8a        88                          
+      88  ,dP                                                                     Yb, `88        88                          
+   8888888P"                                                                       `"  88        88   gg                     
+      88                                                                               88        88   ""                     
+      88         ,ggg,      ggg    gg     ,ggggg,    ,ggg,,ggg,     ,gggg,gg          88        88   gg    ,ggg,,ggg,,ggg,  
+ ,aa,_88        i8" "8i    d8"Yb   88bg"8dP"  "Y8ggg8" "8P" "8,   dP"  "Y8I          88       ,88   88   ,8" "8P" "8P" "8, 
+dP" "88P        I8, ,8I   dP  I8   8I   i8'    ,8I      8I   8I  i8'    ,8I          Y8b,___,d888   88   I8   8I   8I   8I 
+Yb,_,d88b,,_    `YbadP' ,dP   I8, ,8I  ,d8,   ,d8'      8I   Yb,,d8,   ,d8b,          "Y88888P"88,_,88,_,dP   8I   8I   Yb,
+ "Y8P"  "Y88888888P"Y8888"     "Y8P"   P"Y8888P"       8I   `Y8P"Y8888P"`Y8              ,ad88888P""Y88P'   8I   8I   `Y8
+                                                                                          d8P" 88                          
+                                                                                        ,d8'   88                          
+                                                                                        d8'    88                          
+                                                                                        88     88                          
+                                                                                        Y8,_ _,88                          
+                                                                                        "Y888P"                           
+                                                                                                                                                 
+                                                                                                                                                 
+    </pre>
+
+    <p class="intro">Currently open to new opportunities · Previously Lead Product Designer @ FICO</p>
+
+    <div class="theme-switcher">
+      <button class="theme-toggle" id="themeToggle">theme: dracula ▾</button>
+      <ul class="theme-menu" id="themeMenu"></ul>
+    </div>
+
+    <!-- Command block 1: links -->
+    <div class="command-block">
+      <p class="prompt" data-command="levona@yim:~/links $ ls -la"></p>
+      <ul class="output-list">
+        <li><a href="https://www.linkedin.com/in/levona-yim/">→ LinkedIn</a></li>
+        <li><a href="mailto:levona.yim@gmail.com">→ Email</a></li>
+      </ul>
+    </div>
+
+    <!-- Command block 2: work history -->
+    <div class="command-block">
+      <p class="prompt" data-command="levona@yim:~/work $ work --history"></p>
+      <ul class="output-list">
+        <li>
+          <span class="date">2021–2025</span>
+          <strong>Lead Product Designer @ FICO</strong>
+          <span class="details">Led the UX design for a next-gen enterprise data platform focused on the data side.</span>
+        </li>
+        <li>
+          <span class="date">2019–2021</span>
+          <strong>UX Designer &amp; Developer @ Kashoo</strong>
+          <span class="details">Led the UX design and helped launch  Kashoo Android/Web 2.0 and TrulySmall iOS</span>
+        </li>
+        <li>
+          <span class="date">2018-2020</span>
+          <strong>Digital Designer @ Mothers Matter Centre</strong>
+          <span class="details">Helped established their new brand identity and visual language and redesigned the entire website.</span>
+        </li>
+        <li>
+          <span class="date">2015-2017</span>
+          <strong>UX Web Designer Intern @ City of Surrey</strong>
+          <span class="details">Designed end-to-end UX/UI for the MySurrey Portal launch and its first 5 online services</span>
+        </li>
+        <li>
+          <span class="date">2014-2015</span>
+          <strong>Designer Intern @ Scentuals Body Care</strong>
+          <span class="details">Redesigned the Baby Collection labels. Designed flyers and catalogues for distributors across Canada.</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Everything the user types, plus its output, gets appended here -->
+    <div id="terminalOutput"></div>
+
+    <!-- The live input line. Hidden until the typed intro above finishes. -->
+    <div class="input-line" id="inputLine" style="display:none;">
+      <span class="prompt-label">vistor@levona:~$</span>
+      <input
+        type="text"
+        id="terminalInput"
+        class="terminal-input"
+        autocomplete="off"
+        spellcheck="false"
+        aria-label="Terminal command input">
+    </div>
+
+    </div>
+
+  </div>
+
+  <p class="credit">Designed and built by Levona through lots of prompting in Claude Code</p>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,353 @@
+/* ---- Color palettes ----
+   Each theme's colors live under an [data-theme="..."] selector.
+   JS will set this attribute on <html>, and because every rule below
+   references var(--bg), var(--accent) etc., the whole page updates
+   instantly when the attribute changes — no other CSS needed. */
+:root,
+[data-theme="dracula"] {
+  --app-bg:#4A4D5E;          
+  --bg: #282a36;
+  --fg: #f8f8f2;
+  --prompt-color: #50fa7b;
+  --command-color: #f8f8f2;
+  --link-color: #8be9fd;
+  --accent: #bd93f9;
+  --muted: #9DADE1;
+}
+
+[data-theme="nord"] {
+  --app-bg: #3b4252;          /* Slightly lighter than terminal #2e3440 */
+  --bg: #2e3440;
+  --fg: #eceff4;
+  --prompt-color: #a3be8c;
+  --command-color: #eceff4;
+  --link-color: #88c0d0;
+  --accent: #b48ead;
+  --muted: #A6B4CE;
+}
+
+[data-theme="gruvbox"] {
+  --app-bg: #3c3836;          /* Slightly lighter than terminal #282828 */
+  --bg: #282828;
+  --fg: #ebdbb2;
+  --prompt-color: #b8bb26;
+  --command-color: #ebdbb2;
+  --link-color: #83a598;
+  --accent: #fe8019;
+  --muted: #928374;
+}
+
+[data-theme="tokyo-night"] {
+  --app-bg: #273471;          /* Slightly lighter than terminal #1a1b26 */
+  --bg: #1a1b26;
+  --fg: #c0caf5;
+  --prompt-color: #9ece6a;
+  --command-color: #c0caf5;
+  --link-color: #7dcfff;
+  --accent: #bb9af7;
+  --muted: #7C88C1;
+}
+
+[data-theme="catppuccin"] {
+  --app-bg: #3C3C5C;          /* Slightly lighter than terminal #1e1e2e */
+  --bg: #1e1e2e;
+  --fg: #cdd6f4;
+  --prompt-color: #a6e3a1;
+  --command-color: #cdd6f4;
+  --link-color: #89dceb;
+  --accent: #cba6f7;
+  --muted: #848AA6;
+}
+
+[data-theme="solarized"] {
+  --app-bg: #304C54;          /* Slightly lighter than terminal #002b36 */
+  --bg: #002b36;
+  --fg: #839496;
+  --prompt-color: #859900;
+  --command-color: #93a1a1;
+  --link-color: #2aa198;
+  --accent: #6c71c4;
+  --muted: #7597A2;
+}
+
+/* ---- Reset & base ---- */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 2rem 1rem;
+  background: var(--app-bg);
+  color: var(--fg);
+  font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+  font-size: 15px;
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;        
+  align-items: center;            
+  transition: background 0.3s ease; /* Keeps the transition smooth */
+}
+
+/* ---- The window frame ---- */
+.window {
+  width: 100%;
+  max-width: 1000px;
+  max-height: calc(95vh - 2.5rem); /* leaves clearance so the fixed credit bar never overlaps the window's content */
+  display: flex;                 /* NEW: lets the title bar stay fixed while .terminal scrolls independently */
+  flex-direction: column;
+  background: var(--bg);
+  border-radius: 10px;
+  overflow: hidden;             /* clips the title bar's corners and anything inside to match */
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5); /* soft drop shadow — this alone sells the "floating window" illusion */
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.window-titlebar {
+  flex-shrink: 0;                /* NEW: keeps the title bar from shrinking or scrolling away with the content */
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1rem;
+  background: rgba(255, 255, 255, 0.04); /* very subtle contrast from the window body */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;           /* a square div with 50% radius becomes a perfect circle */
+}
+
+.dot-red    { background: #ff5f56; }
+.dot-yellow { background: #ffbd2e; }
+.dot-green  { background: #27c93f; }
+
+.window-title {
+  margin-left: 0.5rem;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.credit {
+  position: fixed;      
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 0.6rem 1rem;
+  opacity: 0.95;
+  color: var(--muted);
+  font-size: 0.8rem;
+  text-align: center;
+  z-index: 50;          
+}
+
+.terminal {
+  padding: 1.5rem;
+  flex: 1;             /* fills whatever space is left under the title bar */
+  overflow-y: auto;    /* scrolls internally once content exceeds the available height */
+  min-height: 0;       /* flex items default to a min-height that ignores this — same gotcha as min-width, just for the vertical axis */
+}
+
+/* ---- ASCII art ----
+   Now that it lives inside a bounded window instead of the full page,
+   it just needs to fit that window's width — fitAsciiArt() in script.js
+   measures this element's own clientWidth, so no viewport-breakout trick
+   is needed here anymore. */
+.ascii-art {
+  color: var(--accent);
+  font-size: 10px;    /* fallback if JS doesn't run; JS overrides this with the exact fit */
+  line-height: 1.2;
+  margin: 0 0 1.5rem 0;
+  white-space: pre;
+  overflow-x: hidden; /* JS guarantees a fit, so no scrollbar should ever be needed */
+  text-align: center;
+}
+
+.intro {
+  color: var(--muted);
+  margin-bottom: 2.5rem;
+}
+
+/* ---- Theme toggle button ---- */
+.theme-switcher {
+  position: relative;         /* so the dropdown can be positioned relative to this */
+  display: inline-block;
+  margin-bottom: 2rem;
+}
+
+.theme-toggle {
+  background: none;
+  border: 1px solid var(--muted);
+  color: var(--fg);
+  font-family: inherit;
+  font-size: 0.85rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.theme-toggle:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.theme-menu {
+  position: absolute;
+  top: calc(100% + 0.3rem);   /* sit just below the button */
+  left: 0;
+  min-width: 140px;
+  background: var(--bg);
+  border: 1px solid var(--muted);
+  border-radius: 4px;
+  list-style: none;
+  margin: 0;
+  padding: 0.3rem 0;
+  display: none;               /* hidden until .open is added */
+  z-index: 10;
+}
+
+.theme-menu.open {
+  display: block;
+}
+
+.theme-menu li {
+  padding: 0.4rem 0.9rem;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.theme-menu li:hover {
+  background: var(--muted);
+}
+
+.theme-menu li.active {
+  color: var(--accent);
+}
+
+/* ---- Command blocks ---- */
+.command-block {
+  margin-bottom: 2rem;
+}
+
+.prompt {
+  color: var(--prompt-color);
+  margin: 0 0 0.75rem 0;
+}
+
+.output-list {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 1.5rem;   /* indent output under the prompt, like a shell */
+}
+
+.output-list li {
+  margin-bottom: 0.5rem;
+}
+
+.output-list a {
+  color: var(--link-color);
+  text-decoration: none;
+}
+
+.output-list a:hover {
+  text-decoration: underline;
+}
+
+.output-list .date {
+  color: var(--accent);
+  margin-right: 0.75rem;
+}
+
+.output-list .details {
+  color: var(--muted);
+  display: block;
+  margin-left: 0;
+}
+
+.output-list strong {
+  color: var(--fg);
+}
+
+/* ---- Fade-in for output revealed by JS ---- */
+.fade-in {
+  animation: fadeIn 0.4s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ---- Blinking cursor ---- */
+.cursor-line {
+  margin-top: 3rem;
+}
+
+.cursor {
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* ---- Interactive input line ---- */
+.input-line {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 2rem;
+}
+
+.prompt-label {
+  color: var(--prompt-color);
+  white-space: nowrap;
+}
+
+.terminal-input {
+  flex: 1;
+  min-width: 0;               /* flex items default to a min-width that ignores their container — this overrides that */
+  background: none;
+  border: none;
+  outline: none;              /* remove the browser's default focus ring */
+  color: var(--command-color);
+  font-family: inherit;
+  font-size: inherit;
+  caret-color: var(--prompt-color); /* colors the blinking text cursor */
+}
+
+/* ---- Output printed by typed commands ---- */
+#terminalOutput pre {
+  font-family: inherit;
+  white-space: pre-wrap;      /* preserves line breaks but still wraps on narrow screens */
+  margin: 0 0 0.3rem 0;
+}
+
+#terminalOutput .echo-line {
+  color: var(--prompt-color);
+  margin-top: 1rem;
+}
+
+#terminalOutput .output-line {
+  color: var(--fg);
+}
+
+/* ---- Small screens (phones) ---- */
+@media (max-width: 480px) {
+  body {
+    padding: 1.25rem 0.75rem;  /* less wasted edge space than the default 2rem/1rem */
+    font-size: 14px;
+  }
+
+  .output-list {
+    padding-left: 1rem;        /* slightly less indent so text has more room */
+  }
+
+  .theme-menu {
+    left: auto;
+    right: 0;                  /* anchor to the right edge so it can't run off-screen on the left cutoff */
+  }
+}
