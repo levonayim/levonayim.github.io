@@ -378,3 +378,116 @@ document.addEventListener('DOMContentLoaded', () => {
   initInteractiveTerminal();
   runTerminal();
 });
+
+
+// ---- Halftone dot-grid cursor effect ----
+// Wrapped in an IIFE so none of its variable names leak into the global
+// scope and risk colliding with anything above.
+(function () {
+  const canvas = document.getElementById('fx');
+  if (!canvas) return; // bail quietly if the canvas markup isn't on the page
+  const ctx = canvas.getContext('2d');
+
+  let W, H;
+  const dpr = window.devicePixelRatio || 1;
+
+  function resizeCanvas() {
+    W = window.innerWidth;
+    H = window.innerHeight;
+    canvas.width = W * dpr;
+    canvas.height = H * dpr;
+    canvas.style.width = W + 'px';
+    canvas.style.height = H + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    buildCells();
+  }
+
+  const spacing = 14; // px between dots
+  const minR = 1.2;
+  const maxR = 6;
+
+  // The dot grid's size is driven by a coarse grid of "cells" — each cell
+  // oscillates on its own random phase/frequency, and every dot's radius is
+  // bilinearly interpolated between its four surrounding cells. That's what
+  // produces smooth, blocky-looking patches drifting across the grid,
+  // rather than a single uniform wave or pure random noise.
+  const cell = 70; // px per coarse cell — bigger cell = bigger patches
+  let cols, rows, cellData;
+
+  function buildCells() {
+    cols = Math.ceil(W / cell) + 2;
+    rows = Math.ceil(H / cell) + 2;
+    cellData = [];
+    for (let i = 0; i < cols * rows; i++) {
+      cellData.push({
+        phase: Math.random() * Math.PI * 2,
+        freq: 0.4 + Math.random() * 0.5,
+      });
+    }
+  }
+
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+
+  // Cursor position, eased slightly so the hover boost doesn't feel too rigid
+  let targetMX = -1000, targetMY = -1000;
+  let mouseX = -1000, mouseY = -1000;
+
+  document.addEventListener('mousemove', (e) => {
+    targetMX = e.clientX;
+    targetMY = e.clientY;
+  });
+  document.addEventListener('mouseleave', () => {
+    targetMX = -1000;
+    targetMY = -1000;
+  });
+
+  function cellValue(cx, cy, t) {
+    cx = Math.max(0, Math.min(cols - 1, cx));
+    cy = Math.max(0, Math.min(rows - 1, cy));
+    const d = cellData[cy * cols + cx];
+    return 0.5 + 0.5 * Math.sin(t * d.freq + d.phase);
+  }
+
+  let t = 0;
+
+  function draw() {
+    t += 0.02;
+    mouseX += (targetMX - mouseX) * 0.25;
+    mouseY += (targetMY - mouseY) * 0.25;
+
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = '#5b8def';
+
+    for (let y = 0; y < H; y += spacing) {
+      for (let x = 0; x < W; x += spacing) {
+        const cx = Math.floor(x / cell);
+        const cy = Math.floor(y / cell);
+        const fx = (x % cell) / cell;
+        const fy = (y % cell) / cell;
+
+        const v00 = cellValue(cx, cy, t);
+        const v10 = cellValue(cx + 1, cy, t);
+        const v01 = cellValue(cx, cy + 1, t);
+        const v11 = cellValue(cx + 1, cy + 1, t);
+        const vTop = v00 + (v10 - v00) * fx;
+        const vBot = v01 + (v11 - v01) * fx;
+        const val = vTop + (vBot - vTop) * fy;
+
+        const dx = x - mouseX, dy = y - mouseY;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        const boost = Math.max(0, 1 - dist / 90);
+
+        const r = minR + (maxR - minR) * Math.min(1, val + boost * 0.9);
+
+        ctx.globalAlpha = 0.35 + 0.65 * (r - minR) / (maxR - minR);
+        ctx.beginPath();
+        ctx.arc(x, y, r / 2, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+    ctx.globalAlpha = 1;
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+})();
