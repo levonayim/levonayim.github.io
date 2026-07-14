@@ -273,8 +273,8 @@ Just kidding 😏`,
     ];
     // Math.random() gives a decimal between 0 (inclusive) and 1 (exclusive).
     // Multiplying by the array's length and flooring it gives a random valid index.
-    const index = Math.floor(Math.random() * fortunes.length);
-    return fortunes[index];
+    const index = Math.floor(Math.random() * random.length);
+    return random[index];
   },
 };
 
