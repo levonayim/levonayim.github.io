@@ -262,7 +262,7 @@ Enjoy your matcha 🍵`,
   exit: () => `Connection closed.
 Just kidding 😏`,
 
-  fortune: () => {
+  random: () => {
     // Add as many as you want — one gets picked at random each time.
     const random = [
       'Sloths can hold their breath longer than dolphins.',
