@@ -158,7 +158,7 @@ const commands = {
   ls secrets/               Snooping around?
   sudo rm -rf /             You wouldn't dare
   sudo make me a sandwich   ...
-  fortune                   A little wisdom
+  random                    Random facts
   exit                      Try and leave`,
 
   about: () => `     .-'''''-.
@@ -186,7 +186,7 @@ On the side, I love drawing cartoon characters and experimenting through vibe co
       ['Prototyping', 90],
       ['Illustrating', 90],
       ['HTML / CSS', 80],
-      ['AI / Prompt Design', 70],
+      ['AI / Prompt Design', 75],
     ];
 
     // Find the longest name in the list, so the pad width always fits
@@ -203,7 +203,7 @@ On the side, I love drawing cartoon characters and experimenting through vibe co
 2021-2025   Lead Product Designer @ FICO
 2019–2021   UX Designer & Developer @ Kashoo
 2018–2020   Digital Designer @ Mothers Matter Center
-2015–2027   UX Web Designer Intern @ City of Surrey
+2015–2017   UX Web Designer Intern @ City of Surrey
 2014–2015   Designer Intern @ Scentuals Body Care `,
 
   contact: () => `Email:    levona.yim@gmail.com
@@ -260,15 +260,16 @@ Languages: HTML, CSS, JavaScript`,
 Enjoy your matcha 🍵`,
 
   exit: () => `Connection closed.
-Just kidding, you can't leave that easily. 😏`,
+Just kidding 😏`,
 
   fortune: () => {
     // Add as many as you want — one gets picked at random each time.
-    const fortunes = [
-      'Code never lies, comments sometimes do.',
-      'It works on my machine. 😏',
-      'The best error message is the one that never shows up.',
-      'Ctrl+Z is my best friend',
+    const random = [
+      'Sloths can hold their breath longer than dolphins.',
+      'Honey never spoils.',
+      'The heart of a shrimp is located in its head.',
+      'Flamingos are not born pink.',
+      'A day on Venus is longer than a year.',
     ];
     // Math.random() gives a decimal between 0 (inclusive) and 1 (exclusive).
     // Multiplying by the array's length and flooring it gives a random valid index.

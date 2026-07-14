@@ -169,7 +169,7 @@ body {
   color: var(--accent);
   font-size: 10px;    /* fallback if JS doesn't run; JS overrides this with the exact fit */
   line-height: 1.2;
-  margin: 0 0 1.5rem 0;
+  margin: 0;
   white-space: pre;
   overflow-x: hidden; /* JS guarantees a fit, so no scrollbar should ever be needed */
   text-align: center;
@@ -177,7 +177,7 @@ body {
 
 .intro {
   color: var(--fg);
-  margin-bottom: 2.5rem;
+  margin-bottom: 1.5rem;
 }
 
 /* ---- Theme toggle button ---- */
