@@ -421,58 +421,72 @@ const workData = {
     total: 4,
     projects: [
       {
-        name: 'business-terms-capability',
-        comment: 'The backbone for building complex, unified data structures',
+        name: 'iris-design-system/',
+        comment: 'Core UI foundation, token architecture, & multi-platform scaling',
+        role: 'Lead Product Designer',
+        tools: 'Figma, design tokens, React',
+        outcome: 'Adopted across 4 product lines, cutting design-to-dev handoff time by roughly 40%.',
+        tldr: 'Built a shared token and component system so 4 product teams stopped reinventing the same UI from scratch.',
+        images: [
+          { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 1 — replace with a real screenshot.' },
+          { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 2 — replace with a real screenshot.' },
+          { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 3 — replace with a real screenshot.' },
+        ],
+        body: [
+          'Four product teams were each building their own buttons, spacing, and color logic from scratch, so nothing looked or behaved consistently across the platform.',
+          'Led the foundational token architecture — color, spacing, and typography scales built to work across both web and native apps.',
+          'Ran audits across all four product surfaces, cataloged every divergent pattern, then worked with engineering to build a shared component library with Figma variables mapped directly to code tokens.',
+        ],
+      },
+      {
+        name: 'data-services/',
+        comment: 'End-to-end unified platform workflows & data management',
         role: 'Lead Product Designer',
         tools: 'Figma, user research',
         outcome: 'Simplified core data workflows and reduced task completion time.',
+        tldr: 'Consolidated a fragmented set of data tools into one coherent workspace.',
+        images: [
+          { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 1 — replace with a real screenshot.' },
+          { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 2 — replace with a real screenshot.' },
+          { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 3 — replace with a real screenshot.' },
+        ],
         body: [
           'Enterprise users navigated a fragmented set of tools to manage and audit their own data pipelines, with no single unified view.',
           'Led end-to-end UX for a consolidated data services workspace, bringing previously scattered tools into one coherent flow.',
         ],
       },
       {
-        name: 'fico-platform',
-        comment: 'An enterprise B2B platform turning complex logic into unlimited service configurations',
+        name: 'platform-orchestration/',
+        comment: 'Complex B2B enterprise infrastructure & user workflows',
         role: 'Lead Product Designer',
         tools: 'Figma, service blueprints',
         outcome: 'Delivered a clearer interface layer for a highly technical orchestration engine.',
+        tldr: 'Made a complex B2B orchestration engine usable for enterprise clients managing infrastructure at scale.',
+        images: [
+          { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 1 — replace with a real screenshot.' },
+          { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 2 — replace with a real screenshot.' },
+          { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 3 — replace with a real screenshot.' },
+        ],
         body: [
           'Designed the interface layer for a complex B2B orchestration engine used by enterprise clients to manage infrastructure at scale.',
         ],
       },
       {
-        name: 'day-01-onboarding',
-        comment: 'A seamless entry point for onboarding, feature exploration, and personalization',
+        name: 'fico-world-2025/',
+        comment: 'High-fidelity interactive vision & stage presentations',
         role: 'Lead Product Designer',
         tools: 'Figma, prototyping',
         outcome: 'Prototypes were used live in the keynote stage presentation.',
+        tldr: 'Turned future-facing product concepts into working prototypes for a live keynote stage demo.',
+        images: [
+          { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 1 — replace with a real screenshot.' },
+          { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 2 — replace with a real screenshot.' },
+          { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 3 — replace with a real screenshot.' },
+        ],
         body: [
           'Built high-fidelity interactive prototypes used in the main keynote stage presentation, translating future-facing product concepts into something audiences could see working.',
         ],
       },
-      {
-        name: 'feature-management-aggregations',
-        comment: 'No-code aggregations for analyzing massive event and transaction data',
-        role: 'Lead Product Designer',
-        tools: 'Figma',
-        outcome: 'Eliminated weeks of engineering coordination by allowing analysts to configure complex schemas instantly, while establishing a plug-and-play component architecture that other product teams could deploy with zero custom adjustments.',
-        body: [
-          'Partnered with the Product Manager, Front-End Architect, and engineering team to translate complex code into an intuitive, linear form-based interface. By separating data setup from mathematical logic, the UI guides analysts step-by-step through configuring advanced, real-time parameters (like tracking events over a rolling 30-second window). Also adapted structural frameworks from previous BTC (Business Terms Capability) project to streamline the landing page and navigation.',
-        ],
-      },
-      //  {
-      //   name: 'iris-design-system',
-      //   comment: 'Unifying design and engineering through a foundational Figma library',
-      //   role: 'Lead Product Designer',
-      //   tools: 'Figma, design tokens, React',
-      //   outcome: 'Successfully drove an 85% increase in design-to-production speed and secured a 90% WCAG AA accessibility compliance rate across FICO's product suite.',
-      //   body: [
-      //     'Four product teams were each building their own buttons, spacing, and color logic from scratch, so nothing looked or behaved consistently across the platform.',
-      //     'Led the foundational token architecture — color, spacing, and typography scales built to work across both web and native apps.',
-      //     'Ran audits across all four product surfaces, cataloged every divergent pattern, then worked with engineering to build a shared component library with Figma variables mapped directly to code tokens.',
-      //   ],
-      // },
     ],
   },
   kashoo: {
@@ -480,23 +494,35 @@ const workData = {
     total: 2,
     projects: [
       {
-        name: 'kashoo-web-2.0',
-        comment: 'A flexible bookkeeping designed for micro-businesses, contractors, and solopreneurs',
+        name: 'kashoo-web-2.0/',
+        comment: 'Cloud accounting dashboard overhaul and responsive web apps',
         role: 'UX Designer & Developer',
         tools: 'Figma, HTML/CSS',
-        outcome: 'Launched Kashoo 2.0 web and Android, as well as TrulySmall iOS',
+        outcome: 'Shipped a full responsive overhaul of the core dashboard.',
+        tldr: 'Rebuilt the accounting dashboard as fully responsive, working as well on tablet as on desktop.',
+        images: [
+          { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 1 — replace with a real screenshot.' },
+          { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 2 — replace with a real screenshot.' },
+          { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 3 — replace with a real screenshot.' },
+        ],
         body: [
-          `Spearheaded the end-to-end UX strategy and redesign to transform a complex accounting tool into a modern, high-performing web application.`,
+          'Led the redesign of the cloud accounting dashboard, moving it to a fully responsive layout that worked as well on tablets as on desktop.',
         ],
       },
       {
-        name: 'trulysmall-ios',
-        comment: 'Free invoice generator for small business, freelancers and startups',
+        name: 'trulysmall-ios/',
+        comment: 'Direct-to-app workflow architecture for modern micro-businesses',
         role: 'UX Designer & Developer',
-        tools: 'Figma, HTML, CSS, {{mustache}}',
-        outcome: 'App launched in the Apple Store January 2021',
+        tools: 'Figma, iOS patterns',
+        outcome: 'Launched a streamlined mobile-first workflow for micro-business owners.',
+        tldr: 'Scoped, branded, and designed a highly approachable MVP invoicing app for solopreneurs, personally writing the production-ready HTML/CSS templates.',
+        images: [
+          { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 1 — replace with a real screenshot.' },
+          { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 2 — replace with a real screenshot.' },
+          { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 3 — replace with a real screenshot.' },
+        ],
         body: [
-          'Scoped, branded, and designed a highly approachable MVP invoicing app for solopreneurs, personally writing the production-ready HTML/CSS templates.',
+          'Designed the workflow architecture for a direct-to-app product aimed at very small business owners who needed accounting on the go.',
         ],
       },
     ],
@@ -506,11 +532,17 @@ const workData = {
     total: 1,
     projects: [
       {
-        name: 'MMC-website-redesign',
+        name: 'digital-transformation/',
         comment: 'Complete visual identity ecosystem guidelines and website launch',
         role: 'Digital Designer',
-        tools: 'Wordpress, CSS, Sketch, Photoshop',
-        outcome: 'New brand identity and launched redesigned site.',
+        tools: 'Figma, brand guidelines',
+        outcome: 'Delivered a new brand identity and launched the redesigned site.',
+        tldr: 'Built a new brand identity from scratch and carried it through a full website launch.',
+        images: [
+          { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 1 — replace with a real screenshot.' },
+          { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 2 — replace with a real screenshot.' },
+          { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 3 — replace with a real screenshot.' },
+        ],
         body: [
           'Established a new visual identity and brand guidelines from the ground up, then carried that language through a full website redesign and launch.',
         ],
@@ -522,13 +554,19 @@ const workData = {
     total: 1,
     projects: [
       {
-        name: 'mysurrey-portal',
-        comment: 'A web app for anyone to perform transactions with the City of Surrey all in one place',
+        name: 'mysurrey-portal/',
+        comment: 'Core operational municipal infrastructure interface architecture',
         role: 'UX Web Designer Intern',
-        tools: 'Sketch, Axure, InVision, Illustrator, Zeplin, HTML/CSS, Github',
-        outcome: 'Launched the portal and its first 5 online services.',
+        tools: 'Figma, service design',
+        outcome: 'Helped launch the portal and its first 5 online services.',
+        tldr: 'Designed the launch experience for a municipal portal and its first five online services.',
+        images: [
+          { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 1 — replace with a real screenshot.' },
+          { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 2 — replace with a real screenshot.' },
+          { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 3 — replace with a real screenshot.' },
+        ],
         body: [
-          'Designed and launched the initial phase of the MySurrey Portal, a centralized web application allowing Surrey citizens, businesses, and professionals to perform municipal transactions online all in one place.',
+          'Designed end-to-end UX for the MySurrey Portal launch, covering the first five online municipal services offered through it.',
         ],
       },
     ],
@@ -611,9 +649,19 @@ function showCaseStudy(key, index) {
 
   const bodyHtml = project.body.map((paragraph) => `<p>${paragraph}</p>`).join('');
 
+  const images = project.images || [];
+  const galleryHtml = images
+    .map(
+      (image, i) => `<img src="${image.src}" alt="${project.name} screenshot ${i + 1}" onclick="openImageModal('${key}', ${index}, ${i})">`
+    )
+    .join('');
+
   pane.innerHTML = `
     <p class="case-study-title">${project.name}</p>
     <p class="case-study-meta"><strong>Role:</strong> ${project.role}<br><strong>Tools:</strong> ${project.tools}<br><strong>Outcome:</strong> ${project.outcome}</p>
+    <p class="tldr-label">TLDR;</p>
+    <p class="tldr-text">${project.tldr}</p>
+    ${images.length ? `<div class="case-study-gallery">${galleryHtml}</div>` : ''}
     <div class="case-study-body">${bodyHtml}</div>
   `;
 
@@ -621,6 +669,89 @@ function showCaseStudy(key, index) {
   void pane.offsetWidth;
   pane.classList.add('fade-in');
 }
+
+// ---- Image modal (lightbox) for case study gallery images ----
+// Tracks which project's image array is open and the current index within
+// it, so prev/next can step through the whole set without closing the modal.
+let modalImages = [];
+let modalIndex = 0;
+
+function renderModalImage() {
+  const img = document.getElementById('imageModalImg');
+  const counter = document.getElementById('imageModalCounter');
+  const caption = document.getElementById('imageModalCaption');
+  const prevBtn = document.getElementById('imageModalPrev');
+  const nextBtn = document.getElementById('imageModalNext');
+  if (!img || !modalImages.length) return;
+
+  const current = modalImages[modalIndex];
+  img.src = current.src;
+  img.alt = current.alt;
+
+  if (caption) {
+    caption.textContent = current.caption || '';
+    caption.style.display = current.caption ? '' : 'none';
+  }
+
+  if (counter) {
+    counter.textContent = `${modalIndex + 1} / ${modalImages.length}`;
+  }
+
+  // Hide prev/next entirely when there's nothing to navigate between
+  const showNav = modalImages.length > 1;
+  if (prevBtn) prevBtn.style.display = showNav ? '' : 'none';
+  if (nextBtn) nextBtn.style.display = showNav ? '' : 'none';
+  if (counter) counter.style.display = showNav ? '' : 'none';
+}
+
+function openImageModal(key, projectIndex, imageIndex) {
+  const project = workData[key] && workData[key].projects[projectIndex];
+  if (!project || !project.images) return;
+
+  modalImages = project.images.map((image, i) => ({
+    src: image.src,
+    alt: `${project.name} screenshot ${i + 1}`,
+    caption: image.caption || '',
+  }));
+  modalIndex = imageIndex;
+
+  const modal = document.getElementById('imageModal');
+  if (!modal) return;
+
+  renderModalImage();
+  modal.classList.add('open');
+}
+
+function closeImageModal() {
+  const modal = document.getElementById('imageModal');
+  if (!modal) return;
+  modal.classList.remove('open');
+}
+
+function nextModalImage() {
+  if (!modalImages.length) return;
+  modalIndex = (modalIndex + 1) % modalImages.length; // wraps around to the start
+  renderModalImage();
+}
+
+function prevModalImage() {
+  if (!modalImages.length) return;
+  modalIndex = (modalIndex - 1 + modalImages.length) % modalImages.length; // wraps around to the end
+  renderModalImage();
+}
+
+document.addEventListener('keydown', (event) => {
+  const modal = document.getElementById('imageModal');
+  if (!modal || !modal.classList.contains('open')) return;
+
+  if (event.key === 'Escape') {
+    closeImageModal();
+  } else if (event.key === 'ArrowRight') {
+    nextModalImage();
+  } else if (event.key === 'ArrowLeft') {
+    prevModalImage();
+  }
+});
 
 function goBackToCompanies() {
   const container = document.querySelector('.work-split');
