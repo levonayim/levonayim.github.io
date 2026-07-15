@@ -532,7 +532,7 @@ const workData = {
     total: 1,
     projects: [
       {
-        name: 'digital-transformation/',
+        name: 'website-redesign/',
         comment: 'Complete visual identity ecosystem guidelines and website launch',
         role: 'Digital Designer',
         tools: 'Wordpress, CSS, Sketch, Photoshop',
