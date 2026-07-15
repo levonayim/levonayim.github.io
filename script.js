@@ -535,16 +535,16 @@ const workData = {
         name: 'digital-transformation/',
         comment: 'Complete visual identity ecosystem guidelines and website launch',
         role: 'Digital Designer',
-        tools: 'Figma, brand guidelines',
-        outcome: 'Delivered a new brand identity and launched the redesigned site.',
-        tldr: 'Built a new brand identity from scratch and carried it through a full website launch.',
+        tools: 'Wordpress, CSS, Sketch, Photoshop',
+        outcome: 'A new brand identity and launched the redesigned website.',
+        tldr: 'Redesigned and developed a responsive WordPress site in under 2.5 months, integrating seamless donation and outreach tools to boost engagement.',
         images: [
           { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 1 — replace with a real screenshot.' },
           { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 2 — replace with a real screenshot.' },
           { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 3 — replace with a real screenshot.' },
         ],
         body: [
-          'Established a new visual identity and brand guidelines from the ground up, then carried that language through a full website redesign and launch.',
+          `As the sole web designer, I led the end-to-end redesign and WordPress development of the Mothers Matter Centre website in under 2.5 months, transforming a dense, hard-to-navigate site into an accessible, mission-driven platform. After facilitating cross-department workshops to align on requirements, I overhauled the site's information architecture and designed fully responsive layouts to simplify complex content. To optimize user engagement and increase fundraising, I built the site using WordPress and custom CSS, integrating MailChimp, Google Analytics, and a seamless, on-site CanadaHelps donation gateway.`,
         ],
       },
     ],
@@ -557,16 +557,19 @@ const workData = {
         name: 'mysurrey-portal/',
         comment: 'Core operational municipal infrastructure interface architecture',
         role: 'UX Web Designer Intern',
-        tools: 'Figma, service design',
+        tools: 'Sketch, Axure, Invision, Illustrator, Zeplin, HTML, CSS',
         outcome: 'Helped launch the portal and its first 5 online services.',
-        tldr: 'Designed the launch experience for a municipal portal and its first five online services.',
+        tldr: 'Led the UX design and front-end styling to launch a responsive citizen portal that digitized fragmented, paper-based city services into a unified online platform.',
         images: [
+          { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 1 — replace with a real screenshot.' },
+          { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 2 — replace with a real screenshot.' },
+          { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 3 — replace with a real screenshot.' },
           { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 1 — replace with a real screenshot.' },
           { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 2 — replace with a real screenshot.' },
           { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 3 — replace with a real screenshot.' },
         ],
         body: [
-          'Designed end-to-end UX for the MySurrey Portal launch, covering the first five online municipal services offered through it.',
+          'Designed and launched the initial phase of the MySurrey Portal, transforming fragmented, paper-based city workflows into a responsive, unified citizen platform. As the lead designer and front-end contributor, I designed the secure SSO account architecture, prototyped five core civic services, and implemented step-by-step UIs with integrated payments and smart address lookups to make municipal transactions seamless on any device.',
         ],
       },
     ],
@@ -656,18 +659,35 @@ function showCaseStudy(key, index) {
     )
     .join('');
 
+  const showArrows = images.length > 4;
+  const galleryBlock = images.length
+    ? `<div class="case-study-gallery-wrapper">
+        ${showArrows ? `<button class="gallery-nav gallery-prev" onclick="scrollGallery(this, -1)" aria-label="Scroll left">&#8249;</button>` : ''}
+        <div class="case-study-gallery">${galleryHtml}</div>
+        ${showArrows ? `<button class="gallery-nav gallery-next" onclick="scrollGallery(this, 1)" aria-label="Scroll right">&#8250;</button>` : ''}
+      </div>`
+    : '';
+
   pane.innerHTML = `
     <p class="case-study-title">${project.name}</p>
     <p class="case-study-meta"><strong>Role:</strong> ${project.role}<br><strong>Tools:</strong> ${project.tools}<br><strong>Outcome:</strong> ${project.outcome}</p>
     <p class="tldr-label">TLDR;</p>
     <p class="tldr-text">${project.tldr}</p>
-    ${images.length ? `<div class="case-study-gallery">${galleryHtml}</div>` : ''}
+    ${galleryBlock}
     <div class="case-study-body">${bodyHtml}</div>
   `;
 
   pane.classList.remove('fade-in');
   void pane.offsetWidth;
   pane.classList.add('fade-in');
+}
+
+function scrollGallery(button, direction) {
+  const wrapper = button.closest('.case-study-gallery-wrapper');
+  const gallery = wrapper && wrapper.querySelector('.case-study-gallery');
+  if (!gallery) return;
+  const scrollAmount = gallery.clientWidth * 0.8;
+  gallery.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
 }
 
 // ---- Image modal (lightbox) for case study gallery images ----

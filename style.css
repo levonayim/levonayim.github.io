@@ -394,7 +394,7 @@ body {
   color: var(--muted);
 }
 .back-line {
-  color: var(--accent);
+  color: var(--link-color);
   cursor: pointer;
   margin: 0 0 0.75rem 0;
 }
@@ -498,13 +498,15 @@ body {
 }
 
 .case-study-title {
-  color: var(--fg);
+  color: var(--accent);
   font-size: 0.95rem;
   margin: 0 0 0.75rem 0;
+  font-weight: bold;
+
 }
 
 .case-study-meta {
-  color: var(--muted);
+  color: var(--fg);
   font-size: 0.8rem;
   margin: 0 0 1rem 0;
   line-height: 1.6;
@@ -525,7 +527,7 @@ body {
   color: var(--fg);
   font-size: 0.85rem;
   line-height: 1.6;
-  margin: 0 0 1.1rem 0;
+  margin: 0 0 2rem 0;
   padding-left: 0.75rem;
   border-left: 2px solid var(--accent);
 }
@@ -537,33 +539,65 @@ body {
   margin: 0 0 0.9rem 0;
 }
 
-.case-study-gallery {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
+.case-study-gallery-wrapper {
+  position: relative;
   margin: 0 0 1.1rem 0;
 }
 
+.case-study-gallery {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 8px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none; /* Firefox */
+}
+
+.case-study-gallery::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
 .case-study-gallery img {
-  width: calc(25% - 6px);
-  max-width: 120px;
-  aspect-ratio: 1 / 1;
+  flex: 0 0 auto;
+  width: 100px;
+  height: 100px;
   object-fit: cover;
   border-radius: 6px;
   border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-@media (max-width: 480px) {
-  .case-study-gallery img {
-    width: calc(50% - 4px);
-    max-width: none;
-  }
-}
-
-.case-study-gallery img {
   cursor: pointer;
   transition: opacity 0.15s ease;
 }
+
+.case-study-gallery img:hover {
+  opacity: 0.85;
+}
+
+.gallery-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.85);
+  border: none;
+  color: var(--bg);
+  font-size: 1.3rem;
+  line-height: 1;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+  opacity: 0.85;
+  z-index: 2;
+  font-family: inherit;
+}
+
+.gallery-nav:hover {
+  opacity: 1;
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.gallery-prev { left: 4px; }
+.gallery-next { right: 4px; }
+
 
 .case-study-gallery img:hover {
   opacity: 0.85;
