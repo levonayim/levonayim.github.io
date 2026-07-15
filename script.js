@@ -149,7 +149,7 @@ const commands = {
   work                      Career history
   contact                   Get in touch
   clear                     Clear the terminal
-  theme [name]              Switch color theme (${THEMES.join(', ')})
+  theme [name]              Change theme (${THEMES.join(', ')})
   catsay <text>             Meow
   dogsay <text>             Woof
   neofetch                  System info
@@ -161,16 +161,16 @@ const commands = {
   random                    Random facts
   exit                      Try and leave`,
 
-  about: () => `     .-'''''-.
+  about: () => 
+`     .-'''''-.
    .'         '.
   /   O     O   \\
  |       ^       |
- |     \\___/     |
-  \\             /
+  \\    \\___/    /
    '.         .'
      '-.....-'
 
-Hi! I’m Levona, a multidisciplinary product designer based in Vancouver, BC with 7 years of experience.
+Hi! I’m Levona, a multidisciplinary Product Designer specializing in B2B enterprise software and user-centric B2C solutions, with 7+ years of end-to-end design experience.
 
 I believe that delightful experiences come from understanding user interactions and learning their mental models and context. This allows me to not only see the entire system, but also discover the smaller experiences in between.
 
@@ -202,6 +202,7 @@ On the side, I love drawing cartoon characters and experimenting through vibe co
   work: () => `
 2021-2025   Lead Product Designer @ FICO
 2019–2021   UX Designer & Developer @ Kashoo
+2019–2019   Junior UX Designer @ Rectxt
 2018–2020   Digital Designer @ Mothers Matter Center
 2015–2017   UX Web Designer Intern @ City of Surrey
 2014–2015   Designer Intern @ Scentuals Body Care `,
@@ -291,8 +292,13 @@ function printLine(text, className) {
 
 // Parses and runs whatever the visitor typed
 function handleCommand(rawInput) {
-  const trimmed = rawInput.trim();
+  let trimmed = rawInput.trim();
   if (trimmed === '') return;
+
+  // ---- ADDED: Normalize 'cd..' without spaces ----
+  if (trimmed === 'cd..') {
+    trimmed = 'cd ..';
+  }
 
   // Split "theme nord" into cmd = "theme", args = ["nord"]
   const [cmd, ...args] = trimmed.split(' ');
@@ -302,7 +308,26 @@ function handleCommand(rawInput) {
     document.getElementById('terminalOutput').innerHTML = '';
     return;
   }
+// ---- ADDED: Native handling for 'cd' navigation commands ----
+  if (cmd === 'cd') {
+    printLine(`you@site:~$ ${trimmed}`, 'echo-line');
 
+    const targetDir = args.join(' ');
+    // Strip a leading "./" or "work/" and any trailing slash, so
+    // "cd fico", "cd work/fico", and "cd ./work/fico/" all resolve the same way.
+    const normalizedDir = targetDir.replace(/^\.\/|^work\//, '').replace(/\/$/, '');
+
+    if (targetDir === '' || targetDir === '..' || targetDir === '../' || targetDir === 'work') {
+      goBackToCompanies();
+      printLine(`Returned to ~/work.`, 'output-line');
+    } else if (workData[normalizedDir]) {
+      openCompany(normalizedDir);
+      printLine(`Navigated to ~/work/${normalizedDir}.`, 'output-line');
+    } else {
+      printLine(`cd: no such file or directory: ${targetDir}`, 'output-line');
+    }
+    return; // Stop processing further command lookups
+  }
   // Every other command: first echo what was typed, like a real shell
   printLine(`you@site:~$ ${trimmed}`, 'echo-line');
 
@@ -334,7 +359,7 @@ Here's your pizza, enjoy!`,
     if (args[0] === 'secrets/') {
       printLine(
         `drwxr-xr-x  origins.txt    "Started off in chemistry in 2010 and entered into the design world in 2012."
-drwxr-xr-x  learning.txt   "Trying to keep up with the AI prompt world every day."
+drwxr-xr-x  learning.txt   "Trying to keep up with the AI world every day."
 drwxr-xr-x  fuel.txt       "Runs on water (not caffeine), broken sleep, and curiosity."`,
         'output-line'
       );
@@ -380,6 +405,269 @@ document.addEventListener('DOMContentLoaded', () => {
   runTerminal();
 });
 
+// ---- Work section navigation ----
+// Three states share the same two-column layout:
+//   1. Default: company list fills the left column, right column is empty, layout unsplit.
+//   2. A company is clicked: left column swaps to that company's project list, split view opens.
+//   3. A project is clicked: right column fills with its case study (left column stays put).
+// Clicking the green prompt line at any point in states 2/3 returns to state 1.
+//
+// NOTE: the "full" case study text below is placeholder copy — replace it with
+// your real write-ups whenever you're ready. Keep the same shape (role/tools/
+// outcome/body) so renderCaseStudy() below doesn't need to change.
+const workData = {
+  fico: {
+    path: './work/fico',
+    total: 4,
+    projects: [
+      {
+        name: 'business-terms-capability',
+        comment: 'The backbone for building complex, unified data structures',
+        role: 'Lead Product Designer',
+        tools: 'Figma, user research',
+        outcome: 'Simplified core data workflows and reduced task completion time.',
+        body: [
+          'Enterprise users navigated a fragmented set of tools to manage and audit their own data pipelines, with no single unified view.',
+          'Led end-to-end UX for a consolidated data services workspace, bringing previously scattered tools into one coherent flow.',
+        ],
+      },
+      {
+        name: 'fico-platform',
+        comment: 'An enterprise B2B platform turning complex logic into unlimited service configurations',
+        role: 'Lead Product Designer',
+        tools: 'Figma, service blueprints',
+        outcome: 'Delivered a clearer interface layer for a highly technical orchestration engine.',
+        body: [
+          'Designed the interface layer for a complex B2B orchestration engine used by enterprise clients to manage infrastructure at scale.',
+        ],
+      },
+      {
+        name: 'day-01-onboarding',
+        comment: 'A seamless entry point for onboarding, feature exploration, and personalization',
+        role: 'Lead Product Designer',
+        tools: 'Figma, prototyping',
+        outcome: 'Prototypes were used live in the keynote stage presentation.',
+        body: [
+          'Built high-fidelity interactive prototypes used in the main keynote stage presentation, translating future-facing product concepts into something audiences could see working.',
+        ],
+      },
+      {
+        name: 'feature-management-aggregations',
+        comment: 'No-code aggregations for analyzing massive event and transaction data',
+        role: 'Lead Product Designer',
+        tools: 'Figma',
+        outcome: 'Eliminated weeks of engineering coordination by allowing analysts to configure complex schemas instantly, while establishing a plug-and-play component architecture that other product teams could deploy with zero custom adjustments.',
+        body: [
+          'Partnered with the Product Manager, Front-End Architect, and engineering team to translate complex code into an intuitive, linear form-based interface. By separating data setup from mathematical logic, the UI guides analysts step-by-step through configuring advanced, real-time parameters (like tracking events over a rolling 30-second window). Also adapted structural frameworks from previous BTC (Business Terms Capability) project to streamline the landing page and navigation.',
+        ],
+      },
+      //  {
+      //   name: 'iris-design-system',
+      //   comment: 'Unifying design and engineering through a foundational Figma library',
+      //   role: 'Lead Product Designer',
+      //   tools: 'Figma, design tokens, React',
+      //   outcome: 'Successfully drove an 85% increase in design-to-production speed and secured a 90% WCAG AA accessibility compliance rate across FICO's product suite.',
+      //   body: [
+      //     'Four product teams were each building their own buttons, spacing, and color logic from scratch, so nothing looked or behaved consistently across the platform.',
+      //     'Led the foundational token architecture — color, spacing, and typography scales built to work across both web and native apps.',
+      //     'Ran audits across all four product surfaces, cataloged every divergent pattern, then worked with engineering to build a shared component library with Figma variables mapped directly to code tokens.',
+      //   ],
+      // },
+    ],
+  },
+  kashoo: {
+    path: './work/kashoo',
+    total: 2,
+    projects: [
+      {
+        name: 'kashoo-web-2.0',
+        comment: 'A flexible bookkeeping designed for micro-businesses, contractors, and solopreneurs',
+        role: 'UX Designer & Developer',
+        tools: 'Figma, HTML/CSS',
+        outcome: 'Launched Kashoo 2.0 web and Android, as well as TrulySmall iOS',
+        body: [
+          `Spearheaded the end-to-end UX strategy and redesign to transform a complex accounting tool into a modern, high-performing web application.`,
+        ],
+      },
+      {
+        name: 'trulysmall-ios',
+        comment: 'Free invoice generator for small business, freelancers and startups',
+        role: 'UX Designer & Developer',
+        tools: 'Figma, HTML, CSS, {{mustache}}',
+        outcome: 'App launched in the Apple Store January 2021',
+        body: [
+          'Scoped, branded, and designed a highly approachable MVP invoicing app for solopreneurs, personally writing the production-ready HTML/CSS templates.',
+        ],
+      },
+    ],
+  },
+  mmc: {
+    path: './work/mmc',
+    total: 1,
+    projects: [
+      {
+        name: 'MMC-website-redesign',
+        comment: 'Complete visual identity ecosystem guidelines and website launch',
+        role: 'Digital Designer',
+        tools: 'Wordpress, CSS, Sketch, Photoshop',
+        outcome: 'New brand identity and launched redesigned site.',
+        body: [
+          'Established a new visual identity and brand guidelines from the ground up, then carried that language through a full website redesign and launch.',
+        ],
+      },
+    ],
+  },
+  surrey: {
+    path: './work/surrey',
+    total: 1,
+    projects: [
+      {
+        name: 'mysurrey-portal',
+        comment: 'A web app for anyone to perform transactions with the City of Surrey all in one place',
+        role: 'UX Web Designer Intern',
+        tools: 'Sketch, Axure, InVision, Illustrator, Zeplin, HTML/CSS, Github',
+        outcome: 'Launched the portal and its first 5 online services.',
+        body: [
+          'Designed and launched the initial phase of the MySurrey Portal, a centralized web application allowing Surrey citizens, businesses, and professionals to perform municipal transactions online all in one place.',
+        ],
+      },
+    ],
+  },
+};
+
+let currentCompanyKey = null;
+let homeListHtml = null; // captured once at load, so "back" can restore the exact original markup
+
+function renderProjectList(key) {
+  const data = workData[key];
+  const mainView = document.getElementById('mainWorkView');
+  if (!data || !mainView) return;
+
+  const itemsHtml = data.projects
+    .map(
+      (p, i) => `
+      <li class="work-item clickable-dir" onclick="showCaseStudy('${key}', ${i})">
+        <strong>📁 ${p.name}</strong>
+        <span class="details">→ ${p.comment}</span>
+      </li>`
+    )
+    .join('');
+
+  mainView.innerHTML = `
+    <p class="back-line" onclick="goBackToCompanies()">[← Type 'cd ..' or click here to return]</p>
+    <p class="nested-prompt">visitor@levona:~$ <span class="typed-command">cd ${data.path}</span></p>
+    <p class="nested-prompt">visitor@levona:~${data.path.replace('.', '')}$ <span class="typed-command">ls -l</span></p>
+    <p class="meta-info">total ${data.total}</p>
+    ${itemsHtml}
+  `;
+}
+
+function openCompany(key) {
+  const data = workData[key];
+  const container = document.querySelector('.work-split');
+  const pane = document.getElementById('workDetailPane');
+  const hint = document.getElementById('workHintText');
+  const homeHeader = document.getElementById('terminal-home-header');
+  const terminalWindow = document.querySelector('.terminal');
+  if (!data || !container || !pane) return;
+
+  currentCompanyKey = key;
+  renderProjectList(key);
+
+  pane.innerHTML = '<p class="detail-placeholder">Select a project to view its case study.</p>';
+  container.classList.add('split-active');
+
+  if (hint) {
+    hint.style.display = 'none';
+  }
+
+  const promptLine = document.getElementById('workPromptLine');
+  if (promptLine) {
+    promptLine.style.display = 'none';
+  }
+
+  // Hide the ASCII art / intro / links block so the work view reads as its
+  // own page rather than something the visitor has to scroll past.
+  if (homeHeader) {
+    homeHeader.style.display = 'none';
+  }
+  if (terminalWindow) {
+    terminalWindow.scrollTop = 0;
+  }
+
+  const terminalInput = document.getElementById('terminalInput');
+  if (terminalInput) {
+    terminalInput.focus();
+  }
+}
+
+function showCaseStudy(key, index) {
+  const data = workData[key];
+  const pane = document.getElementById('workDetailPane');
+  if (!data || !pane) return;
+
+  const project = data.projects[index];
+  if (!project) return;
+
+  const bodyHtml = project.body.map((paragraph) => `<p>${paragraph}</p>`).join('');
+
+  pane.innerHTML = `
+    <p class="case-study-title">${project.name}</p>
+    <p class="case-study-meta"><strong>Role:</strong> ${project.role}<br><strong>Tools:</strong> ${project.tools}<br><strong>Outcome:</strong> ${project.outcome}</p>
+    <div class="case-study-body">${bodyHtml}</div>
+  `;
+
+  pane.classList.remove('fade-in');
+  void pane.offsetWidth;
+  pane.classList.add('fade-in');
+}
+
+function goBackToCompanies() {
+  const container = document.querySelector('.work-split');
+  const mainView = document.getElementById('mainWorkView');
+  const pane = document.getElementById('workDetailPane');
+  const hint = document.getElementById('workHintText');
+  const homeHeader = document.getElementById('terminal-home-header');
+  const terminalWindow = document.querySelector('.terminal');
+  if (!container || !mainView || !pane) return;
+
+  currentCompanyKey = null;
+  if (homeListHtml !== null) {
+    mainView.innerHTML = homeListHtml;
+  }
+  pane.innerHTML = '<p class="detail-placeholder">Select a project to view its case study.</p>';
+  container.classList.remove('split-active');
+
+  if (hint) {
+    hint.style.display = '';
+  }
+
+  const promptLine = document.getElementById('workPromptLine');
+  if (promptLine) {
+    promptLine.style.display = '';
+  }
+
+  if (homeHeader) {
+    homeHeader.style.display = '';
+  }
+  if (terminalWindow) {
+    terminalWindow.scrollTop = 0;
+  }
+}
+
+// Capture the original company-list markup once, before anything replaces it,
+// so goBackToCompanies() can restore the exact same HTML later.
+document.addEventListener('DOMContentLoaded', () => {
+  const mainView = document.getElementById('mainWorkView');
+  if (mainView) {
+    homeListHtml = mainView.innerHTML;
+  }
+
+  const promptLine = document.getElementById('workPromptLine');
+  if (promptLine) {
+    promptLine.addEventListener('click', goBackToCompanies);
+  }
+});
 
 // ---- Halftone dot-grid cursor effect ----
 // Wrapped in an IIFE so none of its variable names leak into the global
@@ -491,4 +779,7 @@ document.addEventListener('DOMContentLoaded', () => {
     requestAnimationFrame(draw);
   }
   requestAnimationFrame(draw);
-})();
+}
+
+
+)();

@@ -243,7 +243,16 @@ body {
 
 .prompt {
   color: var(--prompt-color);
-  margin: 0 0 0.75rem 0;
+  margin: 0;
+}
+
+#workPromptLine {
+  cursor: pointer;
+  display: inline-block;
+}
+
+#workPromptLine:hover {
+  text-decoration: underline;
 }
 
 .output-list {
@@ -360,4 +369,155 @@ body {
     left: auto;
     right: 0;                  /* anchor to the right edge so it can't run off-screen on the left cutoff */
   }
+}
+
+/*******************************************/
+/* Styling for interactive sub-directories */
+/*******************************************/
+.clickable-dir {
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: background 0.2s ease;
+}
+.clickable-dir:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+.dir-indicator {
+  color: var(--link-color);
+}
+.hint-text {
+  display: block;
+  font-size: 0.85em;
+  opacity: 0.8;
+  margin: 0 0 0.75rem 0;
+  color: var(--muted);
+}
+.back-line {
+  color: var(--link-color);
+  cursor: pointer;
+  margin: 0 0 2rem 0;
+}
+
+.back-line:hover {
+  text-decoration: underline;
+}
+
+.nested-prompt {
+  margin: 4px 0;
+}
+.typed-command {
+  color: #fff;
+}
+.meta-info {
+  opacity: 0.5;
+  margin-bottom: 8px;
+}
+
+/* ---- Split view for the work directory ----
+   Starts as a single full-width column, matching the plain list look.
+   Only once a directory is selected (.work-split.split-active) does the
+   list narrow and the detail pane slide in beside it. */
+.work-split {
+  display: flex;
+  gap: 0;
+  margin-top: 0.75rem;
+  transition: gap 0.35s ease;
+}
+
+.work-split.split-active {
+  gap: 1.5rem;
+}
+
+.work-list {
+  flex: 1 1 100%;
+  max-width: 100%;
+  padding-left: 0;
+  padding-right: 0;
+  border-right: 1px solid transparent;
+  transition: flex-basis 0.35s ease, max-width 0.35s ease, border-color 0.35s ease, padding-right 0.35s ease;
+}
+
+.work-split.split-active .work-list {
+  flex: 0 0 42%;
+  max-width: 42%;
+  padding-right: 1rem;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.work-item {
+  border-left: 2px solid transparent;
+}
+
+.work-item.active {
+  background: rgba(255, 255, 255, 0.08);
+  border-left: 2px solid var(--accent);
+  border-radius: 4px;
+}
+
+.work-detail {
+  flex: 0 0 0%;
+  max-width: 0;
+  min-width: 0;
+  padding-left: 0 !important;
+  opacity: 0;
+  overflow: hidden;
+  transition: flex-basis 0.35s ease, max-width 0.35s ease, opacity 0.25s ease;
+}
+
+.work-split.split-active .work-detail {
+  flex: 1 1 0%;
+  max-width: 100%;
+  opacity: 1;
+  transition: flex-basis 0.35s ease, max-width 0.35s ease, opacity 0.3s ease 0.1s;
+}
+
+.detail-placeholder {
+  color: var(--muted);
+  font-style: italic;
+}
+
+@media (max-width: 480px) {
+  .work-split.split-active {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .work-split.split-active .work-list {
+    flex: none;
+    max-width: 100%;
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding-right: 0;
+    padding-bottom: 0.75rem;
+  }
+
+  .work-split.split-active .work-detail {
+    max-width: 100%;
+  }
+}
+
+.case-study-title {
+  color: var(--accent);
+  font-size: 0.95rem;
+  margin: 0 0 0.75rem 0;
+  font-weight: bold;
+}
+
+.case-study-meta {
+  color: var(--muted);
+  font-size: 0.8rem;
+  margin: 0 0 1rem 0;
+  line-height: 1.6;
+}
+
+.case-study-meta strong {
+  color: var(--fg);
+}
+
+.case-study-body p {
+  color: var(--fg);
+  font-size: 0.85rem;
+  line-height: 1.7;
+  margin: 0 0 0.9rem 0;
 }
