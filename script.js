@@ -484,9 +484,13 @@ const workData = {
         tldr: 'Turned future-facing product concepts into working prototypes for a live keynote stage demo.',
         link: 'https://www.levonayim.com/project/sfkfma',
         images: [
-          { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 1 — replace with a real screenshot.' },
-          { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 2 — replace with a real screenshot.' },
-          { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 3 — replace with a real screenshot.' },
+          { src: 'assets/fico/day01/DAY01MyAttempt.png', caption: 'Sketch of Day0/1 initial flow' },
+          { src: 'assets/fico/day01/JTBD.png', caption: 'JTBD + Flow based on persona' },
+          { src: 'assets/fico/day01/day01finalscreenszoomedin.png', caption: 'Final Day 01 admin screens' },
+          { src: 'assets/fico/day01/Admin.png', caption: 'Homepage - Admin' },
+          { src: 'assets/fico/day01/SolutionCreator.png', caption: 'Homepage - Solution Creator V1' },
+          { src: 'assets/fico/day01/SolutionCreator2.png', caption: 'Homepage - Solution Creator V2' },
+          { src: 'assets/fico/day01/BA2.png', caption: 'Homepage - Business Analyst' },
         ],
         body: [
           'Built high-fidelity interactive prototypes used in the main keynote stage presentation, translating future-facing product concepts into something audiences could see working.',
