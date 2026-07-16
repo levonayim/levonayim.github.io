@@ -488,8 +488,8 @@ const workData = {
           { src: 'assets/fico/day01/JTBD.png', caption: 'JTBD + Flow based on persona' },
           { src: 'assets/fico/day01/day01finalscreenszoomedin.png', caption: 'Final Day 01 admin screens' },
           { src: 'assets/fico/day01/Admin.png', caption: 'Homepage - Admin' },
-          { src: 'assets/fico/day01/SolutionCreator.png', caption: 'Homepage - Solution Creator V1' },
-          { src: 'assets/fico/day01/SolutionCreator2.png', caption: 'Homepage - Solution Creator V2' },
+          { src: 'assets/fico/day01/SolutionCreator.png', caption: 'Homepage - Solution Creator' },
+          { src: 'assets/fico/day01/ServiceCreator2.png', caption: 'Homepage - Service Creator' },
           { src: 'assets/fico/day01/BA2.png', caption: 'Homepage - Business Analyst' },
         ],
         body: [
