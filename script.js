@@ -467,7 +467,7 @@ const workData = {
         images: [
           { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 1 — replace with a real screenshot.' },
           { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 2 — replace with a real screenshot.' },
-          { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 3 — replace with a real screenshot.' },
+          { type: 'video', videoId: '8j4Z873We-o', caption: 'Product demo walkthrough' },
         ],
         body: [
           `As Lead Product Designer, I designed the end-to-end experience for FICO's Feature Management platform to streamline how financial institutions track real-time customer data for risk and fraud prevention. Partnering with product management and engineering, I translated complex coding processes into an intuitive, linear form-based interface that guides analysts through configuring advanced parameters independently.`,
@@ -683,9 +683,16 @@ function showCaseStudy(key, index) {
     : '';
   const images = project.images || [];
   const galleryHtml = images
-    .map(
-      (image, i) => `<img src="${image.src}" alt="${project.name} screenshot ${i + 1}" onclick="openImageModal('${key}', ${index}, ${i})">`
-    )
+    .map((image, i) => {
+      if (image.type === 'video') {
+        const thumb = `https://img.youtube.com/vi/${image.videoId}/hqdefault.jpg`;
+        return `<div class="gallery-video-thumb" onclick="openImageModal('${key}', ${index}, ${i})">
+                  <img src="${thumb}" alt="${project.name} video ${i + 1}">
+                  <span class="play-icon">▶</span>
+                </div>`;
+      }
+      return `<img src="${image.src}" alt="${project.name} screenshot ${i + 1}" onclick="openImageModal('${key}', ${index}, ${i})">`;
+    })
     .join('');
 
   const showArrows = images.length > 4;
@@ -729,28 +736,38 @@ let modalIndex = 0;
 
 function renderModalImage() {
   const img = document.getElementById('imageModalImg');
+  const videoFrame = document.getElementById('imageModalVideo');
   const counter = document.getElementById('imageModalCounter');
   const caption = document.getElementById('imageModalCaption');
   const prevBtn = document.getElementById('imageModalPrev');
   const nextBtn = document.getElementById('imageModalNext');
-  if (!img || !modalImages.length) return;
+  const zoomControls = document.getElementById('imageModalZoomControls');
+  if (!modalImages.length) return;
 
   resetZoom();
-
   const current = modalImages[modalIndex];
-  img.src = current.src;
-  img.alt = current.alt;
+
+  if (current.type === 'video') {
+    img.style.display = 'none';
+    videoFrame.style.display = '';
+    videoFrame.src = `https://www.youtube.com/embed/${current.videoId}?start=4140`;
+    if (zoomControls) zoomControls.style.display = 'none';
+  } else {
+    videoFrame.style.display = 'none';
+    videoFrame.src = ''; // stops playback when navigating away
+    img.style.display = '';
+    img.src = current.src;
+    img.alt = current.alt;
+    img.onload = () => { baseImgWidth = img.clientWidth; };
+    if (zoomControls) zoomControls.style.display = '';
+  }
 
   if (caption) {
     caption.textContent = current.caption || '';
     caption.style.display = current.caption ? '' : 'none';
   }
+  if (counter) counter.textContent = `${modalIndex + 1} / ${modalImages.length}`;
 
-  if (counter) {
-    counter.textContent = `${modalIndex + 1} / ${modalImages.length}`;
-  }
-
-  // Hide prev/next entirely when there's nothing to navigate between
   const showNav = modalImages.length > 1;
   if (prevBtn) prevBtn.style.display = showNav ? '' : 'none';
   if (nextBtn) nextBtn.style.display = showNav ? '' : 'none';
@@ -761,11 +778,17 @@ function openImageModal(key, projectIndex, imageIndex) {
   const project = workData[key] && workData[key].projects[projectIndex];
   if (!project || !project.images) return;
 
-  modalImages = project.images.map((image, i) => ({
-    src: image.src,
-    alt: `${project.name} screenshot ${i + 1}`,
-    caption: image.caption || '',
-  }));
+  modalImages = project.images.map((image, i) => {
+    if (image.type === 'video') {
+      return { type: 'video', videoId: image.videoId, caption: image.caption || '' };
+    }
+    return {
+      type: 'image',
+      src: image.src,
+      alt: `${project.name} screenshot ${i + 1}`,
+      caption: image.caption || '',
+    };
+  });
   modalIndex = imageIndex;
 
   const modal = document.getElementById('imageModal');
@@ -774,6 +797,7 @@ function openImageModal(key, projectIndex, imageIndex) {
   renderModalImage();
   modal.classList.add('open');
 }
+
 
 function closeImageModal() {
   const modal = document.getElementById('imageModal');
