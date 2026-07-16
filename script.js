@@ -507,9 +507,14 @@ const workData = {
         tldr: 'Led the end-to-end UX design and launch of the Kashoo 2.0 web app from discovery to prototyping. I also supported a small team of two engineers by directly contributing CSS UI fixes.',
         link: 'https://www.levonayim.com/project/kashoo-2-web',
         images: [
-          { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 1 — replace with a real screenshot.' },
-          { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 2 — replace with a real screenshot.' },
-          { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 3 — replace with a real screenshot.' },
+          { src: 'assets/kashoo/Kashoo-laptop.png', caption: 'Kashoo Web 2.0' },
+          { src: 'assets/kashoo/toggletab.gif', caption: 'Different views within the modale depending on the task.' },
+          { src: 'assets/kashoo/new-menu.gif', caption: 'New side menu added' },
+          { src: 'assets/kashoo/relativedates.gif', caption: 'Making the date selection more dynamic.' },
+          { src: 'assets/kashoo/kashoo-bulk-edit.gif', caption: 'Bulk editing feature for faster task completion.' },
+          { src: 'assets/kashoo/report.gif', caption: 'Users can see first-hand all reports available once items have been added into the system.' },
+          { src: 'assets/kashoo/invoices.gif', caption: 'Users can create invoices easily.' },
+           { src: 'assets/kashoo/dashboard-accessibility.gif', caption: 'Accessibility was taken into account when designing the UI.' },
         ],
         body: [
           'As UX Lead, I led the end-to-end design and launch of the Kashoo 2.0 web app, transforming a complex accounting tool into a streamlined experience. I managed the entire product lifecycle from discovery to prototyping while collaborating closely with PMs, engineering, and QA. To support our small team of 2 developers, I also contributed to the codebase by writing CSS UI fixes and coding email templates using Mustache, Golang, and CSS.',
@@ -524,9 +529,12 @@ const workData = {
         tldr: 'Successfully launched the MVP app in January 2021 on a tight timeline for tax season, establishing the brand’s visual identity and successfully deploying custom, hand-coded HTML/CSS dynamic email templates.',
         link: 'https://www.levonayim.com/project/trulysmall-invoicing',
         images: [
-          { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 1 — replace with a real screenshot.' },
-          { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 2 — replace with a real screenshot.' },
-          { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 3 — replace with a real screenshot.' },
+          { src: 'assets/kashoo/ts-screens-static.png', caption: 'TrulySmall Invoicing - Overall screens' },
+            { src: 'assets/kashoo/flow1-ts.gif', caption: 'TrulySmall Invoicing - Overall screens' },
+          { src: 'assets/kashoo/majorityflow-ts.gif', caption: 'TrulySmall Invoicing - Overall flow' },
+          { src: 'assets/kashoo/markaspaid.gif', caption: 'TrulySmall Invoicing - Mark as paid flow' },
+          { src: 'assets/kashoo/darkmodeadded.gif', caption: 'TrulySmall Invoicing - Dark Mode' },
+
         ],
         body: [
           'As UX Lead, I established the visual branding and designed the MVP for the TrulySmall invoicing app, launching it in January 2021 for tax season. I managed the end-to-end UX process, collaborating with a brand designer to craft an approachable aesthetic with warm tones, friendly illustrations, and distinct typography. To bridge design and engineering, I also hand-coded the dynamic, client-facing invoice templates using HTML, CSS, and Mustache.',
@@ -547,9 +555,12 @@ const workData = {
         tldr: 'Redesigned and developed a responsive WordPress site in under 2.5 months, integrating seamless donation and outreach tools to boost engagement.',
         link: 'https://levonayim.com/mothers-matter-centre',
         images: [
-          { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 1 — replace with a real screenshot.' },
-          { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 2 — replace with a real screenshot.' },
-          { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 3 — replace with a real screenshot.' },
+          { src: 'assets/mmc/mmc-home.gif', caption: 'New Homepage for Mothers Matter Center' },
+          { src: 'assets/mmc/mmc-oct2020full.png', caption: 'Full view of the new homepage redesign' },
+          { src: 'assets/mmc/mmc-hippy.png', caption: 'Inner page: HIPPY is the umbrella for Mothers Matter Center' },
+          { src: 'assets/mmc/mmc-stories.png', caption: 'Inner page: Showcasing empowered mothers' },
+          { src: 'assets/mmc/mmc-canadahelps.png', caption: 'Inner page: Newly added Canada Helps page to accept donations' },
+          { src: 'assets/mmc/mmc-faq.png', caption: 'Inner page: Redid the FAQ page' },
         ],
         body: [
           `As the sole web designer, I led the end-to-end redesign and WordPress development of the Mothers Matter Centre website in under 2.5 months, transforming a dense, hard-to-navigate site into an accessible, mission-driven platform. After facilitating cross-department workshops to align on requirements, I overhauled the site's information architecture and designed fully responsive layouts to simplify complex content. To optimize user engagement and increase fundraising, I integrated MailChimp, Google Analytics, and a seamless, on-site CanadaHelps donation gateway.`,
@@ -570,12 +581,11 @@ const workData = {
         tldr: 'Led the UX design and front-end styling to launch a responsive citizen portal that digitized fragmented, paper-based city services into a unified online platform.',
         link: 'https://www.levonayim.com/project/mysurrey-portal',
         images: [
-          { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 1 — replace with a real screenshot.' },
-          { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 2 — replace with a real screenshot.' },
-          { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 3 — replace with a real screenshot.' },
-          { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 1 — replace with a real screenshot.' },
-          { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 2 — replace with a real screenshot.' },
-          { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 3 — replace with a real screenshot.' },
+          { src: 'assets/cos/inside-mysurreyportal.jpg', caption: 'City of Surrey MySurrey Portal' },
+          { src: 'assets/cos/brs-final.png', caption: 'Placeholder image 2 — replace with a real screenshot.' },
+          { src: 'assets/cos/brs-main-mobile.png', caption: 'Mobile UI for Building Record Search' },
+          { src: 'assets/cos/brs-main.png', caption: 'Main screen for Building Record Search, one of the first applications released.' },
+          { src: 'assets/cos/fsp-recording.gif', caption: 'Fire Safety Plan UI.' },
         ],
         body: [
           'Designed and launched the initial phase of the MySurrey Portal, transforming fragmented, paper-based city workflows into a responsive, unified citizen platform. As the lead designer and front-end contributor, I designed the secure SSO account architecture, prototyped five core civic services, and implemented step-by-step UIs with integrated payments and smart address lookups to make municipal transactions seamless on any device.',
@@ -664,7 +674,7 @@ function showCaseStudy(key, index) {
     // NEW: build the link markup only if a link exists for this project
   const linkHtml = project.link
     ? `<p class="case-study-link">
-         <a href="${project.link}" target="_blank" rel="noopener noreferrer">→ Only if you have time, here's the detailed case study.</a>
+         <a href="${project.link}" target="_blank" rel="noopener noreferrer">→ Full case study here if you’re interested.</a>
        </p>`
     : '';
   const images = project.images || [];
@@ -720,6 +730,8 @@ function renderModalImage() {
   const prevBtn = document.getElementById('imageModalPrev');
   const nextBtn = document.getElementById('imageModalNext');
   if (!img || !modalImages.length) return;
+
+  resetZoom();
 
   const current = modalImages[modalIndex];
   img.src = current.src;
@@ -777,6 +789,52 @@ function prevModalImage() {
   renderModalImage();
 }
 
+// ---- PASTE THE NEW ZOOM CODE HERE ----
+let zoomLevel = 1;
+const ZOOM_STEP = 0.25;
+const ZOOM_MIN = 1;
+const ZOOM_MAX = 3;
+
+function applyZoom() {
+  const img = document.getElementById('imageModalImg');
+  const wrapper = document.getElementById('imageModalImgWrapper');
+  const label = document.getElementById('zoomLevel');
+  if (img) {
+    img.style.transform = zoomLevel > 1 ? `scale(${zoomLevel})` : '';
+    img.classList.toggle('zoomed', zoomLevel > 1);
+  }
+  if (wrapper) {
+    wrapper.classList.toggle('zoomed', zoomLevel > 1);
+  }
+  if (label) {
+    label.textContent = `${Math.round(zoomLevel * 100)}%`;
+  }
+}
+
+function zoomIn() {
+  zoomLevel = Math.min(ZOOM_MAX, zoomLevel + ZOOM_STEP);
+  applyZoom();
+}
+
+function zoomOut() {
+  zoomLevel = Math.max(ZOOM_MIN, zoomLevel - ZOOM_STEP);
+  applyZoom();
+}
+
+function resetZoom() {
+  zoomLevel = 1;
+  const wrapper = document.getElementById('imageModalImgWrapper');
+  if (wrapper) wrapper.classList.remove('zoomed');
+  applyZoom();
+}
+
+function toggleZoomOnClick() {
+  if (window.__imageModalDidDrag && window.__imageModalDidDrag()) return; // was a pan, not a click
+  zoomLevel = zoomLevel > 1 ? 1 : 2;
+  applyZoom();
+}
+// ---- END NEW ZOOM CODE ----
+
 document.addEventListener('keydown', (event) => {
   const modal = document.getElementById('imageModal');
   if (!modal || !modal.classList.contains('open')) return;
@@ -787,6 +845,12 @@ document.addEventListener('keydown', (event) => {
     nextModalImage();
   } else if (event.key === 'ArrowLeft') {
     prevModalImage();
+  } else if (event.key === '+' || event.key === '=') {
+    zoomIn();
+  } else if (event.key === '-' || event.key === '_') {
+    zoomOut();
+  } else if (event.key === '0') {
+    resetZoom();
   }
 });
 
@@ -822,6 +886,48 @@ function goBackToCompanies() {
     terminalWindow.scrollTop = 0;
   }
 }
+
+// ---- Drag-to-pan when zoomed in ----
+(function () {
+  const wrapper = document.getElementById('imageModalImgWrapper');
+  if (!wrapper) return;
+
+  let isDragging = false;
+  let didDrag = false; // distinguishes a real drag from a simple click
+  let startX, startY, startScrollLeft, startScrollTop;
+
+  wrapper.addEventListener('mousedown', (e) => {
+    if (!wrapper.classList.contains('zoomed')) return; // only pan when zoomed in
+    isDragging = true;
+    didDrag = false;
+    wrapper.classList.add('dragging');
+    startX = e.clientX;
+    startY = e.clientY;
+    startScrollLeft = wrapper.scrollLeft;
+    startScrollTop = wrapper.scrollTop;
+    e.preventDefault(); // stops the browser's native image-drag ghost
+  });
+
+  window.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    const dx = e.clientX - startX;
+    const dy = e.clientY - startY;
+
+    if (Math.abs(dx) > 3 || Math.abs(dy) > 3) didDrag = true;
+
+    wrapper.scrollLeft = startScrollLeft - dx;
+    wrapper.scrollTop = startScrollTop - dy;
+  });
+
+  window.addEventListener('mouseup', () => {
+    if (!isDragging) return;
+    isDragging = false;
+    wrapper.classList.remove('dragging');
+  });
+
+  // Expose so toggleZoomOnClick can skip toggling if the user just finished a drag
+  window.__imageModalDidDrag = () => didDrag;
+})();
 
 // Capture the original company-list markup once, before anything replaces it,
 // so goBackToCompanies() can restore the exact same HTML later.
