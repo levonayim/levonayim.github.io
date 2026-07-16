@@ -427,6 +427,7 @@ const workData = {
         tools: 'Figma, Lucidcharts, Claude',
         outcome: 'Adopted across 4 product lines, cutting design-to-dev handoff time by roughly 40%.',
         tldr: 'Designed a centralized schema management system for the FICO platform as well as a self-serve Micro Front-End (MFE) component. I later expanded this work independently into an advanced concept exploring ERD canvas models and AI integrations.',
+        link: 'https://www.levonayim.com/project/3f8j2k',
         images: [
           { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 1 — replace with a real screenshot.' },
           { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 2 — replace with a real screenshot.' },
@@ -444,6 +445,7 @@ const workData = {
         tools: 'Figma, Figjam',
         outcome: 'A visual platform blueprint that aligned siloed teams, and streamlined onboarding new teammates.',
         tldr: `I independently designed FICO's first end-to-end visual platform map and a simplified "House Analogy" framework to translate complex technical architectures into a shared vocabulary. This self-initiated project broke down organizational silos, streamlined cross-functional onboarding, and was used to preview the new platform to clients.`,
+        link: 'https://www.levonayim.com/project/fico-platform',
         images: [
           { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 1 — replace with a real screenshot.' },
           { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 2 — replace with a real screenshot.' },
@@ -461,6 +463,7 @@ const workData = {
         tools: 'Figma',
         outcome: 'Deliminates weeks of cross-team engineering coordination and allow business analysts have more control and ownership.',
         tldr: `Designed FICO's Feature Management platform, translating complex real-time data coding into an intuitive, step-by-step UI. This plug-and-play architecture empowered non-technical analysts to build advanced risk and fraud configurations instantly, eliminating weeks of cross-team engineering coordination.`,
+        link: 'https://www.levonayim.com/project/kj98hv',
         images: [
           { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 1 — replace with a real screenshot.' },
           { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 2 — replace with a real screenshot.' },
@@ -470,6 +473,7 @@ const workData = {
           `As Lead Product Designer, I designed the end-to-end experience for FICO's Feature Management platform to streamline how financial institutions track real-time customer data for risk and fraud prevention. Partnering with product management and engineering, I translated complex coding processes into an intuitive, linear form-based interface that guides analysts through configuring advanced parameters independently.`,
            `This capability would eliminates weeks of cross-team engineering coordination, enabling non-technical users to build real-time data configurations instantly and seamlessly across different product environments.`,
         ],
+        
       },
       {
         name: 'day0-1-onboarding/',
@@ -478,6 +482,7 @@ const workData = {
         tools: 'Figma, Lucidchart',
         outcome: 'Prototypes were used live in the keynote stage presentation.',
         tldr: 'Turned future-facing product concepts into working prototypes for a live keynote stage demo.',
+        link: 'https://www.levonayim.com/project/sfkfma',
         images: [
           { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 1 — replace with a real screenshot.' },
           { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 2 — replace with a real screenshot.' },
@@ -500,6 +505,7 @@ const workData = {
         tools: 'Sketch, Figma, HTML,CSS, Github',
         outcome: 'Shipped the highly anticipated redesign of Kashoo 2.0 to our existing customer base.',
         tldr: 'Led the end-to-end UX design and launch of the Kashoo 2.0 web app from discovery to prototyping. I also supported a small team of two engineers by directly contributing CSS UI fixes.',
+        link: 'https://www.levonayim.com/project/kashoo-2-web',
         images: [
           { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 1 — replace with a real screenshot.' },
           { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 2 — replace with a real screenshot.' },
@@ -516,6 +522,7 @@ const workData = {
         tools: 'Figma, HTML, CSS, {{mustache}}',
         outcome: 'Launched a free user-friendly invoicing app for small business owners.',
         tldr: 'Successfully launched the MVP app in January 2021 on a tight timeline for tax season, establishing the brand’s visual identity and successfully deploying custom, hand-coded HTML/CSS dynamic email templates.',
+        link: 'https://www.levonayim.com/project/trulysmall-invoicing',
         images: [
           { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 1 — replace with a real screenshot.' },
           { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 2 — replace with a real screenshot.' },
@@ -538,6 +545,7 @@ const workData = {
         tools: 'Wordpress, CSS, Sketch, Photoshop',
         outcome: 'A new brand identity and launched the redesigned website.',
         tldr: 'Redesigned and developed a responsive WordPress site in under 2.5 months, integrating seamless donation and outreach tools to boost engagement.',
+        link: 'https://levonayim.com/mothers-matter-centre',
         images: [
           { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 1 — replace with a real screenshot.' },
           { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 2 — replace with a real screenshot.' },
@@ -560,6 +568,7 @@ const workData = {
         tools: 'Sketch, Axure, Invision, Illustrator, Zeplin, HTML, CSS',
         outcome: 'Helped launch the portal and its first 5 online services.',
         tldr: 'Led the UX design and front-end styling to launch a responsive citizen portal that digitized fragmented, paper-based city services into a unified online platform.',
+        link: 'https://www.levonayim.com/project/mysurrey-portal',
         images: [
           { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 1 — replace with a real screenshot.' },
           { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 2 — replace with a real screenshot.' },
@@ -652,6 +661,12 @@ function showCaseStudy(key, index) {
 
   const bodyHtml = project.body.map((paragraph) => `<p>${paragraph}</p>`).join('');
 
+    // NEW: build the link markup only if a link exists for this project
+  const linkHtml = project.link
+    ? `<p class="case-study-link">
+         <a href="${project.link}" target="_blank" rel="noopener noreferrer">→ Only if you have time, here's the detailed case study.</a>
+       </p>`
+    : '';
   const images = project.images || [];
   const galleryHtml = images
     .map(
@@ -674,7 +689,9 @@ function showCaseStudy(key, index) {
     <p class="tldr-label">TLDR;</p>
     <p class="tldr-text">${project.tldr}</p>
     ${galleryBlock}
+    <p class="overview-label">Overview</p>
     <div class="case-study-body">${bodyHtml}</div>
+    ${linkHtml}
   `;
 
   pane.classList.remove('fade-in');

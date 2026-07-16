@@ -533,6 +533,13 @@ body {
   background-color: rgba(255,255,255, 0.12);
 }
 
+.overview-label {
+  color: var(--fg);
+  font-size: 0.8rem;
+  font-weight: bold;
+  margin: 0 0 0.4rem 0;
+}
+
 .case-study-body p {
   color: var(--fg);
   font-size: 0.85rem;
@@ -698,6 +705,22 @@ body {
 
 .image-modal-next {
   right: 20px;
+}
+
+.case-study-link a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.85rem;
+}
+
+.case-study-link a:hover {
+  text-decoration: underline;
+}
+
+.work-split.split-active .work-list {
+  position: sticky;
+  top: 0;
+  align-self: flex-start; 
 }
 
 @media (max-width: 480px) {
