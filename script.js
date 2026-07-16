@@ -493,7 +493,7 @@ const workData = {
           { src: 'assets/fico/day01/BA2.png', caption: 'Homepage - Business Analyst' },
         ],
         body: [
-          'Built high-fidelity interactive prototypes used in the main keynote stage presentation, translating future-facing product concepts into something audiences could see working.',
+          `As Lead Product Designer, I designed the "Experience Gateway"—the unified entry point for the FICO Platform that streamlines the first touchpoint for enterprise clients and technical users. By eliminating complex handoffs and manual setups, this strategic onboarding portal enables users to autonomously map out workspaces and provision services in minutes rather than weeks, serving as a critical pillar in FICO's modern platform transformation.`,
         ],
       },
     ],
