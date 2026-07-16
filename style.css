@@ -102,7 +102,7 @@ body {
   width: 95%;
   position: fixed;
   max-width: 1000px;
-  max-height: calc(90vh - 2.5rem); /* leaves clearance so the fixed credit bar never overlaps the window's content */
+  max-height: calc(92vh - 2.5rem); /* leaves clearance so the fixed credit bar never overlaps the window's content */
   display: flex;                 /* NEW: lets the title bar stay fixed while .terminal scrolls independently */
   flex-direction: column;
   background: var(--bg);
@@ -238,7 +238,7 @@ body {
 
 /* ---- Command blocks ---- */
 .command-block {
-  margin-bottom: 2rem;
+  margin-bottom: 0.5rem;
 }
 
 .prompt {
@@ -318,7 +318,7 @@ body {
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  margin-top: 2rem;
+  margin-top: 0.25rem;
 }
 
 .prompt-label {
