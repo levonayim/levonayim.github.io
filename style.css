@@ -369,6 +369,34 @@ body {
     left: auto;
     right: 0;                  /* anchor to the right edge so it can't run off-screen on the left cutoff */
   }
+  .work-split.split-active {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .work-split.split-active .work-list {
+    flex: none;
+    max-width: 100%;
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding-right: 0;
+    padding-bottom: 0.75rem;
+    position: static;   
+  }
+
+  /* ================================================================== */
+  /* NEW: Hide the folders/directory column when a project is selected  */
+  /* ================================================================== */
+  
+  /* 1. When the detail container is active and has project content (not the placeholder), hide the folder list */
+  .work-split.split-active:has(.case-study-title) .work-list {
+    display: none;
+  }
+
+  /* 2. Optional: Remove the border divider when the list is hidden to keep things clean */
+  .work-split.split-active:has(.case-study-title) .work-detail {
+    border-top: none;
+  }
 }
 
 /*******************************************/
