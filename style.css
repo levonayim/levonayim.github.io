@@ -797,6 +797,21 @@ body {
   text-decoration: underline;
 }
 
+.figma-link, .case-study-link {
+  margin: 0 !important;
+}
+
+.figma-link a {
+  color: var(--link-color);
+  text-decoration: none;
+  font-size: 0.85rem;
+}
+
+.figma-link a:hover {
+  text-decoration: underline;
+}
+
+
 .work-split.split-active .work-list {
   position: sticky;
   top: 0;
@@ -826,6 +841,17 @@ body {
   color: #fff;
   font-size: 1.4rem;
   text-shadow: 0 0 6px rgba(0,0,0,0.7);
+}
+
+.gallery-figma-thumb .figma-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.55);
+  filter: drop-shadow(0 0 4px rgba(0,0,0,0.6));
 }
 
 @media (max-width: 480px) {

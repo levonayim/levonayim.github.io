@@ -429,10 +429,18 @@ const workData = {
         tldr: 'Designed a centralized schema management system for the FICO platform as well as a self-serve Micro Front-End (MFE) component. I later expanded this work independently into an advanced concept exploring ERD canvas models and AI integrations.',
         link: 'https://www.levonayim.com/project/3f8j2k',
         images: [
-          { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 1 — replace with a real screenshot.' },
-          { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 2 — replace with a real screenshot.' },
-          { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 3 — replace with a real screenshot.' },
+          { type: 'figma',
+          src: 'assets/fico/btc/btc-fico.png',   // a PNG you export from Figma yourself
+          figmaUrl: 'https://www.figma.com/design/xnzxJzrzLVmRC6ZRUU4OMc/Shared---Levona-BTC?node-id=0-1&t=XPd36sKQJH8RXB3R-1',
+          caption: `BTC/Data Schemas`},
+          { src: 'assets/fico/btc/FICOWorldFinalPresented.png', caption: 'UI presented to clients at FICO World 2025 - ERD + Combining BTC with Aggregations together' },
+          { src: 'assets/fico/btc/BTCLight.png', caption: 'Final - BTC UI - Table in light mode' },
+          { src: 'assets/fico/btc/BTCDark.png', caption: 'Final - BTC UI - Table in dark mode' },
+          { src: 'assets/fico/btc/Light-AddBT.png', caption: 'Final - Adding a new Business Term Set in light mode' },
+          { src: 'assets/fico/btc/Dark-AddBT.png', caption: 'Final - Adding a new Business Term Set in dark mode' },
+          { src: 'assets/fico/btc/FinalBTCDarkMode.png', caption: 'Bulk actions on the table for BTC but also reused across other capabilities that have tables.' },
         ],
+        figmalink: [`https://www.figma.com/design/hhpdUygbGyTenp23CNxK1g/Shared---Levona-s-take-on-BTC-2026?node-id=2-2925&t=oPNBllSaURj90ChR-1`],
         body: [
           'As Lead Product Designer, I designed a centralized schema management system for the FICO platform to eliminate conflicting data definitions and fragile upstream dependencies. Collaborating with PMs, architects, and engineers, I led the end-to-end design of a plug-and-play Micro Front-End (MFE) component that transformed weeks of cross-team coordination into an instant, self-serve setup for both technical and non-technical users.',
           'After my departure from FICO, I independently expanded the project into an advanced design concept exploring ERD canvas models, smart search suggestions, and AI integrations.',
@@ -447,9 +455,13 @@ const workData = {
         tldr: `I independently designed FICO's first end-to-end visual platform map and a simplified "House Analogy" framework to translate complex technical architectures into a shared vocabulary. This self-initiated project broke down organizational silos, streamlined cross-functional onboarding, and was used to preview the new platform to clients.`,
         link: 'https://www.levonayim.com/project/fico-platform',
         images: [
-          { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 1 — replace with a real screenshot.' },
-          { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 2 — replace with a real screenshot.' },
-          { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 3 — replace with a real screenshot.' },
+          { type: 'video', videoId: '8j4Z873We-o&t=4140s', caption: 'FICO Platform demo walkthrough - FICO World 2026' },
+          { type: 'figma',
+          src: 'assets/fico/platform/figma-thumbnail.png',   // a PNG you export from Figma yourself
+          figmaUrl: 'https://www.figma.com/design/WsEGtkhZA8JJs7UDiBQAHm/Shared---Levona-FICO-Platform?node-id=4-6&t=cZqmnR4I7kw8BHzm-1',
+          caption: `Overall FICO Platform early stages`},
+          { src: 'assets/fico/platform/SketchyFlow.png', caption: `I took the initial stab on creating a very lofi sketch and flow of the overall platform` },
+          { src: 'assets/fico/platform/highlevel-slide.png', caption: 'high level view of the platform in relation to building a house' },
         ],
         body: [
           'Recognizing a critical organizational gap during FICO’s platform transformation, I took initiative to design the first end-to-end visual blueprint and alignment framework to break down internal silos. I translated dense technical documentation into a cohesive visual map of the user journey (Day 0 to Day 2) and created the "House" analogy framework to translate abstract architectures into a shared, layman-friendly vocabulary.',
@@ -465,9 +477,17 @@ const workData = {
         tldr: `Designed FICO's Feature Management platform, translating complex real-time data coding into an intuitive, step-by-step UI. This plug-and-play architecture empowered non-technical analysts to build advanced risk and fraud configurations instantly, eliminating weeks of cross-team engineering coordination.`,
         link: 'https://www.levonayim.com/project/kj98hv',
         images: [
-          { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 1 — replace with a real screenshot.' },
-          { src: 'assets/case-study-placeholder.png', caption: 'Placeholder image 2 — replace with a real screenshot.' },
-          { type: 'video', videoId: '8j4Z873We-o', caption: 'Product demo walkthrough' },
+          { type: 'video', videoId: '8j4Z873We-o&t=4140s', caption: 'FICO Platform demo walkthrough - FICO World 2026' },
+          { type: 'figma',
+          src: 'assets/fico/fm-agg/figma-agg.png',   // a PNG you export from Figma yourself
+          figmaUrl: 'https://www.figma.com/design/UZgDp90Pij0oTZvBH9cmGT/Shared---Levona-Aggregation?node-id=0-1&t=ghf2CgxJKjDhxzeK-1',
+          caption: `Feature Management - Aggregations`},
+          { src: 'assets/fico/fm-agg/Aggregations.png', caption: 'List of Aggregations - light mode' },
+          { src: 'assets/fico/fm-agg/Aggregationsdark.png', caption: 'List of Aggregations - dark mode' },
+          { src: 'assets/fico/fm-agg/Windowtype.png', caption: 'List of Aggregations - light mode' },
+          { src: 'assets/fico/fm-agg/AddAggregationlight.png', caption: 'List of Aggregations - light mode' },
+          { src: 'assets/fico/fm-agg/AddAggregationdark.png', caption: 'List of Aggregations - dark mode' },
+          { src: 'assets/fico/fm-agg/Agg-bulkactions.png', caption: 'Aggregations - Bulk actions. Reused in other capabilities as well.' },
         ],
         body: [
           `As Lead Product Designer, I designed the end-to-end experience for FICO's Feature Management platform to streamline how financial institutions track real-time customer data for risk and fraud prevention. Partnering with product management and engineering, I translated complex coding processes into an intuitive, linear form-based interface that guides analysts through configuring advanced parameters independently.`,
@@ -484,16 +504,19 @@ const workData = {
         tldr: 'Turned future-facing product concepts into working prototypes for a live keynote stage demo.',
         link: 'https://www.levonayim.com/project/sfkfma',
         images: [
+          { type: 'figma',
+          src: 'assets/fico/day01/day01finalscreenszoomedin.png',   // a PNG you export from Figma yourself
+          figmaUrl: 'https://www.figma.com/design/yyxSXRYLLIdxAa17IUhV0a/Shared---Levona-Day-01?node-id=0-1&t=cFW71F4ofXYnad3o-1',
+          caption: `Day 01 / Onboarding flow`},
           { src: 'assets/fico/day01/DAY01MyAttempt.png', caption: 'Sketch of Day0/1 initial flow' },
           { src: 'assets/fico/day01/JTBD.png', caption: 'JTBD + Flow based on persona' },
-          { src: 'assets/fico/day01/day01finalscreenszoomedin.png', caption: 'Final Day 01 admin screens' },
           { src: 'assets/fico/day01/Admin.png', caption: 'Homepage - Admin' },
           { src: 'assets/fico/day01/SolutionCreator.png', caption: 'Homepage - Solution Creator' },
           { src: 'assets/fico/day01/ServiceCreator2.png', caption: 'Homepage - Service Creator' },
           { src: 'assets/fico/day01/BA2.png', caption: 'Homepage - Business Analyst' },
         ],
         body: [
-          `As Lead Product Designer, I designed the "Experience Gateway"—the unified entry point for the FICO Platform that streamlines the first touchpoint for enterprise clients and technical users. By eliminating complex handoffs and manual setups, this strategic onboarding portal enables users to autonomously map out workspaces and provision services in minutes rather than weeks, serving as a critical pillar in FICO's modern platform transformation.`,
+          'Built high-fidelity interactive prototypes used in the main keynote stage presentation, translating future-facing product concepts into something audiences could see working.',
         ],
       },
     ],
@@ -675,10 +698,15 @@ function showCaseStudy(key, index) {
 
   const bodyHtml = project.body.map((paragraph) => `<p>${paragraph}</p>`).join('');
 
-    // NEW: build the link markup only if a link exists for this project
+  // NEW: build the link markup only if a link exists for this project
   const linkHtml = project.link
     ? `<p class="case-study-link">
          <a href="${project.link}" target="_blank" rel="noopener noreferrer">→ Full case study here if you’re interested.</a>
+       </p>`
+    : '';
+    const figmaLink = project.figmalink
+    ? `<p class="figma-link">
+         <a href="${project.figmalink}" target="_blank" rel="noopener noreferrer">→ Post-FICO take</a>
        </p>`
     : '';
   const images = project.images || [];
@@ -689,6 +717,14 @@ function showCaseStudy(key, index) {
         return `<div class="gallery-video-thumb" onclick="openImageModal('${key}', ${index}, ${i})">
                   <img src="${thumb}" alt="${project.name} video ${i + 1}">
                   <span class="play-icon">▶</span>
+                </div>`;
+      }
+      if (image.type === 'figma') {
+        // Opens the live Figma file in a new tab instead of the in-page lightbox —
+        // Figma files can't be rendered inside our modal, only linked out to.
+        return `<div class="gallery-video-thumb gallery-figma-thumb" onclick="window.open('${image.figmaUrl}', '_blank', 'noopener')">
+                  <img src="${image.src}" alt="${project.name} figma thumbnail ${i + 1}">
+                  <span class="play-icon figma-icon" aria-hidden="true">${FIGMA_ICON_SVG}</span>
                 </div>`;
       }
       return `<img src="${image.src}" alt="${project.name} screenshot ${i + 1}" onclick="openImageModal('${key}', ${index}, ${i})">`;
@@ -712,6 +748,7 @@ function showCaseStudy(key, index) {
     ${galleryBlock}
     <p class="overview-label">Overview</p>
     <div class="case-study-body">${bodyHtml}</div>
+    ${figmaLink}
     ${linkHtml}
   `;
 
@@ -734,6 +771,15 @@ function scrollGallery(button, direction) {
 let modalImages = [];
 let modalIndex = 0;
 
+// Small monochrome Figma logo, used as the overlay icon on figma-type thumbnails
+const FIGMA_ICON_SVG = `<svg width="20" height="20" viewBox="0 0 38 57" xmlns="http://www.w3.org/2000/svg">
+  <path fill="currentColor" d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0Z"/>
+  <path fill="currentColor" d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 1 1-19 0Z"/>
+  <path fill="currentColor" d="M19 0v19h9.5a9.5 9.5 0 1 0 0-19H19Z"/>
+  <path fill="currentColor" d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5Z"/>
+  <path fill="currentColor" d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5Z"/>
+</svg>`;
+
 function renderModalImage() {
   const img = document.getElementById('imageModalImg');
   const videoFrame = document.getElementById('imageModalVideo');
@@ -750,7 +796,7 @@ function renderModalImage() {
   if (current.type === 'video') {
     img.style.display = 'none';
     videoFrame.style.display = '';
-    videoFrame.src = `https://www.youtube.com/embed/${current.videoId}?start=4140`;
+    videoFrame.src = `https://www.youtube.com/embed/${current.videoId}`;
     if (zoomControls) zoomControls.style.display = 'none';
   } else {
     videoFrame.style.display = 'none';
@@ -778,7 +824,15 @@ function openImageModal(key, projectIndex, imageIndex) {
   const project = workData[key] && workData[key].projects[projectIndex];
   if (!project || !project.images) return;
 
-  modalImages = project.images.map((image, i) => {
+  // Figma thumbnails open in a new tab (see the gallery click handler) and
+  // never call this function directly, but they still need to be filtered
+  // out here so they don't end up as "empty" stops when navigating with
+  // prev/next through a gallery that mixes types.
+  const navigable = project.images
+    .map((image, i) => ({ image, i }))
+    .filter(({ image }) => image.type !== 'figma');
+
+  modalImages = navigable.map(({ image, i }) => {
     if (image.type === 'video') {
       return { type: 'video', videoId: image.videoId, caption: image.caption || '' };
     }
@@ -789,7 +843,10 @@ function openImageModal(key, projectIndex, imageIndex) {
       caption: image.caption || '',
     };
   });
-  modalIndex = imageIndex;
+
+  // imageIndex is the position within the original (unfiltered) images array,
+  // so translate it to its position within the filtered navigable list.
+  modalIndex = Math.max(0, navigable.findIndex(({ i }) => i === imageIndex));
 
   const modal = document.getElementById('imageModal');
   if (!modal) return;
