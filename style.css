@@ -369,6 +369,7 @@ body {
     left: auto;
     right: 0;                  /* anchor to the right edge so it can't run off-screen on the left cutoff */
   }
+
   .work-split.split-active {
     flex-direction: column;
     gap: 0.75rem;
@@ -381,21 +382,23 @@ body {
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     padding-right: 0;
     padding-bottom: 0.75rem;
-    position: static;   
+    position: static;   /* Cancels the sticky positioning from desktop */
   }
 
   /* ================================================================== */
-  /* NEW: Hide the folders/directory column when a project is selected  */
+  /* NEW: Hide the folders/directory list when a project is selected  */
   /* ================================================================== */
   
-  /* 1. When the detail container is active and has project content (not the placeholder), hide the folder list */
+  /* When the detail pane has actual project content, hide the folder list completely */
   .work-split.split-active:has(.case-study-title) .work-list {
-    display: none;
+    display: none !important;
   }
 
-  /* 2. Optional: Remove the border divider when the list is hidden to keep things clean */
+  /* Make sure the detail pane takes up the full width and handles display correctly */
   .work-split.split-active:has(.case-study-title) .work-detail {
-    border-top: none;
+    flex: 1 1 100%;
+    max-width: 100%;
+    opacity: 1;
   }
 }
 
