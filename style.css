@@ -490,13 +490,13 @@ body {
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     padding-right: 0;
     padding-bottom: 0.75rem;
+    position: static;   /* ADD THIS — cancels the sticky positioning from desktop */
   }
 
   .work-split.split-active .work-detail {
     max-width: 100%;
   }
 }
-
 .case-study-title {
   color: var(--accent);
   font-size: 0.95rem;
