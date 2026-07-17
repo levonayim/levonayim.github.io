@@ -438,6 +438,8 @@ body {
 
 .nested-prompt {
   margin: 4px 0;
+  word-break: break-all;      /* NEW: Forces long strings like paths to break at any character if they run out of room */
+  overflow-wrap: break-word;
 }
 .typed-command {
   color: #fff;

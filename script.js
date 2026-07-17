@@ -709,7 +709,7 @@ function showCaseStudy(key, index) {
     : '';
     const figmaLink = project.figmalink
     ? `<p class="figma-link">
-         <a href="${project.figmalink}" target="_blank" rel="noopener noreferrer">→ Post-FICO take</a>
+         <a href="${project.figmalink}" target="_blank" rel="noopener noreferrer">→ Post-FICO / My version of BTC </a>
        </p>`
     : '';
   const images = project.images || [];
