@@ -155,6 +155,7 @@ body {
 
 .terminal {
   padding: 1.5rem;
+  padding-bottom: 3.5rem;
   flex: 1;             /* fills whatever space is left under the title bar */
   overflow-y: auto;    /* scrolls internally once content exceeds the available height */
   min-height: 0;       /* flex items default to a min-height that ignores this — same gotcha as min-width, just for the vertical axis */
@@ -319,6 +320,7 @@ body {
   align-items: center;
   gap: 0.6rem;
   margin-top: 0.25rem;
+  margin-bottom: 1rem;
 }
 
 .prompt-label {
