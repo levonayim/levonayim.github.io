@@ -295,9 +295,12 @@ function handleCommand(rawInput) {
   let trimmed = rawInput.trim();
   if (trimmed === '') return;
 
-  // ---- ADDED: Normalize 'cd..' without spaces ----
-  if (trimmed === 'cd..') {
-    trimmed = 'cd ..';
+  // Normalize alternative back navigation inputs
+  if (trimmed === 'cd..' || trimmed === 'cd ..' || trimmed.toLowerCase() === 'go back' || trimmed.toLowerCase() === 'back') {
+    goBackToCompanies();
+    printLine(`you@site:~$ ${trimmed}`, 'echo-line');
+    printLine(`Returned to ~/work.`, 'output-line');
+    return;
   }
 
   // Split "theme nord" into cmd = "theme", args = ["nord"]
@@ -641,7 +644,7 @@ function renderProjectList(key) {
     .join('');
 
   mainView.innerHTML = `
-    <p class="back-line" onclick="goBackToCompanies()">[← Type 'cd ..' or click here to return]</p>
+    <p class="back-line" onclick="goBackToCompanies()">[← Type 'cd ..', 'back' or click here to return]</p>
     <p class="nested-prompt">visitor@levona:~$ <span class="typed-command">cd ${data.path}</span></p>
     <p class="nested-prompt">visitor@levona:~${data.path.replace('.', '')}$ <span class="typed-command">ls -l</span></p>
     <p class="meta-info">total ${data.total}</p>
