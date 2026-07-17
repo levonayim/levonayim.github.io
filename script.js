@@ -645,8 +645,7 @@ function renderProjectList(key) {
 
   mainView.innerHTML = `
     <p class="back-line" onclick="goBackToCompanies()">[← Type 'cd ..', 'back' or click here to return]</p>
-    <p class="nested-prompt">visitor@levona:~$ <span class="typed-command">cd ${data.path}</span></p>
-    <p class="nested-prompt">visitor@levona:~${data.path.replace('.', '')}$ <span class="typed-command">ls -l</span></p>
+    <p class="nested-prompt">visitor@levona:~$ <span class="typed-command">cd ${data.path} &amp;&amp; ls -l</span>
     <p class="meta-info">total ${data.total}</p>
     ${itemsHtml}
   `;
