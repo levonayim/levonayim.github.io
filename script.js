@@ -1144,3 +1144,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 )();
+
+// ---- Custom Cursor Switcher Controller ----
+document.addEventListener('DOMContentLoaded', () => {
+  const buttons = document.querySelectorAll('.cursor-btn');
+
+  buttons.forEach(button => {
+    button.addEventListener('click', (e) => {
+      e.stopPropagation(); // Prevents terminal focus handler from snatching click focus
+      
+      const selectedCursor = button.getAttribute('data-cursor');
+
+      // Clear existing custom cursor classes
+      document.body.classList.remove('cursor-wand', 'cursor-sword');
+
+      // Apply selected cursor class
+      if (selectedCursor !== 'default') {
+        document.body.classList.add(`cursor-${selectedCursor}`);
+      }
+
+      // Update active state on buttons
+      buttons.forEach(btn => btn.classList.remove('active'));
+      button.classList.add('active');
+    });
+  });
+});
