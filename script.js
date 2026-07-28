@@ -204,7 +204,7 @@ On the side, I love drawing cartoon characters and experimenting through vibe co
 2019–2021   UX Designer & Developer @ Kashoo
 2019–2019   Junior UX Designer @ Rectxt
 2018–2020   Digital Designer @ Mothers Matter Center
-2015–2017   UX Web Designer Intern @ City of Surrey
+2015–2017   UX Web Designer @ City of Surrey
 2014–2015   Designer Intern @ Scentuals Body Care `,
 
   contact: () => `Email:    levona.yim@gmail.com
@@ -605,7 +605,7 @@ const workData = {
       {
         name: 'mysurrey-portal/',
         comment: 'Core operational municipal infrastructure interface architecture',
-        role: 'UX Web Designer Intern',
+        role: 'UX Web Designer',
         tools: 'Sketch, Axure, Invision, Illustrator, Zeplin, HTML, CSS',
         outcome: 'Helped launch the portal and its first 5 online services.',
         tldr: 'Led the UX design and front-end styling to launch a responsive citizen portal that digitized fragmented, paper-based city services into a unified online platform.',
