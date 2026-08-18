@@ -1,0 +1,2260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="me-faviconscaled.ico">
+  <title>Levona Yim - Kashoo 2.0 Web</title>
+  <link href='https://fonts.googleapis.com/css?family=Roboto Mono' rel='stylesheet'>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: "SF Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    :root {
+      --green: #15521F;
+      --green-lighter:#508500;
+      --accent: #005CB9;
+      --bg-soft: #f5f5f5;
+      --bg-soft-2: #f7f7f7;
+      --text-main: #111111;
+      --text-muted: #666666;
+      --content-w: 720px;
+      --wide-w: 1320px;
+      --side-pad: clamp(24px, 8vw, 395px);
+    }
+
+    body {
+      background-color: #FAFAFA;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* --- PREVENT IMAGE DRAGGING & RIGHT-CLICK SAVE --- */
+    img {
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -o-user-select: none;
+      user-select: none;
+      -webkit-user-drag: none;
+      -webkit-touch-callout: none; /* Disables long-press context menu on iOS */
+    }
+
+/* Forces right-clicks on portfolio media frames to hit the container instead of the image */
+.media-frame img,
+.card-media img,
+.card-image-wrapper img {
+  pointer-events: none;
+}
+
+    /* --- NAVIGATION (shared with site) --- */
+    nav {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 20px;
+      background: #ffffff;
+      padding: 12px 24px;
+      border-radius: 30px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      z-index: 100;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: color 0.2s ease, font-weight 0.2s ease;
+    }
+
+    nav a.active {
+      color: var(--green);
+      font-weight: 700;
+    }
+
+    nav a:hover{
+      color: var(--green-lighter);
+    }
+
+    .inner-links{
+      font-weight: 500;
+      text-decoration: none;
+      color: var(--accent);
+    }
+
+    .inner-links:hover{
+      font-weight: 500;
+      text-decoration: line-through;
+      color: var(--accent);
+    }
+
+    /* --- FIXED GREEN BOTTOM BAR (shared with site) --- */
+    .bottom-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100vw;
+      height: 12px;
+      background-color: var(--green);
+      z-index: 999;
+      pointer-events: none;
+    }
+
+    /* --- SCROLL PROGRESS BAR --- */
+    .scroll-progress-track {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 5px;
+      background-color: #e5e5e5;
+      z-index: 1000;
+      pointer-events: none;
+    }
+    .scroll-progress-bar {
+      height: 100%;
+      width: 0%;
+      background-color: var(--accent);
+      transition: width 0.08s linear;
+    }
+
+    /* --- TRANSITION OVERLAY (shared with site) --- */
+    .transition-overlay {
+      position: fixed;
+      top: -120%;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: var(--green);
+      z-index: 9999;
+      pointer-events: none;
+      transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .transition-overlay svg {
+      position: absolute;
+      bottom: -79px;
+      left: 0;
+      width: 100%;
+      height: 80px;
+      fill: var(--green);
+    }
+    .transition-overlay .overlay-logo {
+      width: 100px;
+      height: auto;
+      z-index: 2;
+      opacity: 0;
+      transition: opacity 0.25s ease 0.5s;
+    }
+    .transition-overlay.is-active .overlay-logo { opacity: 1; }
+    .transition-overlay.is-active { transform: translateY(120%); }
+
+    /* --- HERO IMAGE --- */
+    .btc-hero {
+      width: 100%;
+      background: var(--bg-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 10px;
+    }
+    .btc-hero .media-frame {
+      width: 100%;
+      max-height: 90vh;
+      cursor: default;
+    }
+    .btc-hero img { max-height: 90vh; }
+
+    /* --- ESTIMATED READ TIME BADGE --- */
+    .read-time-badge {
+      display: inline-block;
+      background-color: var(--accent);
+      color: #ffffff;
+      font-size: 0.85rem;
+      font-weight: 300;
+      padding: 6px 16px;
+      border-radius: 48px;
+      margin: 0 auto;
+      text-align: center;
+      width: fit-content;
+    }
+
+    .header-top-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* --- IMAGE PLACEHOLDER SYSTEM (ORIGINAL DESKTOP) --- */
+    .media-frame {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .media-frame img {
+      width: 50%;
+      margin: auto;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.2s ease;
+    }
+    .media-frame:hover img {
+      transform: scale(1.02);
+    }
+    .two-column-img img {
+      width: 100%;
+    }
+    .media-frame.img-missing {
+      cursor: default;
+    }
+    .media-frame.img-missing:hover img {
+      transform: none;
+    }
+    .media-frame.img-missing {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background:
+        repeating-linear-gradient(45deg, #ececec 0 12px, #f4f4f4 12px 24px);
+      border: 1px dashed #c9c9c9;
+    }
+    .media-frame.img-missing img { display: none; }
+    .media-frame.img-missing::after {
+      content: attr(data-label);
+      font-family: "Roboto Mono", monospace;
+      font-size: 0.8rem;
+      color: #9a9a9a;
+      text-align: center;
+      padding: 0 20px;
+    }
+
+    /* --- SECTION SHELLS --- */
+    .section {
+      width: 100%;
+      padding: 80px var(--side-pad);
+    }
+    .section.tight { padding-top: 80px; padding-bottom: 80px; }
+    .section.roomy { padding-top: 120px; padding-bottom: 120px; }
+    .section.roomiest { padding-top: 160px; padding-bottom: 160px; }
+    .section-inner {
+      max-width: var(--content-w);
+      margin: 0 auto;
+    }
+    .section.on-blue {
+      background: var(--accent);
+      color: #fff;
+    }
+    .section.on-soft {
+      background: var(--bg-soft);
+    }
+
+    .eyebrow {
+      font-weight: 200;
+      font-size: 1rem;
+      letter-spacing: 0.5px;
+      color: inherit;
+      margin-bottom: 0;
+      display: block;
+    }
+
+    /* --- HEADER BLOCK --- */
+    .btc-title {
+      font-size: clamp(1.6rem, 2.6vw, 2rem);
+      font-weight: 800;
+      letter-spacing: -0.32px;
+      color: #000;
+      text-align: center;
+      line-height: 1.3;
+      margin-bottom: 64px;
+    }
+
+    .btc-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-bottom: 64px;
+    }
+    .btc-meta .meta-col {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      min-width: 160px;
+      flex: 1;
+    }
+    .btc-meta .meta-label {
+      font-weight: 700;
+      font-size: 1rem;
+      color: #000;
+    }
+    .btc-meta .meta-value,
+    .btc-meta .meta-value p {
+      font-weight: 400;
+      font-size: 1rem;
+      color: #000;
+      line-height: 1.5;
+    }
+
+    .tldr-box {
+      border: 1px dashed var(--accent);
+      border-radius: 4px;
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      align-items: flex-start;
+    }
+    .tldr-box .tldr-label {
+      font-family: "Roboto Mono", monospace;
+      font-weight: 700;
+      font-size: 1rem;
+    }
+    .tldr-box p {
+      font-size: 1rem;
+      line-height: 1.5;
+      color: #000;
+    }
+    .tldr-box .highlight { 
+      color: #000;
+      font-weight: 700;
+    }
+
+    .project-top { 
+      text-align: center;
+      font-size: 1rem;
+      letter-spacing: 0.5px;
+    }
+
+    /* --- BODY TEXT --- */
+    .body-copy {
+      font-size: 1.35rem;
+      line-height: 1.35;
+      font-weight: 300;
+      color: #000;
+    }
+    .body-copy p + p { margin-top: 1em; }
+    .body-copy strong, .body-copy b { font-weight: 600; }
+
+    .divider {
+      width: 200px;
+      height: 1px;
+      background: #d6d6d6;
+      margin: 0 auto;
+    }
+    .divider-wrap {
+      display: flex;
+      justify-content: center;
+      padding: 80px 0;
+    }
+
+    ul.styled, ol.styled {
+      padding-left: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      font-size: 1.1rem;
+      line-height: 1.25;
+      color: #000;
+    }
+    .on-blue ul.styled, .on-blue ol.styled { color: #fff; }
+    ul.styled li .li-body, ol.styled li .li-body { font-weight: 200; font-size: 1rem;}
+
+    /* --- OVERVIEW / CONTRIBUTION --- */
+    .stack-8 { display: flex; flex-direction: column; gap: 8px; }
+    .stack-16 { display: flex; flex-direction: column; gap: 16px; }
+    .stack-24 { display: flex; flex-direction: column; gap: 24px; }
+    .stack-48 { display: flex; flex-direction: column; gap: 48px; }
+    .stack-56 { display: flex; flex-direction: column; gap: 56px; }
+
+    /* --- IMPACT GRID --- */
+    .impact-grid {
+      display: flex;
+      justify-content: space-between;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+    .impact-item {
+      flex: 1 1 260px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .impact-item h3 {
+      font-size: 1.35rem;
+      font-weight: 600;
+    }
+    .impact-item p {
+      font-size: 1.1rem;
+      line-height: 1.5;
+      margin-top: 1rem;
+    }
+
+    .backstory-title {
+      display: flex;
+      justify-content: center;
+      padding: 40px 0 80px 0;
+    }
+
+    .backstory-title h3{
+      font-family: "JetBrains Mono", monospace !important;
+    }
+
+    .triple-image img{
+      width: 100% !important;
+    }
+
+    /* --- PROCESS PHASES --- */
+    .phase-title {
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 0.5px;
+      display: block;
+    }
+
+    .gif-caption {
+      color: #000;
+      text-align: center;
+      margin: 8px auto;
+      font-weight: 300;
+      font-size: 0.75rem;
+      width: 50%;
+      display: block;
+    }
+
+    .quote-line {
+      font-style: italic;
+    }
+
+    /* --- MEDIA GRIDS --- */
+    .media-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 24px;
+      padding: var(--side-pad);
+      background: #fff;
+    }
+
+    .media-grid .media-frame {
+      flex: 1 1 calc((100% - 72px) / 4);
+      max-width: calc((100% - 72px) / 4);
+      min-width: 240px;
+      aspect-ratio: 4 / 3;
+      background: var(--bg-soft);
+      cursor: pointer;
+    }
+
+    .media-grid .media-frame img {
+      width: 100%;
+      height: 100%;
+      transition: transform 0.2s ease;
+    }
+
+    .media-grid .media-frame:hover img {
+      transform: scale(1.02);
+    }
+
+    .less-spacing {
+      padding: 40px 80px !important;
+    }
+
+    .adjust-for-gif {
+      padding: 40px 80px 80px 80px !important;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    /* --- LIGHTBOX MODAL STYLES --- */
+    .lightbox-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.88);
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .lightbox-modal.is-open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .lightbox-content {
+      position: relative;
+      max-width: 90vw;
+      max-height: 85vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lightbox-img {
+      max-width: 100%;
+      max-height: 85vh;
+      object-fit: contain;
+      border-radius: 4px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .lightbox-btn {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.15);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      font-size: 28px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+      transition: background 0.2s ease, transform 0.2s ease;
+      backdrop-filter: blur(4px);
+    }
+
+    .lightbox-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(1.08);
+    }
+
+    .lightbox-close {
+      top: -60px;
+      right: 0;
+    }
+
+    .lightbox-prev {
+      left: -70px;
+    }
+
+    .lightbox-next {
+      right: -70px;
+    }
+
+    .media-row {
+      display: flex;
+      gap: 24px;
+      padding: 24px var(--side-pad);
+      flex-wrap: wrap;
+    }
+
+    /* --- FULL-WIDTH MEDIA CONTAINER (ORIGINAL DESKTOP SPEC) --- */
+    .media-full {
+      padding: 1rem 0;
+      /*background: var(--bg-soft);*/
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .media-full-frame img {
+      width: 100%;
+      padding: 2rem 1rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .first-double-image {
+      background: rgba(99, 149, 428, 0.1) !important;
+    }
+
+    .img-uj {
+      background: var(--bg-blue-soft);
+      width: 100%;
+    }
+
+    .img-uj img{
+      transform: scale(0.85);
+      transition: none;
+    }
+
+    .img-uj .media-frame:hover img {
+      transform: scale(0.85);
+    }
+
+    .media-full .media-frame {
+      width: 100%;
+      max-height: 840px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .media-full .media-frame img {
+      width: 90%;
+      height: auto;
+      max-height: 840px;
+    }
+
+    /* --- FIGMA EMBED WRAPPER --- */
+    .figma-container {
+      width: 100%;
+      margin: 0 auto;
+      padding: 0;
+    }
+
+    .figma-frame {
+      position: relative;
+      width: 100%;
+      height: 680px;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .figma-frame iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* --- 2x2 SQUARE GRID LAYOUT --- */
+    .two-by-two-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 24px;
+    }
+
+    .two-by-two-grid .media-frame {
+      min-width: 280px;
+      aspect-ratio: 2 / 1;
+      background-color: #F5F5F5;
+      max-height: calc(100vw * 0.35 - 6rem);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .two-by-two-grid .media-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    /* --- ALWAYS-2-COLUMNS: locks a two-by-two-grid to exactly 2 per row on any screen size --- */
+    .two-by-two-grid.always-2col .media-frame {
+      flex: 1 1 calc(50% - 12px);
+      max-width: calc(50% - 12px);
+      min-width: 320px;
+    }
+
+    @media (max-width: 700px) {
+      .two-by-two-grid.always-2col .media-frame {
+        flex: 1 1 100%;
+        max-width: 100%;
+        min-width: 0;
+      }
+    }
+
+    /* --- IMAGE CAROUSEL --- */
+    .carousel {
+      position: relative;
+      padding: var(--side-pad);
+    }
+
+    .carousel-track {
+      position: relative;
+      width: 100%;
+    }
+
+    .carousel-track .media-frame {
+      display: none;
+      width: 100%;
+      min-width: 0;
+      aspect-ratio: 2 / 1;
+      background-color: #F5F5F5;
+      max-height: calc(100vw * 0.35 - 6rem);
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .carousel-track .media-frame.is-active {
+      display: flex;
+    }
+
+    .carousel-track .media-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .carousel-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: none;
+      background: #fff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      line-height: 1;
+      color: var(--text-main);
+      cursor: pointer;
+      z-index: 2;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    .carousel-arrow:hover {
+      background: #f0f0f0;
+    }
+
+    .carousel-prev { left: 16px; }
+    .carousel-next { right: 16px; }
+
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .carousel-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      border: none;
+      background: #d9d9d9;
+      padding: 0;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    .carousel-dot.is-active {
+      background: var(--accent);
+      transform: scale(1.15);
+    }
+
+    @media (max-width: 768px) {
+      .carousel-arrow {
+        width: 36px;
+        height: 36px;
+        font-size: 1.2rem;
+      }
+      .carousel-prev { left: 8px; }
+      .carousel-next { right: 8px; }
+    }
+
+    /* --- 3-UP THEN 2-UP GRID LAYOUT --- */
+    .three-row-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 24px;
+    }
+
+    .three-row-grid .media-frame {
+      flex: 0 0 calc((100% - 48px) / 3);
+      max-width: calc((100% - 48px) / 3);
+      min-width: 240px;
+      aspect-ratio: 4 / 3;
+    }
+
+    /* --- 4-UP THEN 4-UP GRID LAYOUT --- */
+    .four-row-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .four-row-grid .media-frame {
+      flex: 0 0 calc((100% - 36px) / 4);
+      max-width: calc((100% - 36px) / 4);
+      min-width: 240px;
+      aspect-ratio: 4 / 3;
+    }
+
+    /* --- FOOTER: MORE WORK & CONTACT --- */
+    .footer-section {
+      background-color: var(--bg-soft-2);
+      border-top: 1px solid #e0e0e0;
+      padding: 100px var(--side-pad) 120px var(--side-pad);
+    }
+
+    .footer-section .footer-inner {
+      max-width: var(--wide-w);
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 48px;
+    }
+
+    .footer-heading {
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 0.5px;
+      color: #000;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .work-grid {
+      display: flex;
+      gap: 32px;
+      justify-content: center;
+    }
+
+    .work-card {
+      flex: 1;
+      max-width: 500px;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      cursor: pointer;
+    }
+
+    .work-card .card-media {
+      background: #F0F0F0;
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+      border-radius: 4px;
+    }
+
+    /* GRADIENT OVERLAY HOVER FROM INDEX.HTML */
+    .work-card:hover .card-media {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      background: 
+        radial-gradient(circle at 10% 20%, rgba(80, 220, 255, 0.85) 0%, transparent 50%),
+        radial-gradient(circle at 80% 25%, rgba(185, 80, 255, 0.85) 0%, transparent 55%),
+        radial-gradient(circle at 50% 60%, rgba(255, 100, 200, 0.8) 0%, transparent 50%),
+        radial-gradient(circle at 85% 85%, rgba(255, 80, 80, 0.9) 0%, transparent 50%),
+        radial-gradient(circle at 20% 90%, rgba(255, 150, 80, 0.85) 0%, transparent 50%),
+        #e0f2fe;
+    }
+
+    .work-card .card-media img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      transform: scale(1);
+      transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .work-card:hover .card-media img {
+      transform: scale(1.15);
+    }
+
+    .work-card-info {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .work-card-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #000;
+    }
+
+    .work-card-subtitle {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      font-weight: 300;
+    }
+
+    .contact-cta {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .contact-cta h3 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #000;
+    }
+
+    .email-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background-color: #ffffff;
+      color: var(--green);
+      border: 2px solid var(--green);
+      padding: 14px 28px;
+      border-radius: 40px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+    }
+
+    .email-btn:hover {
+      background-color: var(--green);
+      color: #ffffff;
+      transform: translateY(-2px);
+    }
+
+    /* ==========================================================
+       RESPONSIVE BREAKPOINTS (TABLET, MOBILE & VERY LARGE SCREENS)
+       ========================================================== */
+
+    /* --- VERY LARGE / ULTRA-WIDE SCREENS (> 1600px) --- */
+    @media (min-width: 1600px) {
+      :root {
+        --side-pad: clamp(120px, 15vw, 450px);
+      }
+      .media-full .media-frame img {
+        width: 80%;
+        max-height: 900px;
+      }
+    }
+
+    /* --- TABLET BREAKPOINT (769px to 1024px) --- */
+    @media (min-width: 769px) and (max-width: 1024px) {
+      :root {
+        --side-pad: 48px;
+      }
+      .section { padding-left: 48px; padding-right: 48px; }
+      .less-spacing, .adjust-for-gif { padding: 40px !important; }
+      
+      .media-full {
+        flex-direction: row;
+        gap: 16px;
+      }
+      .media-full .media-frame img {
+        width: 95%;
+      }
+
+      .two-by-two-grid .media-frame {
+        flex: 1 1 calc(50% - 24px);
+        max-height: 320px;
+      }
+
+      .figma-frame {
+        height: 520px;
+      }
+
+      .media-full-frame img {
+        width:100%;
+        padding: 2rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+
+    /* --- MOBILE BREAKPOINT (< 768px) --- */
+    @media (max-width: 768px) {
+      .btc-hero .media-frame { width: 100%; }
+      .btc-hero .media-frame img { width: 100%; }
+      .btc-meta { flex-direction: column; }
+      .impact-grid { flex-direction: column; gap: 20px;}
+      .section { padding-left: 20px; padding-right: 20px; }
+      .section.roomy { padding-top: 60px; padding-bottom: 60px; }
+      .section.roomiest { padding-top: 48x; padding-bottom: px; }
+      .section.tight { padding-top: 48px; padding-bottom: 48px; }
+      .media-row { flex-direction: column; }
+      .tldr-box { padding: 20px; }
+      .divider-wrap { padding: 60px 0 30px 0; }
+      ul.styled, ol.styled { gap: 1.25rem; padding-left: 20px; }
+      .impact-item { flex: 1 1 80px;}
+
+      /* Mobile Image Stacking & Frame Resizing */
+      .media-frame img {
+        width: 100%;
+      }
+
+      .media-full {
+        flex-direction: column;
+        padding: 24px 16px;
+        gap: 20px;
+      }
+
+      .media-full .media-frame img {
+        width: 100%;
+        max-height: none;
+      }
+
+      .section.on-blue {
+        background: var(--accent);
+        color: #fff;
+        padding-top: 64px;
+        padding-bottom: 64px;
+      }
+
+      .kashoo-new-section{
+        padding: 48px 20px !important;
+      }
+      .kashoo-new-row{
+        flex-direction: column;
+        align-items: flex-start;
+        min-height: 0;
+        gap: 24px;
+      }
+      .kashoo-new-text{
+        flex: 1 1 auto;
+        max-width: 100%;
+      }
+      .kashoo-new-media{
+        align-self: stretch;
+        justify-content: center;
+        width: 100%;
+      }
+      .kashoo-new-media img{
+        height: auto;
+        width: 100%;
+        max-height: none;
+        object-fit: contain;
+        margin-right: 0 !important;
+      }
+
+      .less-spacing, .adjust-for-gif {
+        padding: 24px 16px !important;
+      }
+
+      .gif-caption {
+        width: 90%;
+        font-size: 0.8rem;
+      }
+
+      .figma-frame {
+        height: 400px;
+      }
+
+      .two-by-two-grid .media-frame {
+        flex: 1 1 100%;
+        max-width: 100%;
+        aspect-ratio: 16 / 9;
+        max-height: none;
+      }
+
+      .three-row-grid .media-frame,
+      .four-row-grid .media-frame {
+        flex: 1 1 100%;
+        max-width: 100%;
+      }
+
+      /* Footer Mobile Stack */
+      .work-grid {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .footer-section {
+        padding: 60px 20px 100px 20px;
+      }
+
+      /* Lightbox Mobile Adjustments */
+      .lightbox-prev { left: 10px; }
+      .lightbox-next { right: 10px; }
+      .lightbox-close { top: 10px; right: 10px; }
+    }
+
+    /* --- SMALL MOBILE (< 480px) --- */
+    @media (max-width: 480px) {
+      nav {
+        gap: 10px;
+        padding: 10px 16px;
+      }
+      nav a {
+        font-size: 0.72rem;
+        letter-spacing: 0.5px;
+      }
+      .btc-title { margin-bottom: 36px; }
+      .btc-meta { margin-bottom: 36px; }
+    }
+
+    /* --- BACK TO TOP BUTTON --- */
+    #backToTopBtn {
+      position: fixed;
+      bottom: 32px; /* Clears the 12px bottom bar */
+      right: 28px;
+      z-index: 1001; /* Places it above page content and scroll progress bar */
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background-color: var(--green);
+      color: #ffffff;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      
+      /* Hidden state */
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(10px);
+      transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease, background-color 0.2s ease;
+    }
+
+    #backToTopBtn.is-visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    #backToTopBtn:hover {
+      background-color: var(--accent-darker, #114218); /* Adjusts on hover */
+      transform: translateY(-2px);
+    }
+
+    /* ============================================================
+       EXTRA COMPONENTS — added to more closely match PDF case-study
+       layout (testimonial cards, navy panels, timeline, swatches)
+       ============================================================ */
+
+    :root{
+      --navy: #101E3D;
+      --bg-blue-soft: #EAF2FF;
+    }
+
+    .section.on-navy{ background: var(--navy); color:#fff; }
+    .section.on-navy .eyebrow{ color:#fff; opacity:0.8; }
+    .section.on-navy .body-copy{ color:#fff; }
+    .section.on-navy ul.styled, .section.on-navy ol.styled{ color:#fff; }
+
+    .section.on-soft-blue{ background: var(--bg-blue-soft); }
+
+    .heading-red{ color:#B23A2E; font-weight:800; }
+    .heading-purple{ color: var(--accent); font-weight:800; }
+
+    .center-text{ text-align:center; }
+
+    /* --- TESTIMONIAL / FEEDBACK CARDS --- */
+    .testimonial-grid{
+      display:flex;
+      flex-wrap:wrap;
+      gap:24px;
+      margin-top:8px;
+    }
+    .testimonial-card{
+      flex:1 1 calc(50% - 24px);
+      min-width:260px;
+      display:flex;
+      gap:16px;
+      align-items:flex-start;
+      background:#fff;
+      border:1px solid #e5e5e5;
+      border-radius:10px;
+      padding:20px 24px;
+    }
+    .testimonial-avatar{
+      width:40px;
+      height:40px;
+      min-width:40px;
+      border-radius:50%;
+      background: linear-gradient(135deg, #0251FD, #7B10FF);
+    }
+    .testimonial-quote{
+      font-size:0.95rem;
+      line-height:1.55;
+      font-style:italic;
+      color:#222;
+    }
+
+    /* --- HIGH LEVEL JOURNEY TIMELINE --- */
+    .journey-timeline{
+      display:flex;
+      justify-content:space-between;
+      gap:24px;
+      margin-top:48px;
+      flex-wrap:wrap;
+      position:relative;
+    }
+    .journey-step{
+      flex:1 1 160px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      text-align:center;
+      gap:14px;
+    }
+    .journey-circle{
+      width:44px;
+      height:44px;
+      border-radius:50%;
+      background: var(--navy);
+      color:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:700;
+      font-size:1rem;
+    }
+    .journey-step h4{
+      font-size:0.8rem;
+      letter-spacing:0.5px;
+      text-transform:uppercase;
+      font-weight:700;
+    }
+    .journey-step p{
+      font-size:0.9rem;
+      line-height:1.5;
+      color:#333;
+      font-weight:300;
+    }
+
+    /* --- COLOUR SWATCHES --- */
+    .swatch-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin:20px 0;
+    }
+    .swatch{
+      width:44px;
+      height:44px;
+      border-radius:50%;
+      flex-shrink:0;
+    }
+    .swatch-legend{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:16px 40px;
+      margin-top:8px;
+    }
+    .swatch-legend-item{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-size:0.95rem;
+      font-weight:300;
+    }
+    .swatch-legend-dot{
+      width:18px;
+      height:18px;
+      border-radius:50%;
+      flex-shrink:0;
+    }
+
+    /* --- SPLIT TEXT / MEDIA ROW (e.g. Side Menu section) --- */
+    .split-row{
+      display:flex;
+      gap:48px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+    .split-row .split-text{ flex:1 1 320px; }
+    .split-row .split-media{ flex:1 1 320px; }
+    .split-row-wide-media .split-text{ flex:1 1 260px; max-width:340px; }
+    .split-row-wide-media .split-media{ flex:2 1 420px; }
+
+    /* --- SELF-HOSTED VIDEO (e.g. Inline Editing) --- */
+    .split-media video{
+      display:block;
+      width:100%;
+      height:auto;
+      border-radius:10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    }
+    .stacked-video{
+      display:block;
+      width:100%;
+      height:auto;
+      border-radius:10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    }
+
+    /* --- CLICKABLE VIDEO LINK (opens mp4 in new tab) --- */
+    .video-link{
+      display:block;
+      position:relative;
+      cursor:pointer;
+      border-radius:10px;
+    }
+    .video-link video{ pointer-events:none; }
+    .video-link::after{
+      content:"⤢";
+      position:absolute;
+      top:12px;
+      right:12px;
+      width:32px;
+      height:32px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:rgba(0,0,0,0.55);
+      color:#fff;
+      font-size:1rem;
+      border-radius:50%;
+      opacity:0;
+      transition:opacity 0.2s ease;
+    }
+    .video-link:hover::after{ opacity:1; }
+
+    /* --- KASHOO 2.0 HERO: TEXT + FULL-HEIGHT IMAGE --- */
+    .kashoo-new-section{
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+      padding-right: 0 !important;
+      overflow: hidden;
+    }
+    .kashoo-new-row{
+      display:flex;
+      align-items:center;
+      min-height: 560px;
+      gap: 40px;
+    }
+    .kashoo-new-text{
+      flex: 0 1 460px;
+      max-width: 460px;
+      flex-shrink: 0;
+    }
+    .kashoo-new-media{
+      flex: 1 1 auto;
+      align-self: stretch;
+      display:flex;
+      align-items:center;
+      justify-content:flex-end;
+      overflow:hidden;
+      min-width: 0;
+    }
+    .kashoo-new-media img{
+      height: 100%;
+      width: auto;
+      max-width: 100%;
+      object-fit: contain;
+      display:block;
+      margin-right: 0 !important;
+    }
+
+    /* --- TWO COLUMN BULLET LISTS (Overall Issues, etc.) --- */
+    .two-col-list{
+      display:flex;
+      gap:48px;
+      flex-wrap:wrap;
+    }
+    .two-col-list ul.styled{ flex:1 1 300px; }
+
+  </style>
+</head>
+<body>
+
+  <div class="scroll-progress-track">
+    <div class="scroll-progress-bar" id="scrollProgressBar"></div>
+  </div>
+
+  <nav>
+    <a href="index.html">Work</a>
+    <a href="about.html" class="nav-link">About</a>
+    <a href="https://drive.google.com/file/d/1kJueu5DaYzHI15e4sxursLuTW0hQqVcG/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="nav-link">Resume</a>
+  </nav>
+
+  <!-- HERO IMAGE -->
+  <section class="btc-hero">
+    <div class="media-frame">
+      <img src="macbookair-kashoo.png" alt="Kashoo 2.0 Web cover">
+    </div>
+  </section>
+
+  <!-- HEADER: TITLE / META / TL;DR (Overview — unchanged) -->
+  <section class="section">
+    <div class="section-inner stack-24">
+      <span class="project-top">Kashoo 2.0 Web</span>
+      <span class="read-time-badge">Estimated: 10 - 15min read</span>
+      <h1 class="btc-title">Making financial information understandable and usable</h1>
+
+      <div class="btc-meta">
+        <div class="meta-col">
+          <span class="meta-label">Timeline</span>
+          <span class="meta-value">2019 – 2021</span>
+        </div>
+        <div class="meta-col">
+          <span class="meta-label">Role</span>
+          <span class="meta-value">Lead UX Designer</span>
+        </div>
+        <div class="meta-col">
+          <span class="meta-label">Team</span>
+          <div class="meta-value">
+            <p>Product Manager</p>
+            <p>3 full-stack engineers</p>
+            <p>CEO</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="tldr-box">
+        <span class="tldr-label">TL;DR</span>
+        <p> <strong>Kashoo</strong>'s original product, Kashoo Classic, was built for accountants and had grown outdated and hard to navigate for first-time users. User feedback pointed to a confusing, cluttered interface, accountant-only features, unclear bank connections, and a high risk of input errors. Since small business owners (unlike medium-sized businesses) needed a simpler, more tailored tool, Kashoo set out to build <a href="https://www.kashoo.com" target="_blank" class="inner-links">Kashoo 2.0</a>, a more intuitive experience designed for non-experts managing their own finances.</p>
+        <p>As the UX Lead, I designed an experience that is simultaneously simple and intuitive, yet powerful. I collaborated closely with the development team and project manager to successfully launch Kashoo 2.0 in Nov 2019, with continued refining it based on user feedback through new feature releases.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FULL DOUBLE IMAGE -->
+  <div class="media-full first-double-image">
+
+    <div class="media-frame">
+      <img src="kashoo/kashoo-doubleimages.png" alt="kashoo double images">
+    </div>
+  </div>
+
+  <!-- OVERVIEW + MY CONTRIBUTION -->
+  <section class="section roomy">
+    <div class="section-inner stack-56">
+      <div class="stack-16">
+        <span class="eyebrow" style="color:#000;">overview</span>
+        <div class="body-copy">
+          <p><strong>Kashoo</strong> is a cloud-based accounting and bookkeeping software specifically built for small business owners, freelancers, and sole proprietors who want to manage their finances without needing an extensive accounting background.</p>
+
+          <p>The platform simplifies daily financial management by offering features such as automated bank feeds, receipt scanning, online invoicing, and straightforward expense tracking, allowing users to easily monitor cash flow and generate essential financial reports from any device.</p>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="stack-16">
+        <span class="eyebrow" style="color:#000;">my contribution</span>
+        <div class="body-copy">
+          <p>As the UX Lead, I strove to design an experience that is simultaneously simple and intuitive, yet powerful. I collaborated closely with the development team and project manager to launch the project in Nov 2019 and have gone through continuous refinements from user feedback and designing new features to be released.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- IMPACT -->
+  <section class="section on-blue roomiest">
+    <div class="section-inner" style="max-width: var(--wide-w);">
+      <div class="stack-24">
+      <span class="eyebrow">impact</span>
+        <div class="impact-grid">
+          <div class="impact-item">
+            <h3>Spearheaded Kashoo 2.0 UX Strategy</h3>
+            <p>Modernized a complex legacy accounting system into an intuitive, powerful web platform for freelancers and sole proprietors.</p>
+          </div>
+          <div class="impact-item">
+            <h3>Optimized Information Architecture & Workflows</h3>
+            <p>Redesigned core interaction models like the Inbox and data tables to reduce clutter and streamline daily bookkeeping.</p>
+          </div>
+          <div class="impact-item">
+            <h3>Improved Onboarding & Engagement Metrics</h3>
+            <p>Redesigned onboarding and empty states to drive bank account connections, resulting in users being <strong>4x more likely to subscribe.</strong></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider-wrap">
+    <div class="divider"></div>
+  </div>
+  <div class="backstory-title">
+    <h3>the backstory</h3>
+  </div>
+
+  <!-- PROBLEM -->
+    <div class="section-inner stack-16">
+      <span class="eyebrow" style="color:#000;">problem</span>
+      <div class="body-copy">
+        <p>The average small business owner spends 6.8 hours a week on their finances — and even then, they may not be using the correct tool for them. Small businesses often need different resources and tools than their medium-sized business counterparts to succeed. It's not a one-size-fits-all solution.</p>
+      </div>
+    </div>
+
+  <!-- BACKGROUND: KASHOO CLASSIC -->
+  <section class="section" style="padding-top:4rem; padding-bottom:0;">
+    <div class="section-inner stack-16">
+      <span class="eyebrow" style="color:#000;">background</span>
+      <span class="phase-title">Kashoo Classic</span>
+      <div class="stack-48">
+        <div class="body-copy">
+          <p>Until late 2019, Kashoo had one product, Kashoo Classic. Although it's a great tool for accountants working with small to medium-sized businesses, the product is more than nine years old and needed revamping, as it's not an easy interface to navigate for a first-time user.</p>
+        </div>
+      </div>
+
+      <div class="media-full">
+        <div class="media-frame" data-label="[Insert: Kashoo 2.0 Web user flow diagram — Screens / User interaction / System legend]">
+          <img src="kashoo/kashoo-classic-main.png" alt="Kashoo 2.0 Web user flow">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- USER FEEDBACK -->
+  <section class="section roomy">
+    <div class="section-inner stack-24">
+      <h3 class="phase-title">Feedback from Existing Users on Kashoo Classic</h3>
+      <div class="body-copy">
+        <p>Prior to my joining, the team had been gathering feedback from existing users through Intercom, surveys, and cancellation forms on how to build a new and improved Kashoo 2.0 to better serve truly small business owners.</p> 
+        <p>Below are a few comments for improvements for a new version of Kashoo:</p>
+      </div>
+
+      <div class="media-full-frame">
+      <img src="kashoo/userfeedback-classic.png" alt="BTC schema comparison view">
+      </div>
+
+      <div class="stack-16" style="margin-top:24px;">
+        <h3 class="phase-title">Overall Issues – Kashoo Classic</h3>
+        <div class="two-col-list">
+          <ul class="styled">
+            <li><span class="li-body">When the user first enters into the software there is no sense of where to start.</span></li>
+            <li><span class="li-body">Too much shown on each page. Hard to focus.</span></li>
+            <li><span class="li-body">Some features that only accountants understand but a regular user may not. Ex. Taxes</span></li>
+            <li><span class="li-body">Targeted towards accountants only, so small business owners with little knowledge of accounting wouldn't find the software intuitive to navigate through.</span></li>
+          </ul>
+          <ul class="styled">
+            <li><span class="li-body">Too much flexibility. Unless the user knows what they're doing is correct, it could affect what they submit to the CRA/IRS.</span></li>
+            <li><span class="li-body">All pages look alike making it confusing to the user, making it easy to accidentally input the wrong type of data into the system.</span></li>
+            <li><span class="li-body">Users didn't know where to connect their bank</span>
+              <p style="font-size: 0.85rem; text-decoration: italic;"><strong>**Major issue because users who connect to the bank tend to convert to paid subscribers more than those who don't.</strong></p>
+            </li>
+            </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE NEW KASHOO 2.0 -->
+  <section class="section on-soft-blue kashoo-new-section">
+    <div class="kashoo-new-row">
+      <div class="kashoo-new-text stack-16">
+        <span class="eyebrow" style="color:#000;">THE NEW</span>
+        <h2 style="color:#0251FD; display: inline-block;">Kashoo 2.0</h2>
+        <div class="body-copy">
+          <p>Automating redundant bookkeeping tasks for small business owners to help them focus on running their business.</p>
+        </div>
+      </div>
+      <div class="kashoo-new-media media-frame">
+        <img src="kashoo/Kashoo-Solution-2.png" alt="Kashoo 2.0 laptop mockup">
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTEXT -->
+  <section class="section roomy">
+    <div class="section-inner stack-16">
+      <h3 class="heading-red">What's special about Kashoo 2.0?</h3>
+      <div class="body-copy">
+        <p>Using machine learning, Kashoo categorizes and matches recorded expenses with bank and credit card transactions, and provides accurate, complete, and real-time reports in one click. Kashoo also provides OCR and receipt-matching — the user simply attaches an image of a receipt in the Inbox and the system automatically matches it to a transaction. By using Kashoo 2.0, it reduces the amount of mistakes made and the amount of time needed dealing with finances.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider-wrap"><div class="divider"></div></div>
+
+  <section class="section tight">
+    <div class="section-inner stack-16">
+      <span class="eyebrow" style="color:#000;">Process</span>
+      <h3 style="font-weight:700;">Phase 1: Early Concepting</h3>
+      <div class="body-copy">
+        <p>Prior to my start with Kashoo, an external design agency was hired to take on Kashoo 2.0 visually and experience-wise.</p>
+      </div>
+    </div>
+  </section>
+    <div class="carousel less-spacing" data-carousel>
+      <div class="carousel-track">
+        <div class="media-frame is-active"><img src="kashoo/Dashboard-old.png" alt="Old design - Dashboard"></div>
+        <div class="media-frame"><img src="kashoo/Inbox-expense-old.png" alt="Old design - Inbox expenses"></div>
+        <div class="media-frame"><img src="kashoo/Modal-old.png" alt="Old design - Modal"></div>
+        <div class="media-frame"><img src="kashoo/contacts-old.png" alt="Old design - Contacts"></div>
+        <div class="media-frame"><img src="kashoo/alerts-old.png" alt="Old design - Alerts"></div>
+        <div class="media-frame"><img src="kashoo/cancel-doesnt-work-also-dont-know-what-this-is-for.png" alt="Cancel btn doesnt work"></div>
+        <div class="media-frame"><img src="kashoo/error-msg-not-helpful-to-user.png" alt="Error message not helpful to user"></div>
+        <div class="media-frame"><img src="kashoo/Transactions-old.png" alt="Old design - Transations"></div>
+        <div class="media-frame"><img src="kashoo/Inbox-empty-old.png" alt="Old design - Inbox empty"></div>
+        <div class="media-frame"><img src="kashoo/old-kashoo2sections.png" alt="Old design - Kashoo in sections"></div>
+      </div>
+      <button type="button" class="carousel-arrow carousel-prev" aria-label="Previous slide">&lsaquo;</button>
+      <button type="button" class="carousel-arrow carousel-next" aria-label="Next slide">&rsaquo;</button>
+      <div class="carousel-dots"></div>
+    </div>
+
+  <section class="section tight">
+      <div class="section-inner stack-16">
+        <h4 style="font-weight:700;">Few Issues I noticed:</h4>
+        <div class="two-col-list">
+          <ul class="styled">
+            <li><span class="li-body">When the user first enters into the software there is no sense of where to start.</span></li>
+            <li><span class="li-body">Too much shown on each page. Hard to focus.</span></li>
+            <li><span class="li-body">Some teatures that only accountants understand but a regular user may not. Ex. Taxes</span></li>
+            <li><span class="li-body">Targetted towards accountants only so small business owners with little knowledge of accounting wouldn't find the software intuitive to navigate through.</span></li>
+          </ul>
+        </div>
+      </div>
+  </section>
+
+  <!-- PROCESS: TAKING A STEP BACK -->
+  <section class="section on-navy roomy">
+    <div class="section-inner stack-24">
+      <h3 style="color:#E8998D;">Taking a step back...</h3>
+      <div class="body-copy">
+        <p>Initially, I was mainly tasked to rework the UI visually to make tweaks of what I thought could improve. However, I took a step back and analyzed the current interface more. I asked myself, "If the interface was better visually, will it solve the main issue? Is the current UI solving the main issue in Kashoo Classic? Will users understand what to do?"</p>
+      </div>
+      <p style="font-weight:700; font-size:1.2rem;">Just because an interface is visually appealing doesn't mean the experience is good.</p>
+      <div class="body-copy">
+        <p>As the sole designer and a new face in the company, I decided to map the user journey in a perspective of someone who has used an accounting software before, while making the UI more visually appealing and understandable.</p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- USER FLOW -->
+  <section class="section" style="padding:40px 0; background-color:#ffffff">
+    <div class="divider-wrap"><div class="divider"></div></div>
+    <div class="section-inner stack-16 center-text">
+      <h3 style="font-weight:700;">Phase 2: Reworking the User Experience</h3>
+    </div>
+  </section>
+
+  <!-- DISPLAY EACH IMAGE INDIVIDUALLY IN A GRID -->
+      <div class="media-grid less-spacing two-by-two-grid">
+        <div class="media-frame"><img src="kashoo/Untitled_Artwork-2-1.png" alt="Overall User Journey Flow with more complex details of inbox"></div>
+        <div class="media-frame"><img src="kashoo/Untitled_Artwork.png" alt="Overall User Journey Flow"></div>
+        <div class="media-frame"><img src="kashoo/Untitled_Artwork-3.png" alt="User journey when user in Inbox view"></div>
+      </div>
+
+  <!-- HIGH LEVEL USER JOURNEY -->
+  <section class="section on-soft-blue tight">
+    <div class="section-inner backstory-title" style="max-width: var(--wide-w);">
+      <h3 class="" style="font-weight:700;">High Level User Journey</h3>
+    </div>
+    </section>
+
+      <!-- FULL IMAGE -->
+  <div class="media-full img-uj" style="margin-top:-6rem; padding: 0 6rem;">
+    <div class="media-frame">
+      <img src="kashoo/highlevel-kashoo-transparent.png" alt="High level kashoo transparent">
+    </div>
+  </div>
+
+  <!-- WIREFRAMES -->
+  <section class="section roomy">
+    <div class="section-inner stack-16 center-text">
+      <h3 style="font-weight:700;">Variations of design layouts on the Modals</h3>
+    </div>
+  </section>
+  <div class="less-spacing two-by-two-grid always-2col">
+    <div class="media-frame"><img src="kashoo/somewireframesofdesignlayout1.png" alt="Expense wireframes"></div>
+    <div class="media-frame"><img src="kashoo/somewireframesofdesignlayout2.png" alt="Expense wireframes"></div>
+    <div class="media-frame"><img src="kashoo/somewireframesofdesignlayout3.png" alt="Expense wireframes"></div>
+    <div class="media-frame"><img src="kashoo/somewireframesofdesignlayout4.png" alt="Expense wireframes"></div>
+  </div>
+
+  <div class="divider-wrap"><div class="divider"></div></div>
+
+  <!-- FINAL PRODUCT: BRANDING -->
+  <section class="section roomy">
+    <div class="section-inner stack-24">
+      <span class="eyebrow" style="color:#000;">Phase 3: Final Design Decisions</span>
+      <h3 style="font-weight:700;">Brand Refresh</h3>
+      <div class="body-copy">
+        <p>As the sole designer, the team trusted my judgement and luckily everyone was flexible with me changing the font and adjusting the colours in the interface.</p>
+      </div>
+
+      <div class="stack-16">
+        <h4 style="font-weight:700; color: var(--accent);margin-top: 1rem;">Colour</h4>
+        <div class="body-copy">
+          <p>The first thing I noticed in the initial version was that there were multiple different types of blues (~13). The now present UI consists of 1 main dark blue (the same as the one in the logo which was not used in the interface at all), a secondary blue for actions, a couple variations of grays and red for errors. Each colour serves it's own purpose.</p>
+        </div>
+
+        <p style="font-weight:700; font-size:0.85rem; letter-spacing:0.5px; margin-top: 1.5rem;">INITIAL COLOURS (BEFORE)</p>
+        <div class="swatch-row">
+          <div class="swatch" style="background:#F7FAFC; border:1px solid #ddd;"></div>
+          <div class="swatch" style="background:#EAEFF5;"></div>
+          <div class="swatch" style="background:#4A8FE7;"></div>
+          <div class="swatch" style="background:#1E75D8;"></div>
+          <div class="swatch" style="background:#0F5FC2;"></div>
+          <div class="swatch" style="background:#0C56B2;"></div>
+          <div class="swatch" style="background:#0A52B0;"></div>
+          <div class="swatch" style="background:#146B9E;"></div>
+          <div class="swatch" style="background:#2A5DA0;"></div>
+          <div class="swatch" style="background:#254B78;"></div>
+          <div class="swatch" style="background:#244B7A;"></div>
+          <div class="swatch" style="background:#254D7D;"></div>
+        </div>
+        <div class="swatch-row">
+          <div class="swatch" style="background:#E2E2E2;"></div>
+          <div class="swatch" style="background:#9E9E9E;"></div>
+          <div class="swatch" style="background:#969696;"></div>
+          <div class="swatch" style="background:#98A1AA;"></div>
+          <div class="swatch" style="background:#5E6E7C;"></div>
+          <div class="swatch" style="background:#E60000;"></div>
+          <div class="swatch" style="background:#FFB32C;"></div>
+          <div class="swatch" style="background:#FFFFFF; border:1px solid #ddd;"></div>
+        </div>
+
+        <p style="font-weight:700; font-size:0.85rem; letter-spacing:0.5px; margin-top: 1.5rem;">CONSOLIDATED COLOURS (AFTER)</p>
+        <div class="swatch-legend">
+          <div class="swatch-legend-item"><div class="swatch-legend-dot" style="background:#0F5EB5;"></div> Primary Colour – Titles, editable fields, icons</div>
+          <div class="swatch-legend-item"><div class="swatch-legend-dot" style="background:#DD3002;"></div> Errors</div>
+          <div class="swatch-legend-item"><div class="swatch-legend-dot" style="background:#4D89DB;"></div> Secondary – Action buttons</div>
+          <div class="swatch-legend-item"><div class="swatch-legend-dot" style="background:#F6B740;"></div> Warning</div>
+          <div class="swatch-legend-item"><div class="swatch-legend-dot" style="background:#F3F7FB; border:1px solid #ddd;"></div> Highlighting areas, selected item</div>
+          <div class="swatch-legend-item"><div class="swatch-legend-dot" style="background:#68A263;"></div> Status good (for bank connections)</div>
+          <div class="swatch-legend-item"><div class="swatch-legend-dot" style="background:#657380;"></div> Disabled/non-editable text</div>
+          <div class="swatch-legend-item"><div class="swatch-legend-dot" style="background:#FFFFFF; border:1px solid #ccc;"></div> Background/Cards</div>
+          <div class="swatch-legend-item"><div class="swatch-legend-dot" style="background:#333333;"></div> Report texts, descriptions</div>
+        </div>
+      </div>
+
+      <div class="stack-16">
+        <h4 style="font-weight:700; color: var(--accent);margin-top: 4rem;">Font</h4>
+        <div class="body-copy">
+          <p>The initial font of the webapp was Nunito. Although it's a Google webfont, I felt that it didn't make the interface look clean. The slight curve in the lettering made it hard to read when it was bolded like in the sidebar. The logo font and the interface font were also different and I felt the two should be somewhat similar, that's why I chose Proxima Nova. It's more of a straight font, which made the UI more clean and easier to read.</p>
+        </div>
+        <div class="media-full" style="justify-content:flex-start;">
+          <img src="kashoo/font-difference.png" alt="Proxima Nova font vs Nunito font" style="width:100%; height:auto; max-width:900px;">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TABLE LAYOUT -->
+  <section class="section">
+    <div class="section-inner stack-16">
+      <h3 style="font-weight:700;">UI: Tables</h3>
+      <div class="body-copy">
+        <p>As majority of the webapp consists of tables, I decided to tackle the layouts of the tables (Inbox, Transactions, Contacts, Accounts). For the initial version of Kashoo 2.0, the table layouts were too spaced out. This made the interface look messy and hard to read. There was a lot of unnecessary spaces between columns. In the redesign, I chose to use a 24 column grid system to maximize the horizontal spacing.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section on-soft-blue tight">
+    <div class="section-inner stack-16">
+      <p style="font-weight:700; letter-spacing:0.5px; color: var(--accent);">Inbox</p>
+      <p class="body-copy" style="text-align:left;">The initial Inbox layout had too much spacing on sides of columns which made the table hard to read. For the redesign, I chose to use a 24 grid system to utilize the space better. For example, there isn't any extra spacing when the columns are fixed in size such as dates and checkboxes. This gives extra room for descriptions.</p>
+
+    </div>
+    <!-- IMAGE GALLERY -->
+    <div class="carousel less-spacing" data-carousel>
+      <div class="carousel-track center-text">
+        <div class="media-frame is-active"><img src="kashoo/Mask-Group-1-1.png" alt="Old design - Inbox Variation" style="background-color:var(--bg-blue-soft);"></div>
+        <div class="media-frame"><img src="kashoo/Inbox-grid.png" alt="Inbox grid" style="background-color:var(--bg-blue-soft);"></div>
+        <div class="media-frame"><img src="kashoo/Inbox.png" alt="Inbox old" style="background-color:var(--bg-blue-soft);"></div>
+      </div>
+      <button type="button" class="carousel-arrow carousel-prev" aria-label="Previous slide">&lsaquo;</button>
+      <button type="button" class="carousel-arrow carousel-next" aria-label="Next slide">&rsaquo;</button>
+      <div class="carousel-dots"></div>
+    </div>
+  </section>
+
+  <section class="section on-soft-blue tight">
+    <div class="section-inner stack-16">
+      <p style="font-weight:700; letter-spacing:0.5px; color: var(--accent);">Transactions</p>
+      <p class="body-copy" style="text-align:left;">For the initial Transaction table, it was the same as the Inbox — the old table had too much spacing on columns. The Transaction table has an extra Account column, therefore utilizing the horizontal spacing is important. The new Transaction table uses a 24 column grid like the Inbox with a shorter Description column.</p>
+    </div>
+    <!-- IMAGE GALLERY -->
+    <div class="carousel less-spacing" data-carousel>
+      <div class="carousel-track">
+        <div class="media-frame is-active"><img src="kashoo/Mask-Group-2-1.png" alt="Old design - Inbox Variation" style="background-color:var(--bg-blue-soft);"></div>
+        <div class="media-frame"><img src="kashoo/Transaction-Grid.png" alt="Inbox grid" style="background-color:var(--bg-blue-soft);"></div>
+        <div class="media-frame"><img src="kashoo/Transactions.png" alt="Inbox old" style="background-color:var(--bg-blue-soft);"></div>
+      </div>
+      <button type="button" class="carousel-arrow carousel-prev" aria-label="Previous slide">&lsaquo;</button>
+      <button type="button" class="carousel-arrow carousel-next" aria-label="Next slide">&rsaquo;</button>
+      <div class="carousel-dots"></div>
+    </div>
+  </section>
+
+  <section class="section on-soft-blue tight">
+    <div class="section-inner stack-16">
+      <p style="font-weight:700; letter-spacing:0.5px; color: var(--accent);">Contacts &amp; Accounts</p>
+      <p class="body-copy" style="text-align:left;">For pages such as Accounts and Contacts, there was a submenu to the side. In the redesign, I decided to minimize the width of the submenu more to give room for the tables and used the grid system to better utilize the space.</p>
+    </div>
+    <!-- IMAGE GALLERY -->
+    <div class="carousel less-spacing" data-carousel>
+      <div class="carousel-track">
+        <div class="media-frame is-active"><img src="kashoo/Mask-Group-3.png" alt="Old design - Inbox Variation" style="background-color:var(--bg-blue-soft);"></div>
+        <div class="media-frame"><img src="kashoo/contacts-table-context.png" alt="Inbox grid" style="background-color:var(--bg-blue-soft);"></div>
+        <div class="media-frame"><img src="kashoo/Contacts-grid.png" alt="Inbox old" style="background-color:var(--bg-blue-soft);"></div>
+        <div class="media-frame"><img src="kashoo/Contacts-table.png" alt="Inbox old" style="background-color:var(--bg-blue-soft);"></div>
+      </div>
+      <button type="button" class="carousel-arrow carousel-prev" aria-label="Previous slide">&lsaquo;</button>
+      <button type="button" class="carousel-arrow carousel-next" aria-label="Next slide">&rsaquo;</button>
+      <div class="carousel-dots"></div>
+    </div>
+  </section>
+
+  <!-- INBOX -->
+  <section class="section roomy">
+    <div class="section-inner stack-24">
+      <span class="eyebrow" style="color:#000;">Design Intent</span>
+      <h3 style="font-weight:700;">Inbox</h3>
+      <div class="body-copy">
+        <p>As the Inbox page is the first impression to users, I needed to make sure that in all scenarios whether a user connects a bank or not, they know what to do without it being overwhelming.</p>
+      </div>
+
+      <div class="stack-16">
+        <p style="font-weight:700; letter-spacing:0.5px; font-size:0.85rem; color: var(--accent);margin-top: 4rem;">FIRST TIME USERS WITH NO BANK CONNECTED</p>
+        <div class="body-copy">
+          <p>We know that not all users tend to connect their banks to the system until they trust the system enough. With Kashoo, users aren't needed to connect their bank to the system, however do recommend users to connect their bank for a quicker and accurate process. Also, from our analytics, we learned that <strong>when a user connects their bank to the system, they are 4 times more likely to subscribe.</strong></p>
+          <p>When the user enters into the webapp and no active bank is connected, we've provided a few waypoints to get started:</p>
+        </div>
+        <ul class="styled">
+          <li><span class="li-body">Instructions in the middle of the empty inbox of what the user can do to get started (connect to a bank, uploading a bank file, or uploading a receipt).</span></li>
+          <li><span class="li-body">"Categorize your items below" header and a "+ Receipt" button on the mid-left lets the user know their task on the page after an item has been uploaded.</span></li>
+          <li><span class="li-body">Top bar — when there's no active bank connected, a message is shown to promote connecting a bank.</span></li>
+        </ul>
+        <div class="media-full">
+          <div class="media-frame">
+            <img src="kashoo/Screen-Shot-2020-12-29-at-3.00.29-PM.png" alt="Empty Inbox state, no bank connected">
+          </div>
+        </div>
+      <!-- INLINE EDITING -->
+      <div class="stack-16">
+        <p style="font-weight:700; font-size:0.85rem; letter-spacing:0.5px; color: var(--accent);margin-top: 4rem;">INLINE EDITING</p>
+        <p class="body-copy" style="font-size:1.1rem;">Inline editing once there are line items in the table (gray for non-editable, blue for editable).</p>
+        <a class="video-link" href="kashoo/InlineEditing.mp4" target="_blank" rel="noopener" aria-label="Open Inline Editing video in a new tab">
+          <video class="stacked-video" src="kashoo/InlineEditing.mp4" autoplay loop muted playsinline preload="metadata"></video>
+        </a>
+      </div>
+      <!-- BULK EDITING -->
+      <div class="stack-16">
+        <p style="font-weight:700; font-size:0.85rem; letter-spacing:0.5px; color: var(--accent);margin-top: 4rem;">BULK EDITING</p>
+        <p class="body-copy" style="font-size:1.1rem;">When a user selects multiple like items, they can edit the items as a group instead of going to each individual item to make changes.</p>
+        <a class="video-link" href="kashoo/BULK-EDITING.mp4" target="_blank" rel="noopener" aria-label="Open Bulk Editing video in a new tab">
+          <video class="stacked-video" src="kashoo/BULK-EDITING.mp4" autoplay loop muted playsinline preload="metadata"></video>
+        </a>
+      </div>
+      <!-- SMART SELECTION -->
+      <div class="stack-16">
+        <p style="font-weight:700; font-size:0.85rem; letter-spacing:0.5px; color: var(--accent);margin-top: 4rem;">SMART SELECTION</p>
+        <div class="split-row">
+          <div class="split-text">
+            <p class="body-copy">Another feature added within the selection tool is depending on the type of item selected, different icons app. We chose to hide the buttons that aren't functionable when selected to minimize confusion. The action icons options are Edit, Post, Delete, Undo.</p>
+          </div>
+          <div class="split-media">
+            <div class="media-frame two-column-img"><img src="kashoo/Screen-Shot-2020-12-29-at-3.37-1.png" alt="Action icons — Edit, Post, Delete, Undo" style="width:100 !important;"></div>
+          </div>
+        </div>
+        <div class="split-row">
+          <div class="split-text">
+            <p class="body-copy">We've included a smart selection in the Inbox table, where users can select all on the page they're currently viewing, all results, only categorized, all uncategorized or unselect all.</p>
+          </div>
+          <div class="split-media">
+            <div class="media-frame"><img src="kashoo/Screen-Shot-2020-12-29-at-3.34-1.png" alt="Smart selection dropdown" style="width:100 !important;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDITOR MODALS -->
+  <section class="section">
+    <div class="section-inner stack-16">
+      <h3 style="font-weight:700;">Editor Modal</h3>
+      <p style="font-weight:700; font-size:0.85rem; letter-spacing:0.5px;">ISSUES WITH THE INITIAL DESIGN</p>
+      <div class="body-copy">
+        <p>The editor modale was another big task for me to tackle when I first joined the team. Overall, the layout was messy. There wasn't a clear hierarchy in how the information was to be read or filled. Also, changing the type of item it was (expense, income, refund) wasn't noticeable even though there was a dropdown at the top.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- IMAGE GALLERY -->
+  <div class="carousel less-spacing" data-carousel>
+    <div class="carousel-track">
+      <div class="media-frame is-active"><img src="kashoo/Inbox-expense-old.png" alt="Old design - Dashboard"></div>
+      <div class="media-frame"><img src="kashoo/Modal-old.png" alt="Old design - Inbox expenses"></div>
+    </div>
+    <button type="button" class="carousel-arrow carousel-prev" aria-label="Previous slide">&lsaquo;</button>
+    <button type="button" class="carousel-arrow carousel-next" aria-label="Next slide">&rsaquo;</button>
+    <div class="carousel-dots"></div>
+  </div>
+
+  <section class="section roomy">
+    <div class="section-inner stack-16">
+      <p style="font-weight:700; font-size:0.85rem; letter-spacing:0.5px;">MY TAKE ON REDESIGNING</p>
+      <div class="body-copy">
+        <p>For the redesign, I decided to give all modals a clear header. I also changed the layout with a split view, one side for editing and the other for reading the totals.</p>
+      </div>
+      <div class="two-col-list">
+        <ul class="styled">
+          <li><span class="li-body">The layout was inspired by the ecommerce checkout layout where everything on the left is the details about the item while the right side is the total calculations.</span></li>
+          <li><span class="li-body">Just like the Inbox inline editing, if the input box is gray, they can't change it. If it's blue, it's editable.</span></li>
+          <li><span class="li-body">The types can be changed easily on the top — inspired by Google Calendar in selecting the type of "event" it is.</span></li>
+        </ul>
+        <ul class="styled">
+          <li><span class="li-body">For selecting Tax, I chose to phrase it as a question rather having the user try to guess through a +/- sign.</span></li>
+          <li><span class="li-body">When the user has multiple items in a single receipt, this is referred to as "Splitting a transaction" or "Adding a line item." When the user presses the link below, the existing item is formed into an "item" on the right. The user can edit the item by selecting the box itself.</span></li>
+        </ul>
+      </div>
+      <a class="video-link" href="kashoo/my-take-on-redesigning.mp4" target="_blank" rel="noopener" aria-label="Open My Take on Redesigning video in a new tab">
+        <video class="stacked-video" src="kashoo/my-take-on-redesigning.mp4" autoplay loop muted playsinline preload="metadata" style="margin:4rem 0;"></video>
+      </a>
+      <p style="font-weight:700; font-size:0.85rem; letter-spacing:0.5px;">FEEDBACK FROM STAFF TESTING</p>
+      <div class="body-copy">
+        <p>For the first iteration, I had the account on the right (above the total) but from multiple feedback from staff testing and beta users, all first time users wouldn't notice that field. My reasoning for putting it on the right initially was that I thought it would overcrowd the left, but it didn't.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SIDE MENU -->
+  <section class="section">
+    <div class="section-inner">
+      <h3 style="font-weight:700; padding-bottom: 1.5rem;">Side Menu</h3>
+      <div class="split-row" style="align-items:flex-start;">
+        <div class="split-text stack-16">
+          
+          <p class="body-copy" style="font-size:1.1rem;">In the initial design of the side menu, there was a hamburger menu to the left of the logo that was not noticeable. For the redesign of the interaction, I was inspired by the Confluence button being in the middle of the bar. It's more noticeable to the users if they want to have more horizontal real estate. I also made the decision to use an arrow instead of a hamburger menu as it's more intuitive to the user, as the majority of the current users are a lot older (late 40's to 60's) and may not be used to relating certain icons from their phones to the web.</p>
+        </div>
+        <div class="split-media">
+          <a class="video-link" href="kashoo/SideMenu.mp4" target="_blank" rel="noopener" aria-label="Open Side Menu video in a new tab">
+            <video class="stacked-video" src="kashoo/SideMenu.mp4" autoplay loop muted playsinline preload="metadata"></video>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DASHBOARD -->
+  <section class="section">
+    <div class="section-inner stack-16">
+      <h3 style="font-weight:700;">Dashboard</h3>
+      <div class="body-copy">
+        <p>The main issue with this page was that it wasn't on brand. I also chose colours to be differentiated even for the visually impaired. Initially I thought different colours could be easier but ended up leaning towards shades of blues and purple. This worked the best because the colours wouldn't stand out too much nor would they blend in together.</p>
+      </div>
+      <a class="video-link" href="kashoo/Dashboard.mp4" target="_blank" rel="noopener" aria-label="Open Dashboard video in a new tab">
+        <video class="stacked-video" src="kashoo/Dashboard.mp4" autoplay loop muted playsinline preload="metadata" style="margin:4rem 0;"></video>
+      </a>
+  </section>
+
+  <!-- INVOICES -->
+  <section class="section">
+    <div class="section-inner stack-16">
+      <h3 style="font-weight:700;">Invoices</h3>
+      <div class="body-copy">
+        <p>For the Invoices and Bills to Pay pages, I initially thought to use the same layout as the main editor modals from the Inbox but after discussing with the team + project manager, we decided it was best to make it slightly different as it needs to consist of a table section listing out all the invoices sent, and it may confuse users of the likeness of the pages (which is a problem in current Kashoo Classic).</p>
+      </div>
+      <a class="video-link" href="kashoo/Invoices.mp4" target="_blank" rel="noopener" aria-label="Open Invoices video in a new tab">
+        <video class="stacked-video" src="kashoo/Invoices.mp4" autoplay loop muted playsinline preload="metadata" style="margin:4rem 0;"></video>
+      </a>
+    </div>
+  </section>
+
+  <!-- REPORTS -->
+  <section class="section">
+    <div class="section-inner stack-16">
+      <h3 style="font-weight:700;">Reports</h3>
+      <div class="body-copy">
+        <p>For the reports, this is where I got my hands dirty with code and did the styling for the reports displayed. Also with the new design, there's a better and clearer distinction of which part is the report and which are the interactive elements. There are also some small but very important little details that have been requested by Kashoo Classic users and it's the ability to select ranges like "Current Fiscal Year" or "Last Fiscal Quarter" as these dates can differ depending on each business.</p>
+      </div>
+      <a class="video-link" href="kashoo/Reports.mp4" target="_blank" rel="noopener" aria-label="Open Reports video in a new tab">
+        <video class="stacked-video" src="kashoo/Reports.mp4" autoplay loop muted playsinline preload="metadata" style="margin:4rem 0;"></video>
+      </a>
+  </section>
+
+  <!-- FEEDBACK ON KASHOO 2.0 -->
+  <section class="section">
+    <div class="section-inner stack-16">
+      <span class="eyebrow" style="color:#000;">User Feedback</span>
+      <h3 style="font-weight:700;">Feedback on Kashoo 2.0</h3>
+      <div class="body-copy">
+        <p>When we first released Kashoo 2.0, majority of the feedback was positive on the UI, however there were some issues regarding missing features like Invoices and Bills to Pay not being implemented yet. There were also technical issues that's out of our capabilities to fix like importing Kashoo Classic businesses to Kashoo 2.0, supporting multi-currencies, and bank connections.</p>
+        <p>As we are getting more and more feedback, the team and I are continuously adding new features and improvements for future releases.</p>
+      </div>
+
+        <img src="kashoo/Userfeedback-2.0.png" alt="Kashoo 2.0 User Feedback">
+      
+    </div>
+  </section>
+<!-- BUTTON TO GO BACK TO TOP -->
+  <button id="backToTopBtn" aria-label="Back to Top">
+    <span class="material-symbols-outlined">arrow_upward</span>
+  </button>
+
+<!-- FOOTER: MORE OF MY WORK & GET IN TOUCH -->
+  <footer class="footer-section">
+    <div class="footer-inner">
+      <span class="footer-heading">More of my work</span>
+      
+      <div class="work-grid">
+        <!-- Project 1 Card -->
+        <a href="btc.html" class="work-card nav-link">
+          <div class="card-media">
+            <img src="BTC-ProDisplay-middlebottom.png" alt="Project 2 Cover">
+          </div>
+          <div class="work-card-info">
+            <span class="work-card-title">FICO | Business Terms Capability</span>
+            <span class="work-card-subtitle">The backbone for building complex, unified data structures.</span>
+          </div>
+        </a>
+        <!-- Project 2 Card -->  
+        <a href="eg.html" class="work-card nav-link">
+          <div class="card-media">
+            <img src="aug10-EGMBA-dark.png" alt="Project 1 Cover">
+          </div>
+          <div class="work-card-info">
+            <span class="work-card-title">FICO | Experience Gateway (Day 0/1)</span>
+            <span class="work-card-subtitle">A seamless entry point for onboarding, feature exploration, and personalization</span>
+          </div>
+        </a>
+      </div>
+
+      <div class="contact-cta">
+        <h3>Let's Connect</h3>
+        <a href="mailto:levona.yim@gmail.com" class="email-btn">
+          <span>Say Hello!</span>
+          <span class="material-symbols-outlined" style="font-size:18px;">mail</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- FIXED GREEN BOTTOM BAR -->
+  <div class="bottom-bar"></div>
+
+  <!-- TRANSITION OVERLAY -->
+  <div class="transition-overlay" id="overlay">
+    <img src="me-wink.gif" alt="Transition Icon" class="overlay-logo">
+    <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+      <path d="M0,0 C720,120 720,120 1440,0 L1440,0 L0,0 Z" fill="#15521F"></path>
+    </svg>
+  </div>
+
+  <script>
+    // Show placeholder for broken/missing images
+    document.querySelectorAll('.media-frame img').forEach(img => {
+      img.addEventListener('error', () => {
+        img.closest('.media-frame').classList.add('img-missing');
+      }, { once: true });
+    });
+
+    // Scroll progress bar
+    const scrollProgressBar = document.getElementById('scrollProgressBar');
+    function updateScrollProgress() {
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      scrollProgressBar.style.width = progress + '%';
+    }
+    window.addEventListener('scroll', updateScrollProgress, { passive: true });
+    window.addEventListener('resize', updateScrollProgress);
+    updateScrollProgress();
+
+    // Navigation link transitions
+    const navLinks = document.querySelectorAll('.nav-link');
+    const overlay = document.getElementById('overlay');
+
+    // Clear the transition overlay whenever this page is shown,
+    // including when restored from the browser's back/forward cache.
+    window.addEventListener('pageshow', () => {
+      overlay.classList.remove('is-active');
+    });
+
+    navLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        const targetUrl = link.getAttribute('href');
+        if (targetUrl.startsWith('#')) return;
+        e.preventDefault();
+        overlay.classList.add('is-active');
+        setTimeout(() => { window.location.href = targetUrl; }, 1250);
+      });
+    });
+
+    // Active state toggling
+    document.addEventListener('DOMContentLoaded', () => {
+      const currentPath = window.location.pathname.split('/').pop() || 'btc.html';
+      document.querySelectorAll('nav a').forEach(link => {
+        const linkPath = link.getAttribute('href').split('#')[0].split('/').pop();
+        link.classList.toggle('active', linkPath === currentPath);
+      });
+    });
+
+    // Disable right-click context menu on all images and media containers
+    document.addEventListener('contextmenu', (event) => {
+      const isImageTarget = event.target.tagName === 'IMG' || 
+                            event.target.closest('.media-frame') || 
+                            event.target.closest('.card-media') || 
+                            event.target.closest('.card-image-wrapper');
+
+      if (isImageTarget) {
+        event.preventDefault();
+      }
+    });
+
+    // Prevent drag-to-save action on all images
+    document.addEventListener('dragstart', (event) => {
+      if (event.target.tagName === 'IMG') {
+        event.preventDefault();
+      }
+    });
+
+    // --- LIGHTBOX INTERACTIVITY FOR ALL MEDIA-FRAME IMAGES ON THE PAGE ---
+    document.addEventListener('DOMContentLoaded', () => {
+      const modal = document.getElementById('lightboxModal');
+      const modalImg = document.getElementById('lightboxImg');
+      const closeBtn = document.getElementById('lightboxClose');
+      const prevBtn = document.getElementById('lightboxPrev');
+      const nextBtn = document.getElementById('lightboxNext');
+
+      const gridFrames = Array.from(document.querySelectorAll('.media-frame'))
+          .filter(frame => frame.querySelector('img') && !frame.closest('.btc-hero'));
+      const images = gridFrames.map(frame => frame.querySelector('img'));
+
+      let currentIndex = 0;
+
+      function openLightbox(index) {
+        currentIndex = index;
+        modalImg.src = images[currentIndex].src;
+        modalImg.alt = images[currentIndex].alt || '';
+        modal.classList.add('is-open');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeLightbox() {
+        modal.classList.remove('is-open');
+        document.body.style.overflow = '';
+      }
+
+      function showNext() {
+        currentIndex = (currentIndex + 1) % images.length;
+        modalImg.src = images[currentIndex].src;
+        modalImg.alt = images[currentIndex].alt || '';
+      }
+
+      function showPrev() {
+        currentIndex = (currentIndex - 1 + images.length) % images.length;
+        modalImg.src = images[currentIndex].src;
+        modalImg.alt = images[currentIndex].alt || '';
+      }
+
+      gridFrames.forEach((frame, index) => {
+        frame.addEventListener('click', () => {
+          if (frame.classList.contains('img-missing')) return;
+          openLightbox(index);
+        });
+      });
+
+      closeBtn.addEventListener('click', closeLightbox);
+      nextBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        showNext();
+      });
+      prevBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        showPrev();
+      });
+
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeLightbox();
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (!modal.classList.contains('is-open')) return;
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowRight') showNext();
+        if (e.key === 'ArrowLeft') showPrev();
+      });
+    });
+
+    // --- BACK TO TOP BUTTON LOGIC ---
+    const backToTopBtn = document.getElementById('backToTopBtn');
+
+    function toggleBackToTopBtn() {
+      if (window.scrollY > 300) {
+        backToTopBtn.classList.add('is-visible');
+      } else {
+        backToTopBtn.classList.remove('is-visible');
+      }
+    }
+
+    // Fire once on load
+    toggleBackToTopBtn();
+
+    window.addEventListener('scroll', toggleBackToTopBtn, { passive: true });
+
+    if (backToTopBtn) {
+      backToTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      });
+    }
+  </script>
+
+  <script>
+    // --- IMAGE CAROUSEL LOGIC (isolated so it can't be blocked by unrelated script errors) ---
+    document.querySelectorAll('[data-carousel]').forEach((carousel) => {
+      const slides = Array.from(carousel.querySelectorAll('.carousel-track .media-frame'));
+      const dotsWrap = carousel.querySelector('.carousel-dots');
+      const prevBtn = carousel.querySelector('.carousel-prev');
+      const nextBtn = carousel.querySelector('.carousel-next');
+      if (!slides.length) return;
+
+      let current = slides.findIndex((slide) => slide.classList.contains('is-active'));
+      if (current === -1) current = 0;
+
+      const dots = slides.map((_, i) => {
+        const dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = 'carousel-dot';
+        dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+        dot.addEventListener('click', () => goTo(i));
+        dotsWrap.appendChild(dot);
+        return dot;
+      });
+
+      function goTo(index) {
+        slides[current].classList.remove('is-active');
+        dots[current].classList.remove('is-active');
+        current = (index + slides.length) % slides.length;
+        slides[current].classList.add('is-active');
+        dots[current].classList.add('is-active');
+      }
+
+      prevBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        goTo(current - 1);
+      });
+      nextBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        goTo(current + 1);
+      });
+
+      goTo(current);
+    });
+  </script>
+
+  <!-- LIGHTBOX MODAL -->
+  <div class="lightbox-modal" id="lightboxModal">
+    <div class="lightbox-content">
+      <button class="lightbox-btn lightbox-close" id="lightboxClose" aria-label="Close">&times;</button>
+      <button class="lightbox-btn lightbox-prev" id="lightboxPrev" aria-label="Previous">&lsaquo;</button>
+      <img src="" alt="Enlarged view" class="lightbox-img" id="lightboxImg">
+      <button class="lightbox-btn lightbox-next" id="lightboxNext" aria-label="Next">&rsaquo;</button>
+    </div>
+  </div>
+
+</body>
+</html>

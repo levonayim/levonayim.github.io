@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="me-faviconscaled.ico">
+  <title>Levona Yim - About Me</title>
+  <link href='https://fonts.googleapis.com/css?family=Roboto+Mono:wght@300;400;500;700&display=swap' rel='stylesheet'>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    :root {
+      --green: #15521F;
+      --green-lighter: #517A58;
+      --green-lighternav:#508500;
+      --bg-soft: #f5f5f5;
+      --bg-soft-2: #f7f7f7;
+      --text-main: #111111;
+      --text-muted: #666666;
+    }
+
+    body {
+      background-color: #FAFAFA;
+      min-height: 100vh;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-weight: 300;
+    }
+
+    /* --- PREVENT IMAGE DRAGGING & RIGHT-CLICK SAVE --- */
+    img {
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -o-user-select: none;
+      user-select: none;
+      -webkit-user-drag: none;
+      -webkit-touch-callout: none;
+    }
+
+    /* --- NAVIGATION --- */
+    nav {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 20px;
+      background: #ffffff;
+      padding: 12px 24px;
+      border-radius: 30px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      z-index: 100;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: color 0.2s ease, font-weight 0.2s ease;
+    }
+
+    nav a.active {
+      color: var(--green);
+      font-weight: 700;
+    }
+
+    nav a:hover{
+      color: var(--green-lighternav);
+    }
+
+    /* --- MAIN ABOUT CONTAINER --- */
+    .about-container {
+      width: 100%;
+      max-width: 800px;
+      padding: 120px 24px 100px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* --- HERO TITLE & 3D MAGNETIC INTERACTION (FROM INDEX.HTML) --- */
+    .interactive-title-wrap {
+      margin-bottom: 40px;
+      text-align: center;
+      width: 100%;
+    }
+
+    .interactive-title {
+      position: relative;
+      display: inline-block;
+      font-size: clamp(2.8rem, 8vw, 4.5rem);
+      font-weight: 900;
+      color: var(--green);
+      cursor: pointer;
+      user-select: none;
+      transform-style: preserve-3d;
+      transition: transform 0.1s ease-out;
+      margin: 0 auto;
+      text-align: center;
+      width: -webkit-fit-content;
+      width: -moz-fit-content;
+      width: fit-content;
+      max-width: 100%;
+      white-space: nowrap;
+    }
+
+    .main-text {
+      position: relative;
+      z-index: 20;
+      display: inline-flex;
+      color: var(--green);
+      -webkit-text-fill-color: var(--green);
+      -webkit-text-stroke: 0;
+      transform: translateZ(1px);
+    }
+
+    .char {
+      display: inline-block;
+      white-space: pre;
+      transition: transform 0.15s cubic-bezier(0.1, 1, 0.1, 1);
+    }
+
+    .layer-3d {
+      position: absolute;
+      inset: 0;
+      color: transparent;
+      -webkit-text-stroke: 1.5px var(--green);
+      pointer-events: none;
+      transition: transform 0.1s ease-out;
+      z-index: 1;
+    }
+
+    .l-1 { transform: translate3d(calc(var(--mx, 0) * -8px), calc(var(--my, 0) * -8px), -12px); opacity: 0.8; }
+    .l-2 { transform: translate3d(calc(var(--mx, 0) * -16px), calc(var(--my, 0) * -16px), -24px); opacity: 0.6; }
+    .l-3 { transform: translate3d(calc(var(--mx, 0) * -24px), calc(var(--my, 0) * -24px), -36px); opacity: 0.4; }
+    .l-4 { transform: translate3d(calc(var(--mx, 0) * -32px), calc(var(--my, 0) * -32px), -48px); opacity: 0.2; }
+
+    .interactive-title.is-typing {
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 4px solid var(--green);
+      margin: 0 auto;
+      max-width: 0;
+      animation: 
+        typing 1.2s steps(8, end) forwards,
+        blink 0.6s step-end infinite;
+    }
+
+    @keyframes typing {
+      from { max-width: 0; }
+      to { max-width: 100%; }
+    }
+
+    @keyframes blink {
+      from, to { border-color: transparent; }
+      50% { border-color: var(--green); }
+    }
+
+    /* --- WHITE ABOUT CARD --- */
+    .about-card {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 32px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .about-card-img {
+      width: 100%;
+      height: auto;
+      border-radius: 6px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .about-card-text {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      color: #333333;
+      font-size: 1.25rem;
+      line-height: 1.5;
+      font-weight: 400;
+      padding: 24px 0;
+
+    }
+
+    .about-card-text p {
+      margin: 0;
+    }
+
+    .text-link {
+      color: var(--green);
+      font-weight: 800;
+      transition: color 0.2s ease;
+      text-decoration: none;
+    }
+
+    .text-link:hover {
+      color: var(--green-lighter);
+      text-decoration: line-through;
+    }
+
+    /* --- FOOTER / CALL TO ACTION OUTSIDE CARD --- */
+    .about-footer {
+      width: 100%;
+      margin-top: 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .about-footer-title {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--green);
+      letter-spacing: -0.2px;
+    }
+
+    .about-footer-desc {
+      font-size: 1.15rem;
+      line-height: 1.5;
+      color: var(--text-main);
+      font-weight: 400;
+    }
+
+    .contact-link {
+      color: var(--green);
+      font-weight: 700;
+      text-decoration: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .contact-link:hover {
+      color: var(--green-lighter);
+      opacity: 0.8;
+      text-decoration: line-through;
+    }
+
+    /* --- FIXED GREEN BOTTOM BAR --- */
+    .bottom-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100vw;
+      height: 12px;
+      background-color: var(--green);
+      z-index: 999;
+      pointer-events: none;
+    }
+
+    /* --- TRANSITION OVERLAY --- */
+    .transition-overlay {
+      position: fixed;
+      top: -120%;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: var(--green);
+      z-index: 9999;
+      pointer-events: none;
+      transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .transition-overlay svg {
+      position: absolute;
+      bottom: -79px;
+      left: 0;
+      width: 100%;
+      height: 80px;
+      fill: var(--green);
+    }
+
+    .transition-overlay .overlay-logo {
+      width: 100px;
+      height: auto;
+      z-index: 2;
+      opacity: 0;
+      transition: opacity 0.25s ease 0.5s;
+    }
+
+    .transition-overlay.is-active .overlay-logo {
+      opacity: 1;
+    }
+
+    .transition-overlay.is-active {
+      transform: translateY(120%);
+    }
+
+    /* --- RESPONSIVE ADJUSTMENTS --- */
+    @media (max-width: 768px) {
+      .about-container {
+        padding: 100px 20px 80px 20px;
+      }
+      .about-card {
+        padding: 20px;
+      }
+      .about-footer-title {
+        font-size: 1.2rem;
+      }
+      .about-footer-desc {
+        font-size: 1.05rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      nav {
+        gap: 10px;
+        padding: 10px 16px;
+      }
+      nav a {
+        font-size: 0.72rem;
+        letter-spacing: 0.5px;
+      }
+    }
+
+    .divider {
+      width: 200px;
+      height: 1px;
+      background: #d6d6d6;
+      margin: 0 auto;
+    }
+
+    .divider-wrap {
+      display: flex;
+      justify-content: center;
+      padding: 24px 0;
+    }
+
+    /* --- MOBILE BREAKPOINT (< 768px) --- */
+    @media (max-width: 768px) {
+      .divider-wrap { padding: 16px 0 16px 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <a href="index.html">Work</a>
+    <a href="about.html" class="nav-link active">About</a>
+    <a href="https://drive.google.com/file/d/1kJueu5DaYzHI15e4sxursLuTW0hQqVcG/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="nav-link">Resume</a>
+  </nav>
+
+  <!-- MAIN ABOUT CONTENT -->
+  <main class="about-container">
+
+    <!-- 3D INTERACTIVE TITLE -->
+    <div class="interactive-title-wrap">
+      <div class="interactive-title is-typing" id="title-container">
+        <span class="layer-3d l-4">hello! :)</span>
+        <span class="layer-3d l-3">hello! :)</span>
+        <span class="layer-3d l-2">hello! :)</span>
+        <span class="layer-3d l-1">hello! :)</span>
+        <span class="main-text" id="magnetic-target">hello! :)</span>
+      </div>
+    </div>
+
+    <!-- WHITE CARD CONTENT -->
+    <div class="about-card">
+      <img src="meaboutme.png" alt="Levona Yim" class="about-card-img">
+
+      <div class="about-card-text">
+        <p>Hi! My name is Levona. Nice to meet you :)</p>
+
+        <p>I’m a Product Designer based in Vancouver, Canada. I have 7+ years of design experience in B2B enterprise software and user-centric B2C solutions.</p>
+
+        <p>Previously I was a Product Designer at <a href="https://kashoo.com/" class="text-link">FICO</a> for 4.5 years focusing on the data side of the FICO Platform. I’ve also worked at <a href="https://kashoo.com/" class="text-link">Kashoo</a>, <a href="https://www.keeyora.com/" class="text-link">Rectxt (now known as Keeyora)</a>, <a href="https://www.mothersmatter.ca/" class="text-link">Mothers Matter Centre</a>, <a href=https://www.surrey.ca/ class="text-link">City of Surrey</a>, and <a href="https://scentuals.com/" class="text-link">Scentuals Body Care</a>.</p>
+
+        <div class="divider-wrap"><div class="divider"></div></div>
+
+        <p>My journey started in chemistry, where I originally planned to pursue a career in food testing and laboratory research. After about a year in, I did some self-reflecting and research and realized chemistry is not something I’m passionate about and it was definitely not something I like to do for the rest of my life.</p>
+
+        <p>I did some exploring at my university, Simon Fraser University and found a graphic design course as an elective and ended up switching faculties. I embraced my passion for visual and product design and never looked back since.</p>
+
+        <div class="divider-wrap"><div class="divider"></div></div>
+
+        <p>Recently, I’ve been tinkering around and exploring the possibilities of artificial intelligence and how to utilize its positives into our workflow and expand new ideas.</p>
+
+        <p>I love to explore and experiment by being more hands-on and creating. I believe design is a way of thinking, as well as tool to communicate an idea to a broader audience. I’m passionate about finding solutions to real world problems, from complex social issues to improved experiences and services encountered in daily life.</p>
+
+        <p>On the side, I love drawing<a href="https://giphy.com/thefriendlycheeseboll" class="text-link"> cartoon stickers/gifs</a> (which you may have seen when you entered into this page or another page), and experimenting through vibe coding small apps. When I’m not designing, I enjoy lifting weights, hiking, and going on long walks.</p>
+      </div>
+    </div>
+
+    <!-- OUTSIDE BACKGROUND FOOTER TEXT -->
+    <div class="about-footer">
+      <h2 class="about-footer-title">I’m open to new opportunities!</h2>
+      <p class="about-footer-desc">
+        If you’re hiring, looking to collaborate, or just want to connect, send me a message via <a href="https://www.linkedin.com/in/levonayim/" target="_blank" rel="noopener noreferrer" class="contact-link">LinkedIn</a> or drop an <a href="mailto:levona.yim@gmail.com" class="contact-link">email</a>. :)
+      </p>
+    </div>
+
+  </main>
+
+  <!-- FIXED GREEN BOTTOM BAR -->
+  <div class="bottom-bar"></div>
+
+  <!-- TRANSITION OVERLAY -->
+  <div class="transition-overlay" id="overlay">
+    <img src="me-wink.gif" alt="Transition Icon" class="overlay-logo">
+    <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+      <path d="M0,0 C720,120 720,120 1440,0 L1440,0 L0,0 Z" fill="#15521F"></path>
+    </svg>
+  </div>
+
+  <script>
+    // --- 1. INTERACTIVE TYPOGRAPHY & MAGNETIC EFFECT (FROM INDEX.HTML) ---
+    const titleContainer = document.getElementById('title-container');
+    const target = document.getElementById('magnetic-target');
+    const text = target.textContent;
+    target.innerHTML = '';
+
+    const chars = [...text].map(char => {
+      const span = document.createElement('span');
+      span.classList.add('char');
+      span.innerText = char === ' ' ? '\u00A0' : char;
+      target.appendChild(span);
+      return span;
+    });
+
+    setTimeout(() => {
+      titleContainer.classList.remove('is-typing');
+    }, 1200);
+
+    document.addEventListener('mousemove', (e) => {
+      const { innerWidth, innerHeight } = window;
+
+      const x = (e.clientX - innerWidth / 2) / (innerWidth / 2);
+      const y = (e.clientY - innerHeight / 2) / (innerHeight / 2);
+
+      const rotateX = -y * 20;
+      const rotateY = x * 20;
+
+      titleContainer.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      titleContainer.style.setProperty('--mx', x);
+      titleContainer.style.setProperty('--my', y);
+
+      chars.forEach(span => {
+        const charRect = span.getBoundingClientRect();
+        const charCenterX = charRect.left + charRect.width / 2;
+        const charCenterY = charRect.top + charRect.height / 2;
+
+        const distX = e.clientX - charCenterX;
+        const distY = e.clientY - charCenterY;
+        const distance = Math.hypot(distX, distY);
+        const maxDistance = 90;
+
+        if (distance < maxDistance) {
+          const power = (1 - distance / maxDistance) * 25;
+          const moveX = -(distX / distance) * power;
+          const moveY = -(distY / distance) * power;
+          span.style.transform = `translate(${moveX}px, ${moveY}px) scale(1.15)`;
+        } else {
+          span.style.transform = `translate(0px, 0px) scale(1)`;
+        }
+      });
+    });
+
+    document.addEventListener('mouseleave', () => {
+      titleContainer.style.transform = `rotateX(0deg) rotateY(0deg)`;
+      titleContainer.style.setProperty('--mx', 0);
+      titleContainer.style.setProperty('--my', 0);
+      chars.forEach(span => {
+        span.style.transform = `translate(0px, 0px) scale(1)`;
+      });
+    });
+
+    // --- 2. PAGE TRANSITION OVERLAY HANDLER ---
+    const navLinks = document.querySelectorAll('.nav-link');
+    const overlay = document.getElementById('overlay');
+
+    // Clear the transition overlay whenever this page is shown,
+    // including when restored from the browser's back/forward cache.
+    window.addEventListener('pageshow', () => {
+      overlay.classList.remove('is-active');
+    });
+
+    navLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        const targetUrl = link.getAttribute('href');
+        if (!targetUrl || targetUrl.startsWith('#') || link.target === '_blank') return;
+        
+        e.preventDefault();
+        overlay.classList.add('is-active');
+
+        setTimeout(() => {
+          window.location.href = targetUrl;
+        }, 1250);
+      });
+    });
+
+    // --- 3. ACTIVE NAV HIGHLIGHTING ---
+    document.addEventListener('DOMContentLoaded', () => {
+      const currentPath = window.location.pathname.split('/').pop() || 'about.html';
+      document.querySelectorAll('nav a').forEach(link => {
+        const linkPath = link.getAttribute('href').split('#')[0].split('/').pop();
+        link.classList.toggle('active', linkPath === currentPath);
+      });
+    });
+
+    // --- 4. PREVENT MEDIA RIGHT-CLICK & DRAG ---
+    document.addEventListener('contextmenu', (e) => {
+      if (e.target.tagName === 'IMG') e.preventDefault();
+    });
+    document.addEventListener('dragstart', (e) => {
+      if (e.target.tagName === 'IMG') e.preventDefault();
+    });
+  </script>
+</body>
+</html>

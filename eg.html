@@ -1,0 +1,1628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="me-faviconscaled.ico">
+  <title>Levona Yim - FICO | Experience Gateway (Day 0/1)</title>
+  <link href='https://fonts.googleapis.com/css?family=Roboto Mono' rel='stylesheet'>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: "SF Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    :root {
+      --green: #15521F;
+      --green-lighter:#508500;
+      --accent: #E4FD02;
+      --accent-darker: #ACBF00;
+      --bg-soft: #f5f5f5;
+      --bg-soft-2: #f7f7f7;
+      --text-main: #111111;
+      --text-muted: #666666;
+      --content-w: 720px;
+      --wide-w: 1320px;
+      --side-pad: clamp(24px, 8vw, 395px);
+    }
+
+    body {
+      background-color: #FFFFFF;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* --- PREVENT IMAGE DRAGGING & RIGHT-CLICK SAVE --- */
+    img {
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -o-user-select: none;
+      user-select: none;
+      -webkit-user-drag: none;
+      -webkit-touch-callout: none; /* Disables long-press context menu on iOS */
+    }
+
+/* Forces right-clicks on portfolio media frames to hit the container instead of the image */
+.media-frame img,
+.card-media img,
+.card-image-wrapper img {
+  pointer-events: none;
+}
+
+    /* --- NAVIGATION (shared with site) --- */
+    nav {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 20px;
+      background: #ffffff;
+      padding: 12px 24px;
+      border-radius: 30px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      z-index: 100;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: color 0.2s ease, font-weight 0.2s ease;
+    }
+
+    nav a.active {
+      color: var(--green);
+      font-weight: 700;
+    }
+
+    nav a:hover{
+      color: var(--green-lighter);
+    }
+
+    .inner-links{
+      font-weight: 500;
+      text-decoration: none;
+      color: var(--accent-darker);
+    }
+
+    .inner-links:hover{
+      font-weight: 500;
+      text-decoration: line-through;
+      color: var(--accent-darker);
+    }
+
+    /* --- FIXED GREEN BOTTOM BAR (shared with site) --- */
+    .bottom-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100vw;
+      height: 12px;
+      background-color: var(--green);
+      z-index: 999;
+      pointer-events: none;
+    }
+
+    /* --- SCROLL PROGRESS BAR --- */
+    .scroll-progress-track {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 5px;
+      background-color: #e5e5e5;
+      z-index: 1000;
+      pointer-events: none;
+    }
+    .scroll-progress-bar {
+      height: 100%;
+      width: 0%;
+      background-color: var(--accent);
+      transition: width 0.08s linear;
+    }
+
+    /* --- TRANSITION OVERLAY (shared with site) --- */
+    .transition-overlay {
+      position: fixed;
+      top: -120%;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: var(--green);
+      z-index: 9999;
+      pointer-events: none;
+      transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .transition-overlay svg {
+      position: absolute;
+      bottom: -79px;
+      left: 0;
+      width: 100%;
+      height: 80px;
+      fill: var(--green);
+    }
+    .transition-overlay .overlay-logo {
+      width: 100px;
+      height: auto;
+      z-index: 2;
+      opacity: 0;
+      transition: opacity 0.25s ease 0.5s;
+    }
+    .transition-overlay.is-active .overlay-logo { opacity: 1; }
+    .transition-overlay.is-active { transform: translateY(120%); }
+
+    /* --- HERO IMAGE --- */
+    .btc-hero {
+      width: 100%;
+      background: var(--bg-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 10px;
+    }
+    .btc-hero .media-frame {
+      width: 100%;
+      max-height: 90vh;
+      cursor: default;
+    }
+    .btc-hero img { max-height: 90vh; }
+
+    /* --- ESTIMATED READ TIME BADGE --- */
+    .read-time-badge {
+      display: inline-block;
+      background-color: var(--accent);
+      color: var(--text-main);
+      font-size: 0.85rem;
+      font-weight: 300;
+      padding: 6px 16px;
+      border-radius: 48px;
+      margin: 0 auto;
+      text-align: center;
+      width: fit-content;
+    }
+
+    .header-top-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* --- IMAGE PLACEHOLDER SYSTEM (ORIGINAL DESKTOP) --- */
+    .media-frame {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .media-frame img {
+      width: 50%;
+      margin: auto;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.2s ease;
+    }
+    .media-frame:hover img {
+      transform: scale(1.02);
+    }
+    .media-frame.img-missing {
+      cursor: default;
+    }
+    .media-frame.img-missing:hover img {
+      transform: none;
+    }
+    .media-frame.img-missing {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background:
+        repeating-linear-gradient(45deg, #ececec 0 12px, #f4f4f4 12px 24px);
+      border: 1px dashed #c9c9c9;
+    }
+    .media-frame.img-missing img { display: none; }
+    .media-frame.img-missing::after {
+      content: attr(data-label);
+      font-family: "Roboto Mono", monospace;
+      font-size: 0.8rem;
+      color: #9a9a9a;
+      text-align: center;
+      padding: 0 20px;
+    }
+
+    .largerimage img{
+      width: 80% !important;
+    }
+
+    /* --- SECTION SHELLS --- */
+    .section {
+      width: 100%;
+      padding: 80px var(--side-pad);
+    }
+    .section.tight { padding-top: 48px; padding-bottom: 48px; }
+    .section.roomy { padding-top: 80px; padding-bottom: 80px; }
+    .section.roomiest { padding-top: 160px; padding-bottom: 160px; }
+    .section-inner {
+      max-width: var(--content-w);
+      margin: 0 auto;
+    }
+    .section.on-blue {
+      background: var(--accent);
+      color: var(--text-main);
+    }
+    .section.on-gradient {
+      background: conic-gradient(
+        from 0deg,
+        #D766BF 0%,
+        #EF6589 17%,  /* 100% - 83% */
+        #C066F6 31%,  /* 100% - 69% */
+        #77E2FD 66%,  /* 100% - 34% */
+        #E8B085 79%,  /* 100% - 21% */
+        #D766BF 100%
+      );
+      color:#1E1E1E
+    }
+
+    .section.on-black {
+      background: #1E1E1E;
+      color: #fff;
+    }
+    .consider-row {
+      margin-bottom: 1.25rem;
+    }
+
+    .section.on-soft {
+      background: var(--bg-soft);
+    }
+
+    .eyebrow {
+      font-weight: 200;
+      font-size: 1rem;
+      letter-spacing: 0.5px;
+      color: inherit;
+      margin-bottom: 0;
+      display: block;
+    }
+
+    /* --- HEADER BLOCK --- */
+    .btc-title {
+      font-size: clamp(1.6rem, 2.6vw, 2rem);
+      font-weight: 700;    /* Bold */
+      font-stretch: 125%;  /* Expanded */
+      letter-spacing: -0.32px;
+      color: #000;
+      text-align: center;
+      line-height: 1.3;
+      margin-bottom: 64px;
+    }
+
+    .btc-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-bottom: 64px;
+    }
+    .btc-meta .meta-col {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      min-width: 160px;
+      flex: 1;
+    }
+    .btc-meta .meta-label {
+      font-weight: 700;
+      font-size: 1rem;
+      color: #000;
+    }
+    .btc-meta .meta-value,
+    .btc-meta .meta-value p {
+      font-weight: 400;
+      font-size: 1rem;
+      color: #000;
+      line-height: 1.5;
+    }
+
+    .tldr-box {
+      border: 1px dashed var(--accent-darker);
+      border-radius: 4px;
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      align-items: flex-start;
+    }
+    .tldr-box .tldr-label {
+      font-family: "Roboto Mono", monospace;
+      font-weight: 700;
+      font-size: 1rem;
+    }
+    .tldr-box p {
+      font-size: 1rem;
+      line-height: 1.5;
+      color: #000;
+    }
+    .tldr-box .highlight { 
+      color: #000;
+      font-weight: 700;
+    }
+
+    .project-top { 
+      text-align: center;
+      font-size: 1rem;
+      letter-spacing: 0.5px;
+    }
+
+    /* --- BODY TEXT --- */
+    .body-copy {
+      font-size: 1.35rem;
+      line-height: 1.35;
+      font-weight: 300;
+      color: #000;
+    }
+    .body-copy p + p { margin-top: 1em; }
+    .body-copy strong, .body-copy b { font-weight: 600; }
+
+    .divider {
+      width: 200px;
+      height: 1px;
+      background: #d6d6d6;
+      margin: 0 auto;
+    }
+    .divider-wrap {
+      display: flex;
+      justify-content: center;
+      padding: 80px 0;
+    }
+
+    .backstory-title {
+      display: flex;
+      justify-content: center;
+      padding: 40px 0 80px 0;
+    }
+
+    .backstory-title h3{
+      font-family: "JetBrains Mono", monospace !important;
+    }
+
+    ul.styled, ol.styled {
+      padding-left: 32px;
+      padding-top: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      font-size: 1.35rem;
+      line-height: 1.35;
+      font-weight: 300;
+      color: #000;
+    }
+
+    .on-black ul.styled, .on-black ol.styled { 
+      padding: 0 32px !important;
+      display: flex;
+      flex-direction: column;
+      font-size: 1.35rem;
+      font-weight: 300;
+      color: #fff;
+    }
+
+
+    .on-gradient ul.styled, .on-gradient ol.styled { color: #1E1E1E }
+
+    .on-blue ul.styled, .on-blue ol.styled { color: #fff; }
+    ul.styled li .li-body, ol.styled li .li-body { font-weight: 200; }
+
+    /* --- OVERVIEW / CONTRIBUTION --- */
+    .stack-8 { display: flex; flex-direction: column; gap: 8px; }
+    .stack-16 { display: flex; flex-direction: column; gap: 16px; }
+    .stack-24 { display: flex; flex-direction: column; gap: 24px; }
+    .stack-48 { display: flex; flex-direction: column; gap: 48px; }
+    .stack-56 { display: flex; flex-direction: column; gap: 56px; }
+
+    /* --- IMPACT GRID --- */
+    .impact-grid {
+      display: flex;
+      justify-content: space-between;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+    .impact-item {
+      flex: 1 1 260px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .impact-item h3 {
+      font-size: 1.35rem;
+      font-weight: 600;
+    }
+    .impact-item p {
+      font-size: 1.1rem;
+      line-height: 1.5;
+    }
+
+    .triple-image img{
+      width: 100% !important;
+    }
+
+    /* --- PROCESS PHASES --- */
+    .phase-title {
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 0.5px;
+      display: block;
+    }
+
+    .gif-caption {
+      color: #000;
+      text-align: center;
+      margin: 8px auto;
+      font-weight: 300;
+      font-size: 0.75rem;
+      width: 50%;
+      display: block;
+    }
+
+    .quote-line {
+      font-style: italic;
+    }
+
+    /* --- MEDIA GRIDS --- */
+    .media-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 24px;
+      padding: var(--side-pad);
+      background: #fff;
+    }
+
+    .media-grid .media-frame {
+      flex: 1 1 calc((100% - 72px) / 4);
+      max-width: calc((100% - 72px) / 4);
+      min-width: 240px;
+      aspect-ratio: 4 / 3;
+      background: var(--bg-soft);
+      cursor: pointer;
+    }
+
+    .media-grid .media-frame img {
+      width: 100%;
+      height: auto;
+      transition: transform 0.2s ease;
+    }
+
+    .media-grid .media-frame:hover img {
+      transform: scale(1.02);
+    }
+
+    .less-spacing {
+      padding: 40px 80px !important;
+    }
+
+    .adjust-for-gif {
+      padding: 40px 80px 80px 80px !important;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    /* --- LIGHTBOX MODAL STYLES --- */
+    .lightbox-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.88);
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .lightbox-modal.is-open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .lightbox-content {
+      position: relative;
+      max-width: 90vw;
+      max-height: 85vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lightbox-img {
+      max-width: 100%;
+      max-height: 85vh;
+      object-fit: contain;
+      border-radius: 4px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .lightbox-btn {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.15);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      font-size: 28px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+      transition: background 0.2s ease, transform 0.2s ease;
+      backdrop-filter: blur(4px);
+    }
+
+    .lightbox-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(1.08);
+    }
+
+    .lightbox-close {
+      top: -60px;
+      right: 0;
+    }
+
+    .lightbox-prev {
+      left: -70px;
+    }
+
+    .lightbox-next {
+      right: -70px;
+    }
+
+    .media-row {
+      display: flex;
+      gap: 24px;
+      padding: 24px var(--side-pad);
+      flex-wrap: wrap;
+    }
+
+    /* --- FULL-WIDTH MEDIA CONTAINER (ORIGINAL DESKTOP SPEC) --- */
+    .media-full {
+      padding: 1rem 0;
+      background: var(--bg-soft);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .first-double-image {
+      background-color: #F1FFEF !important;
+    }
+
+    .media-full .media-frame {
+      width: 100%;
+      max-height: 840px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .media-full .media-frame img {
+      width: 90%;
+      height: auto;
+      max-height: 840px;
+    }
+
+    .media-full-frame .media-frame img {
+      width: 100%;
+      height: auto;
+      max-height: 840px;
+    }
+
+    /* --- FIGMA EMBED WRAPPER --- */
+    .figma-container {
+      width: 100%;
+      margin: 0 auto;
+      padding: 0;
+    }
+
+    .figma-frame {
+      position: relative;
+      width: 100%;
+      height: 680px;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .figma-frame iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* --- 2x2 SQUARE GRID LAYOUT --- */
+    .two-by-two-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 24px;
+    }
+
+    .two-by-two-grid .media-frame {
+      min-width: 280px;
+      aspect-ratio: 2 / 1;
+      background-color: #F5F5F5;
+      max-height: calc(100vw * 0.35 - 6rem);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .two-by-two-grid .media-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    /* --- 3-UP THEN 2-UP GRID LAYOUT --- */
+    .three-row-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 24px;
+    }
+
+    .three-row-grid .media-frame {
+      flex: 0 0 calc((100% - 48px) / 3);
+      max-width: calc((100% - 48px) / 3);
+      min-width: 240px;
+      aspect-ratio: 4 / 3;
+      background-color: #ffffff;
+    }
+
+    /* --- 4-UP THEN 4-UP GRID LAYOUT --- */
+    .four-row-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .four-row-grid .media-frame {
+      flex: 0 0 calc((100% - 36px) / 4);
+      max-width: calc((100% - 36px) / 4);
+      min-width: 240px;
+      aspect-ratio: 4 / 3;
+    }
+
+    /* --- FOOTER: MORE WORK & CONTACT --- */
+    .footer-section {
+      background-color: var(--bg-soft-2);
+      border-top: 1px solid #e0e0e0;
+      padding: 100px var(--side-pad) 120px var(--side-pad);
+    }
+
+    .footer-section .footer-inner {
+      max-width: var(--wide-w);
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 48px;
+    }
+
+    .footer-heading {
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 0.5px;
+      color: #000;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .work-grid {
+      display: flex;
+      gap: 32px;
+      justify-content: center;
+    }
+
+    .work-card {
+      flex: 1;
+      max-width: 500px;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      cursor: pointer;
+    }
+
+    .work-card .card-media {
+      background: #F0F0F0;
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+      border-radius: 4px;
+    }
+
+    /* GRADIENT OVERLAY HOVER FROM INDEX.HTML */
+    .work-card:hover .card-media {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      background: 
+        radial-gradient(circle at 10% 20%, rgba(80, 220, 255, 0.85) 0%, transparent 50%),
+        radial-gradient(circle at 80% 25%, rgba(185, 80, 255, 0.85) 0%, transparent 55%),
+        radial-gradient(circle at 50% 60%, rgba(255, 100, 200, 0.8) 0%, transparent 50%),
+        radial-gradient(circle at 85% 85%, rgba(255, 80, 80, 0.9) 0%, transparent 50%),
+        radial-gradient(circle at 20% 90%, rgba(255, 150, 80, 0.85) 0%, transparent 50%),
+        #e0f2fe;
+    }
+
+    .work-card .card-media img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      transform: scale(1);
+      transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .work-card:hover .card-media img {
+      transform: scale(1.15);
+    }
+
+    .work-card-info {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .work-card-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #000;
+    }
+
+    .work-card-subtitle {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      font-weight: 300;
+    }
+
+    .contact-cta {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .contact-cta h3 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #000;
+    }
+
+    .email-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background-color: #ffffff;
+      color: var(--green);
+      border: 2px solid var(--green);
+      padding: 14px 28px;
+      border-radius: 40px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+    }
+
+    .email-btn:hover {
+      background-color: var(--green);
+      color: #ffffff;
+      transform: translateY(-2px);
+    }
+
+    /* ==========================================================
+       RESPONSIVE BREAKPOINTS (TABLET, MOBILE & VERY LARGE SCREENS)
+       ========================================================== */
+
+    /* --- VERY LARGE / ULTRA-WIDE SCREENS (> 1600px) --- */
+    @media (min-width: 1600px) {
+      :root {
+        --side-pad: clamp(120px, 15vw, 450px);
+      }
+      .media-full .media-frame img {
+        width: 85%;
+        max-height: 900px;
+      }
+    }
+
+    /* --- TABLET BREAKPOINT (769px to 1024px) --- */
+    @media (min-width: 769px) and (max-width: 1024px) {
+      :root {
+        --side-pad: 48px;
+      }
+      .section { padding-left: 48px; padding-right: 48px; }
+      .less-spacing, .adjust-for-gif { padding: 40px !important; }
+      
+      .media-full {
+        flex-direction: row;
+        gap: 16px;
+      }
+      .media-full .media-frame img {
+        width: 95%;
+      }
+
+      .two-by-two-grid .media-frame {
+        flex: 1 1 calc(50% - 24px);
+        max-height: 320px;
+      }
+
+      .figma-frame {
+        height: 520px;
+      }
+    }
+
+    /* --- MOBILE BREAKPOINT (< 768px) --- */
+    @media (max-width: 768px) {
+      .btc-hero .media-frame { width: 100%; }
+      .btc-hero .media-frame img { width: 100%; }
+      .btc-meta { flex-direction: column; }
+      .impact-grid { flex-direction: column; gap: 20px;}
+      .section { padding-left: 20px; padding-right: 20px; }
+      .section.roomy { padding-top: 60px; padding-bottom: 60px; }
+      .section.roomiest { padding-top: 48x; padding-bottom: px; }
+      .section.tight { padding-top: 48px; padding-bottom: 48px; }
+      .media-row { flex-direction: column; }
+      .tldr-box { padding: 20px; }
+      .divider-wrap { padding: 60px 0 30px 0; }
+      ul.styled, ol.styled { gap: 1.25rem; padding-left: 20px; }
+      .impact-item { flex: 1 1 80px;}
+
+      /* Mobile Image Stacking & Frame Resizing */
+      .media-frame img {
+        width: 100%;
+      }
+
+      .media-full {
+        flex-direction: column;
+        padding: 24px 16px;
+        gap: 20px;
+      }
+
+      .media-full .media-frame img {
+        width: 100%;
+        max-height: none;
+      }
+
+      .section.on-blue {
+        background: var(--accent);
+        color: var(--text-main);
+        padding-top: 64px;
+        padding-bottom: 64px;
+      }
+
+      .less-spacing, .adjust-for-gif {
+        padding: 24px 16px !important;
+      }
+
+      .gif-caption {
+        width: 90%;
+        font-size: 0.8rem;
+      }
+
+      .figma-frame {
+        height: 400px;
+      }
+
+      .two-by-two-grid .media-frame {
+        flex: 1 1 100%;
+        max-width: 100%;
+        aspect-ratio: 16 / 9;
+        max-height: none;
+      }
+
+      .three-row-grid .media-frame,
+      .four-row-grid .media-frame {
+        flex: 1 1 100%;
+        max-width: 100%;
+      }
+
+      /* Footer Mobile Stack */
+      .work-grid {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .footer-section {
+        padding: 60px 20px 100px 20px;
+      }
+
+      /* Lightbox Mobile Adjustments */
+      .lightbox-prev { left: 10px; }
+      .lightbox-next { right: 10px; }
+      .lightbox-close { top: 10px; right: 10px; }
+    }
+
+    /* --- SMALL MOBILE (< 480px) --- */
+    @media (max-width: 480px) {
+      nav {
+        gap: 10px;
+        padding: 10px 16px;
+      }
+      nav a {
+        font-size: 0.72rem;
+        letter-spacing: 0.5px;
+      }
+      .btc-title { margin-bottom: 36px; }
+      .btc-meta { margin-bottom: 36px; }
+    }
+
+    /* --- BACK TO TOP BUTTON --- */
+    #backToTopBtn {
+      position: fixed;
+      bottom: 32px; /* Clears the 12px bottom bar */
+      right: 28px;
+      z-index: 1001; /* Places it above page content and scroll progress bar */
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background-color: var(--green);
+      color: #ffffff;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      
+      /* Hidden state */
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(10px);
+      transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease, background-color 0.2s ease;
+    }
+
+    #backToTopBtn.is-visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    #backToTopBtn:hover {
+      background-color: var(--accent-darker, #114218); /* Adjusts on hover */
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="scroll-progress-track">
+    <div class="scroll-progress-bar" id="scrollProgressBar"></div>
+  </div>
+
+  <nav>
+    <a href="index.html">Work</a>
+    <a href="about.html" class="nav-link">About</a>
+    <a href="https://drive.google.com/file/d/1kJueu5DaYzHI15e4sxursLuTW0hQqVcG/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="nav-link">Resume</a>
+  </nav>
+
+  <!-- HERO IMAGE -->
+  <section class="btc-hero">
+    <div class="media-frame">
+      <img src="aug10-EGMBA-dark.png" alt="Experience Gateway dashboard on laptop display">
+    </div>
+  </section>
+
+  <!-- HEADER: TITLE / META / TL;DR -->
+  <section class="section">
+    <div class="section-inner stack-24">
+      <span class="project-top">Day 0 / 1 - Experience Gateway</span>
+      <span class="read-time-badge">Estimated: 5-8 min read</span>
+      <h1 class="btc-title">Designing the universal entry point of a complex enterprise ecosystem</h1>
+
+      <div class="btc-meta">
+        <div class="meta-col">
+          <span class="meta-label">Timeline</span>
+          <span class="meta-value">2023–2025</span>
+        </div>
+        <div class="meta-col">
+          <span class="meta-label">Role</span>
+          <span class="meta-value">Lead Product Designer</span>
+        </div>
+        <div class="meta-col">
+          <span class="meta-label">Team</span>
+          <div class="meta-value">
+            <p>Product Managers</p>
+            <p>VP of Architecture</p>
+            <p>Front-End Architect</p>
+            <p>Engineering Team</p>
+            <p>Solution Architect</p>
+            <p>Product Designer</p>
+            <p>UX Researchers</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="tldr-box">
+        <span class="tldr-label">TL;DR</span>
+        <p>As the primary entry point for all <a href="https://www.fico.com/en/fico-platform" target="_blank" class="inner-links">FICO Platform</a> archetypes, the <span class="highlight">Day 0 / Day 1 Experience Gateway</span> sets the baseline experience. Following a week-long discovery workshop in Los Angeles, I synthesized complex backend requirements into clean Day 0 (provisioning) and Day 1 (active task) flows for platform administrators. By translating dense technical setup into intuitive, role-based dashboards, I reignited project momentum and delivered a frictionless onboarding experience.</p>
+      </div>
+  </section>
+
+  <!-- FULL DOUBLE IMAGE -->
+  <div class="media-full first-double-image">
+    <div class="media-frame">
+      <img src="eg/EGPortfolio Images - Full Width.png" alt="Experience Gateway dashboard screen">
+    </div>
+  </div>
+
+  <!-- OVERVIEW + MY CONTRIBUTION -->
+  <section class="section roomy">
+    <div class="section-inner stack-56">
+      <div class="stack-16">
+        <span class="eyebrow" style="color:#000;">overview</span>
+        <div class="body-copy">
+          <p><strong>The Experience Gateway</strong> serves as the central entry point for every user archetype on the <a href="https://www.fico.com/en/fico-platform" target="_blank" class="inner-links">FICO Platform's</a>. Its primary objective is to onboard new users smoothly while simplifying daily tasks for returning power users. However, given its high traffic and broad scope, the gateway risks overwhelming users if role-specific value is not prioritized.</p>
+          <p>To solve this, the gateway must first address Platform Administrators, who are the prerequisite for all downstream users. <em>Without seamless admin provisioning and schema migration, no other user archetypes can access or configure their workspaces.</em></p>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="stack-16">
+        <span class="eyebrow" style="color:#000;">my contribution</span>
+        <div class="body-copy">
+        <p>Following a one-week platform discovery workshop in Los Angeles, project momentum stalled as teams decentralized. To drive progress, I:</p>
+        
+      </div>
+      <ul class="styled">
+        <li>Re-aligned cross-functional teams by independently establishing clear next steps.</li>
+        <li>Translated complex backend context into foundational Day 0 and Day 1 user flows.</li>
+        <li>Designed the end-to-end user provisioning and administrative onboarding experience from scratch.</li>
+        <li>Designed role-based homepage dashboards evaluated at FICO World 2025.</li>
+      </ul>
+    </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- IMPACT -->
+  <section class="section on-blue roomiest">
+    <div class="section-inner" style="max-width: var(--wide-w);">
+      <div class="stack-24">
+      <span class="eyebrow">impact</span>
+        <div class="impact-grid">
+          <div class="impact-item">
+            <h3>Unblocked Stagnation</h3>
+            <p>Translated dense technical notes into visual flows that aligned decentralized teams post-workshop.</p>
+          </div>
+          <div class="impact-item">
+            <h3>Frictionless Provisioning</h3>
+            <p>Streamlined complex, manual group migrations for client admins.</p>
+          </div>
+          <div class="impact-item">
+            <h3>Role-Tailored Dashboards</h3>
+            <p>Created customized gateways for Service Creators, Business Analysts, and Solution Creators.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<div class="divider-wrap"><div class="divider"></div></div>
+<div class="backstory-title">
+  <h3>the backstory</h3>
+</div>
+
+  <!-- PROBLEM -->
+  <section class="section">
+    <div class="section-inner stack-16">
+      <span class="eyebrow" style="color:#000;">problem</span>
+      <div class="stack-24">
+        <div class="body-copy">
+          <p>High-traffic homepages often overwhelm users with role-irrelevant data, making a clear entry point essential. Due to initial release constraints, the team prioritized manual admin setup to establish core access control rather than building automated sales pipeline ingestion.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- FULL SIZE IMAGE: WORKSHOP -->
+  <div class="media-full-frame">
+    <div class="media-frame">
+      <img src="eg/LAWorkshop.jpg" alt="Discovery workshop in Los Angeles">
+    </div>
+  </div>
+
+<!-- PROCESS: PHASE 1 -->
+  <section class="section roomy">
+    <div class="section-inner stack-16">
+      <span class="eyebrow" style="color:#000;">process</span>
+
+      <div class="stack-16">
+        <span class="phase-title">Phase 1 — Discovery Workshop Synthesis</span>
+
+        <div class="stack-24">
+          <div class="body-copy">
+            <p>This initiative began with an intensive workshop in Los Angeles as our VP of Architecture brought together our internal team and a partner design agency to dissect the friction points of FICO's legacy Decision Management Platform (DMP) and the kickoff to the new FICO Platform.</p>
+          </div>
+
+          <ul class="styled">
+            <li><strong>Focus &amp; Priority</strong> — Defined the foundational Day 0 and Day 1 onboarding user journey.</li>
+            <li><strong>Stakeholders</strong> — Partnered with Solutions Architects and leadership to define and understand our primary target archetypes and their needs.</li>
+            <li><strong>Task</strong> — Map the primary archetype's user journey, list key Jobs-to-be-Done, and design the experience to ensure immediate product value on day one.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MEDIA GRID: PHASE 1 WORKSHOP 3 PHOTOS -->
+  <div class="media-grid less-spacing three-row-grid">
+    <div class="media-frame"><img src="eg/notepad2.png" alt="Discovery workshop photo 1"></div>
+    <div class="media-frame"><img src="eg/notepad3.png" alt="Discovery workshop photo 2"></div>
+    <div class="media-frame"><img src="eg/notepad1.png" alt="Discovery workshop photo 3"></div>
+  </div>
+
+  <section class="section">
+    <div class="section-inner body-copy">
+      <p>During the workshop, the VP of Architecture established our <strong>primary target audience</strong> for the initial release would be the <strong>Platform Administrators on both the FICO and client side</strong>, which then became the main focus for the designs.</p>
+      <p>Admins were the foundation of the ecosystem; without them successfully migrating and importing data, other user archetypes couldn't use the platform at all.</p>
+    </div>
+    
+  </section>
+   <!-- MEDIA PHOTOS -->  
+    <div class="media-frame largerimage">
+        <img src="eg/day0UF.png" alt="Admin journey map and jobs-to-be-done diagram">
+       <span class="gif-caption">User flow for Admins to provision users into the FICO Platform</span>
+    </div>
+
+
+  <div class="divider-wrap"><div class="divider"></div></div>
+
+  <!-- FIGMA -->
+  <div class="media-grid less-spacing three-row-grid">
+    <div class="figma-container">
+      <div class="figma-frame">
+        <iframe 
+          src="https://www.figma.com/embed?embed_host=share&url=https://www.figma.com/board/mm8JMvMaFJYcgseN5fgxot/Day-01-User-Journey-Flows?node-id=148-1510&t=QAc0tnpoF4o8LelI-4&hide-ui=1"
+          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" allowfullscreen>
+        </iframe>
+      </div>
+      <span class="gif-caption">My inital take on the Admin user flows</span>
+    </div>
+  </div>
+
+  <!-- PROCESS: PHASE 2 -->
+  <section class="section roomy">
+    <div class="section-inner stack-16">
+
+      <div class="stack-16">
+        <span class="phase-title">Phase 2 — Post-Workshop Synthesis</span>
+
+        <div class="stack-24">
+          <div class="body-copy">
+            <p>Following the Los Angeles workshop, the team temporarily dispersed back to their day-to-day projects.</p>
+            <p>Recognizing the tight timeline and high stakes of the initiative, I took the initiative to map out an initial end-to-end flow. I knew that having a tangible baseline, even an early draft, would serve as a conversation starter to reignite our momentum.</p>
+            <p>Using low-fidelity sketches, I brought a concrete visual starting point to our Product Manager to reignite the product definition phase.</p>
+            <p>Together, we translated these early flows into a structured list of core user journeys, categorizing features from the very beginning of the FICO Admin user journey, to the Client's Admin's user journey, to each archetype's landing page and what they would see. We prioritized immediate product needs versus future enhancements.</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  <!-- FIGMA -->
+  <div class="media-grid less-spacing three-row-grid">
+    <div class="figma-container">
+      <div class="figma-frame">
+        <iframe 
+          src="https://www.figma.com/embed?embed_host=share&url=https://www.figma.com/board/mm8JMvMaFJYcgseN5fgxot/Day-01-User-Journey-Flows?node-id=1-2&t=QAc0tnpoF4o8LelI-4&hide-ui=1"
+          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" allowfullscreen>
+        </iframe>
+      </div>
+      <span class="gif-caption">Different user journeys established for the FICO Admin vs Client Admin</span>
+    </div>
+  </div>
+
+  <div class="media-grid less-spacing three-row-grid">
+    <div class="figma-container">
+      <div class="figma-frame">
+        <iframe 
+          src="https://www.figma.com/embed?embed_host=share&url=https://www.figma.com/board/mm8JMvMaFJYcgseN5fgxot/Day-01-User-Journey-Flows?node-id=183-3918&t=QAc0tnpoF4o8LelI-4&hide-ui=1"
+          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" allowfullscreen>
+        </iframe>
+      </div>
+      <span class="gif-caption">Lo-fi wireframes of FICO Admin vs Client Admin provisioning UI</span>
+    </div>
+  </div>
+</section>
+
+
+  <div class="divider-wrap"><div class="divider"></div></div>
+
+  <!-- PROCESS: PHASE 3 -->
+  <section class="section roomy">
+    <div class="section-inner stack-16">
+
+      <div class="stack-16">
+        <span class="phase-title">Phase 3 — Research &amp; Validation through FICO World 2025</span>
+
+        <div class="body-copy stack-16">
+          <p>While I didn't attend the conference in person, I led the UX preparation alongside the Product Manager and Front-End Architect to determine which screens would drive the most impact on stage.</p>
+          <p>Optimizing for high-value feedback and tight presentation windows, we decided to narrow our showcase to the <strong>landing pages of three distinct archetypes</strong> instead of the whole user flow of the onboarding journey. As the landing pages are the areas with the most diverse information and would be the most revisited pages based on each archetype, we wanted to make sure we were able to capture deep, actionable insights on the core platform that benefits the experience from each landing page.</p>
+          <p>The landing pages are the areas with the most diverse information that’s archetype specific and would be the most revisited page. We wanted to make sure we were able to capture deep, actionable insights on the core platform that benefits the experience for each.</p>
+          <p>The three archetypes' landing pages we shared were:</p>
+      </div>
+      <ol class="styled" style="flex-direction: row; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+        <li><strong>Service Creator</strong></li>
+        <li><strong>Business Analyst</strong></li>
+        <li><strong>Solution Creator</strong></li>
+      </ol>
+    </div>
+    </div>
+  </section>
+
+  <!-- MEDIA GRID: 3 LANDING PAGES -->
+  <div class="media-grid less-spacing three-row-grid">
+    <div class="media-frame"><img src="eg/FW-Service-Creator.png" alt="Service Creator landing page"></div>
+    <div class="media-frame"><img src="eg/FW-Business-Analyst.png" alt="Business Analyst landing page"></div>
+    <div class="media-frame"><img src="eg/FW-Solution-creator.png" alt="Solution Creator landing page"></div>
+  </div>
+
+<!-- FEEDBACK FROM FICO WORLD 2025 -->
+  <section class="section on-gradient roomy">
+    <div class="section-inner" style="max-width: var(--wide-w);">
+      <div class="stack-24">
+      <span class="eyebrow">Feedback from FICO World 2025</span>
+        <div class="impact-grid">
+          <div class="impact-item">
+            <h3>Service Creator</h3>
+            <ul class="styled" style="font-size: 1.1rem;">
+              <li>90% of participants found the page visually overwhelming and mentally demanding</li>
+              <li>Unclear about the purpose or value of certain elements</li>
+              <li>Users expect more personalized and role-relevant views</li>
+            </ul>
+          </div>
+          <div class="impact-item">
+            <h3>Business Analyst</h3>
+            <ul class="styled" style="font-size: 1.1rem;">
+              <li>Most participants identified KPls and performance metrics as the most essential component of the page, highlighting the importance of tracking business outcomes</li>
+              <li>Users were most interested in metrics that track performance over time</li>
+              <li>Strong demand for self-service insights and flexible dashboards</li>
+            </ul>
+          </div>
+          <div class="impact-item">
+            <h3>Solution Creator</h3>
+            <ul class="styled" style="font-size: 1.1rem;">
+              <li>Most participants (47%) identified Assets as the most essential component of the page, followed by Business Goals & KPIs and Relationship Map</li>
+              <li>Wanted improvements like more dynamic data and zooming capability</li>
+              <li>27% of participants found the page clear, with 3 explicitly saying "No" confusion</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THINGS TO CONSIDER -->
+  <section class="section on-black tight">
+    <div class="section-inner" style="max-width: var(--wide-w);">
+      <div class="stack-24">
+      <span class="eyebrow">Things to consider</span>
+        <div class="impact-grid">
+        <div class="consider-stack">
+          <div class="consider-row">
+            <h3>Lack of Role Attribution</h3>
+            <ul class="styled" style="font-size: 1.1rem;">
+              <li>Responses were not tagged by user role, so it's unclear which insights came from which types of users (e.g., Ops vs. Product Owners)</li>
+            </ul>
+          </div>
+          <div class="consider-row">
+            <h3>No User Context or Environment Info</h3>
+            <ul class="styled" style="font-size: 1.1rem;">
+              <li>We don't know the scale, complexity, or tech stack of the environments these users operate in, which can affect their needs.</li>
+            </ul>
+          </div>
+          <div class="consider-row">
+            <h3>Focus on Feature Requests</h3>
+            <ul class="styled" style="font-size: 1.1rem;">
+              <li>Scope of the research was limited to product research rather than user research - next gen features</li>
+            </ul>
+          </div>
+        </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <div class="backstory-title" style="padding:80px 0 40px 0;">
+  <h3>Final Provisioning Flow</h3>
+  </div>
+
+  <!-- MEDIA GRID: PHASE 1 SCREENS -->
+  <div class="media-frame adjust-for-gif">
+    <img src="eg/provisioningflow.gif" alt="">
+    <span class="gif-caption">Flow for Client Admin</span>
+  </div>
+
+  <div class="divider-wrap"><div class="divider"></div></div>
+
+  <!-- CLOSING DOUBLE IMAGES -->
+  <div class="media-full" style="padding-top: 80px;">
+    <div class="media-frame">
+      <span class="phase-title">Post-FICO Variation of Final Landing Page Designs</span>
+    </div>
+  </div>
+
+  <div class="media-full">
+    <div class="media-frame">
+      <img src="eg/Latest-aug2026-EG-1.png" alt="Business Analyst Landing page">
+    </div>
+    <div class="media-frame">
+      <img src="eg/Service-Creator-2.png" alt="Service Creator Landing page">
+    </div>
+  </div>
+
+  <div class="media-full" style="padding-bottom: 80px;">
+    <div class="media-frame">
+      <img src="eg/SolutionCreatorAug2026.png" alt="Solution Creator Landing page">
+    </div>
+    <div class="media-frame">
+      <img src="eg/Landing-page-Admin.png" alt="Admin V1 Landing page">
+    </div>
+  </div>
+
+  <!-- BUTTON TO GO BACK TO TOP -->
+  <button id="backToTopBtn" aria-label="Back to Top">
+    <span class="material-symbols-outlined">arrow_upward</span>
+  </button>
+
+  <!-- FOOTER: MORE OF MY WORK & GET IN TOUCH -->
+  <footer class="footer-section">
+    <div class="footer-inner">
+      <span class="footer-heading">More of my work</span>
+      
+      <div class="work-grid">
+        <!-- Project 1 Card -->
+        <a href="btc.html" class="work-card nav-link">
+          <div class="card-media">
+            <img src="BTC-ProDisplay-middlebottom.png" alt="BTC Cover">
+          </div>
+          <div class="work-card-info">
+            <span class="work-card-title">FICO | Business Terms Capability (Data Schemas)</span>
+            <span class="work-card-subtitle">The backbone for building complex, unified data structures</span>
+          </div>
+        </a>
+
+        <!-- Project 2 Card -->
+        <a href="platform.html" class="work-card nav-link">
+          <div class="card-media">
+            <img src="platform/platform-landingpage1.png" alt="Project 2 Cover">
+          </div>
+          <div class="work-card-info">
+            <span class="work-card-title">FICO Platform Analogy</span>
+            <span class="work-card-subtitle">Self-initiated a cross-team alignment project to simplify adoption of the new platform vision.</span>
+          </div>
+        </a>
+      </div>
+
+      <div class="contact-cta">
+        <h3>Let's Connect</h3>
+        <a href="mailto:levona.yim@gmail.com" class="email-btn">
+          <span>Say Hello!</span>
+          <span class="material-symbols-outlined" style="font-size:18px;">mail</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- FIXED GREEN BOTTOM BAR -->
+  <div class="bottom-bar"></div>
+
+  <!-- TRANSITION OVERLAY -->
+  <div class="transition-overlay" id="overlay">
+    <img src="me-wink.gif" alt="Transition Icon" class="overlay-logo">
+    <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+      <path d="M0,0 C720,120 720,120 1440,0 L1440,0 L0,0 Z" fill="#15521F"></path>
+    </svg>
+  </div>
+
+  <script>
+    // Show placeholder for broken/missing images
+    document.querySelectorAll('.media-frame img').forEach(img => {
+      img.addEventListener('error', () => {
+        img.closest('.media-frame').classList.add('img-missing');
+      }, { once: true });
+    });
+
+    // Scroll progress bar
+    const scrollProgressBar = document.getElementById('scrollProgressBar');
+    function updateScrollProgress() {
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      scrollProgressBar.style.width = progress + '%';
+    }
+    window.addEventListener('scroll', updateScrollProgress, { passive: true });
+    window.addEventListener('resize', updateScrollProgress);
+    updateScrollProgress();
+
+    // Navigation link transitions
+    const navLinks = document.querySelectorAll('.nav-link');
+    const overlay = document.getElementById('overlay');
+
+    // Clear the transition overlay whenever this page is shown,
+    // including when restored from the browser's back/forward cache.
+    window.addEventListener('pageshow', () => {
+      overlay.classList.remove('is-active');
+    });
+
+    navLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        const targetUrl = link.getAttribute('href');
+        if (targetUrl.startsWith('#')) return;
+        e.preventDefault();
+        overlay.classList.add('is-active');
+        setTimeout(() => { window.location.href = targetUrl; }, 1250);
+      });
+    });
+
+    // Active state toggling
+    document.addEventListener('DOMContentLoaded', () => {
+      const currentPath = window.location.pathname.split('/').pop() || 'btc.html';
+      document.querySelectorAll('nav a').forEach(link => {
+        const linkPath = link.getAttribute('href').split('#')[0].split('/').pop();
+        link.classList.toggle('active', linkPath === currentPath);
+      });
+    });
+
+    // Disable right-click context menu on all images and media containers
+    document.addEventListener('contextmenu', (event) => {
+      const isImageTarget = event.target.tagName === 'IMG' || 
+                            event.target.closest('.media-frame') || 
+                            event.target.closest('.card-media') || 
+                            event.target.closest('.card-image-wrapper');
+
+      if (isImageTarget) {
+        event.preventDefault();
+      }
+    });
+
+    // Prevent drag-to-save action on all images
+    document.addEventListener('dragstart', (event) => {
+      if (event.target.tagName === 'IMG') {
+        event.preventDefault();
+      }
+    });
+
+    // --- LIGHTBOX INTERACTIVITY FOR ALL MEDIA-FRAME IMAGES ON THE PAGE ---
+    document.addEventListener('DOMContentLoaded', () => {
+      const modal = document.getElementById('lightboxModal');
+      const modalImg = document.getElementById('lightboxImg');
+      const closeBtn = document.getElementById('lightboxClose');
+      const prevBtn = document.getElementById('lightboxPrev');
+      const nextBtn = document.getElementById('lightboxNext');
+
+      const gridFrames = Array.from(document.querySelectorAll('.media-frame'))
+        .filter(frame => frame.querySelector('img') && !frame.closest('.btc-hero'));
+
+      const images = gridFrames.map(frame => frame.querySelector('img'));
+
+      let currentIndex = 0;
+
+      function openLightbox(index) {
+        currentIndex = index;
+        modalImg.src = images[currentIndex].src;
+        modalImg.alt = images[currentIndex].alt || '';
+        modal.classList.add('is-open');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeLightbox() {
+        modal.classList.remove('is-open');
+        document.body.style.overflow = '';
+      }
+
+      function showNext() {
+        currentIndex = (currentIndex + 1) % images.length;
+        modalImg.src = images[currentIndex].src;
+        modalImg.alt = images[currentIndex].alt || '';
+      }
+
+      function showPrev() {
+        currentIndex = (currentIndex - 1 + images.length) % images.length;
+        modalImg.src = images[currentIndex].src;
+        modalImg.alt = images[currentIndex].alt || '';
+      }
+
+      gridFrames.forEach((frame, index) => {
+        frame.addEventListener('click', () => {
+          if (frame.classList.contains('img-missing')) return;
+          openLightbox(index);
+        });
+      });
+
+      closeBtn.addEventListener('click', closeLightbox);
+      nextBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        showNext();
+      });
+      prevBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        showPrev();
+      });
+
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeLightbox();
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (!modal.classList.contains('is-open')) return;
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowRight') showNext();
+        if (e.key === 'ArrowLeft') showPrev();
+      });
+    });
+
+    // --- BACK TO TOP BUTTON LOGIC ---
+    const backToTopBtn = document.getElementById('backToTopBtn');
+
+    function toggleBackToTopBtn() {
+      if (window.scrollY > 300) {
+        backToTopBtn.classList.add('is-visible');
+      } else {
+        backToTopBtn.classList.remove('is-visible');
+      }
+    }
+
+    // Fire once on load
+    toggleBackToTopBtn();
+
+    window.addEventListener('scroll', toggleBackToTopBtn, { passive: true });
+
+    backToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  </script>
+
+  <!-- LIGHTBOX MODAL -->
+  <div class="lightbox-modal" id="lightboxModal">
+    <div class="lightbox-content">
+      <button class="lightbox-btn lightbox-close" id="lightboxClose" aria-label="Close">&times;</button>
+      <button class="lightbox-btn lightbox-prev" id="lightboxPrev" aria-label="Previous">&lsaquo;</button>
+      <img src="" alt="Enlarged view" class="lightbox-img" id="lightboxImg">
+      <button class="lightbox-btn lightbox-next" id="lightboxNext" aria-label="Next">&rsaquo;</button>
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,1388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="me-faviconscaled.ico">
+  <title>Levona Yim - FICO | Feature Management - Aggregation</title>
+  <link href='https://fonts.googleapis.com/css?family=Roboto Mono' rel='stylesheet'>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: "SF Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    :root {
+      --green: #15521F;
+      --green-lighter:#508500;
+      --accent: #7B10FF;
+      --bg-soft: #f5f5f5;
+      --bg-soft-2: #f7f7f7;
+      --text-main: #111111;
+      --text-muted: #666666;
+      --content-w: 720px;
+      --wide-w: 1320px;
+      --side-pad: clamp(24px, 8vw, 395px);
+    }
+
+    body {
+      background-color: #FAFAFA;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* --- PREVENT IMAGE DRAGGING & RIGHT-CLICK SAVE --- */
+    img {
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -o-user-select: none;
+      user-select: none;
+      -webkit-user-drag: none;
+      -webkit-touch-callout: none; /* Disables long-press context menu on iOS */
+    }
+
+/* Forces right-clicks on portfolio media frames to hit the container instead of the image */
+.media-frame img,
+.card-media img,
+.card-image-wrapper img {
+  pointer-events: none;
+}
+
+    /* --- NAVIGATION (shared with site) --- */
+    nav {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 20px;
+      background: #ffffff;
+      padding: 12px 24px;
+      border-radius: 30px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      z-index: 100;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: color 0.2s ease, font-weight 0.2s ease;
+    }
+
+    nav a.active {
+      color: var(--green);
+      font-weight: 700;
+    }
+
+    nav a:hover{
+      color: var(--green-lighter);
+    }
+
+    .inner-links{
+      font-weight: 500;
+      text-decoration: none;
+      color: var(--accent);
+    }
+
+    .inner-links:hover{
+      font-weight: 500;
+      text-decoration: line-through;
+      color: var(--accent);
+    }
+
+    /* --- FIXED GREEN BOTTOM BAR (shared with site) --- */
+    .bottom-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100vw;
+      height: 12px;
+      background-color: var(--green);
+      z-index: 999;
+      pointer-events: none;
+    }
+
+    /* --- SCROLL PROGRESS BAR --- */
+    .scroll-progress-track {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 5px;
+      background-color: #e5e5e5;
+      z-index: 1000;
+      pointer-events: none;
+    }
+    .scroll-progress-bar {
+      height: 100%;
+      width: 0%;
+      background-color: var(--accent);
+      transition: width 0.08s linear;
+    }
+
+    /* --- TRANSITION OVERLAY (shared with site) --- */
+    .transition-overlay {
+      position: fixed;
+      top: -120%;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: var(--green);
+      z-index: 9999;
+      pointer-events: none;
+      transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .transition-overlay svg {
+      position: absolute;
+      bottom: -79px;
+      left: 0;
+      width: 100%;
+      height: 80px;
+      fill: var(--green);
+    }
+    .transition-overlay .overlay-logo {
+      width: 100px;
+      height: auto;
+      z-index: 2;
+      opacity: 0;
+      transition: opacity 0.25s ease 0.5s;
+    }
+    .transition-overlay.is-active .overlay-logo { opacity: 1; }
+    .transition-overlay.is-active { transform: translateY(120%); }
+
+    /* --- HERO IMAGE --- */
+    .btc-hero {
+      width: 100%;
+      background: var(--bg-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 10px;
+    }
+    .btc-hero .media-frame {
+      width: 100%;
+      max-height: 90vh;
+      cursor: default;
+    }
+    .btc-hero img { max-height: 90vh; }
+
+    /* --- ESTIMATED READ TIME BADGE --- */
+    .read-time-badge {
+      display: inline-block;
+      background-color: var(--accent);
+      color: #ffffff;
+      font-size: 0.85rem;
+      font-weight: 300;
+      padding: 6px 16px;
+      border-radius: 48px;
+      margin: 0 auto;
+      text-align: center;
+      width: fit-content;
+    }
+
+    .header-top-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* --- IMAGE PLACEHOLDER SYSTEM (ORIGINAL DESKTOP) --- */
+    .media-frame {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .media-frame img {
+      width: 50%;
+      margin: auto;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.2s ease;
+    }
+    .media-frame:hover img {
+      transform: scale(1.02);
+    }
+    .media-frame.img-missing {
+      cursor: default;
+    }
+    .media-frame.img-missing:hover img {
+      transform: none;
+    }
+    .media-frame.img-missing {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background:
+        repeating-linear-gradient(45deg, #ececec 0 12px, #f4f4f4 12px 24px);
+      border: 1px dashed #c9c9c9;
+    }
+    .media-frame.img-missing img { display: none; }
+    .media-frame.img-missing::after {
+      content: attr(data-label);
+      font-family: "Roboto Mono", monospace;
+      font-size: 0.8rem;
+      color: #9a9a9a;
+      text-align: center;
+      padding: 0 20px;
+    }
+
+    /* --- SECTION SHELLS --- */
+    .section {
+      width: 100%;
+      padding: 80px var(--side-pad);
+    }
+    .section.tight { padding-top: 80px; padding-bottom: 80px; }
+    .section.roomy { padding-top: 120px; padding-bottom: 120px; }
+    .section.roomiest { padding-top: 160px; padding-bottom: 160px; }
+    .section-inner {
+      max-width: var(--content-w);
+      margin: 0 auto;
+    }
+    .section.on-blue {
+      background: var(--accent);
+      color: #fff;
+    }
+    .section.on-soft {
+      background: var(--bg-soft);
+    }
+
+    .eyebrow {
+      font-weight: 200;
+      font-size: 1rem;
+      letter-spacing: 0.5px;
+      color: inherit;
+      margin-bottom: 0;
+      display: block;
+    }
+
+    /* --- HEADER BLOCK --- */
+    .btc-title {
+      font-size: clamp(1.6rem, 2.6vw, 2rem);
+      font-weight: 800;
+      letter-spacing: -0.32px;
+      color: #000;
+      text-align: center;
+      line-height: 1.3;
+      margin-bottom: 64px;
+    }
+
+    .btc-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-bottom: 64px;
+    }
+    .btc-meta .meta-col {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      min-width: 160px;
+      flex: 1;
+    }
+    .btc-meta .meta-label {
+      font-weight: 700;
+      font-size: 1rem;
+      color: #000;
+    }
+    .btc-meta .meta-value,
+    .btc-meta .meta-value p {
+      font-weight: 400;
+      font-size: 1rem;
+      color: #000;
+      line-height: 1.5;
+    }
+
+    .tldr-box {
+      border: 1px dashed var(--accent);
+      border-radius: 4px;
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      align-items: flex-start;
+    }
+    .tldr-box .tldr-label {
+      font-family: "Roboto Mono", monospace;
+      font-weight: 700;
+      font-size: 1rem;
+    }
+    .tldr-box p {
+      font-size: 1rem;
+      line-height: 1.5;
+      color: #000;
+    }
+    .tldr-box .highlight { 
+      color: #000;
+      font-weight: 700;
+    }
+
+    .project-top { 
+      text-align: center;
+      font-size: 1rem;
+      letter-spacing: 0.5px;
+    }
+
+    /* --- BODY TEXT --- */
+    .body-copy {
+      font-size: 1.35rem;
+      line-height: 1.35;
+      font-weight: 300;
+      color: #000;
+    }
+    .body-copy p + p { margin-top: 1em; }
+    .body-copy strong, .body-copy b { font-weight: 600; }
+
+    .divider {
+      width: 200px;
+      height: 1px;
+      background: #d6d6d6;
+      margin: 0 auto;
+    }
+    .divider-wrap {
+      display: flex;
+      justify-content: center;
+      padding: 80px 0;
+    }
+
+    ul.styled, ol.styled {
+      padding-left: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      font-size: 1.35rem;
+      line-height: 1.25;
+      color: #000;
+    }
+    .on-blue ul.styled, .on-blue ol.styled { color: #fff; }
+    ul.styled li .li-body, ol.styled li .li-body { font-weight: 200; }
+
+    /* --- OVERVIEW / CONTRIBUTION --- */
+    .stack-8 { display: flex; flex-direction: column; gap: 8px; }
+    .stack-16 { display: flex; flex-direction: column; gap: 16px; }
+    .stack-24 { display: flex; flex-direction: column; gap: 24px; }
+    .stack-48 { display: flex; flex-direction: column; gap: 48px; }
+    .stack-56 { display: flex; flex-direction: column; gap: 56px; }
+
+    /* --- IMPACT GRID --- */
+    .impact-grid {
+      display: flex;
+      justify-content: space-between;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+    .impact-item {
+      flex: 1 1 260px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .impact-item h3 {
+      font-size: 1.35rem;
+      font-weight: 600;
+    }
+    .impact-item p {
+      font-size: 1.1rem;
+      line-height: 1.5;
+    }
+
+    .backstory-title {
+      display: flex;
+      justify-content: center;
+      padding: 40px 0 80px 0;
+    }
+
+    .backstory-title h3{
+      font-family: "JetBrains Mono", monospace !important;
+    }
+
+    .triple-image img{
+      width: 100% !important;
+    }
+
+    /* --- PROCESS PHASES --- */
+    .phase-title {
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 0.5px;
+      display: block;
+    }
+
+    .gif-caption {
+      color: #000;
+      text-align: center;
+      margin: 8px auto;
+      font-weight: 300;
+      font-size: 0.75rem;
+      width: 50%;
+      display: block;
+    }
+
+    .quote-line {
+      font-style: italic;
+    }
+
+    /* --- MEDIA GRIDS --- */
+    .media-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 24px;
+      padding: var(--side-pad);
+      background: #fff;
+    }
+
+    .media-grid .media-frame {
+      flex: 1 1 calc((100% - 72px) / 4);
+      max-width: calc((100% - 72px) / 4);
+      min-width: 240px;
+      aspect-ratio: 4 / 3;
+      background: var(--bg-soft);
+      cursor: pointer;
+    }
+
+    .media-grid .media-frame img {
+      width: 100%;
+      height: 100%;
+      transition: transform 0.2s ease;
+    }
+
+    .media-grid .media-frame:hover img {
+      transform: scale(1.02);
+    }
+
+    .less-spacing {
+      padding: 40px 80px !important;
+    }
+
+    .adjust-for-gif {
+      padding: 40px 80px 80px 80px !important;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    /* --- LIGHTBOX MODAL STYLES --- */
+    .lightbox-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.88);
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .lightbox-modal.is-open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .lightbox-content {
+      position: relative;
+      max-width: 90vw;
+      max-height: 85vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lightbox-img {
+      max-width: 100%;
+      max-height: 85vh;
+      object-fit: contain;
+      border-radius: 4px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .lightbox-btn {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.15);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      font-size: 28px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+      transition: background 0.2s ease, transform 0.2s ease;
+      backdrop-filter: blur(4px);
+    }
+
+    .lightbox-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(1.08);
+    }
+
+    .lightbox-close {
+      top: -60px;
+      right: 0;
+    }
+
+    .lightbox-prev {
+      left: -70px;
+    }
+
+    .lightbox-next {
+      right: -70px;
+    }
+
+    .media-row {
+      display: flex;
+      gap: 24px;
+      padding: 24px var(--side-pad);
+      flex-wrap: wrap;
+    }
+
+    /* --- FULL-WIDTH MEDIA CONTAINER (ORIGINAL DESKTOP SPEC) --- */
+    .media-full {
+      padding: 1rem 0;
+      background: var(--bg-soft);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .first-double-image {
+      background: rgba(99, 149, 428, 0.1) !important;
+    }
+
+    .media-full .media-frame {
+      width: 100%;
+      max-height: 840px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .media-full .media-frame img {
+      width: 90%;
+      height: auto;
+      max-height: 840px;
+    }
+
+    /* --- FIGMA EMBED WRAPPER --- */
+    .figma-container {
+      width: 100%;
+      margin: 0 auto;
+      padding: 0;
+    }
+
+    .figma-frame {
+      position: relative;
+      width: 100%;
+      height: 680px;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .figma-frame iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* --- 2x2 SQUARE GRID LAYOUT --- */
+    .two-by-two-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 24px;
+    }
+
+    .two-by-two-grid .media-frame {
+      min-width: 280px;
+      aspect-ratio: 2 / 1;
+      background-color: #F5F5F5;
+      max-height: calc(100vw * 0.35 - 6rem);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .two-by-two-grid .media-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    /* --- 3-UP THEN 2-UP GRID LAYOUT --- */
+    .three-row-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 24px;
+    }
+
+    .three-row-grid .media-frame {
+      flex: 0 0 calc((100% - 48px) / 3);
+      max-width: calc((100% - 48px) / 3);
+      min-width: 240px;
+      aspect-ratio: 4 / 3;
+    }
+
+    /* --- 4-UP THEN 4-UP GRID LAYOUT --- */
+    .four-row-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .four-row-grid .media-frame {
+      flex: 0 0 calc((100% - 36px) / 4);
+      max-width: calc((100% - 36px) / 4);
+      min-width: 240px;
+      aspect-ratio: 4 / 3;
+    }
+
+    /* --- FOOTER: MORE WORK & CONTACT --- */
+    .footer-section {
+      background-color: var(--bg-soft-2);
+      border-top: 1px solid #e0e0e0;
+      padding: 100px var(--side-pad) 120px var(--side-pad);
+    }
+
+    .footer-section .footer-inner {
+      max-width: var(--wide-w);
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 48px;
+    }
+
+    .footer-heading {
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 0.5px;
+      color: #000;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .work-grid {
+      display: flex;
+      gap: 32px;
+      justify-content: center;
+    }
+
+    .work-card {
+      flex: 1;
+      max-width: 500px;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      cursor: pointer;
+    }
+
+    .work-card .card-media {
+      background: #F0F0F0;
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+      border-radius: 4px;
+    }
+
+    /* GRADIENT OVERLAY HOVER FROM INDEX.HTML */
+    .work-card:hover .card-media {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      background: 
+        radial-gradient(circle at 10% 20%, rgba(80, 220, 255, 0.85) 0%, transparent 50%),
+        radial-gradient(circle at 80% 25%, rgba(185, 80, 255, 0.85) 0%, transparent 55%),
+        radial-gradient(circle at 50% 60%, rgba(255, 100, 200, 0.8) 0%, transparent 50%),
+        radial-gradient(circle at 85% 85%, rgba(255, 80, 80, 0.9) 0%, transparent 50%),
+        radial-gradient(circle at 20% 90%, rgba(255, 150, 80, 0.85) 0%, transparent 50%),
+        #e0f2fe;
+    }
+
+    .work-card .card-media img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      transform: scale(1);
+      transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .work-card:hover .card-media img {
+      transform: scale(1.15);
+    }
+
+    .work-card-info {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .work-card-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #000;
+    }
+
+    .work-card-subtitle {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      font-weight: 300;
+    }
+
+    .contact-cta {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .contact-cta h3 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #000;
+    }
+
+    .email-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background-color: #ffffff;
+      color: var(--green);
+      border: 2px solid var(--green);
+      padding: 14px 28px;
+      border-radius: 40px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+    }
+
+    .email-btn:hover {
+      background-color: var(--green);
+      color: #ffffff;
+      transform: translateY(-2px);
+    }
+
+    /* ==========================================================
+       RESPONSIVE BREAKPOINTS (TABLET, MOBILE & VERY LARGE SCREENS)
+       ========================================================== */
+
+    /* --- VERY LARGE / ULTRA-WIDE SCREENS (> 1600px) --- */
+    @media (min-width: 1600px) {
+      :root {
+        --side-pad: clamp(120px, 15vw, 450px);
+      }
+      .media-full .media-frame img {
+        width: 80%;
+        max-height: 900px;
+      }
+    }
+
+    /* --- TABLET BREAKPOINT (769px to 1024px) --- */
+    @media (min-width: 769px) and (max-width: 1024px) {
+      :root {
+        --side-pad: 48px;
+      }
+      .section { padding-left: 48px; padding-right: 48px; }
+      .less-spacing, .adjust-for-gif { padding: 40px !important; }
+      
+      .media-full {
+        flex-direction: row;
+        gap: 16px;
+      }
+      .media-full .media-frame img {
+        width: 95%;
+      }
+
+      .two-by-two-grid .media-frame {
+        flex: 1 1 calc(50% - 24px);
+        max-height: 320px;
+      }
+
+      .figma-frame {
+        height: 520px;
+      }
+    }
+
+    /* --- MOBILE BREAKPOINT (< 768px) --- */
+    @media (max-width: 768px) {
+      .btc-hero .media-frame { width: 100%; }
+      .btc-hero .media-frame img { width: 100%; }
+      .btc-meta { flex-direction: column; }
+      .impact-grid { flex-direction: column; gap: 20px;}
+      .section { padding-left: 20px; padding-right: 20px; }
+      .section.roomy { padding-top: 60px; padding-bottom: 60px; }
+      .section.roomiest { padding-top: 48x; padding-bottom: px; }
+      .section.tight { padding-top: 48px; padding-bottom: 48px; }
+      .media-row { flex-direction: column; }
+      .tldr-box { padding: 20px; }
+      .divider-wrap { padding: 60px 0 30px 0; }
+      ul.styled, ol.styled { gap: 1.25rem; padding-left: 20px; }
+      .impact-item { flex: 1 1 80px;}
+
+      /* Mobile Image Stacking & Frame Resizing */
+      .media-frame img {
+        width: 100%;
+      }
+
+      .media-full {
+        flex-direction: column;
+        padding: 24px 16px;
+        gap: 20px;
+      }
+
+      .media-full .media-frame img {
+        width: 100%;
+        max-height: none;
+      }
+
+      .section.on-blue {
+        background: var(--accent);
+        color: #fff;
+        padding-top: 64px;
+        padding-bottom: 64px;
+      }
+
+      .less-spacing, .adjust-for-gif {
+        padding: 24px 16px !important;
+      }
+
+      .gif-caption {
+        width: 90%;
+        font-size: 0.8rem;
+      }
+
+      .figma-frame {
+        height: 400px;
+      }
+
+      .two-by-two-grid .media-frame {
+        flex: 1 1 100%;
+        max-width: 100%;
+        aspect-ratio: 16 / 9;
+        max-height: none;
+      }
+
+      .three-row-grid .media-frame,
+      .four-row-grid .media-frame {
+        flex: 1 1 100%;
+        max-width: 100%;
+      }
+
+      /* Footer Mobile Stack */
+      .work-grid {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .footer-section {
+        padding: 60px 20px 100px 20px;
+      }
+
+      /* Lightbox Mobile Adjustments */
+      .lightbox-prev { left: 10px; }
+      .lightbox-next { right: 10px; }
+      .lightbox-close { top: 10px; right: 10px; }
+    }
+
+    /* --- SMALL MOBILE (< 480px) --- */
+    @media (max-width: 480px) {
+      nav {
+        gap: 10px;
+        padding: 10px 16px;
+      }
+      nav a {
+        font-size: 0.72rem;
+        letter-spacing: 0.5px;
+      }
+      .btc-title { margin-bottom: 36px; }
+      .btc-meta { margin-bottom: 36px; }
+    }
+
+    /* --- BACK TO TOP BUTTON --- */
+    #backToTopBtn {
+      position: fixed;
+      bottom: 32px; /* Clears the 12px bottom bar */
+      right: 28px;
+      z-index: 1001; /* Places it above page content and scroll progress bar */
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background-color: var(--green);
+      color: #ffffff;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      
+      /* Hidden state */
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(10px);
+      transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease, background-color 0.2s ease;
+    }
+
+    #backToTopBtn.is-visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    #backToTopBtn:hover {
+      background-color: var(--accent-darker, #114218); /* Adjusts on hover */
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="scroll-progress-track">
+    <div class="scroll-progress-bar" id="scrollProgressBar"></div>
+  </div>
+
+  <nav>
+    <a href="index.html">Work</a>
+    <a href="about.html" class="nav-link">About</a>
+    <a href="https://drive.google.com/file/d/1kJueu5DaYzHI15e4sxursLuTW0hQqVcG/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="nav-link">Resume</a>
+  </nav>
+
+  <!-- HERO IMAGE -->
+  <section class="btc-hero">
+    <div class="media-frame">
+      <img src="test-fm.png" alt="FICO Feature Management - Aggregation cover">
+    </div>
+  </section>
+
+  <!-- HEADER: TITLE / META / TL;DR -->
+  <section class="section">
+    <div class="section-inner stack-24">
+      <span class="project-top">FICO Platform | Feature Management – Aggregation</span>
+      <span class="read-time-badge">Estimated: 5-8 min read</span>
+      <h1 class="btc-title">Simplifying complex data features to be deployed by banking teams in minutes</h1>
+
+      <div class="btc-meta">
+        <div class="meta-col">
+          <span class="meta-label">Time</span>
+          <span class="meta-value">2025</span>
+        </div>
+        <div class="meta-col">
+          <span class="meta-label">Role</span>
+          <span class="meta-value">Lead Product Designer</span>
+        </div>
+        <div class="meta-col">
+          <span class="meta-label">Team</span>
+          <div class="meta-value">
+            <p>Product Managers</p>
+            <p>Front-End Architect</p>
+            <p>Engineering</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="tldr-box">
+        <span class="tldr-label">TL;DR</span>
+        <p>
+          <span class="highlight">Fraud & risk teams</span> depended on data engineers to build features that extract real-time activity data needed to spot fraud. This technical process would take days or weeks, making critical data hard to access and slowing down response times. I led and designed the end-to-end experience for FICO's Feature Management platform, encompassing its core data transformation (aggregations, expressions), state management (stored values, KPIs), and operational serving (decision stores, hotlists).
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED VIDEO -->
+  <section class="section on-soft tight">
+    <div class="section-inner stack-16" style="text-align:center;">
+      <span class="eyebrow" style="color:#000; display:block;">FICOWorld 2026 – Main Stage (Feature Management – Aggregation &amp; Expressions)</span>
+      <div class="media-frame" data-label="[Insert: FICO World 26 Day 2 livestream video / thumbnail — embed or link to YouTube]" style="aspect-ratio:16/9;">
+        <img src="aggregation-img/ficoworld-video-thumb.png" alt="FICO World 26 livestream session">
+      </div>
+      <p class="gif-caption" style="width:100%;">Above @ 1:09:00 — Feature Management UI in action. FICO's VP of Fraud, Compliance &amp; Authentication Solutions, Adam Davies, showcasing the Aggregation and Expression capabilities on the main stage at FICOWorld 2026.</p>
+    </div>
+  </section>
+
+  <!-- WHAT I LED -->
+  <section class="section roomy">
+    <div class="section-inner stack-16">
+      <div class="body-copy" style="text-align:center;">
+        <p>I led and designed the end-to-end experience for FICO's Feature Management platform, encompassing its core data transformation (aggregations, expressions), state management (stored values, KPIs), and operational serving (decision stores, hotlists).</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- IMPACT -->
+  <section class="section on-blue roomy">
+    <div class="section-inner" style="max-width: var(--wide-w);">
+      <div class="stack-24">
+        <span class="eyebrow" style="display:block;">impact</span>
+        <div class="impact-grid">
+          <div class="impact-item">
+            <h3>Speed</h3>
+            <p>Eliminated weeks of cross-team coordination, enabling users to start and set up their own schemas in seconds.</p>
+          </div>
+          <div class="impact-item">
+            <h3>Design Scalability</h3>
+            <p>Empowered non-technical and technical users with the ability to configure complex data structures instantly, without needing a solution consultant.</p>
+          </div>
+          <div class="impact-item">
+            <h3>Engineering Efficiency</h3>
+            <p>Product teams can embed and drop the component directly into their unique host environments with 0 adjustments required.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTEXT -->
+  <section class="section">
+    <div class="section-inner stack-16">
+      <span class="eyebrow" style="color:#000;">context</span>
+      <div class="body-copy">
+        <p><strong>Feature Management</strong> is a centralized data platform that allows banks to instantly track customer behaviour and easily create data formulas to predict risk, stop fraud, and improve customer service in real time.</p>
+        <p>For the aggregation capability specifically, the UI replaces complex coding scripts with a simple form. By separating data setup from mathematical logic, the UI guides analysts step-by-step through configuring advanced time windows (e.g., tracking a specific event over a rolling 30-second window) in a clear, linear flow.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="section roomy">
+    <div class="section-inner stack-24">
+      <span class="eyebrow" style="color:#000;">process</span>
+      <div class="body-copy">
+        <p>I partnered closely with the Feature Management (FM) Product Manager, the Front-End Architect, and the engineering team to design the ecosystem's first core capability: Aggregation.</p>
+      </div>
+
+      <div class="stack-16">
+        <p class="body-copy" style="font-weight:600;">I started off by asking the foundational questions:</p>
+        <ul class="styled">
+          <li><span class="li-body">Why are we building this?</span></li>
+          <li><span class="li-body">Who are our users? Why do they need this?</span></li>
+          <li><span class="li-body">What workflows are they trying to accomplish?</span></li>
+        </ul>
+      </div>
+
+      <div class="body-copy">
+        <p>For this initiative, the collaboration structure was unique. The PM was more hands-on, providing initial conceptual sketches of their vision for the feature management workflow. I took these functional requirements and translated them into an intuitive, scalable user experience.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PM SKETCHES -->
+  <div class="media-grid less-spacing">
+    <div class="media-frame" data-label="[Insert: PM's initial conceptual sketch 1]"><img src="aggregation-img/pm-sketch-1.png" alt="PM conceptual sketch 1"></div>
+    <div class="media-frame" data-label="[Insert: PM's initial conceptual sketch 2]"><img src="aggregation-img/pm-sketch-2.png" alt="PM conceptual sketch 2"></div>
+    <div class="media-frame" data-label="[Insert: PM's initial conceptual sketch 3]"><img src="aggregation-img/pm-sketch-3.png" alt="PM conceptual sketch 3"></div>
+  </div>
+
+  <section class="section tight">
+    <div class="section-inner">
+      <div class="body-copy">
+        <p>I based the initial layout iteration on a design template I created for the Business Terms Capability (BTC) project. This phase was highly experimental, as the product team was still deciding on the core navigation structure — specifically whether to use a hybrid top-and-side navigation or a sidebar-only model.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="media-grid less-spacing two-by-two-grid">
+    <div class="media-frame" data-label="[Insert: Layout iteration — hybrid top-and-side nav]"><img src="aggregation-img/layout-iteration-1.png" alt="Hybrid navigation layout iteration"></div>
+    <div class="media-frame" data-label="[Insert: Layout iteration — sidebar-only nav]"><img src="aggregation-img/layout-iteration-2.png" alt="Sidebar-only navigation layout iteration"></div>
+  </div>
+
+  <div class="divider-wrap"><div class="divider"></div></div>
+
+  <!-- FINAL DESIGN -->
+  <section class="section roomy">
+    <div class="section-inner stack-16">
+      <span class="eyebrow" style="color:#000; text-align:center; display:block;">final design</span>
+    </div>
+  </section>
+
+  <div class="media-grid less-spacing three-row-grid">
+    <div class="media-frame" data-label="[Insert: Aggregation table list view]"><img src="aggregation-img/final-1.png" alt="Aggregation table list view"></div>
+    <div class="media-frame" data-label="[Insert: Add Aggregation form]"><img src="aggregation-img/final-2.png" alt="Add Aggregation form"></div>
+    <div class="media-frame" data-label="[Insert: Aggregation configuration flow]"><img src="aggregation-img/final-3.png" alt="Aggregation configuration flow"></div>
+    <div class="media-frame" data-label="[Insert: Feature Set list]"><img src="aggregation-img/final-4.png" alt="Feature Set list"></div>
+    <div class="media-frame" data-label="[Insert: Aggregation UI — dark mode]"><img src="aggregation-img/final-5.png" alt="Aggregation UI dark mode"></div>
+    <div class="media-frame" data-label="[Insert: Aggregation UI — dark mode detail]"><img src="aggregation-img/final-6.png" alt="Aggregation UI dark mode detail"></div>
+  </div>
+  <p class="gif-caption" style="width:100%; margin-top:16px;">Above: Some of the final designs of Aggregation.</p>
+
+  <div class="divider-wrap"><div class="divider"></div></div>
+
+  <!-- OTHER CAPABILITIES USING THE SAME FRAMEWORK -->
+  <section class="section on-soft roomy">
+    <div class="section-inner stack-16" style="text-align:center;">
+      <h3 style="color:#000;">Examples of other capabilities within Feature Management using the same Aggregation framework</h3>
+    </div>
+  </section>
+
+  <div class="media-full">
+    <div class="media-frame" data-label="[Insert: Another capability using the Aggregation framework — full-width table]">
+      <img src="aggregation-img/other-capability-1.png" alt="Other capability using the Aggregation framework">
+    </div>
+  </div>
+
+  <div class="media-grid less-spacing two-by-two-grid">
+    <div class="media-frame" data-label="[Insert: Shared Values / KPI form]"><img src="aggregation-img/other-capability-2.png" alt="Shared Values form"></div>
+    <div class="media-frame" data-label="[Insert: Hotlists table]"><img src="aggregation-img/other-capability-3.png" alt="Hotlists table"></div>
+    <div class="media-frame" data-label="[Insert: Aggregation table builder detail]"><img src="aggregation-img/other-capability-4.png" alt="Aggregation table builder detail"></div>
+  </div>
+  <p class="gif-caption" style="width:100%; margin-top:16px;">Above: A few of the other Feature Management capabilities that use the same framework as Aggregation.</p>
+
+  <!-- BUTTON TO GO BACK TO TOP -->
+  <button id="backToTopBtn" aria-label="Back to Top">
+    <span class="material-symbols-outlined">arrow_upward</span>
+  </button>
+
+  <footer class="footer-section">
+    <div class="footer-inner">
+      <span class="footer-heading">More of my work</span>
+      
+      <div class="work-grid">
+        <a href="eg.html" class="work-card nav-link">
+          <div class="card-media">
+            <img src="aug10-EGMBA-dark.png" alt="Experience Gateway Cover">
+          </div>
+          <div class="work-card-info">
+            <span class="work-card-title">FICO | Experience Gateway (Day 0/1)</span>
+            <span class="work-card-subtitle">A seamless entry point for onboarding, feature exploration, and personalization.</span>
+          </div>
+        </a>
+
+        <a href="btc.html" class="work-card nav-link">
+          <div class="card-media">
+            <img src="BTC-ProDisplay-middlebottom.png" alt="Business Terms Capability Cover">
+          </div>
+          <div class="work-card-info">
+            <span class="work-card-title">FICO | Business Terms Capability</span>
+            <span class="work-card-subtitle">Designing the single source of truth for every service's data schema.</span>
+          </div>
+        </a>
+
+      </div>
+
+      <div class="contact-cta">
+        <h3>Let's Connect</h3>
+        <a href="mailto:levona.yim@gmail.com" class="email-btn">
+          <span>Say Hello!</span>
+          <span class="material-symbols-outlined" style="font-size:18px;">mail</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- FIXED GREEN BOTTOM BAR -->
+  <div class="bottom-bar"></div>
+
+  <!-- TRANSITION OVERLAY -->
+  <div class="transition-overlay" id="overlay">
+    <img src="me-wink.gif" alt="Transition Icon" class="overlay-logo">
+    <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+      <path d="M0,0 C720,120 720,120 1440,0 L1440,0 L0,0 Z" fill="#15521F"></path>
+    </svg>
+  </div>
+
+  <script>
+    // Show placeholder for broken/missing images
+    document.querySelectorAll('.media-frame img').forEach(img => {
+      img.addEventListener('error', () => {
+        img.closest('.media-frame').classList.add('img-missing');
+      }, { once: true });
+    });
+
+    // Scroll progress bar
+    const scrollProgressBar = document.getElementById('scrollProgressBar');
+    function updateScrollProgress() {
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      scrollProgressBar.style.width = progress + '%';
+    }
+    window.addEventListener('scroll', updateScrollProgress, { passive: true });
+    window.addEventListener('resize', updateScrollProgress);
+    updateScrollProgress();
+
+    // Navigation link transitions
+    const navLinks = document.querySelectorAll('.nav-link');
+    const overlay = document.getElementById('overlay');
+
+    // Clear the transition overlay whenever this page is shown,
+    // including when restored from the browser's back/forward cache.
+    window.addEventListener('pageshow', () => {
+      overlay.classList.remove('is-active');
+    });
+
+    navLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        const targetUrl = link.getAttribute('href');
+        if (targetUrl.startsWith('#')) return;
+        e.preventDefault();
+        overlay.classList.add('is-active');
+        setTimeout(() => { window.location.href = targetUrl; }, 1250);
+      });
+    });
+
+    // Active state toggling
+    document.addEventListener('DOMContentLoaded', () => {
+      const currentPath = window.location.pathname.split('/').pop() || 'btc.html';
+      document.querySelectorAll('nav a').forEach(link => {
+        const linkPath = link.getAttribute('href').split('#')[0].split('/').pop();
+        link.classList.toggle('active', linkPath === currentPath);
+      });
+    });
+
+    // Disable right-click context menu on all images and media containers
+    document.addEventListener('contextmenu', (event) => {
+      const isImageTarget = event.target.tagName === 'IMG' || 
+                            event.target.closest('.media-frame') || 
+                            event.target.closest('.card-media') || 
+                            event.target.closest('.card-image-wrapper');
+
+      if (isImageTarget) {
+        event.preventDefault();
+      }
+    });
+
+    // Prevent drag-to-save action on all images
+    document.addEventListener('dragstart', (event) => {
+      if (event.target.tagName === 'IMG') {
+        event.preventDefault();
+      }
+    });
+
+    // --- LIGHTBOX INTERACTIVITY FOR ALL MEDIA-FRAME IMAGES ON THE PAGE ---
+    document.addEventListener('DOMContentLoaded', () => {
+      const modal = document.getElementById('lightboxModal');
+      const modalImg = document.getElementById('lightboxImg');
+      const closeBtn = document.getElementById('lightboxClose');
+      const prevBtn = document.getElementById('lightboxPrev');
+      const nextBtn = document.getElementById('lightboxNext');
+
+      const gridFrames = Array.from(document.querySelectorAll('.media-frame'))
+          .filter(frame => frame.querySelector('img') && !frame.closest('.btc-hero'));
+      const images = gridFrames.map(frame => frame.querySelector('img'));
+
+      let currentIndex = 0;
+
+      function openLightbox(index) {
+        currentIndex = index;
+        modalImg.src = images[currentIndex].src;
+        modalImg.alt = images[currentIndex].alt || '';
+        modal.classList.add('is-open');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeLightbox() {
+        modal.classList.remove('is-open');
+        document.body.style.overflow = '';
+      }
+
+      function showNext() {
+        currentIndex = (currentIndex + 1) % images.length;
+        modalImg.src = images[currentIndex].src;
+        modalImg.alt = images[currentIndex].alt || '';
+      }
+
+      function showPrev() {
+        currentIndex = (currentIndex - 1 + images.length) % images.length;
+        modalImg.src = images[currentIndex].src;
+        modalImg.alt = images[currentIndex].alt || '';
+      }
+
+      gridFrames.forEach((frame, index) => {
+        frame.addEventListener('click', () => {
+          if (frame.classList.contains('img-missing')) return;
+          openLightbox(index);
+        });
+      });
+
+      closeBtn.addEventListener('click', closeLightbox);
+      nextBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        showNext();
+      });
+      prevBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        showPrev();
+      });
+
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeLightbox();
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (!modal.classList.contains('is-open')) return;
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowRight') showNext();
+        if (e.key === 'ArrowLeft') showPrev();
+      });
+    });
+
+    // --- BACK TO TOP BUTTON LOGIC ---
+    const backToTopBtn = document.getElementById('backToTopBtn');
+
+    function toggleBackToTopBtn() {
+      if (window.scrollY > 300) {
+        backToTopBtn.classList.add('is-visible');
+      } else {
+        backToTopBtn.classList.remove('is-visible');
+      }
+    }
+
+    // Fire once on load
+    toggleBackToTopBtn();
+
+    window.addEventListener('scroll', toggleBackToTopBtn, { passive: true });
+
+    backToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  </script>
+
+  <!-- LIGHTBOX MODAL -->
+  <div class="lightbox-modal" id="lightboxModal">
+    <div class="lightbox-content">
+      <button class="lightbox-btn lightbox-close" id="lightboxClose" aria-label="Close">&times;</button>
+      <button class="lightbox-btn lightbox-prev" id="lightboxPrev" aria-label="Previous">&lsaquo;</button>
+      <img src="" alt="Enlarged view" class="lightbox-img" id="lightboxImg">
+      <button class="lightbox-btn lightbox-next" id="lightboxNext" aria-label="Next">&rsaquo;</button>
+    </div>
+  </div>
+
+</body>
+</html>
