@@ -218,11 +218,6 @@
                             />
                         </div>
 
-                        <label id="staticrypt-remember-label" class="staticrypt-remember hidden">
-                            <input id="staticrypt-remember" type="checkbox" name="remember" />
-                            Remember me
-                        </label>
-
                         <input type="submit" class="staticrypt-decrypt-button" value="DECRYPT" />
                     </form>
                 </div>
@@ -855,11 +850,6 @@ exports.init = init;
                     document.getElementById("staticrypt_loading").classList.add("hidden");
                     document.getElementById("staticrypt_content").classList.remove("hidden");
                     document.getElementById("staticrypt-password").focus();
-
-                    // show the remember me checkbox
-                    if (isRememberEnabled) {
-                        document.getElementById("staticrypt-remember-label").classList.remove("hidden");
-                    }
                 }
             };
 
@@ -890,7 +880,9 @@ exports.init = init;
                 e.preventDefault();
 
                 const password = document.getElementById("staticrypt-password").value,
-                    isRememberChecked = document.getElementById("staticrypt-remember").checked;
+                    // always remember this device once the correct password is entered,
+                    // so navigating between pages never re-prompts for the password
+                    isRememberChecked = true;
 
                 const { isSuccessful } = await staticrypt.handleDecryptionOfPage(password, isRememberChecked);
 
