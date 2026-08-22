@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='GTM'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-KBGVJDGV');</script>
+  <!-- End Google Tag Manager -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="me-faviconscaled.ico">
+  <title>Levona Yim - Polaroid Effect - Web App</title>
+  <link href='https://fonts.googleapis.com/css?family=Roboto+Mono:wght@300;400;500;700&display=swap' rel='stylesheet'>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    :root {
+      --green: #15521F;
+      --green-lighter: #517A58;
+      --green-lighternav: #508500;
+      --pink: #ffb3c1;
+      --bg-soft: #f5f5f5;
+      --text-main: #111111;
+      --text-muted: #666666;
+      --content-w: 960px;
+    }
+
+    body {
+      background-color: #FAFAFA;
+      min-height: 100vh;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-weight: 300;
+    }
+
+    img {
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -o-user-select: none;
+      user-select: none;
+      -webkit-user-drag: none;
+      -webkit-touch-callout: none;
+    }
+
+    /* --- NAVIGATION --- */
+    nav {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 20px;
+      background: #ffffff;
+      padding: 12px 24px;
+      border-radius: 30px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      z-index: 100;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: color 0.2s ease, font-weight 0.2s ease;
+    }
+
+    nav a.active { color: var(--green); font-weight: 700; }
+    nav a:hover { color: var(--green-lighternav); }
+
+    /* --- MAIN CONTAINER --- */
+    .project-container {
+      width: 90%;
+      max-width: 1200px; /* Expands container width to match the wide layout */
+      padding-top: 120px; /* Pushes content down safely below the fixed nav bar */
+      padding-bottom: 5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .back-link {
+      align-self: flex-start; /* Aligns left edge directly with iframe left border */
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--green);
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      margin-bottom: 36px;
+      transition: opacity 0.2s ease;
+    }
+
+    .back-link:hover { opacity: 0.7; }
+
+    .project-title {
+      font-family: 'Roboto Mono', monospace;
+      font-weight: 700;
+      color: var(--text-main);
+      font-size: 1.5rem;
+      text-align: center;
+      margin-bottom: 36px;
+    }
+
+    /* --- HERO MEDIA --- */
+    .project-hero {
+      width: 100%;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #ffffff;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+      margin-bottom: 28px;
+    }
+
+    .project-hero img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* --- TAGS --- */
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 36px;
+      align-self: flex-start;
+    }
+
+    /* --- LINK TO PROTOTYPE --- */
+    .link-to-prototype {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 36px;
+      align-self: flex-start;
+      position: relative;
+      margin: auto;
+      padding-bottom: 3rem;
+    }
+
+    .link-to-prototype a{
+      text-decoration: none;
+      color: #2335C0;
+    }
+    .link-to-prototype a:hover{
+      text-decoration: none;
+      color: #8996F4;
+    }
+
+
+    .tag {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 0.85rem;
+      font-weight: 500;
+      padding: 6px 16px;
+      border-radius: 20px;
+      color: #1a1a1a;
+      white-space: nowrap;
+    }
+
+    .tag-claude { background: #e1ff86; }
+    .tag-cursor { background: #8eff86; }
+    .tag-figma  { background: #acb6ff; }
+    .tag-gemini { background: #86fdff; }
+    .tag-code   { background: #d2d4e4; }
+    .tag-link   { background: #E3E4FA; }
+
+    /* --- CONTENT SECTIONS --- */
+    .project-body {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+      padding: 40px;
+      margin-bottom: 40px;
+    }
+
+    .project-section h2 {
+      color: var(--text-main);
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .project-section ul {
+      list-style: disc;
+      padding-left: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .project-section p,
+    .project-section li {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: var(--text-main);
+      font-weight: 400;
+    }
+    /* --- IFRAME EMBED --- */
+    .schema-embed-container {
+      width: 100%;             /* Fits 100% of the 1200px main container width */
+      aspect-ratio: 16 / 9;    /* Maintains wide desktop ratio */
+      margin: 0 auto 36px auto;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .schema-embed-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* --- FOOTER / CALL TO ACTION --- */
+    .about-footer {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .about-footer-title {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--green);
+      letter-spacing: -0.2px;
+    }
+
+    .about-footer-desc {
+      font-size: 1.15rem;
+      line-height: 1.5;
+      color: var(--text-main);
+      font-weight: 400;
+    }
+
+    .contact-link {
+      color: var(--green);
+      font-weight: 700;
+      text-decoration: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .contact-link:hover {
+      color: var(--green-lighter);
+      opacity: 0.8;
+      text-decoration: line-through;
+    }
+
+    /* --- FIXED GREEN BOTTOM BAR --- */
+    .bottom-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100vw;
+      height: 12px;
+      background-color: var(--green);
+      z-index: 999;
+      pointer-events: none;
+    }
+
+    /* --- TRANSITION OVERLAY --- */
+    .transition-overlay {
+      position: fixed;
+      top: -120%;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: var(--green);
+      z-index: 9999;
+      pointer-events: none;
+      transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .transition-overlay svg {
+      position: absolute;
+      bottom: -79px;
+      left: 0;
+      width: 100%;
+      height: 80px;
+      fill: var(--green);
+    }
+
+    .transition-overlay .overlay-logo {
+      width: 100px;
+      height: auto;
+      z-index: 2;
+      opacity: 0;
+      transition: opacity 0.25s ease 0.5s;
+    }
+
+    .transition-overlay.is-active .overlay-logo { opacity: 1; }
+    .transition-overlay.is-active { transform: translateY(120%); }
+
+    /* --- RESPONSIVE --- */
+    @media (max-width: 768px) {
+      .project-container { padding: 100px 20px 80px 20px; }
+      .project-body { padding: 24px; }
+    }
+
+    @media (max-width: 480px) {
+      nav { gap: 10px; padding: 10px 16px; }
+      nav a { font-size: 0.72rem; letter-spacing: 0.5px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KBGVJDGV"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <!-- NAVIGATION -->
+  <nav>
+    <a href="index.html" class="nav-link">Work</a>
+    <a href="about.html" class="nav-link">About</a>
+    <a href="https://drive.google.com/file/d/1kJueu5DaYzHI15e4sxursLuTW0hQqVcG/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="nav-link">Resume</a>
+    <a href="playground.html" class="nav-link active">Play</a>
+  </nav>
+
+<main class="project-container">
+
+  <a href="playground.html" class="back-link nav-link">&larr; Back to more Playground Projects</a>
+
+  <h1 class="project-title">Polaroid Effect - Web App</h1>
+
+  <div class="schema-embed-container">
+    <iframe 
+      src="https://www.levonayim.ca/polaroid-effect/" 
+      title="Levona x Poloroid Effect App"
+      allow="clipboard-write"
+    ></iframe>
+  </div>
+
+  <div class="project-tags">
+    <span class="tag tag-claude">claude</span>
+    <span class="tag tag-gemini">gemini</span>
+    <span class="tag tag-code">html/css/js</span>
+  </div>
+
+    <div class="project-body">
+      <div class="project-section">
+        <h2>Description</h2>
+        <ul>
+          <li>A web app that lets user uploaded 1-3 photos where they can add filters, photo adjustments, and adding a polaroid frame around it.</li>
+        </ul>
+      </div>
+
+      <div class="project-section">
+        <h2>Why I created this</h2>
+        <ul>
+          <li>At the time I made this (June 2026), Instagram didn't have the feature of a polaroid frame.</li>
+          <li>The current polaroid effect on Instagram is limited to 1 size of a polaroid.</li>
+          <li>On Instagram, users cannot adjust the image in the frame.</li>
+        </ul>
+      </div>
+
+      <div class="project-section">
+        <h2>Issues I encountered</h2>
+        <ul>
+          <li>Depending on the photo dimension and the sizing of the polaroid, it squishes the image.</li>
+           <li>When downloading the image, it defaults to the same file name.</li>
+        </ul>
+      </div>
+
+      <div class="project-section">
+        <h2>What I learned</h2>
+        <ul>
+          <li>Even though Instagram's newest update allows users to add a polaroid effect to photos, I prefer using mine as I can adjust the photos and not limit the sizing.</li>
+          <li>Lots of patients is needed when prompting the AI when prompting it to fix the photo being able to adjust.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="about-footer">
+      <h2 class="about-footer-title">I&rsquo;m open to new opportunities!</h2>
+      <p class="about-footer-desc">
+        If you&rsquo;re hiring, looking to collaborate, or just want to connect, send me a message via <a href="https://www.linkedin.com/in/levonayim/" target="_blank" rel="noopener noreferrer" class="contact-link">LinkedIn</a> or drop an <a href="mailto:levona.yim@gmail.com" class="contact-link">email</a>. :)
+      </p>
+    </div>
+
+  </main>
+
+  <!-- FIXED GREEN BOTTOM BAR -->
+  <div class="bottom-bar"></div>
+
+  <!-- TRANSITION OVERLAY -->
+  <div class="transition-overlay" id="overlay">
+    <img src="me-wink.gif" alt="Transition Icon" class="overlay-logo">
+    <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+      <path d="M0,0 C720,120 720,120 1440,0 L1440,0 L0,0 Z" fill="#15521F"></path>
+    </svg>
+  </div>
+
+  <script>
+    const navLinks = document.querySelectorAll('.nav-link');
+    const overlay = document.getElementById('overlay');
+
+    window.addEventListener('pageshow', () => {
+      overlay.classList.remove('is-active');
+    });
+
+    navLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        const targetUrl = link.getAttribute('href');
+        if (!targetUrl || targetUrl.startsWith('#') || link.target === '_blank') return;
+
+        e.preventDefault();
+        overlay.classList.add('is-active');
+
+        setTimeout(() => {
+          window.location.href = targetUrl;
+        }, 1250);
+      });
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const currentPath = window.location.pathname.split('/').pop() || 'playground-data-schema.html';
+      document.querySelectorAll('nav a').forEach(link => {
+        const linkPath = link.getAttribute('href').split('#')[0].split('/').pop();
+        link.classList.toggle('active', linkPath === currentPath);
+      });
+    });
+
+    document.addEventListener('contextmenu', (e) => {
+      if (e.target.tagName === 'IMG') e.preventDefault();
+    });
+    document.addEventListener('dragstart', (e) => {
+      if (e.target.tagName === 'IMG') e.preventDefault();
+    });
+  </script>
+</body>
+</html>

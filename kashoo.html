@@ -108,6 +108,40 @@
       color: var(--accent);
     }
 
+    /* --- SIDE NAV (SECTION QUICK LINKS) --- */
+    [id] { scroll-margin-top: 110px; }
+    .side-nav {
+      position: fixed;
+      left: clamp(16px, 3vw, 56px);
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 90;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .side-nav a {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+      text-decoration: none;
+      white-space: nowrap;
+      transition: color 0.2s ease, font-weight 0.2s ease;
+    }
+    .side-nav a:hover {
+      color: var(--green-lighter);
+    }
+    .side-nav a.active {
+      color: var(--green);
+      font-weight: 700;
+    }
+    @media (max-width: 1180px) {
+      .side-nav { display: none; }
+    }
+
     /* --- FIXED GREEN BOTTOM BAR (shared with site) --- */
     .bottom-bar {
       position: fixed;
@@ -1389,7 +1423,21 @@
     <a href="index.html">Work</a>
     <a href="about.html" class="nav-link">About</a>
     <a href="https://drive.google.com/file/d/1kJueu5DaYzHI15e4sxursLuTW0hQqVcG/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="nav-link">Resume</a>
+    <a href="playground.html" class="nav-link">Play</a>
   </nav>
+
+  <!-- SIDE NAV: SECTION QUICK LINKS -->
+  <div class="side-nav" role="navigation" aria-label="Section navigation">
+    <a href="#overview">Overview</a>
+    <a href="#impact">Impact</a>
+    <a href="#problem">Problem</a>
+    <a href="#kashoo-classic">Kashoo Classic</a>
+    <a href="#the-new">The New Kashoo</a>
+    <a href="#process">Process</a>
+    <a href="#final-decisions">Final Decisions</a>
+    <a href="#design-intent">Design Intent</a>
+    <a href="#user-feedback">User Feedback</a>
+  </div>
 
   <!-- HERO IMAGE -->
   <section class="btc-hero">
@@ -1443,7 +1491,7 @@
   <!-- OVERVIEW + MY CONTRIBUTION -->
   <section class="section roomy">
     <div class="section-inner stack-56">
-      <div class="stack-16">
+      <div class="stack-16" id="overview">
         <span class="eyebrow" style="color:#000;">overview</span>
         <div class="body-copy">
           <p><strong>Kashoo</strong> is a cloud-based accounting and bookkeeping software specifically built for small business owners, freelancers, and sole proprietors who want to manage their finances without needing an extensive accounting background.</p>
@@ -1454,7 +1502,7 @@
 
       <div class="divider"></div>
 
-      <div class="stack-16">
+      <div class="stack-16" id="contribution">
         <span class="eyebrow" style="color:#000;">my contribution</span>
         <div class="body-copy">
           <p>As the UX Lead, I strove to design an experience that is simultaneously simple and intuitive, yet powerful. I collaborated closely with the development team and project manager to launch the project in Nov 2019 and have gone through continuous refinements from user feedback and designing new features to be released.</p>
@@ -1464,7 +1512,7 @@
   </section>
 
   <!-- IMPACT -->
-  <section class="section on-blue roomiest">
+  <section class="section on-blue roomiest" id="impact">
     <div class="section-inner" style="max-width: var(--wide-w);">
       <div class="stack-24">
       <span class="eyebrow">impact</span>
@@ -1494,7 +1542,7 @@
   </div>
 
   <!-- PROBLEM -->
-    <div class="section-inner stack-16">
+    <div class="section-inner stack-16" id="problem">
       <span class="eyebrow" style="color:#000;">problem</span>
       <div class="body-copy">
         <p>The average small business owner spends 6.8 hours a week on their finances — and even then, they may not be using the correct tool for them. Small businesses often need different resources and tools than their medium-sized business counterparts to succeed. It's not a one-size-fits-all solution.</p>
@@ -1502,7 +1550,7 @@
     </div>
 
   <!-- BACKGROUND: KASHOO CLASSIC -->
-  <section class="section" style="padding-top:4rem; padding-bottom:0;">
+  <section class="section" style="padding-top:4rem; padding-bottom:0;" id="kashoo-classic">
     <div class="section-inner stack-16">
       <span class="eyebrow" style="color:#000;">background</span>
       <span class="phase-title">Kashoo Classic</span>
@@ -1555,7 +1603,7 @@
   </section>
 
   <!-- THE NEW KASHOO 2.0 -->
-  <section class="section on-soft-blue kashoo-new-section">
+  <section class="section on-soft-blue kashoo-new-section" id="the-new">
     <div class="kashoo-new-row">
       <div class="kashoo-new-text stack-16">
         <span class="eyebrow" style="color:#000;">THE NEW</span>
@@ -1582,7 +1630,7 @@
 
   <div class="divider-wrap"><div class="divider"></div></div>
 
-  <section class="section tight">
+  <section class="section tight" id="process">
     <div class="section-inner stack-16">
       <span class="eyebrow" style="color:#000;">Process</span>
       <h3 style="font-weight:700;">Phase 1: Early Concepting</h3>
@@ -1683,7 +1731,7 @@
   <div class="divider-wrap"><div class="divider"></div></div>
 
   <!-- FINAL PRODUCT: BRANDING -->
-  <section class="section roomy">
+  <section class="section roomy" id="final-decisions">
     <div class="section-inner stack-24">
       <span class="eyebrow" style="color:#000;">Phase 3: Final Design Decisions</span>
       <h3 style="font-weight:700;">Brand Refresh</h3>
@@ -1816,7 +1864,7 @@
   </section>
 
   <!-- INBOX -->
-  <section class="section roomy">
+  <section class="section roomy" id="design-intent">
     <div class="section-inner stack-24">
       <span class="eyebrow" style="color:#000;">Design Intent</span>
       <h3 style="font-weight:700;">Inbox</h3>
@@ -1984,7 +2032,7 @@
   </section>
 
   <!-- FEEDBACK ON KASHOO 2.0 -->
-  <section class="section">
+  <section class="section" id="user-feedback">
     <div class="section-inner stack-16">
       <span class="eyebrow" style="color:#000;">User Feedback</span>
       <h3 style="font-weight:700;">Feedback on Kashoo 2.0</h3>
@@ -2070,6 +2118,26 @@
     window.addEventListener('scroll', updateScrollProgress, { passive: true });
     window.addEventListener('resize', updateScrollProgress);
     updateScrollProgress();
+
+    // Side nav scrollspy: highlight the section currently in view
+    (function() {
+      const sideLinks = document.querySelectorAll('.side-nav a');
+      if (!sideLinks.length) return;
+      const targets = Array.from(sideLinks)
+        .map(a => document.querySelector(a.getAttribute('href')))
+        .filter(Boolean);
+      function setActive() {
+        const scrollPos = window.scrollY + 160;
+        let current = targets[0];
+        targets.forEach(t => { if (t.offsetTop <= scrollPos) current = t; });
+        sideLinks.forEach(a => {
+          a.classList.toggle('active', document.querySelector(a.getAttribute('href')) === current);
+        });
+      }
+      window.addEventListener('scroll', setActive, { passive: true });
+      window.addEventListener('resize', setActive);
+      setActive();
+    })();
 
     // Navigation link transitions
     const navLinks = document.querySelectorAll('.nav-link');

@@ -108,6 +108,40 @@
       color: var(--accent);
     }
 
+    /* --- SIDE NAV (SECTION QUICK LINKS) --- */
+    [id] { scroll-margin-top: 110px; }
+    .side-nav {
+      position: fixed;
+      left: clamp(16px, 3vw, 56px);
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 90;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .side-nav a {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+      text-decoration: none;
+      white-space: nowrap;
+      transition: color 0.2s ease, font-weight 0.2s ease;
+    }
+    .side-nav a:hover {
+      color: var(--green-lighter);
+    }
+    .side-nav a.active {
+      color: var(--green);
+      font-weight: 700;
+    }
+    @media (max-width: 1180px) {
+      .side-nav { display: none; }
+    }
+
     /* --- FIXED GREEN BOTTOM BAR (shared with site) --- */
     .bottom-bar {
       position: fixed;
@@ -1104,7 +1138,17 @@
     <a href="index.html">Work</a>
     <a href="about.html" class="nav-link">About</a>
     <a href="https://drive.google.com/file/d/1kJueu5DaYzHI15e4sxursLuTW0hQqVcG/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="nav-link">Resume</a>
+    <a href="playground.html" class="nav-link">Play</a>
   </nav>
+
+  <!-- SIDE NAV: SECTION QUICK LINKS -->
+  <div class="side-nav" role="navigation" aria-label="Section navigation">
+    <a href="#overview">Overview</a>
+    <a href="#impact">Impact</a>
+    <a href="#problem">Problem</a>
+    <a href="#process">Process</a>
+    <a href="#future-vision">Post-FICO Experiment</a>
+  </div>
 
   <!-- HERO IMAGE -->
   <section class="btc-hero">
@@ -1161,7 +1205,7 @@
   <!-- OVERVIEW + MY CONTRIBUTION -->
   <section class="section roomy">
     <div class="section-inner stack-56">
-      <div class="stack-16">
+      <div class="stack-16" id="overview">
         <span class="eyebrow" style="color:#000;">overview</span>
         <div class="body-copy">
           <p><strong>Business Terms Capability (BTC)</strong> is a foundational service on the <a href="https://www.fico.com/en/fico-platform" target="_blank" class="inner-links">FICO Platform</a> that manages schemas. It is the single source of truth for how data is defined, organized, and understood across every service a client uses.</p>
@@ -1171,7 +1215,7 @@
 
       <div class="divider"></div>
 
-      <div class="stack-16">
+      <div class="stack-16" id="contribution">
         <span class="eyebrow" style="color:#000;">my contribution</span>
         <div class="body-copy">
           <p>I led the end-to-end design of BTC from a lightweight, embeddable MFE that unblocked engineering teams, through a full table redesign, to a canvas-based concept for exploring data relationships. After leaving FICO, I continued developing the concept without technical constraints to push the vision further.</p>
@@ -1181,7 +1225,7 @@
   </section>
 
   <!-- IMPACT -->
-  <section class="section on-blue roomiest">
+  <section class="section on-blue roomiest" id="impact">
     <div class="section-inner" style="max-width: var(--wide-w);">
       <div class="stack-24">
       <span class="eyebrow">impact</span>
@@ -1213,7 +1257,7 @@
 </div>
 
   <!-- PROBLEM -->
-  <section class="section">
+  <section class="section" id="problem">
     <div class="section-inner stack-16">
       <span class="eyebrow" style="color:#000;">problem</span>
       <div class="stack-24">
@@ -1238,7 +1282,7 @@
   </div>
 
   <!-- PROCESS: PHASE 1 -->
-  <section class="section roomy">
+  <section class="section roomy" id="process">
     <div class="section-inner stack-16">
       <span class="eyebrow" style="color:#000;">process</span>
 
@@ -1349,7 +1393,7 @@
   <div class="divider-wrap"><div class="divider"></div></div>
 
   <!-- FUTURE VISION -->
-  <section class="section on-blue roomy">
+  <section class="section on-blue roomy" id="future-vision">
     <div class="backstory-title">
       <h3 style="color: #fff;">Post-FICO</h3>
     </div>
@@ -1511,6 +1555,26 @@
     window.addEventListener('scroll', updateScrollProgress, { passive: true });
     window.addEventListener('resize', updateScrollProgress);
     updateScrollProgress();
+
+    // Side nav scrollspy: highlight the section currently in view
+    (function() {
+      const sideLinks = document.querySelectorAll('.side-nav a');
+      if (!sideLinks.length) return;
+      const targets = Array.from(sideLinks)
+        .map(a => document.querySelector(a.getAttribute('href')))
+        .filter(Boolean);
+      function setActive() {
+        const scrollPos = window.scrollY + 160;
+        let current = targets[0];
+        targets.forEach(t => { if (t.offsetTop <= scrollPos) current = t; });
+        sideLinks.forEach(a => {
+          a.classList.toggle('active', document.querySelector(a.getAttribute('href')) === current);
+        });
+      }
+      window.addEventListener('scroll', setActive, { passive: true });
+      window.addEventListener('resize', setActive);
+      setActive();
+    })();
 
     // Navigation link transitions
     const navLinks = document.querySelectorAll('.nav-link');

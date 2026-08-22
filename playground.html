@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='GTM'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-KBGVJDGV');</script>
+  <!-- End Google Tag Manager -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="me-faviconscaled.ico">
+  <title>Levona Yim - Playground</title>
+  <link href='https://fonts.googleapis.com/css?family=Roboto+Mono:wght@300;400;500;700&display=swap' rel='stylesheet'>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    :root {
+      --green: #15521F;
+      --green-lighter: #517A58;
+      --green-lighternav: #508500;
+      --bg-soft: #f5f5f5;
+      --bg-soft-2: #f7f7f7;
+      --text-main: #111111;
+      --text-muted: #666666;
+      --wide-w: 1320px;
+    }
+
+    body {
+      background-color: #FAFAFA;
+      min-height: 100vh;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-weight: 300;
+    }
+
+    /* --- PREVENT IMAGE DRAGGING & RIGHT-CLICK SAVE --- */
+    img {
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -o-user-select: none;
+      user-select: none;
+      -webkit-user-drag: none;
+      -webkit-touch-callout: none;
+    }
+
+    /* --- NAVIGATION --- */
+    nav {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 20px;
+      background: #ffffff;
+      padding: 12px 24px;
+      border-radius: 30px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      z-index: 100;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: color 0.2s ease, font-weight 0.2s ease;
+    }
+
+    nav a.active {
+      color: var(--green);
+      font-weight: 700;
+    }
+
+    nav a:hover {
+      color: var(--green-lighternav);
+    }
+
+    /* --- MAIN CONTAINER --- */
+    .playground-container {
+      width: 100%;
+      max-width: var(--wide-w);
+      padding: 130px 24px 100px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .playground-heading-wrap {
+      text-align: center;
+      margin-bottom: 44px;
+    }
+
+    .playground-title {
+      font-family: "JetBrains Mono", monospace !important;
+      font-weight: 700;
+      color: var(--green);
+      font-size: 1.5rem;
+      margin-bottom: 14px;
+    }
+
+    .playground-subtitle {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+
+    /* --- WHITE PANEL --- */
+    .playground-panel {
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+      width: 100%;
+      padding: 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    .playground-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+
+    .playground-card {
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      border: 1px solid #e5e5e5;
+      border-radius: 10px;
+      padding: 16px;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+      cursor: pointer;
+    }
+
+    .playground-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
+      border-color: #d6d6d6;
+    }
+
+    /* Fixed-ratio media box: every uploaded image, regardless of its native
+       dimensions, will be cropped to fill this exact box via object-fit: cover. */
+    .playground-card-media {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      overflow: hidden;
+      border-radius: 6px;
+      background: #f0f0f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .playground-card-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transform: scale(1);
+      transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .playground-card:hover .playground-card-media img {
+      transform: scale(1.08);
+    }
+
+    .playground-card-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .playground-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 0.78rem;
+      font-weight: 500;
+      padding: 5px 14px;
+      border-radius: 20px;
+      color: #1a1a1a;
+      white-space: nowrap;
+    }
+
+    .tag-claude   { background: #e1ff86; }
+    .tag-cursor   { background: #8eff86; }
+    .tag-figma    { background: #acb6ff; }
+    .tag-gemini   { background: #86fdff; }
+    .tag-code     { background: #d2d4e4; }
+
+    .playground-note {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      padding-top: 8px;
+    }
+
+    /* --- FOOTER / CALL TO ACTION OUTSIDE PANEL --- */
+    .about-footer {
+      width: 100%;
+      margin-top: 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .about-footer-title {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--green);
+      letter-spacing: -0.2px;
+    }
+
+    .about-footer-desc {
+      font-size: 1.15rem;
+      line-height: 1.5;
+      color: var(--text-main);
+      font-weight: 400;
+    }
+
+    .contact-link {
+      color: var(--green);
+      font-weight: 700;
+      text-decoration: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .contact-link:hover {
+      color: var(--green-lighter);
+      opacity: 0.8;
+      text-decoration: line-through;
+    }
+
+    /* --- FIXED GREEN BOTTOM BAR --- */
+    .bottom-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100vw;
+      height: 12px;
+      background-color: var(--green);
+      z-index: 999;
+      pointer-events: none;
+    }
+
+    /* --- TRANSITION OVERLAY --- */
+    .transition-overlay {
+      position: fixed;
+      top: -120%;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: var(--green);
+      z-index: 9999;
+      pointer-events: none;
+      transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .transition-overlay svg {
+      position: absolute;
+      bottom: -79px;
+      left: 0;
+      width: 100%;
+      height: 80px;
+      fill: var(--green);
+    }
+
+    .transition-overlay .overlay-logo {
+      width: 100px;
+      height: auto;
+      z-index: 2;
+      opacity: 0;
+      transition: opacity 0.25s ease 0.5s;
+    }
+
+    .transition-overlay.is-active .overlay-logo { opacity: 1; }
+    .transition-overlay.is-active { transform: translateY(120%); }
+
+    /* --- RESPONSIVE --- */
+    @media (max-width: 1024px) {
+      .playground-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .playground-container { padding: 100px 20px 80px 20px; }
+      .playground-panel { padding: 32px 20px; gap: 28px; }
+      .playground-grid { gap: 24px; }
+    }
+
+    @media (max-width: 560px) {
+      .playground-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      nav { gap: 10px; padding: 10px 16px; }
+      nav a { font-size: 0.72rem; letter-spacing: 0.5px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KBGVJDGV"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <!-- NAVIGATION -->
+  <nav>
+    <a href="index.html" class="nav-link">Work</a>
+    <a href="about.html" class="nav-link">About</a>
+    <a href="https://drive.google.com/file/d/1kJueu5DaYzHI15e4sxursLuTW0hQqVcG/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="nav-link">Resume</a>
+    <a href="playground.html" class="nav-link active">Play</a>
+  </nav>
+
+  <!-- MAIN PLAYGROUND CONTENT -->
+  <main class="playground-container">
+
+    <div class="playground-heading-wrap">
+      <h1 class="playground-title">Playground projects</h1>
+      <p class="playground-subtitle">Below are a few simple projects I played around with using AI assistant and prompting.</p>
+    </div>
+
+    <div class="playground-panel">
+      <div class="playground-grid">
+
+        <a href="playground-data-schema.html" class="playground-card nav-link">
+          <div class="playground-card-media">
+            <img src="imgs-playground/playground-thumb-data-schema.png" alt="Data Schema Prototype">
+          </div>
+          <span class="playground-card-title">Data Schema Prototype</span>
+          <div class="playground-tags">
+            <span class="tag tag-claude">claude code</span>
+            <span class="tag tag-cursor">cursor</span>
+            <span class="tag tag-figma">figma</span>
+          </div>
+        </a>
+
+        <a href="playground-cat-companion.html" class="playground-card nav-link">
+          <div class="playground-card-media">
+            <img src="imgs-playground/playground-thumb-cat-companion.png" alt="Local + Browser Extension - Reminder App">
+          </div>
+          <span class="playground-card-title">Downloadable &amp; Browser Extension - Reminder App</span>
+          <div class="playground-tags">
+            <span class="tag tag-gemini">gemini</span>
+            <span class="tag tag-code">html/css/js</span>
+          </div>
+        </a>
+
+        <a href="playground-terminal-portfolio.html" class="playground-card nav-link">
+          <div class="playground-card-media">
+            <img src="imgs-playground/playground-thumb-terminal-portfolio.png" alt="Terminal Style Portfolio">
+          </div>
+          <span class="playground-card-title">Terminal Style Portfolio</span>
+          <div class="playground-tags">
+            <span class="tag tag-claude">claude</span>
+            <span class="tag tag-gemini">gemini</span>
+            <span class="tag tag-code">html/css/js</span>
+          </div>
+        </a>
+
+
+        <a href="playground-polaroid.html" class="playground-card nav-link">
+          <div class="playground-card-media">
+            <img src="imgs-playground/playground-thumb-polaroid.png" alt="Polaroid Effect - web + mobile">
+          </div>
+          <span class="playground-card-title">Polaroid Effect - web + mobile</span>
+          <div class="playground-tags">
+            <span class="tag tag-claude">claude</span>
+            <span class="tag tag-gemini">gemini</span>
+            <span class="tag tag-code">html/css/js</span>
+          </div>
+        </a>
+        
+        <a href="playground-image-portal.html" class="playground-card nav-link">
+          <div class="playground-card-media">
+            <img src="imgs-playground/playground-image-portal.png" alt="Image Portal Project">
+          </div>
+          <span class="playground-card-title">Image Portal</span>
+          <div class="playground-tags">
+            <span class="tag tag-claude">claude code</span>
+          </div>
+        </a>
+
+        <a href="playground-wowwowo.html" class="playground-card nav-link">
+          <div class="playground-card-media">
+            <img src="imgs-playground/playground-thumb-wowwowo.png" alt="Simple Embeddable Chrome Text">
+          </div>
+          <span class="playground-card-title">Simple Embeddable Chrome Text</span>
+          <div class="playground-tags">
+            <span class="tag tag-gemini">gemini</span>
+          </div>
+        </a>
+
+      </div>
+
+      <p class="playground-note">More will be added as more complex projects I experiment with AI</p>
+    </div>
+
+    <!-- OUTSIDE BACKGROUND FOOTER TEXT -->
+    <div class="about-footer">
+      <h2 class="about-footer-title">I&rsquo;m open to new opportunities!</h2>
+      <p class="about-footer-desc">
+        If you&rsquo;re hiring, looking to collaborate, or just want to connect, send me a message via <a href="https://www.linkedin.com/in/levonayim/" target="_blank" rel="noopener noreferrer" class="contact-link">LinkedIn</a> or drop an <a href="mailto:levona.yim@gmail.com" class="contact-link">email</a>. :)
+      </p>
+    </div>
+
+  </main>
+
+  <!-- FIXED GREEN BOTTOM BAR -->
+  <div class="bottom-bar"></div>
+
+  <!-- TRANSITION OVERLAY -->
+  <div class="transition-overlay" id="overlay">
+    <img src="me-wink.gif" alt="Transition Icon" class="overlay-logo">
+    <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+      <path d="M0,0 C720,120 720,120 1440,0 L1440,0 L0,0 Z" fill="#15521F"></path>
+    </svg>
+  </div>
+
+  <script>
+    // --- PAGE TRANSITION OVERLAY HANDLER ---
+    const navLinks = document.querySelectorAll('.nav-link');
+    const overlay = document.getElementById('overlay');
+
+    window.addEventListener('pageshow', () => {
+      overlay.classList.remove('is-active');
+    });
+
+    navLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        const targetUrl = link.getAttribute('href');
+        if (!targetUrl || targetUrl.startsWith('#') || link.target === '_blank') return;
+
+        e.preventDefault();
+        overlay.classList.add('is-active');
+
+        setTimeout(() => {
+          window.location.href = targetUrl;
+        }, 1250);
+      });
+    });
+
+    // --- ACTIVE NAV HIGHLIGHTING ---
+    document.addEventListener('DOMContentLoaded', () => {
+      const currentPath = window.location.pathname.split('/').pop() || 'playground.html';
+      document.querySelectorAll('nav a').forEach(link => {
+        const linkPath = link.getAttribute('href').split('#')[0].split('/').pop();
+        link.classList.toggle('active', linkPath === currentPath);
+      });
+    });
+
+    // --- PREVENT MEDIA RIGHT-CLICK & DRAG ---
+    document.addEventListener('contextmenu', (e) => {
+      if (e.target.tagName === 'IMG') e.preventDefault();
+    });
+    document.addEventListener('dragstart', (e) => {
+      if (e.target.tagName === 'IMG') e.preventDefault();
+    });
+  </script>
+</body>
+</html>

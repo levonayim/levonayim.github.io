@@ -108,6 +108,40 @@
       color: var(--accent);
     }
 
+    /* --- SIDE NAV (SECTION QUICK LINKS) --- */
+    [id] { scroll-margin-top: 110px; }
+    .side-nav {
+      position: fixed;
+      left: clamp(16px, 3vw, 56px);
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 90;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .side-nav a {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+      text-decoration: none;
+      white-space: nowrap;
+      transition: color 0.2s ease, font-weight 0.2s ease;
+    }
+    .side-nav a:hover {
+      color: var(--green-lighter);
+    }
+    .side-nav a.active {
+      color: var(--green);
+      font-weight: 700;
+    }
+    @media (max-width: 1180px) {
+      .side-nav { display: none; }
+    }
+
     /* --- FIXED GREEN BOTTOM BAR (shared with site) --- */
     .bottom-bar {
       position: fixed;
@@ -1137,7 +1171,18 @@
     <a href="index.html">Work</a>
     <a href="about.html" class="nav-link">About</a>
     <a href="https://drive.google.com/file/d/1kJueu5DaYzHI15e4sxursLuTW0hQqVcG/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="nav-link">Resume</a>
+    <a href="playground.html" class="nav-link">Play</a>
   </nav>
+
+  <!-- SIDE NAV: SECTION QUICK LINKS -->
+  <div class="side-nav" role="navigation" aria-label="Section navigation">
+    <a href="#overview">Overview</a>
+    <a href="#impact">Impact</a>
+    <a href="#problem">Problem</a>
+    <a href="#branding">Branding</a>
+    <a href="#wireframes">Wireframes</a>
+    <a href="#final-designs">Final Designs</a>
+  </div>
 
   <!-- HERO IMAGE -->
   <section class="btc-hero" style="background-image: url(ts/trulysmallcontent_cover-scaled.png);">
@@ -1194,7 +1239,7 @@
 <!-- OVERVIEW + MY CONTRIBUTION -->
   <section class="section roomy">
     <div class="section-inner stack-56">
-      <div class="stack-16">
+      <div class="stack-16" id="overview">
         <span class="eyebrow" style="color:#000;">overview</span>
         <div class="body-copy">
           <p><strong>TrulySmall Invoices</strong>is a lightweight invoicing application designed for freelancers, contractors, and small business owners to handle billing without the complexity of traditional accounting systems. Available on web and mobile devices, it enables users to quickly create, customize, and send professional invoices and estimates, track payment statuses, collect digital payments, and set up automated payment reminders to maintain smooth cash flow on the go.</p>
@@ -1203,7 +1248,7 @@
 
       <div class="divider"></div>
 
-      <div class="stack-16">
+      <div class="stack-16" id="contribution">
         <span class="eyebrow" style="color:#000;">my contribution</span>
         <div class="body-copy">
           <p>As the UX Lead of the TrulySmall Invoicing App, my goal of this project was to finalize the branding of TrulySmall and scope out the MVP of the Invoicing app. I collaborated closely with the development team to launch the project in Jan 2021.</p>
@@ -1213,7 +1258,7 @@
   </section>
 
 <!-- IMPACT -->
-  <section class="section on-blue roomy">
+  <section class="section on-blue roomy" id="impact">
     <div class="section-inner" style="max-width: var(--wide-w);">
       <div class="stack-24">
       <span class="eyebrow">impact</span>
@@ -1244,7 +1289,7 @@
   </div>
 
 <!-- PROBLEM -->
-    <div class="section-inner stack-16">
+    <div class="section-inner stack-16" id="problem">
       <span class="eyebrow" style="color:#000;">problem</span>
       <div class="body-copy">
         <p>In a fiercely competitive industry we needed to be nimble and think hard about each feature we wanted to add, so we can launch quickly for Tax season and expand from there. This is how we started off with the Invoicing App.</p>
@@ -1252,7 +1297,7 @@
     </div>
 
   <!-- FINAL PRODUCT: BRANDING -->
-  <section class="section">
+  <section class="section" id="branding">
     <div class="section-inner stack-24">
       <span class="eyebrow" style="color:#000;">process</span>
       <h3 style="font-weight:700;">Branding</h3>
@@ -1297,7 +1342,7 @@
 <div class="divider-wrap"><div class="divider"></div></div>
 
 <!-- PROCESS: BRANDING -->
-  <section class="section">
+  <section class="section" id="wireframes">
     <div class="section-inner stack-24">
       <span class="eyebrow" style="color:#000;">process</span>
       <h3 style="font-weight:700;">Initial Wireframes</h3>
@@ -1313,7 +1358,7 @@
 <div class="divider-wrap"><div class="divider"></div></div>
 
 <!-- PROCESS: FINAL DESIGNS -->
-  <section class="section">
+  <section class="section" id="final-designs">
     <div class="section-inner stack-16">
       <h3 style="font-weight:700;">Final Designs</h3>
           <div class="figma-container">
@@ -1330,7 +1375,7 @@
   <div class="divider-wrap"><div class="divider"></div></div>
 
   <!-- CODE -->
-  <section class="section">
+  <section class="section" id="code">
     <div class="section-inner stack-16">
       <h3 style="font-weight:700;">Getting my hands dirty with code</h3>
       <div class="media-full">
@@ -1422,6 +1467,26 @@
     window.addEventListener('scroll', updateScrollProgress, { passive: true });
     window.addEventListener('resize', updateScrollProgress);
     updateScrollProgress();
+
+    // Side nav scrollspy: highlight the section currently in view
+    (function() {
+      const sideLinks = document.querySelectorAll('.side-nav a');
+      if (!sideLinks.length) return;
+      const targets = Array.from(sideLinks)
+        .map(a => document.querySelector(a.getAttribute('href')))
+        .filter(Boolean);
+      function setActive() {
+        const scrollPos = window.scrollY + 160;
+        let current = targets[0];
+        targets.forEach(t => { if (t.offsetTop <= scrollPos) current = t; });
+        sideLinks.forEach(a => {
+          a.classList.toggle('active', document.querySelector(a.getAttribute('href')) === current);
+        });
+      }
+      window.addEventListener('scroll', setActive, { passive: true });
+      window.addEventListener('resize', setActive);
+      setActive();
+    })();
 
     // Navigation link transitions
     const navLinks = document.querySelectorAll('.nav-link');
