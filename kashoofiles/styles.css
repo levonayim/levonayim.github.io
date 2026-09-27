@@ -528,14 +528,13 @@ a { color: inherit; }
 }
 
 .cta-section {
-  width: min(1187px, 100%);
-  margin-inline: auto;
   padding-block: clamp(40px, 6vw, 80px) clamp(64px, 9vw, 120px);
   display: grid;
   gap: 16px;
 }
 
 .cta-section h2 {
+  max-width: 1187px;
   margin: 0;
   text-align: left;
   font-family: var(--font-display);
@@ -547,9 +546,9 @@ a { color: inherit; }
 }
 
 .cta-section .lead {
+  max-width: 1187px;
   margin: 0;
   width: auto;
-  max-width: none;
   text-align: left;
 }
 
