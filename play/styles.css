@@ -385,22 +385,40 @@ a { color: inherit; }
   .download-links .btn:hover { transform: translateY(-1px); box-shadow: var(--shadow-card); }
 }
 
-/* ---------- CTA ---------- */
+/* ---------- closing CTA (shared across all pages — keep in sync) ---------- */
 
-.play-cta {
+.cta-divider {
+  width: 454px;
+  max-width: calc(100% - 2 * var(--gutter));
+  margin: 0 auto;
+  border: none;
+  border-top: 1px solid var(--line);
+}
+
+.cta-section {
   padding-block: clamp(40px, 6vw, 80px) clamp(64px, 9vw, 120px);
   display: grid;
   gap: 16px;
 }
-.play-cta h2 {
+.cta-section h2 {
   width: min(1187px, 100%);
+  margin-inline: auto;
+  text-align: left;
   font-family: var(--font-display);
   font-size: var(--fs-lead);
   font-weight: 900;
   letter-spacing: -0.02em;
   line-height: 1.2;
+  color: var(--ink);
+}
+.cta-section a {
+  text-underline-offset: 3px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color .2s ease;
   color: var(--link-accent);
 }
+.cta-section a:hover { color: var(--accent); }
 
 /* ---------- page-load reveal (copied from kashoofiles/styles.css) ---------- */
 
