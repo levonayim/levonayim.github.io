@@ -204,10 +204,13 @@ a { color: inherit; }
   max-width: 1043px;
 }
 .lead a {
-  text-decoration-color: var(--link-accent);
   text-underline-offset: 3px;
+  text-decoration:none;
+  font-weight: 500;
+  transition: color .2s ease;
+  color: var(--link-accent);
 }
-.lead a:hover { color: var(--link-accent); }
+.lead a:hover { color: var(--accent); }
 
 .play-subtitle {
   margin-top: clamp(20px, 2.6vw, 32px);

@@ -281,13 +281,12 @@ a { color: inherit; }
 }
 .lead a {
   text-underline-offset: 3px;
-  text-decoration-color: var(--link-accent);
-  text-decoration-style: wavy;
-  text-decoration-thickness: 2px;
+  text-decoration:none;
   font-weight: 500;
   transition: color .2s ease;
+  color: var(--link-accent);
 }
-.lead a:hover { color: var(--link-accent); }
+.lead a:hover { color: var(--accent); }
 
 .about-divider {
   width: 454px;
@@ -313,7 +312,7 @@ a { color: inherit; }
   font-weight: 900;
   letter-spacing: -0.02em;
   line-height: 1.2;
-  color: var(--link-accent);
+  color: var(--ink);
 }
 
 /* ---------- page-load reveal (copied from kashoofiles/styles.css) ---------- */
