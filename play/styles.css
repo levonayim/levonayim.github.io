@@ -428,15 +428,18 @@ a { color: inherit; }
   .play-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
-@media (max-width: 520px) {
-  .site-header { padding-top: 12px; }
-  .site-header__inner { gap: 8px; }
-  .brand { font-size: 24px; }
+@media (max-width: 640px) {
+  .site-header__inner { justify-content: center; }
+  .brand { display: none; }
   .nav-pill { gap: 18px; padding: 12px 16px; font-size: 15px; }
   .play-grid { grid-template-columns: 1fr; }
 }
 
+@media (max-width: 520px) {
+  .site-header { padding-top: 12px; }
+  .site-header__inner { gap: 8px; }
+}
+
 @media (max-width: 400px) {
-  .brand { display: none; }
   .nav-pill { gap: 12px; padding: 10px 12px; font-size: 14px; }
 }
