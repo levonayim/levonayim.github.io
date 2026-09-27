@@ -1,0 +1,422 @@
+/* Native cross-document view transition: Chrome/Edge 126+ cross-fade
+   between same-origin pages (e.g. into a case study) instead of a hard
+   cut. No-op (ignored) in browsers that don't support it yet. */
+@view-transition {
+  navigation: auto;
+}
+
+:root {
+  --ink: #1f2937;
+  --ink-strong: #030712;
+  --nav-ink: #292a2c;
+  --bg: #ffffff;
+  --shadow-nav: 0 4px 8px rgba(73, 73, 73, 0.16);
+  --nav-bg: #ffffff;
+  --header-scrolled-bg: rgba(255, 255, 255, 0.72);
+  --btn-bg: #030712;
+  --btn-ink: #ffffff;
+  --btn-arrow-filter: none;
+  --link-accent: #5f72ed;
+  color-scheme: light;
+  --font-display: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Inter", "Helvetica Neue", Arial, sans-serif;
+  --font-ui: "Inter", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+  --gutter: 40px;
+  --page-max: 1512px;
+  /* Side padding for the hero text + nav: 5.25rem (84px) on desktop, scaling down fluidly on smaller screens */
+  --hero-pad: clamp(1.25rem, 5.556vw, 5.25rem);
+  --edge: var(--hero-pad);
+}
+
+@font-face {
+  font-family: "SF Pro Thin";
+  font-weight: 100;
+  font-style: normal;
+  src: local("SF Pro Display Thin"), local("SFProDisplay-Thin"),
+       local("SF Pro Thin"), local("SFPro-Thin"), local(".SFNS-Thin");
+}
+
+:root[data-theme="dark"] {
+  --ink: #e5e7eb;
+  --ink-strong: #f9fafb;
+  --nav-ink: #e5e7eb;
+  --bg: #0b0f17;
+  --shadow-nav: 0 4px 12px rgba(0, 0, 0, 0.5);
+  --nav-bg: #1c2431;
+  --header-scrolled-bg: rgba(11, 15, 23, 0.72);
+  --btn-bg: #f9fafb;
+  --btn-ink: #030712;
+  --btn-arrow-filter: invert(1);
+  /* Lighter tint of the brand blue-violet — the flat #5f72ed reads too dark against this background. */
+  --link-accent: color-mix(in srgb, #5f72ed 70%, white);
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  transition: background-color .3s ease, color .3s ease;
+  font-family: var(--font-display);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+
+/* ───────── Header (fixed, morphs after the hero) ───────── */
+.site-header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 50;
+  padding-block: 24px;
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  transition: background-color .3s ease, padding .3s ease;
+}
+.header-inner {
+  /* Hero state: nav sits the same distance from the right edge as the intro text does from the left */
+  padding-inline: var(--edge);
+  transition: padding .3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.site-header.is-scrolled { background: var(--header-scrolled-bg); padding-block: 20px; }
+/* Scrolled state: line up with the work section's content grid */
+.is-scrolled .header-inner {
+  padding-inline: max(var(--gutter), calc((100% - var(--page-max)) / 2 + var(--gutter)));
+}
+
+.brand {
+  font-size: 40px;
+  font-weight: 900;
+  color: var(--ink);
+  line-height: 1;
+  letter-spacing: -0.05em;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(-8px);
+  pointer-events: none;
+  transition: opacity .3s ease, transform .3s ease;
+}
+.is-scrolled .brand { opacity: 1; transform: none; pointer-events: auto; }
+
+.nav {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  padding: 16px 32px;
+  background: var(--nav-bg);
+  border-radius: 12px;
+  box-shadow: var(--shadow-nav);
+  transition: background-color .3s ease, box-shadow .3s ease;
+  /* Explicit font + line-height so the pill's size never depends on
+     whatever font/line-height a given page sets on <body> — kept in
+     sync with the .nav-pill used on the case-study/about/play pages. */
+  font-family: "SF Pro Text", "SF Pro", -apple-system, BlinkMacSystemFont, "Inter", system-ui, sans-serif;
+  font-size: 18px;
+  line-height: 1.5;
+  white-space: nowrap;
+  color: var(--nav-ink);
+}
+.nav a { transition: color .2s ease; }
+.nav a:hover, .nav a[aria-current="page"] { color: var(--link-accent); }
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24
+}
+
+.theme-toggle {
+  display: grid;
+  place-items: center;
+  width: 24px; height: 24px;
+  padding: 0; border: 0; background: none; cursor: pointer;
+  color: var(--nav-ink);
+  overflow: hidden;
+  transition: opacity .2s ease, transform .3s ease;
+}
+.theme-toggle:hover { opacity: .65; }
+.theme-toggle:active { transform: rotate(25deg) scale(.92); }
+.theme-toggle:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; border-radius: 6px; }
+.theme-toggle .material-symbols-outlined { font-size: 24px; line-height: 1; }
+/* Light mode → sun, dark mode → moon (pure CSS, so there is no flash on load) */
+.theme-toggle .icon-moon { display: none; }
+:root[data-theme="dark"] .theme-toggle .icon-sun { display: none; }
+:root[data-theme="dark"] .theme-toggle .icon-moon { display: inline; }
+
+/* ───────── Section 1 — Hero ───────── */
+.hero {
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 120px var(--edge) clamp(48px, 15vh, 160px);
+}
+.hero h1 {
+  margin: 0;
+  font-size: clamp(48px, 8.2vw, 124px);
+  font-weight: 900;
+  line-height: .95;
+  letter-spacing: -0.05em;
+  color: var(--ink);
+  overflow-wrap: anywhere;
+}
+.hero .role {
+  margin: 0 0 clamp(12px, 1.6vw, 24px);
+  font-family: "SF Pro Thin", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Inter", "Helvetica Neue", Arial, sans-serif;
+  font-size: clamp(36px, 6.6vw, 100px);
+  font-weight: 100;
+  line-height: 1.1;
+  max-width: 100%;
+  width: fit-content;
+  color: transparent;
+  /* Layers (top → bottom): red/orange wash over "pro", orange tip on the "t",
+     then a left→right sweep: soft blue → cyan → blue → magenta → violet.
+     Only the sweep is sized up + animated (background-size/-position keep
+     one "auto auto, auto auto, …" entry per layer) so the two radial washes
+     stay pinned over "pro" and the "t" while the sweep flows underneath. */
+  background-image:
+    radial-gradient(ellipse 26% 80% at 6% 0%, #ff5050 0%, #ff7a50 45%, rgba(255,150,80,0) 100%),
+    radial-gradient(ellipse 9% 60% at 41% 0%, #ff9650 0%, rgba(255,150,80,0) 100%),
+    linear-gradient(90deg,
+      #9db6cc 0%, #6fd0f2 12%, #50dcff 24%, #5cb8ff 36%, #8f8cff 44%,
+      #e05fe4 50%, #ed5fd6 60%, #d55fe6 78%, #c352f2 100%);
+  background-size: auto auto, auto auto, 300% 100%;
+  background-position: 0% 0%, 0% 0%, 0% 50%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: role-gradient-flow 8s ease-in-out infinite;
+}
+
+@keyframes role-gradient-flow {
+  0%   { background-position: 0% 0%, 0% 0%, 0% 50%; }
+  50%  { background-position: 0% 0%, 0% 0%, 100% 50%; }
+  100% { background-position: 0% 0%, 0% 0%, 0% 50%; }
+}
+.hero .tagline {
+  margin: 0;
+  max-width: 1048px;
+  font-size: clamp(22px, 3.2vw, 48px);
+  font-weight: 300;
+  line-height: 1.2;
+  color: var(--ink);
+}
+
+/* ───────── Section 2 — Work ───────── */
+.work {
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: 150px var(--gutter) 160px;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(96px, 16vw, 240px);
+  scroll-margin-top: 0;
+}
+
+.project {
+  display: grid;
+  grid-template-columns: minmax(280px, 397px) minmax(0, 948px);
+  justify-content: space-between;
+  align-items: center;
+  gap: clamp(32px, 4vw, 48px);
+}
+.project.is-reversed { grid-template-columns: minmax(0, 948px) minmax(280px, 397px); }
+.project.is-reversed .project-copy { order: 2; }
+.project.is-reversed .project-media { order: 1; }
+
+.project-copy { display: flex; flex-direction: column; gap: 19px; min-width: 0; }
+.project-head { display: flex; flex-direction: column; gap: 8px; }
+
+/* Type scales fluidly and reaches the full desktop sizes (28 / 52 / 32) at ~1450px */
+.project-client {
+  margin: 0;
+  padding-block: 4px;
+  font-family: var(--font-ui);
+  font-size: clamp(20px, 1.95vw, 28px);
+  font-weight: 700;
+  line-height: 1.857;
+  letter-spacing: -0.046em;
+  color: var(--ink-strong);
+}
+.project-title {
+  margin: 0;
+  font-family: var(--font-ui);
+  font-size: clamp(36px, 3.6vw, 52px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.025em;
+  color: var(--ink-strong);
+  overflow-wrap: break-word;
+}
+.project-summary {
+  margin: 0;
+  padding-bottom: 16px;
+  font-size: clamp(20px, 2.2vw, 32px);
+  font-weight: 300;
+  line-height: 1.2;
+  color: var(--ink);
+}
+
+/* Button (lock icon sits inside, beside the label) */
+.btn {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 24px;
+  background: var(--btn-bg);
+  color: var(--btn-ink);
+  border-radius: 8px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+  font-family: var(--font-ui);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 16px;
+  white-space: nowrap;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.btn:focus-visible { outline: 2px solid var(--ink-strong); outline-offset: 3px; }
+.btn img { width: 9.936px; height: 4.032px; filter: var(--btn-arrow-filter); }
+
+.btn .btn-lock { font-size: 18px; line-height: 1; margin-right: -2px; }
+
+@media (hover: hover) {
+  .btn:hover { transform: translateY(-1px); box-shadow: 0 6px 14px rgba(0, 0, 0, .18); }
+}
+
+/* Wraps a .project-media so the whole screenshot is clickable without
+   disturbing the .project grid (the <a> itself takes no box of its own). */
+.media-link { display: contents; }
+
+/* Gradient frame around each screenshot (opacity .8 like the design) */
+.project-media {
+  position: relative;
+  aspect-ratio: 948 / 695;
+  border-radius: 24px;
+  overflow: hidden;
+  isolation: isolate;
+  transition: transform .3s ease;
+}
+@media (hover: hover) {
+  .media-link:hover .project-media { transform: scale(1.015); }
+}
+.project-media::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: .8;
+}
+.project-media.grad-a::before {
+  background: conic-gradient(from 90deg at 50% 50%,
+    #50dcff -10%, #7cb9d3 -5%, #a896a8 0%, #d3737c 5%, #ff5050 10%,
+    #fb5471 13%, #f65893 16%, #ed5fd6 21.5%, #ea84e0 25%, #e7a9ea 29%,
+    #e0f2fe 36%, #e8dbd3 39.5%, #f0c4a7 43%, #f7ad7c 46.5%, #ff9650 50%,
+    #ee857c 54.5%, #dc73a8 59%, #cb62d3 64%, #b950ff 68.5%, #9f73ff 74%,
+    #8596ff 79%, #6ab9ff 84.5%, #50dcff 90%, #7cb9d3 95%, #a896a8 100%);
+}
+.project-media.grad-b::before {
+  background: conic-gradient(from 90deg at 50% 50%,
+    #ebced8 2%, #c7aee2 4%, #a38fec 6%, #806ff5 8%, #5c50ff 10%,
+    #7f57f5 13%, #a35dea 16%, #ea6bd5 21.5%, #e899e1 30%, #e6c8ec 39%,
+    #b2b3ea 50%, #b288ce 69%, #cfabd3 81%, #ebced8 94%);
+}
+.project-media.grad-c::before {
+  background: conic-gradient(from 232deg at 50% 50%,
+    #5095ff 0%,
+    #5082ff 10%, #5f72ed 22%, #92c3fc 36%, #7c50ff 50%,
+    #ffc29f 68%, #50a7ff 90%,
+    #5095ff 100%);
+}
+/* Screenshot keeps its own proportions (never cropped) and scales with the frame */
+.project-media img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 93%;
+  height: auto;
+  max-height: 88%;
+  object-fit: contain;
+  transform: translate(-50%, -50%);
+}
+
+/* ───────── Responsive ───────── */
+
+/* Touch devices: larger tap targets in the nav */
+@media (pointer: coarse) {
+  .nav a { padding-block: 8px; }
+  .theme-toggle { width: 32px; height: 32px; }
+}
+
+/* Small laptops / large tablets (landscape): tighten the header so brand + nav never collide */
+@media (max-width: 1100px) {
+  /* Stack the case studies: copy first, image below */
+  .project,
+  .project.is-reversed { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .project.is-reversed .project-copy { order: 1; }
+  .project.is-reversed .project-media { order: 2; }
+  .project-copy { max-width: 640px; }
+
+  .project-client  { font-size: clamp(22px, 3vw, 28px); }
+  .project-title   { font-size: clamp(40px, 6vw, 52px); }
+  .project-summary { font-size: clamp(24px, 3.4vw, 32px); }
+
+  .work { padding-top: 120px; padding-bottom: 120px; }
+}
+
+/* Tablets (portrait) */
+@media (max-width: 900px) {
+  .brand { font-size: 32px; }
+  .nav { gap: 28px; padding: 14px 24px; font-size: 16px; }
+}
+
+/* Phones */
+@media (max-width: 640px) {
+  :root { --gutter: 20px; }
+  .site-header { padding-block: 16px; }
+  .site-header.is-scrolled { padding-block: 14px; }
+  .header-inner { gap: 12px; }
+  .brand { font-size: 24px; }
+  .nav { gap: 18px; padding: 12px 16px; font-size: 15px; }
+
+  .hero { padding-top: 104px; }
+  .hero h1   { font-size: 14vw; }
+  .hero .role { font-size: 10.5vw; }
+  .hero .tagline { font-size: clamp(20px, 5.6vw, 28px); }
+
+  .work { padding-top: 88px; padding-bottom: 88px; gap: 96px; }
+  .project,
+  .project.is-reversed { gap: 24px; }
+  .project-client  { font-size: 20px; line-height: 1.6; }
+  .project-title   { font-size: clamp(32px, 9.5vw, 40px); line-height: 1.05; }
+  .project-summary { font-size: 22px; padding-bottom: 8px; }
+  .project-media   { border-radius: 16px; }
+}
+
+/* Very narrow phones: the brand would crowd the nav, so keep the nav only */
+@media (max-width: 520px) {
+  .is-scrolled .brand { display: none; }
+}
+@media (max-width: 400px) {
+  .nav { gap: 12px; padding: 10px 12px; font-size: 14px; }
+}
+
+/* Short landscape screens (phones on their side) */
+@media (max-height: 520px) and (orientation: landscape) {
+  .hero { padding-top: 88px; padding-bottom: 32px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition: none !important; }
+  .hero .role { animation: none; }
+}

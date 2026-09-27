@@ -1,0 +1,469 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kashoo 2.0 Web · Levona Yim</title>
+  <meta name="description" content="Lead UX case study: redesigning Kashoo's bookkeeping platform for freelancers and sole proprietors, driving 22.8% subscriber growth.">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="icon" type="image/png" href="../assets/favicon-sept2026.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..800&display=swap" rel="stylesheet">
+  <!-- Google Material Symbols: sunny (light mode), dark_mode (dark mode) — same nav icon set as the homepage -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=dark_mode,sunny&display=block" />
+  <link rel="stylesheet" href="styles.css">
+
+  <script>
+    // Runs before first paint: mark JS as available and restore a saved theme (no flash).
+    // Shares the homepage's "theme" key (not a "kashoo-" prefixed one) so dark/light mode
+    // carries over seamlessly when navigating between the homepage and this case study.
+    document.documentElement.classList.add('js');
+    try {
+      var saved = localStorage.getItem('theme');
+      if (saved) document.documentElement.setAttribute('data-theme', saved);
+    } catch (e) {}
+  </script>
+</head>
+
+<body id="top">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="progress" aria-hidden="true"></div>
+
+  <!-- SVG sprite -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="i-user" viewBox="0 0 48 48"><circle cx="24" cy="17" r="8.5"/><path d="M7 45c0-9.6 7.6-16 17-16s17 6.4 17 16z"/></symbol>
+  </svg>
+
+  <!-- ============ NAV ============ -->
+  <header class="site-header">
+    <div class="site-header__inner wrap">
+      <a class="brand" href="../index.html" aria-label="Levona Yim — back to homepage">levona yim</a>
+      <nav class="nav-pill" aria-label="Primary">
+        <a href="../index.html" aria-current="page">work</a>
+        <a href="../about/index.html">about</a>
+        <a href="../play/index.html">play</a>
+        <a href="https://drive.google.com/file/d/1kJueu5DaYzHI15e4sxursLuTW0hQqVcG/view" target="_blank" rel="noopener">resume</a>
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark mode" aria-pressed="false">
+          <span class="material-symbols-outlined icon-sun" aria-hidden="true">sunny</span>
+          <span class="material-symbols-outlined icon-moon" aria-hidden="true">dark_mode</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ============ INTRO ============ -->
+    <section class="intro wrap">
+      <h1 class="display reveal" style="--i:0">Kashoo 2.0 Web</h1>
+
+      <div class="intro__grid">
+        <dl class="meta reveal" style="--i:1">
+          <div>
+            <dt>Role</dt>
+            <dd>Lead UX Designer</dd>
+          </div>
+          <div>
+            <dt>Timeline</dt>
+            <dd>2019–2021</dd>
+          </div>
+          <div>
+            <dt>Team</dt>
+            <dd>
+              <span>Product Manager</span>
+              <span>3 full-stack engineers</span>
+              <span>CEO</span>
+            </dd>
+          </div>
+        </dl>
+
+        <div class="summary">
+          <p class="lead reveal" style="--i:2">
+            Contractors, freelancers and digital professionals often struggle with overly complicated bookkeeping software.
+            Kashoo 2.0 <strong>simplifies financial management by automating tedious data entry and tracking.</strong>
+          </p>
+          <p class="lead reveal" style="--i:3">
+            I <strong>designed and shipped the new end-to-end Kashoo 2.0 experience</strong> in November 2019 that
+            <strong>increased subscribers by 22.8%, and driving over 1,000+ new users to the platform.</strong>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ HERO IMAGE ============ -->
+    <section class="showcase" aria-label="Kashoo 2.0 invoice screen">
+      <div class="showcase__frame reveal" style="--i:4">
+        <img
+          src="assets/kashoo-inner-hero.gif"
+          alt="Kashoo 2.0 edit-invoice screen showing line items, tax and a running total"
+          width="1208" height="757">
+      </div>
+    </section>
+
+    <!-- ============ PROBLEM ============ -->
+    <section class="chapter wrap" id="problem">
+      <div class="chapter__grid">
+        <h2 class="chapter__title">Problem Statement</h2>
+        <div class="chapter__body">
+          <p class="lead">
+            The average small business owner spends 6.8 hours a week on their finances and even then, these small business owners may not be using the right tool. Small businesses often need different resources and tools than their medium-sized business counterparts to succeed.</p><br><p class="lead">Kashoo was built for exactly these types of business owners, but its legacy product was no longer keeping up with what they needed.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ LEGACY UI ============ -->
+    <section class="chapter wrap" id="legacy-ui">
+      <div class="chapter__grid">
+        <h2 class="chapter__title">Legacy UI</h2>
+        <div class="chapter__body">
+          <figure class="figure">
+            <img
+              src="assets/kashoo-classic-main.png"
+              alt="Kashoo Classic's main dashboard"
+              width="1278" height="1062">
+          </figure>
+
+          <div class="subblock">
+            <h3 class="subhead">User Feedback on Legacy UI (Kashoo Classic)</h3>
+            <p class="lead">
+              Prior to joining, the team had been gathering feedback from existing users through Intercom, surveys and cancellation forms on how to build a new and improved Kashoo 2.0 to better serve our truly small business owners.
+            </p>
+
+            <div class="quotes" aria-label="Feedback from Kashoo Classic users">
+              <div class="quotes__col">
+                <figure class="quote" style="--tone:#be185d">
+                  <span class="avatar" aria-hidden="true"><svg><use href="#i-user"/></svg></span>
+                  <div class="quote__card">
+                    <blockquote>
+                      <p>“We switched to quickbooks. We needed much more in the way of reports and accessing information, this note applies to both of our accounts. The inability to see specific charges by account within a project when clicking on that charge was very frustrating.</p>
+                      <p>The report options were silly, and lacked some basic reports needed for business. Quickbooks offers so much more. Sorry.”</p>
+                    </blockquote>
+                  </div>
+                </figure>
+
+                <figure class="quote" style="--tone:#b45309">
+                  <span class="avatar" aria-hidden="true"><svg><use href="#i-user"/></svg></span>
+                  <div class="quote__card">
+                    <blockquote><p>“I wanted something that was easy to just track the transactions, categorize them, as well as potentially create Pro Forma statements for me based off my data. The main reason why I didn't like Kashoo was because data was not disclosed in REAL-TIME!!!”</p></blockquote>
+                  </div>
+                </figure>
+              </div>
+
+              <div class="quotes__col">
+                <figure class="quote" style="--tone:#0f766e">
+                  <span class="avatar" aria-hidden="true"><svg><use href="#i-user"/></svg></span>
+                  <div class="quote__card">
+                    <blockquote><p>“I recommend Kashoo to people all the time.... The only hesitation I sense from people I mention it to ask me why they should choose it over Quickbooks Online which is priced similarly and has the same or more features.”</p></blockquote>
+                  </div>
+                </figure>
+
+                <figure class="quote" style="--tone:#15803d">
+                  <span class="avatar" aria-hidden="true"><svg><use href="#i-user"/></svg></span>
+                  <div class="quote__card">
+                    <blockquote><p>“The site needs more color... expenses needs to be different from income. Some short cuts up top in the blue area, perhaps where you can choose your own short cuts for sections that you always go to. A quick pay button, where you can choose your favorite account.... Right now it takes 5 clicks to do so, if you want to quick pay a few things without going to the check printing section, you are stuck clicking away.”</p></blockquote>
+                  </div>
+                </figure>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ KASHOO 2.0 BANNER ============ -->
+    <section class="brand-banner">
+      <p class="brand-banner__text">Kashoo 2.0</p>
+    </section>
+
+    <!-- ============ WHY IT WORKS ============ -->
+    <section class="chapter wrap" id="why-it-works">
+      <div class="chapter__grid">
+        <h2 class="chapter__title">Overview</h2>
+        <div class="chapter__body">
+          <p class="lead">
+            Kashoo 2.0 leverages machine learning and OCR to automatically categorize transactions, match receipts from the Inbox, and generate real-time financial reports in a single click. By automating reconciliation, it eliminates manual entry errors and significantly reduces time spent on accounting.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ IMPACT ============ -->
+    <section class="chapter wrap" id="impact">
+      <div class="chapter__grid">
+        <h2 class="chapter__title">Impact</h2>
+        <div class="chapter__body">
+          <ul class="stats" aria-label="Headline results">
+            <li>
+              <span class="stat__num" data-count="4" data-suffix="×">4×</span>
+              <span class="stat__label">more likely to subscribe after the onboarding redesign</span>
+            </li>
+            <li>
+              <span class="stat__num" data-count="22.8" data-decimals="1" data-suffix="%">22.8%</span>
+              <span class="stat__label">subscriber growth after launch</span>
+            </li>
+            <li>
+              <span class="stat__num" data-count="1000" data-suffix="+">1,000+</span>
+              <span class="stat__label">new users on the platform</span>
+            </li>
+          </ul>
+
+          <div class="impact-list">
+            <p class="lead"><strong>Modernized a complex legacy accounting system</strong> into an <strong>intuitive, powerful web platform</strong> for freelancers and sole proprietors.</p>
+            <p class="lead">Redesigned core interaction models like the Inbox and data tables to <strong>reduce clutter and streamline daily bookkeeping.</strong></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider wrap">
+
+    <!-- ============ KEY DESIGN DECISIONS ============ -->
+    <section class="chapter wrap" id="decisions">
+      <div class="chapter__grid">
+        <h2 class="chapter__title">Key Design Decisions</h2>
+        <div class="chapter__body">
+          <p class="lead">
+            Initially, I was tasked with a visual UI refresh, however after analyzing Kashoo Classic, I knew aesthetics alone would solve the core usability challenges. <strong>I re-mapped the user journey from an experienced user's perspective to deliver an intuitive, functionally clear experience alongside a modern look.</strong>
+          </p>
+          <br>
+          <p class="lead">Here are key design decisions that drove the UX and UI improvements in Kashoo 2.0:</p>
+
+          <div class="decisions-list">
+            <div class="decision-card">
+              <h3 class="subhead">First Time Users / Inbox</h3>
+              <figure class="figure">
+                <img src="assets/kashoo-first-time.png" alt="Inbox feature screenshot" width="820" height="514">
+              </figure>
+              <p class="lead">
+                We know that not all users tend to connect their banks to system until they trust the system enough. With Kashoo, users aren’t needed to connect their banks to the system. However do recommend users to connect their bank for a quicker and accurate process. Also, from our analytics, we learned that when a user connects their bank to the system, they are <strong>4x more likely to subscribe.</strong>
+              </p>
+
+              <p class="lead">As the Inbox page is the first impression to users, I needed to make sure that in all scenarios whether a user connects a bank or not knows what to do without it being to overwhelming.</p>
+            </div>
+
+            <div class="decision-card">
+              <h3 class="subhead">Dashboard</h3>
+              <figure class="figure">
+                <!-- <img src="assets/decision-3.png" alt="Inbox feature screenshot" width="820" height="514"> -->
+                <video width="820" height="520" controls>
+                  <source src="assets/Dashboard.mp4" type="video/mp4">
+                  [video of dashboard accessibility]
+                </video>
+              </figure>
+              <p class="lead">
+               The primary issue with this page was that it didn't feel on-brand. <strong>To improve visual accessibility, I specifically chose colors with enough contrast for visually impaired users.</strong> While I initially considered a wider range of distinct colors, I ultimately settled on a palette of soft blues and purples. This provided the ideal balance—ensuring elements remained distinguishable without feeling overly jarring or blending together.
+              </p>
+            </div>
+
+            <div class="decision-card">
+              <h3 class="subhead">Bulk Editing</h3>
+              <figure class="figure">
+                <!-- <img src="assets/decision-3.png" alt="Inbox feature screenshot" width="820" height="514"> -->
+                <video width="820" height="452" controls>
+                  <source src="assets/BulkEditing.mp4" type="video/mp4">
+                  [video of bulk editing]
+                </video>
+              </figure>
+              <p class="lead">
+                When a user selects multiple like items, they can edit the items as a a group instead of going to each individual item to make changes.
+              </p>
+            </div>
+
+            <div class="decision-card">
+              <h3 class="subhead">Modals</h3>
+              <figure class="figure">
+                <!-- <img src="assets/decision-3.png" alt="Inbox feature screenshot" width="820" height="514"> -->
+                <video width="820" height="444" controls>
+                  <source src="assets/Modals-shortened.mp4" type="video/mp4">
+                  [video of different modals]
+                </video>
+              </figure>
+              <p class="lead">
+                The Editor modale was another big task for me to tackle when I first joined the team. For the redesign, I decided to give all modals a clear header. I also changed the layout with a split view, one side for editing and the other for reading the totals.</p>
+              <p class="lead">The layout was inspired by the ecommerce checkout layout where everything on the left is the details about the item while the right side is the total calculations.</p>
+
+              <p class="lead">
+                Just like the Inbox inline editing, if the input box is gray, they can’t change it. If it’s blue it’s editable
+The types can be changed easily on the top - inspired by Google Calendar in selecting the type of “event” it is.
+For selecting Tax, I chose to phrase it as a question rather having the user try to guess through a +/- sign.
+When the user has multiple items in a single receipt, this is referred to as “Splitting a transaction” or “Adding a line item”. When the user presses the link below, the existing item is formed into an “item” on the right. The user can edit the item by selecting the box itself.
+              </p>
+            </div>
+            
+            <div class="decision-card">
+              <h3 class="subhead">Inline Editing</h3>
+              <figure class="figure">
+                <!-- <img src="assets/decision-3.png" alt="Inbox feature screenshot" width="820" height="514"> -->
+                <video width="820" height="182" controls>
+                  <source src="assets/InlineEditing.mp4" type="video/mp4">
+                  [video of inline editing]
+                </video>
+              </figure>
+              <p class="lead">
+                A simple experience that many expect but not always there is the ability to do inline editing. There is a differentiator between what can be edited (manual input) versus what cannot be in gray (from the connected bank).
+              </p>
+            </div>
+
+            <div class="decision-card">
+              <h3 class="subhead">Invoices</h3>
+              <figure class="figure">
+                <!-- <img src="assets/decision-3.png" alt="Inbox feature screenshot" width="820" height="514"> -->
+                <video width="820" height="445" controls>
+                  <source src="assets/Invoices.mp4" type="video/mp4">
+                  [video of invoices]
+                </video>
+              </figure>
+              <p class="lead">
+                For the Invoices and Bills to Pay pages, I initially planned to use the same modal layout as the main editor in the Inbox. However, after discussing it with the team and the product manager, we decided to differentiate the design. Since these pages need to feature a table listing all sent invoices, keeping the exact same layout risked confusing users. (A problem we saw in Kashoo Classic)
+              </p>
+            </div>
+
+            <div class="decision-card">
+              <h3 class="subhead">Reports</h3>
+              <figure class="figure">
+                <!-- <img src="assets/decision-3.png" alt="Inbox feature screenshot" width="820" height="514"> -->
+                <video width="820" height="445" controls>
+                  <source src="assets/Reports.mp4" type="video/mp4">
+                  [video of reports]
+                </video>
+              </figure>
+              <p class="lead">
+                For the reports, I got my hands dirty with code and handled the styling for the report displays. The new design creates a clearer distinction between the report itself and the interactive elements. We also addressed key feedback from Kashoo Classic users by adding dynamic date range selectors such as 'Current Fiscal Year' and 'Last Fiscal Quarter', which are crucial since fiscal dates vary from business to business.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider wrap">
+
+    <!-- ============ USER FEEDBACK ON KASHOO 2.0 ============ -->
+    <section class="chapter wrap" id="feedback-2">
+      <div class="chapter__grid">
+        <h2 class="chapter__title">User Feedback on Kashoo 2.0</h2>
+        <div class="chapter__body">
+          <figure class="figure people-row">
+            <img src="assets/kashoo-ppl.png" alt="" width="1075" height="115">
+          </figure>
+
+          <div class="quotes quotes--wide" aria-label="Feedback from Kashoo 2.0 users">
+            <div class="quotes__col">
+          <figure class="quote" style="--tone:#be185d">
+            <div class="quote__card">
+              <blockquote><p>“As mentioned, I do like the overall features and interface a lot, the program uses restrictions that effectively guide clients towards doing more accurate book keeping and keeps them on the right track away from making mistakes.”</p></blockquote>
+            </div>
+          </figure>
+
+          <figure class="quote" style="--tone:#b45309">
+            <div class="quote__card">
+              <blockquote><p>“As far as I can tell on Kashoo2.0 there is no feature to import a chart of accounts, which is unfortunately a big issue in setting it up agriculture clients as the only option is to manually set up each individual account, and may even end up being a deal breaker for most of these types of clients.”</p></blockquote>
+            </div>
+          </figure>
+
+          <figure class="quote" style="--tone:#15803d">
+            <div class="quote__card">
+              <blockquote><p>“I loved the Kashoo interface! Way better than Quickbooks. Customer service through CHAT is AWESOME!”</p></blockquote>
+            </div>
+          </figure>
+
+<!--           <figure class="quote" style="--tone:#4b5563">
+            <div class="quote__card">
+              <blockquote><p>“Sofware works, but it is not easy to enter data fast, and it does not work on my phone.”</p></blockquote>
+            </div>
+          </figure> -->
+<!--
+          <figure class="quote" style="--tone:#0f766e">
+            <div class="quote__card">
+              <blockquote><p>“I know this was supposed to be easy to use, but there is one thing that would be a HUGE improvement. Allowing editing of rules... I was forced to enter the same category over and over.”</p></blockquote>
+            </div>
+          </figure> -->
+        </div>
+
+        <div class="quotes__col">
+          <figure class="quote" style="--tone:#6d28d9">
+            <div class="quote__card">
+              <blockquote><p>“This is really easy to use! I tried FreshBooks and it was less easy to use. Specifically, in Kashoo your application lets me quickly add/subtract accounts to match my schedule C categories. This is great app for the Schedule C.”</p></blockquote>
+            </div>
+          </figure>
+
+          <figure class="quote" style="--tone:#b45309">
+            <div class="quote__card">
+              <blockquote><p>“We are a small Community Interest Company run totally by volunteers and for us most of the functionality that we need is there. The interface is friendly and fairly easy for someone with dyslexia to use.”</p></blockquote>
+            </div>
+          </figure>
+
+          <figure class="quote" style="--tone:#1d4ed8">
+            <div class="quote__card">
+              <blockquote>
+                <p>“I appreciate the effort to make a layer that is simple and accessible, but I was surprised that there was not more access to the underlying structure.</p>
+                <p>Useful for those who don't care about accounting. Impossible for those who do...”</p>
+              </blockquote>
+            </div>
+          </figure>
+
+<!--
+          <figure class="quote" style="--tone:#1d4ed8">
+            <div class="quote__card">
+              <blockquote><p>“I've created a trial account for both versions and I like 2.0 version more because it looks like that Classic version is more for the accountants.</p>
+                <p>However, since multi-currency is only in the Classic version I'm not sure if Kashoo will be suitable for us (we prefer something with the UI from 2.0 but with multi-currencies and HTML invoice customization).”</p>
+              </blockquote>
+            </div>
+          </figure> -->
+<!--           <figure class="quote" style="--tone:#0f766e">
+            <div class="quote__card">
+              <blockquote><p>“The interface is very simple to use and efficient. Many of the features shown today excited me with regards to how quickly data can be recorded/changed in the program, most software's require many unnecessary inputs to change data which can be changed quickly and in bulk, and Kashoo2.0 seems to be built to remove many unnecessary inputs while having controls and safeguards in place that prevent a user from making large mistakes.”</p></blockquote>
+            </div>
+          </figure> -->
+<!--           <figure class="quote" style="--tone:#15803d">
+            <div class="quote__card">
+              <blockquote><p>“2.0 looks very nice and I think it has all the functionality I need. I understand that I'll need to make a new account for 2.0 as my 1.0 will not import over. I'm OK with that. Will move in January.”</p></blockquote>
+            </div>
+          </figure> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider wrap">
+
+    <section class="chapter wrap" id="reflection">
+      <div class="chapter__grid">
+        <h2 class="chapter__title">Reflection</h2>
+        <div class="chapter__body">
+          <div class="lead reflection-copy">
+            <p>Looking back at Kashoo 2.0 with the experience I've gained since, a few things I'd change would be:</p>
+            <ul>
+              <li><strong>Import:</strong> Adding the ability for users to import their expense gives users an alternate way to add past transations in without needing to strictly connect to the bank or add manually.</li>
+              <li><strong>Duplicate detection &amp; automated rules:</strong> Introduce a feature that checks for duplicates, allows users to create custom automation rules for frequent tasks, and proactively suggests rules based on detected patterns.</li>
+              <li><strong>Seamless AI integration:</strong> Integrate smarter AI technology into the system without making it feel overwhelming or intrusive ("too in-your-face").</li>
+              <li><strong>Accountant handoff feature:</strong> Add an "accountant handoff" workflow to streamline tax preparation for small business owners.</li>
+            </ul>
+            <p>While we significantly improved user experience over Kashoo Classic (v1.0), by leveraging modern AI, we can automate tedious tasks like highlighting transaction trends, flagging anomalies, and suggesting profit-maximizing adjustments. Business owners can actually focus on growth and their daily lives.</p>
+            <p>Additionally, an "accountant handoff" feature (providing a checklist or complete document export) would streamline tax prep and solve a major friction point for users sending records to their accountants.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap next is-draft">
+      <div class="draft-box">
+        <p class="draft-box__tag">Suggested section</p>
+        <p>Next case study: link to your strongest remaining project so people keep reading instead of leaving.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer wrap">
+    <a href="/work">All work</a>
+    <a href="#top">Back to top</a>
+  </footer>
+
+  <div class="draft-banner" role="status">Draft view: suggested sections are showing. Press D to hide.</div>
+
+  <script src="script.js"></script>
+</body>
+</html>

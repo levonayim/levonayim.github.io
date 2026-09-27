@@ -1,0 +1,552 @@
+/* ==========================================================================
+   Kashoo 2.0 Web case study
+   Tokens come from the Figma file: Inter, #030712 ink, tight tracking,
+   label column on the left / content column on the right.
+   Change --fs-lead if you want calmer body copy (Figma uses 32px everywhere).
+   ========================================================================== */
+
+/* Native cross-document view transition: Chrome/Edge 126+ cross-fade
+   between same-origin pages (e.g. back to the homepage) instead of a
+   hard cut. No-op (ignored) in browsers that don't support it yet. */
+@view-transition {
+  navigation: auto;
+}
+
+:root {
+  color-scheme: light;
+
+  --bg: #ffffff;
+  --surface: #ffffff;
+  --ink: #030712;
+  --ink-2: #1f2937;
+  --muted: #4b5563;
+  --line: rgba(3, 7, 18, 0.1);
+  --shadow-card: 0 1px 2px rgba(3, 7, 18, 0.06), 0 10px 28px -10px rgba(3, 7, 18, 0.2);
+  --nav-ink: #292a2c;
+  --nav-bg: #ffffff;
+  --shadow-nav: 0 4px 8px rgba(73, 73, 73, 0.16);
+  --header-scrolled-bg: rgba(255, 255, 255, 0.72);
+  --accent: #5f5bf0;
+  --link-accent: #5f72ed;
+  /* Brand wordmark: same ink + typeface as the homepage's .brand, kept separate
+     from --ink (this page's body copy color/typeface) so the two can differ. */
+  --brand-ink: #1f2937;
+  --font-display: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Inter", "Helvetica Neue", Arial, sans-serif;
+
+  --font: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-ui: "SF Pro Text", "SF Pro", -apple-system, BlinkMacSystemFont, "Inter", system-ui, sans-serif;
+
+  /* fluid type: values land on the Figma sizes at a 1512px viewport */
+  --fs-display: clamp(3rem, 8vw, 7.5rem);
+  --fs-h2: clamp(1.75rem, 2.65vw, 2.5rem);
+  --fs-lead: clamp(1.25rem, 2.1vw, 2rem);
+  --track-lead: -0.035em;
+
+  --gutter: clamp(20px, 5.55vw, 84px);
+  --max: 1512px;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --bg: #0a0c12;
+  --surface: #151925;
+  --ink: #f3f4f6;
+  --ink-2: #d1d5db;
+  --muted: #9ca3af;
+  --line: rgba(255, 255, 255, 0.14);
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.5), 0 10px 28px -10px rgba(0, 0, 0, 0.7);
+  --nav-ink: #e5e7eb;
+  --nav-bg: #1c2431;
+  --shadow-nav: 0 4px 12px rgba(0, 0, 0, 0.5);
+  --header-scrolled-bg: rgba(10, 12, 18, 0.72);
+  --brand-ink: #e5e7eb;
+  --accent: #9b8cff;
+  /* Lighter tint of the brand blue-violet — the flat #5f72ed reads too dark against this background. */
+  --link-accent: color-mix(in srgb, #5f72ed 70%, white);
+}
+
+/* ---------- base ---------- */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+img, video { display: block; max-width: 100%; height: auto; }
+h1, h2, h3, p, dl, dd, figure, blockquote, ul, ol { margin: 0; padding: 0; }
+ul, ol { list-style: none; }
+a { color: inherit; }
+
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+.wrap {
+  width: 100%;
+  max-width: var(--max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+  padding-bottom: 2rem;
+}
+
+.skip-link {
+  position: fixed; top: 8px; left: 8px; z-index: 100;
+  padding: 10px 14px; background: var(--ink); color: var(--bg);
+  border-radius: 8px; font: 500 14px var(--font-ui);
+  transform: translateY(-160%);
+}
+.skip-link:focus { transform: none; }
+
+/* ---------- progress + nav ---------- */
+
+.progress {
+  position: fixed; inset: 0 0 auto 0; z-index: 60;
+  height: 3px;
+  background: linear-gradient(90deg, #5081ff, #7c50ff);
+  transform: scaleX(var(--p, 0));
+  transform-origin: left;
+  pointer-events: none;
+}
+
+.site-header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 50;
+  padding-top: 24px;
+  pointer-events: none;
+  transition: background-color .3s ease, padding .3s ease;
+}
+.site-header.is-scrolled {
+  background: var(--header-scrolled-bg);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  padding-top: 20px;
+  padding-bottom: 4px;
+}
+
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 0; /* .wrap's own padding-bottom isn't meant for the nav bar */
+}
+
+.brand {
+  pointer-events: auto;
+  flex: none;
+  white-space: nowrap;
+  font-family: var(--font-display);
+  font-size: 40px;
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  line-height: 1;
+  color: var(--brand-ink);
+  text-decoration: none;
+}
+
+.nav-pill {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  padding: 16px 32px;
+  background: var(--nav-bg);
+  border-radius: 12px;
+  box-shadow: var(--shadow-nav);
+  transition: background-color .3s ease, box-shadow .3s ease;
+  /* Explicit font + line-height so the pill's size never depends on
+     whatever font/line-height a given page sets on <body> — kept in
+     sync with the .nav used on the homepage. */
+  font-family: "SF Pro Text", "SF Pro", -apple-system, BlinkMacSystemFont, "Inter", system-ui, sans-serif;
+  font-size: 18px;
+  line-height: 1.5;
+  white-space: nowrap;
+  color: var(--nav-ink);
+}
+
+.nav-pill a { transition: color .2s ease; text-decoration: none; }
+.nav-pill a:hover, .nav-pill a[aria-current="page"] { color: var(--link-accent); }
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24
+}
+
+.theme-toggle {
+  display: grid;
+  place-items: center;
+  width: 24px; height: 24px;
+  padding: 0; border: 0; background: none; cursor: pointer;
+  color: var(--nav-ink);
+  overflow: hidden;
+  transition: opacity .2s ease, transform .3s ease;
+}
+.theme-toggle:hover { opacity: .65; }
+.theme-toggle:active { transform: rotate(25deg) scale(.92); }
+.theme-toggle:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; border-radius: 6px; }
+.theme-toggle .material-symbols-outlined { font-size: 24px; line-height: 1; }
+/* Light mode → sun, dark mode → moon (pure CSS, so there is no flash on load) */
+.theme-toggle .icon-moon { display: none; }
+:root[data-theme="dark"] .theme-toggle .icon-sun { display: none; }
+:root[data-theme="dark"] .theme-toggle .icon-moon { display: inline; }
+
+/* ---------- intro ---------- */
+
+.intro { padding-top: clamp(112px, 9.5vw, 144px); }
+
+.display {
+  font-size: var(--fs-display);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.012em;
+}
+
+.intro__grid {
+  display: grid;
+  grid-template-columns: minmax(170px, 243px) minmax(0, 1fr);
+  gap: clamp(32px, 3.8vw, 58px);
+  margin-top: clamp(40px, 6.9vw, 104px);
+}
+
+.meta { display: grid; gap: 32px; align-content: start; font-family: var(--font-ui); color: var(--ink-2); }
+.meta dt { font-size: 12px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; }
+.meta dd { margin-top: 7px; font-size: 16px; font-weight: 300; line-height: 1.4; }
+.meta dd span { display: block; }
+
+.lead {
+  font-size: var(--fs-lead);
+  line-height: 1.34;
+  letter-spacing: var(--track-lead);
+  max-width: 1043px;
+}
+.lead strong { font-weight: 700; }
+.summary .lead + .lead { margin-top: clamp(24px, 2.6vw, 40px); }
+
+/* ---------- hero image ---------- */
+
+.showcase {
+  margin-top: clamp(72px, 9.3vw, 140px);
+  padding-block: clamp(28px, 4.6vw, 69px);
+  background:
+    radial-gradient(58% 72% at 30% 32%, rgba(146, 195, 252, 0.95) 0%, transparent 62%),
+    radial-gradient(52% 70% at 100% 12%, rgba(124, 80, 255, 0.95) 0%, transparent 66%),
+    radial-gradient(44% 56% at 100% 100%, rgba(255, 194, 159, 0.95) 0%, transparent 66%),
+    radial-gradient(60% 62% at 0% 100%, rgba(80, 168, 255, 0.95) 0%, transparent 66%),
+    linear-gradient(135deg, #5081ff, #5f72ee);
+}
+
+.showcase__frame {
+  width: min(1208px, calc(100% - 2 * var(--gutter)));
+  margin-inline: auto;
+}
+.showcase__frame img,
+.showcase__frame .ph {
+  width: 100%;
+  box-shadow: 0 30px 70px -20px rgba(24, 24, 90, 0.5);
+}
+
+/* placeholder shown by script.js when an image file is missing */
+.ph {
+  display: grid; place-items: center; align-content: center; gap: 6px;
+  min-height: 160px;
+  padding: 24px;
+  text-align: center;
+  background: var(--surface);
+  color: var(--muted);
+  font: 400 14px/1.5 var(--font-ui);
+}
+.ph code { font: 500 13px ui-monospace, SFMono-Regular, Menlo, monospace; background: color-mix(in srgb, var(--ink) 8%, transparent); padding: 2px 6px; border-radius: 4px; color: var(--ink); }
+
+/* ---------- chapters ---------- */
+
+.chapter { padding-block: clamp(56px, 6vw, 96px); }
+
+.chapter__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 37fr) minmax(0, 63fr);
+  gap: clamp(24px, 3vw, 48px);
+}
+
+.chapter__title {
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.033em;
+  padding-top: 0.06em;
+  text-align: left;
+  padding-right: 1rem;
+}
+
+.subblock { margin-top: clamp(48px, 5.8vw, 88px); }
+.subhead {
+  margin-bottom: 24px;
+  font: 700 16px/1.3 var(--font-ui);
+  color: var(--ink-2);
+}
+
+/* ---------- quotes ---------- */
+
+.quotes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(24px, 4vw, 64px);
+  align-items: start;
+}
+/* Standalone instance (not nested in a chapter__body): same width as the
+   .people-row illustration above it (both 50% of the section, centered). */
+.quotes--wide {
+  width: 100%;
+  margin-inline: auto;
+  margin: 2rem auto;
+}
+.quotes:not(.quotes--wide) { margin-top: clamp(32px, 4vw, 56px); }
+
+.quotes__col { display: grid; gap: clamp(20px, 2.8vw, 40px); }
+.quotes__col--offset { margin-top: clamp(0px, 3vw, 44px); }
+
+.quote { display: flex; align-items: flex-start; gap: clamp(12px, 1.4vw, 20px); }
+
+.avatar {
+  flex: none;
+  display: grid; place-items: center;
+  width: clamp(48px, 5vw, 72px); aspect-ratio: 1;
+  border-radius: 50%;
+  color: var(--tone);
+  background: color-mix(in srgb, var(--tone) 16%, var(--surface));
+}
+.avatar svg { width: 62%; height: 62%; fill: currentColor; stroke: none; }
+
+.quote__card {
+  flex: 1; min-width: 0;
+  padding: 20px 24px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: var(--shadow-card);
+}
+.quote blockquote p {
+  font-size: clamp(0.9375rem, 1.1vw, 1.0625rem);
+  font-weight: 500;
+  line-height: 1.55;
+  color: var(--ink);
+}
+.quote blockquote p + p { margin-top: 14px; }
+.quote figcaption {
+  margin-top: 14px;
+  font: 500 12px/1.2 var(--font-ui);
+  color: var(--muted);
+}
+
+/* ---------- figures (screenshots used throughout the case study) ---------- */
+
+.figure { margin: 0; }
+.figure img {
+  display: block;
+  width: 100%;
+}
+/* Breaks out to the full viewport width, ignoring .wrap's gutter */
+.figure--full-bleed {
+  width: 100vw;
+  margin-inline: calc(50% - 50vw);
+}
+.figure--full-bleed img { border-radius: 0; box-shadow: none; }
+
+/* Row of avatar illustrations below the "User Feedback on Kashoo 2.0" title */
+.people-row {
+  width: 75%;
+  margin: 0 auto;
+}
+.people-row img { border-radius: 0; box-shadow: none; }
+
+/* ---------- Kashoo 2.0 banner ---------- */
+
+.brand-banner {
+  padding-top: clamp(56px, 11vw, 170px);
+  padding-bottom: 0;
+  /* Hard diagonal seam (not a smooth blend) between two brand blues */
+  background: linear-gradient(125deg, #5b9bff 45%, #3f74e8 45%);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: hidden;
+}
+:root[data-theme="dark"] .brand-banner {
+  /* Darker/muted so the banner doesn't blow out against the dark page */
+  background: linear-gradient(125deg,
+    color-mix(in srgb, #5b9bff 65%, black) 45%,
+    color-mix(in srgb, #3f74e8 65%, black) 45%);
+}
+.brand-banner__text {
+  margin: -0.75rem;
+  max-width: 100%;
+  font: 700 clamp(48px, 16vw, 220px)/0.85 var(--font-ui);
+  letter-spacing: -0.02em;
+  color: #fff;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+:root[data-theme="dark"] .brand-banner__text {
+  /* "Cut-out" look: text matches the page's own near-black background */
+  color: var(--bg);
+}
+
+/* ---------- key design decisions ---------- */
+
+.decisions-list {
+  margin-top: clamp(48px, 5.8vw, 88px);
+  display: grid;
+  gap: clamp(56px, 7vw, 96px);
+}
+.decision-card { display: grid; gap: 24px; }
+.decision-card .subhead { margin-bottom: 0; }
+.decision-card .lead { font-size: 1rem; }
+
+/* ---------- impact ---------- */
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 32px clamp(20px, 3vw, 48px);
+  padding-bottom: clamp(32px, 4vw, 56px);
+  margin-bottom: clamp(32px, 4vw, 56px);
+  border-bottom: 1px solid var(--line);
+}
+.stat__num {
+  display: block;
+  font-size: clamp(2.75rem, 5vw, 4.5rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+}
+.stat__label {
+  display: block; margin-top: 12px; max-width: 20ch;
+  font: 400 15px/1.4 var(--font-ui);
+  color: var(--ink-2);
+}
+
+.impact-list { display: grid; gap: clamp(28px, 3.2vw, 48px); }
+
+/* ---------- section divider ---------- */
+
+.section-divider {
+  border: none;
+  border-top: 1px solid var(--line);
+  margin-block: 0;
+}
+
+/* ---------- reflection ---------- */
+
+.reflection-copy > * + * { margin-top: clamp(20px, 2.2vw, 32px); }
+.reflection-copy ul {
+  list-style: disc;
+  padding-left: 1.25em;
+  display: grid;
+  gap: 10px;
+}
+.reflection-copy li::marker { color: var(--muted); }
+
+/* ---------- footer ---------- */
+
+.site-footer {
+  display: flex; justify-content: space-between; gap: 16px;
+  padding-block: clamp(48px, 8vw, 120px) 48px;
+  font: 400 15px var(--font-ui);
+  color: var(--ink-2);
+}
+.site-footer a { text-decoration: none; }
+.site-footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+/* ---------- suggested sections (hidden unless ?draft or pressing D) ---------- */
+
+.is-draft { display: none; }
+.show-draft .is-draft { display: block; }
+
+.draft-box {
+  padding: 22px 26px;
+  border: 1.5px dashed color-mix(in srgb, var(--accent) 60%, transparent);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--accent) 6%, var(--bg));
+  font: 400 1rem/1.6 var(--font-ui);
+  color: var(--ink-2);
+}
+.draft-box__tag { margin-bottom: 10px; font-size: 12px; font-weight: 700; color: var(--accent); }
+.draft-box ul, .draft-box ol { margin: 0; padding-left: 1.2em; list-style: revert; }
+.draft-box li + li { margin-top: 8px; }
+.draft-box p + p, .draft-box ul + p { margin-top: 12px; }
+.next { padding-block: 24px 0; }
+
+.draft-banner {
+  display: none;
+  position: fixed; left: 50%; bottom: 20px; z-index: 70;
+  transform: translateX(-50%);
+  max-width: calc(100% - 32px);
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: var(--ink); color: var(--bg);
+  font: 500 13px var(--font-ui);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+}
+.show-draft .draft-banner { display: block; }
+
+/* ---------- page-load reveal (one orchestrated moment) ---------- */
+
+.js .reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition-delay: calc(var(--i, 0) * 110ms);
+}
+.js.is-ready .reveal { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .js .reveal { opacity: 1; transform: none; transition: none; }
+  body { transition: none; }
+}
+
+/* ---------- responsive ---------- */
+
+/* Touch devices: larger tap targets in the nav */
+@media (pointer: coarse) {
+  .nav-pill a { padding-block: 8px; }
+  .theme-toggle { width: 32px; height: 32px; }
+}
+
+@media (max-width: 900px) {
+  .brand { font-size: 32px; }
+  .nav-pill { gap: 28px; padding: 14px 24px; font-size: 16px; }
+  .intro__grid { grid-template-columns: 1fr; }
+  .meta { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 24px; }
+  .chapter__grid { grid-template-columns: 1fr; gap: 20px; }
+  .quotes { grid-template-columns: 1fr; }
+  .quotes__col--offset { margin-top: 0; }
+}
+
+@media (max-width: 520px) {
+  .site-header { padding-top: 12px; }
+  .site-header__inner { gap: 8px; }
+  .brand { font-size: 24px; }
+  .nav-pill { gap: 18px; padding: 12px 16px; font-size: 15px; }
+  .quote { gap: 10px; }
+  .avatar { width: 40px; }
+  .quote__card { padding: 16px 18px; }
+}
+
+/* Very narrow phones: the brand would crowd the nav pill */
+@media (max-width: 400px) {
+  .brand { display: none; }
+  .nav-pill { gap: 12px; padding: 10px 12px; font-size: 14px; }
+}

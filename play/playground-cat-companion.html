@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cat Companion Reminder App · Levona Yim</title>
+  <meta name="description" content="A downloadable app and browser extension that shows on-screen reminders alongside an animated cat companion, built with Gemini.">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="icon" type="image/png" href="../assets/favicon-sept2026.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=dark_mode,sunny&display=block" />
+  <link rel="stylesheet" href="styles.css">
+
+  <script>
+    document.documentElement.classList.add('js');
+    try {
+      var saved = localStorage.getItem('theme');
+      if (saved) document.documentElement.setAttribute('data-theme', saved);
+    } catch (e) {}
+  </script>
+</head>
+
+<body id="top">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="site-header__inner wrap">
+      <a class="brand" href="../index.html" aria-label="Levona Yim — back to homepage">levona yim</a>
+      <nav class="nav-pill" aria-label="Primary">
+        <a href="../index.html">work</a>
+        <a href="../about/index.html">about</a>
+        <a href="index.html" aria-current="page">play</a>
+        <a href="https://drive.google.com/file/d/1kJueu5DaYzHI15e4sxursLuTW0hQqVcG/view" target="_blank" rel="noopener">resume</a>
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark mode" aria-pressed="false">
+          <span class="material-symbols-outlined icon-sun" aria-hidden="true">sunny</span>
+          <span class="material-symbols-outlined icon-moon" aria-hidden="true">dark_mode</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="intro wrap">
+      <a class="back-link reveal" style="--i:0" href="index.html">&larr; Back to Playground</a>
+
+      <div class="project-header reveal" style="--i:1">
+        <h1 class="project-title">Downloadable &amp; Browser Extension — Reminder App</h1>
+        <div class="play-tags">
+          <span class="tag" style="--tag:#1d4ed8">gemini</span>
+          <span class="tag" style="--tag:#4b5563">html/css/js</span>
+        </div>
+      </div>
+
+      <figure class="project-hero reveal" style="--i:2">
+        <img src="imgs-playground/cat-reminder.gif" alt="Cat Companion reminder widget with an animated cat">
+      </figure>
+
+      <div class="project-body">
+        <div class="project-section">
+          <h2>Description</h2>
+          <ul>
+            <li>A downloadable app and/or browser extension that lets users add reminders while featuring an adorable cat to make it cuter. Users can choose whether the cat moves across the screen or stays still in whichever position they leave the widget.</li>
+          </ul>
+        </div>
+
+        <div class="project-section">
+          <h2>Why I created this</h2>
+          <ul>
+            <li>I was inspired by a post I saw of a cat moving across someone’s monitor. I wanted to see how long it would take for Gemini to replicate it.</li>
+            <li>After creating this widget, I noticed it was more distracting than helpful, so I added the functionality to include multiple reminders. When it was still too distracting, I asked Gemini to create a static version to make it more subtle.</li>
+          </ul>
+        </div>
+
+        <div class="project-section">
+          <h2>Issues I encountered</h2>
+          <ul>
+            <li>Most of the debugging involved adjusting the animation for each side of the screen and positioning the reminder text so none of the words were cut off.</li>
+            <li>As a browser extension, the widget only showed up on a specific page, so if users switched tabs they wouldn’t see it. I created a desktop app to get around this.</li>
+          </ul>
+        </div>
+
+        <div class="project-section">
+          <h2>What I learned</h2>
+          <ul>
+            <li>Packaging a downloadable app is easier than I thought, especially with an AI assistant — it’s mainly building the app itself that’s hard.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="download-links">
+        <a class="btn" href="https://github.com/levonayim/cat-reminder-desktopapp/releases/download/v1.0.0/reminderApp-Mac.zip" target="_blank" rel="noopener">For Mac ↗</a>
+        <a class="btn" href="https://github.com/levonayim/cat-reminder-desktopapp/releases/download/v1.0.0/Reminder.Cat.exe" target="_blank" rel="noopener">For Windows ↗</a>
+      </div>
+    </section>
+
+    <hr class="section-divider wrap">
+
+    <section class="play-cta wrap">
+      <h2 class="reveal" style="--i:3">I’m open to new opportunities and collaboration :)</h2>
+      <p class="lead reveal" style="--i:4">
+        If you’re hiring, looking to collaborate, or just want to connect, send me a message via <a href="https://www.linkedin.com/in/levona-yim/" target="_blank" rel="noopener">LinkedIn</a> or drop an <a href="mailto:levona.yim@gmail.com">email</a>. :)
+      </p>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

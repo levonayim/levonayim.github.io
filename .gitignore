@@ -1,0 +1,9 @@
+.DS_Store
+
+# Large file, at GitHub's 100MB limit
+play/imgs-playground/portal-image.gif
+
+# Redundant/backup folders, not part of the current site
+kashoofiles.zip
+btc/
+claude btc versions/

@@ -1,0 +1,363 @@
+/* ==========================================================================
+   About page
+   Nav/header tokens and rules are copied verbatim from the Kashoo case
+   study's styles.css for exact visual parity (same logo + nav pill).
+   Body ink/type comes from this page's own Figma file (#1f2937, SF Pro).
+   ========================================================================== */
+
+/* Native cross-document view transition: Chrome/Edge 126+ cross-fade
+   between same-origin pages instead of a hard cut. No-op elsewhere. */
+@view-transition {
+  navigation: auto;
+}
+
+:root {
+  color-scheme: light;
+
+  --bg: #ffffff;
+  --surface: #ffffff;
+  --ink: #1f2937;
+  --line: rgba(31, 41, 55, 0.14);
+
+  /* nav — identical values to kashoofiles/styles.css and the homepage */
+  --nav-ink: #292a2c;
+  --nav-bg: #ffffff;
+  --shadow-nav: 0 4px 8px rgba(73, 73, 73, 0.16);
+  --header-scrolled-bg: rgba(255, 255, 255, 0.72);
+  --brand-ink: #1f2937;
+  --accent: #5f5bf0;
+  --link-accent: #5f72ed;
+
+  --font: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-ui: "SF Pro Text", "SF Pro", -apple-system, BlinkMacSystemFont, "Inter", system-ui, sans-serif;
+  --font-display: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Inter", "Helvetica Neue", Arial, sans-serif;
+  --font-thin: "SF Pro Thin", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Inter", "Helvetica Neue", Arial, sans-serif;
+
+  --fs-lead: clamp(1.25rem, 2.1vw, 2rem);
+  --track-lead: -0.035em;
+
+  --gutter: clamp(20px, 5.55vw, 84px);
+  --max: 1512px;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --bg: #0a0c12;
+  --surface: #151925;
+  --ink: #e5e7eb;
+  --line: rgba(255, 255, 255, 0.14);
+
+  --nav-ink: #e5e7eb;
+  --nav-bg: #1c2431;
+  --shadow-nav: 0 4px 12px rgba(0, 0, 0, 0.5);
+  --header-scrolled-bg: rgba(10, 12, 18, 0.72);
+  --brand-ink: #e5e7eb;
+  --accent: #9b8cff;
+  /* Lighter tint of the brand blue-violet — the flat #5f72ed reads too dark against this background. */
+  --link-accent: color-mix(in srgb, #5f72ed 70%, white);
+}
+
+/* ---------- base ---------- */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-ui);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+img { display: block; max-width: 100%; height: auto; }
+h1, h2, p, figure { margin: 0; padding: 0; }
+a { color: inherit; }
+
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+.wrap {
+  width: 100%;
+  max-width: var(--max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+  padding-bottom: 2rem;
+}
+
+.skip-link {
+  position: fixed; top: 8px; left: 8px; z-index: 100;
+  padding: 10px 14px; background: var(--ink); color: var(--bg);
+  border-radius: 8px; font: 500 14px var(--font-ui);
+  transform: translateY(-160%);
+}
+.skip-link:focus { transform: none; }
+
+/* ---------- nav (copied from kashoofiles/styles.css — keep in sync) ---------- */
+
+.site-header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 50;
+  padding-top: 24px;
+  pointer-events: none;
+  transition: background-color .3s ease, padding .3s ease;
+}
+.site-header.is-scrolled {
+  background: var(--header-scrolled-bg);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  padding-top: 20px;
+  padding-bottom: 4px;
+}
+
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 0; /* .wrap's own padding-bottom isn't meant for the nav bar */
+}
+
+.brand {
+  pointer-events: auto;
+  flex: none;
+  white-space: nowrap;
+  font-family: var(--font-display);
+  font-size: 40px;
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  line-height: 1;
+  color: var(--brand-ink);
+  text-decoration: none;
+}
+
+.nav-pill {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  padding: 16px 32px;
+  background: var(--nav-bg);
+  border-radius: 12px;
+  box-shadow: var(--shadow-nav);
+  transition: background-color .3s ease, box-shadow .3s ease;
+  /* Explicit font + line-height so the pill's size never depends on
+     whatever font/line-height a given page sets on <body> — kept in
+     sync with the .nav used on the homepage. */
+  font-family: "SF Pro Text", "SF Pro", -apple-system, BlinkMacSystemFont, "Inter", system-ui, sans-serif;
+  font-size: 18px;
+  line-height: 1.5;
+  white-space: nowrap;
+  color: var(--nav-ink);
+}
+
+.nav-pill a { transition: color .2s ease; text-decoration: none; }
+.nav-pill a:hover, .nav-pill a[aria-current="page"] { color: var(--link-accent); }
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24
+}
+
+.theme-toggle {
+  display: grid;
+  place-items: center;
+  width: 24px; height: 24px;
+  padding: 0; border: 0; background: none; cursor: pointer;
+  color: var(--nav-ink);
+  overflow: hidden;
+  transition: opacity .2s ease, transform .3s ease;
+}
+.theme-toggle:hover { opacity: .65; }
+.theme-toggle:active { transform: rotate(25deg) scale(.92); }
+.theme-toggle:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; border-radius: 6px; }
+.theme-toggle .material-symbols-outlined { font-size: 24px; line-height: 1; }
+/* Light mode → sun, dark mode → moon (pure CSS, so there is no flash on load) */
+.theme-toggle .icon-moon { display: none; }
+:root[data-theme="dark"] .theme-toggle .icon-sun { display: none; }
+:root[data-theme="dark"] .theme-toggle .icon-moon { display: inline; }
+
+/* ---------- image placeholder (shown by script.js if a photo file is missing) ---------- */
+
+.ph {
+  display: grid; place-items: center; align-content: center; gap: 6px;
+  min-height: 160px;
+  padding: 24px;
+  text-align: center;
+  background: var(--surface);
+  color: var(--ink);
+  font: 400 14px/1.5 var(--font-ui);
+  border: 1px dashed color-mix(in srgb, var(--ink) 30%, transparent);
+}
+.ph code { font: 500 13px ui-monospace, SFMono-Regular, Menlo, monospace; background: color-mix(in srgb, var(--ink) 8%, transparent); padding: 2px 6px; border-radius: 4px; }
+
+/* ---------- about hero: "hello!" + photo ---------- */
+
+.about-hero {
+  padding-top: clamp(112px, 9.5vw, 144px);
+  padding-bottom: clamp(56px, 7vw, 96px);
+  display: grid;
+  grid-template-columns: minmax(240px, 451fr) minmax(320px, 735fr);
+  align-items: center;
+  gap: clamp(24px, 4vw, 56px);
+}
+
+.about-hero__intro { display: grid; gap: 4px; }
+
+.about-hello {
+  font-family: var(--font-thin);
+  font-size: clamp(48px, 6vw, 80px);
+  font-weight: 100;
+  line-height: 1.1;
+  width: fit-content;
+  color: transparent;
+  /* Same brand palette used for "product designer" on the homepage, as a
+     left→right sweep (cyan → red/orange → violet → magenta → cyan) instead
+     of the conic version's circular banding — a flat, smooth blend.
+     Sized up + panned the same way the homepage animates its gradient text. */
+  background-image: linear-gradient(90deg,
+    #50dcff 0%, #5cb8ff 15%, #ff5050 28%, #ff9650 40%,
+    #b950ff 58%, #ed5fd6 75%, #9f9eea 90%, #50dcff 100%);
+  background-size: 300% 100%;
+  background-position: 0% 50%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: hello-gradient-flow 8s ease-in-out infinite;
+}
+
+@keyframes hello-gradient-flow {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.about-nice {
+  font-family: var(--font-thin);
+  font-size: clamp(26px, 3.2vw, 48px);
+  font-weight: 100;
+  line-height: 1.1;
+  color: var(--ink);
+}
+
+.about-photo {
+  aspect-ratio: 735 / 674;
+  border-radius: 24px;
+  overflow: hidden;
+  background: var(--surface);
+}
+.about-photo img,
+.about-photo .ph {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.about-photo img { filter: grayscale(1); }
+
+/* ---------- about bio ---------- */
+
+.about-bio {
+  display: grid;
+  gap: clamp(24px, 2.6vw, 40px);
+  padding-bottom: clamp(48px, 6vw, 80px);
+}
+.lead {
+  font-size: var(--fs-lead);
+  line-height: 1.34;
+  letter-spacing: var(--track-lead);
+  /* An explicit width (not just max-width) keeps this a fixed 1187px column
+     instead of shrink-wrapping to each paragraph's own line lengths — grid
+     items with auto margins size to content unless width is set explicitly.
+     The column is centered in the page; the text itself stays left-aligned. */
+  width: min(1187px, 100%);
+  margin-inline: auto;
+  text-align: left;
+}
+.lead a {
+  text-underline-offset: 3px;
+  text-decoration-color: var(--link-accent);
+  text-decoration-style: wavy;
+  text-decoration-thickness: 2px;
+  font-weight: 500;
+  transition: color .2s ease;
+}
+.lead a:hover { color: var(--link-accent); }
+
+.about-divider {
+  width: 454px;
+  max-width: calc(100% - 2 * var(--gutter));
+  margin: 0 auto;
+  border: none;
+  border-top: 1px solid var(--line);
+}
+
+/* ---------- about CTA ---------- */
+
+.about-cta {
+  padding-block: clamp(40px, 6vw, 80px) clamp(64px, 9vw, 120px);
+  display: grid;
+  gap: 16px;
+}
+.about-cta h2 {
+  width: min(1187px, 100%);
+  margin-inline: auto;
+  text-align: left;
+  font-family: var(--font-display);
+  font-size: var(--fs-lead);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: var(--link-accent);
+}
+
+/* ---------- page-load reveal (copied from kashoofiles/styles.css) ---------- */
+
+.js .reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition-delay: calc(var(--i, 0) * 110ms);
+}
+.js.is-ready .reveal { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .js .reveal { opacity: 1; transform: none; transition: none; }
+  body { transition: none; }
+  .about-hello { animation: none; }
+}
+
+/* ---------- responsive ---------- */
+
+@media (pointer: coarse) {
+  .nav-pill a { padding-block: 8px; }
+  .theme-toggle { width: 32px; height: 32px; }
+}
+
+@media (max-width: 900px) {
+  .brand { font-size: 32px; }
+  .nav-pill { gap: 28px; padding: 14px 24px; font-size: 16px; }
+}
+
+@media (max-width: 800px) {
+  .about-hero { grid-template-columns: 1fr; }
+  .about-photo { max-width: 480px; margin-inline: auto; width: 100%; }
+}
+
+@media (max-width: 520px) {
+  .site-header { padding-top: 12px; }
+  .site-header__inner { gap: 8px; }
+  .brand { font-size: 24px; }
+  .nav-pill { gap: 18px; padding: 12px 16px; font-size: 15px; }
+}
+
+@media (max-width: 400px) {
+  .brand { display: none; }
+  .nav-pill { gap: 12px; padding: 10px 12px; font-size: 14px; }
+}

@@ -1,0 +1,442 @@
+/* ==========================================================================
+   Playground page
+   Tokens/nav copied verbatim from kashoofiles/styles.css for exact visual
+   parity with the rest of the site (same logo + nav pill, same type scale).
+   ========================================================================== */
+
+/* Native cross-document view transition: Chrome/Edge 126+ cross-fade
+   between same-origin pages instead of a hard cut. No-op elsewhere. */
+@view-transition {
+  navigation: auto;
+}
+
+:root {
+  color-scheme: light;
+
+  --bg: #ffffff;
+  --surface: #ffffff;
+  --ink: #030712;
+  --ink-2: #1f2937;
+  --muted: #4b5563;
+  --line: rgba(3, 7, 18, 0.1);
+  --shadow-card: 0 1px 2px rgba(3, 7, 18, 0.06), 0 10px 28px -10px rgba(3, 7, 18, 0.2);
+  --nav-ink: #292a2c;
+  --nav-bg: #ffffff;
+  --shadow-nav: 0 4px 8px rgba(73, 73, 73, 0.16);
+  --header-scrolled-bg: rgba(255, 255, 255, 0.72);
+  --accent: #5f5bf0;
+  --link-accent: #5f72ed;
+  --brand-ink: #1f2937;
+  --font-display: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Inter", "Helvetica Neue", Arial, sans-serif;
+
+  --font: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-ui: "SF Pro Text", "SF Pro", -apple-system, BlinkMacSystemFont, "Inter", system-ui, sans-serif;
+
+  --fs-display: clamp(3rem, 8vw, 7.5rem);
+  --fs-h2: clamp(1.75rem, 2.65vw, 2.5rem);
+  --fs-lead: clamp(1.25rem, 2.1vw, 2rem);
+  --track-lead: -0.035em;
+
+  --gutter: clamp(20px, 5.55vw, 84px);
+  --max: 1512px;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --bg: #0a0c12;
+  --surface: #151925;
+  --ink: #f3f4f6;
+  --ink-2: #d1d5db;
+  --muted: #9ca3af;
+  --line: rgba(255, 255, 255, 0.14);
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.5), 0 10px 28px -10px rgba(0, 0, 0, 0.7);
+  --nav-ink: #e5e7eb;
+  --nav-bg: #1c2431;
+  --shadow-nav: 0 4px 12px rgba(0, 0, 0, 0.5);
+  --header-scrolled-bg: rgba(10, 12, 18, 0.72);
+  --brand-ink: #e5e7eb;
+  --accent: #9b8cff;
+  --link-accent: color-mix(in srgb, #5f72ed 70%, white);
+}
+
+/* ---------- base ---------- */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+img, video { display: block; max-width: 100%; height: auto; }
+h1, h2, p, dl, dd, figure { margin: 0; padding: 0; }
+a { color: inherit; }
+
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+.wrap {
+  width: 100%;
+  max-width: var(--max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+  padding-bottom: 2rem;
+}
+
+.skip-link {
+  position: fixed; top: 8px; left: 8px; z-index: 100;
+  padding: 10px 14px; background: var(--ink); color: var(--bg);
+  border-radius: 8px; font: 500 14px var(--font-ui);
+  transform: translateY(-160%);
+}
+.skip-link:focus { transform: none; }
+
+/* ---------- nav (copied from kashoofiles/styles.css — keep in sync) ---------- */
+
+.site-header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 50;
+  padding-top: 24px;
+  pointer-events: none;
+  transition: background-color .3s ease, padding .3s ease;
+}
+.site-header.is-scrolled {
+  background: var(--header-scrolled-bg);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  padding-top: 20px;
+  padding-bottom: 4px;
+}
+
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 0; /* .wrap's own padding-bottom isn't meant for the nav bar */
+}
+
+.brand {
+  pointer-events: auto;
+  flex: none;
+  white-space: nowrap;
+  font-family: var(--font-display);
+  font-size: 40px;
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  line-height: 1;
+  color: var(--brand-ink);
+  text-decoration: none;
+}
+
+.nav-pill {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  padding: 16px 32px;
+  background: var(--nav-bg);
+  border-radius: 12px;
+  box-shadow: var(--shadow-nav);
+  transition: background-color .3s ease, box-shadow .3s ease;
+  /* Explicit font + line-height so the pill's size never depends on
+     whatever font/line-height a given page sets on <body> — kept in
+     sync with the .nav used on the homepage. */
+  font-family: "SF Pro Text", "SF Pro", -apple-system, BlinkMacSystemFont, "Inter", system-ui, sans-serif;
+  font-size: 18px;
+  line-height: 1.5;
+  white-space: nowrap;
+  color: var(--nav-ink);
+}
+
+.nav-pill a { transition: color .2s ease; text-decoration: none; }
+.nav-pill a:hover, .nav-pill a[aria-current="page"] { color: var(--link-accent); }
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24
+}
+
+.theme-toggle {
+  display: grid;
+  place-items: center;
+  width: 24px; height: 24px;
+  padding: 0; border: 0; background: none; cursor: pointer;
+  color: var(--nav-ink);
+  overflow: hidden;
+  transition: opacity .2s ease, transform .3s ease;
+}
+.theme-toggle:hover { opacity: .65; }
+.theme-toggle:active { transform: rotate(25deg) scale(.92); }
+.theme-toggle:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; border-radius: 6px; }
+.theme-toggle .material-symbols-outlined { font-size: 24px; line-height: 1; }
+/* Light mode → sun, dark mode → moon (pure CSS, so there is no flash on load) */
+.theme-toggle .icon-moon { display: none; }
+:root[data-theme="dark"] .theme-toggle .icon-sun { display: none; }
+:root[data-theme="dark"] .theme-toggle .icon-moon { display: inline; }
+
+/* ---------- intro ---------- */
+
+.intro { padding-top: clamp(112px, 9.5vw, 144px); }
+
+.display {
+  font-size: var(--fs-display);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.012em;
+}
+
+.lead {
+  font-size: var(--fs-lead);
+  line-height: 1.34;
+  letter-spacing: var(--track-lead);
+  max-width: 1043px;
+}
+.lead a {
+  text-decoration-color: var(--link-accent);
+  text-underline-offset: 3px;
+}
+.lead a:hover { color: var(--link-accent); }
+
+.play-subtitle {
+  margin-top: clamp(20px, 2.6vw, 32px);
+  color: var(--ink-2);
+}
+
+/* ---------- project grid ---------- */
+
+.play-grid {
+  padding-block: clamp(56px, 7vw, 96px);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(24px, 3vw, 40px);
+}
+
+.play-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  text-decoration: none;
+  color: inherit;
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+@media (hover: hover) {
+  .play-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-card);
+    border-color: color-mix(in srgb, var(--ink) 20%, transparent);
+  }
+}
+
+.play-card__media {
+  aspect-ratio: 16 / 10;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--surface);
+}
+.play-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.play-card:hover .play-card__media img { transform: scale(1.08); }
+
+.play-card__title {
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.play-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.tag {
+  font: 500 0.8125rem var(--font-ui);
+  padding: 5px 14px;
+  border-radius: 20px;
+  white-space: nowrap;
+  color: var(--tag);
+  background: color-mix(in srgb, var(--tag) 16%, var(--surface));
+}
+
+/* ---------- section divider (copied from kashoofiles/styles.css) ---------- */
+
+.section-divider {
+  border: none;
+  border-top: 1px solid var(--line);
+  margin-block: 0;
+}
+
+/* ---------- project detail pages ---------- */
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: clamp(24px, 3vw, 40px);
+  color: var(--muted);
+  font: 500 0.9375rem var(--font-ui);
+  text-decoration: none;
+  transition: color .2s ease;
+}
+.back-link:hover { color: var(--link-accent); }
+
+.project-header {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: clamp(32px, 4vw, 48px);
+}
+.project-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--ink);
+}
+
+.project-hero {
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  margin: 0 0 clamp(32px, 4vw, 48px);
+  background: var(--surface);
+}
+.project-hero img { width: 100%; height: auto; display: block; }
+.project-hero--embed { aspect-ratio: 16 / 9; }
+.project-hero--embed iframe { width: 100%; height: 100%; border: none; display: block; }
+
+.project-body {
+  display: grid;
+  gap: clamp(28px, 3.5vw, 40px);
+  padding-bottom: clamp(8px, 1vw, 16px);
+}
+.project-section h2 {
+  font: 700 1rem var(--font-ui);
+  color: var(--ink);
+  margin-bottom: 12px;
+}
+.project-section ul {
+  list-style: disc;
+  padding-left: 1.25em;
+  display: grid;
+  gap: 10px;
+}
+.project-section p,
+.project-section li {
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--ink-2);
+}
+.project-section li::marker { color: var(--muted); }
+
+.prototype-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: clamp(32px, 4vw, 48px) 0 0;
+  color: var(--link-accent);
+  font: 600 0.9375rem var(--font-ui);
+  text-decoration: none;
+}
+.prototype-link:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+.download-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: clamp(32px, 4vw, 48px) 0 0;
+}
+.download-links .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 20px;
+  border-radius: 8px;
+  background: var(--ink);
+  color: var(--bg);
+  font: 600 0.9375rem var(--font-ui);
+  text-decoration: none;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+@media (hover: hover) {
+  .download-links .btn:hover { transform: translateY(-1px); box-shadow: var(--shadow-card); }
+}
+
+/* ---------- CTA ---------- */
+
+.play-cta {
+  padding-block: clamp(40px, 6vw, 80px) clamp(64px, 9vw, 120px);
+  display: grid;
+  gap: 16px;
+}
+.play-cta h2 {
+  width: min(1187px, 100%);
+  font-family: var(--font-display);
+  font-size: var(--fs-lead);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: var(--link-accent);
+}
+
+/* ---------- page-load reveal (copied from kashoofiles/styles.css) ---------- */
+
+.js .reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition-delay: calc(var(--i, 0) * 110ms);
+}
+.js.is-ready .reveal { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .js .reveal { opacity: 1; transform: none; transition: none; }
+  body { transition: none; }
+}
+
+/* ---------- responsive ---------- */
+
+@media (pointer: coarse) {
+  .nav-pill a { padding-block: 8px; }
+  .theme-toggle { width: 32px; height: 32px; }
+}
+
+@media (max-width: 900px) {
+  .brand { font-size: 32px; }
+  .nav-pill { gap: 28px; padding: 14px 24px; font-size: 16px; }
+  .play-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 520px) {
+  .site-header { padding-top: 12px; }
+  .site-header__inner { gap: 8px; }
+  .brand { font-size: 24px; }
+  .nav-pill { gap: 18px; padding: 12px 16px; font-size: 15px; }
+  .play-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 400px) {
+  .brand { display: none; }
+  .nav-pill { gap: 12px; padding: 10px 12px; font-size: 14px; }
+}
