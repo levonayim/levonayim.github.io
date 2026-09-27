@@ -269,7 +269,6 @@ a { color: inherit; }
 /* ---------- midpage-image ---------- */
 
 .midpage-image {
-  margin-top: clamp(72px, 9.3vw, 140px);
   padding-block: clamp(28px, 4.6vw, 69px);
   /* Cooler variant of the BTC project card gradient (.grad-a): more blue/purple, less orange */
   background: conic-gradient(from 90deg at 50% 50%,
