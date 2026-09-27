@@ -394,17 +394,48 @@
       <div class="chapter__grid">
         <h2 class="chapter__title">Post-FICO</h2>
         <div class="chapter__body">
-          <p class="lead" style="font-weight:300;">After leaving FICO, I went back to designing and exploring other iterations of BTC on my own time, free of technical constraints, exploring where the concept could go next:</p>
+          <p class="lead" style="font-weight:300;">FICO World 2025 and internal stakeholder feedback validated real demand for where BTC could go next. On my own time, I kept designing past the scope of my role — here's how I'd take it from a single tool to a platform other teams build on:</p>
 
           <div class="copy-block">
             <ul class="lead" style="font-size:1rem;">
-              <li><strong>Scalable navigation &amp; component architecture</strong><span class="li-body"> — re-architected the platform's navigation so switching between Table and Canvas views feels seamless, laying the groundwork for a unified workspace that can grow with the platform</span></li>
-              <li><strong>Contextual AI integration</strong><span class="li-body"> — explored an AI system that reads a user's initial data blocks to predict schema intent, proactively suggesting structural autofills and recommendations as they build</span></li>
-              <li><strong>Project dashboards &amp; draft sandboxes</strong><span class="li-body"> — designed a BTC landing experience to close a gap in the original flow: a way to manage multiple active projects or open a sandbox to prototype freely</span></li>
-              <li><strong>Verified templates</strong><span class="li-body"> — a template library offering both certified FICO frameworks and AI-assisted templates generated from a team's own governance models</span></li>
-              <li><strong>Unified analytics &amp; aggregation</strong><span class="li-body"> — building on the FICO World 2025 feedback, mapped out embedding live data aggregations directly into the core workspace to remove context-switching between tools</span></li>
+              <li><strong>Scalable navigation &amp; component architecture</strong><span class="li-body"> — re-architected the platform's navigation as a shared foundation rather than a one-off screen, so the same investment that unified Table and Canvas scales to whatever view BTC needs next, without another rebuild</span></li>
+              <li><strong>Contextual AI integration</strong><span class="li-body"> — the "3+ weeks to seconds" win came from letting users self-serve their own data; an AI system that reads a user's first data blocks to predict schema intent is the next lever on that same number</span></li>
+              <li><strong>Project dashboards &amp; draft sandboxes</strong><span class="li-body"> — a landing experience for managing multiple active projects or prototyping freely in a sandbox first, extending that same self-serve confidence to messier, higher-risk changes users were previously afraid to make</span></li>
+              <li><strong>Verified templates</strong><span class="li-body"> — a template library pairing certified FICO frameworks with AI-assisted templates generated from a team's own governance models, turning tribal schema knowledge into a reusable, auditable asset instead of something re-explained to every new team</span></li>
+              <li><strong>Unified analytics &amp; aggregation</strong><span class="li-body"> — the concept that drew the strongest interest at FICO World 2025 and shaped the roadmap, mapped out here as embedded live data aggregations, closing the loop on that feedback with an actual design instead of leaving it as a wishlist item</span></li>
             </ul>
           </div>
+
+          <!-- Systems diagram: ties all 5 explorations above into one platform view (currently the only non-screenshot artifact in the whole case study) -->
+          <figure class="figure" style="margin-top: clamp(32px, 4vw, 56px); border: none;">
+            <svg viewBox="0 0 800 440" role="img" aria-labelledby="post-fico-diagram-title" style="width:100%; height:auto; font-family:var(--font-ui);">
+              <title id="post-fico-diagram-title">Diagram showing five Post-FICO explorations — Navigation & Architecture, Contextual AI Integration, Project Dashboards & Sandboxes, Verified Templates, and Unified Analytics — all connecting to a central BTC Platform node</title>
+              <g style="stroke:var(--line); stroke-width:1.5;">
+                <line x1="400" y1="230" x2="400" y2="72"/>
+                <line x1="400" y1="230" x2="581" y2="171"/>
+                <line x1="400" y1="230" x2="512" y2="384"/>
+                <line x1="400" y1="230" x2="288" y2="384"/>
+                <line x1="400" y1="230" x2="219" y2="171"/>
+              </g>
+              <g style="fill:var(--surface); stroke:var(--line); stroke-width:1.5;">
+                <rect x="320" y="196" width="160" height="68" rx="10"/>
+                <rect x="305" y="8" width="190" height="64" rx="10"/>
+                <rect x="486" y="139" width="190" height="64" rx="10"/>
+                <rect x="417" y="352" width="190" height="64" rx="10"/>
+                <rect x="193" y="352" width="190" height="64" rx="10"/>
+                <rect x="124" y="139" width="190" height="64" rx="10"/>
+              </g>
+              <g style="fill:var(--ink); text-anchor:middle;">
+                <text x="400" y="235" style="font-size:17px; font-weight:800;">BTC Platform</text>
+                <text x="400" y="36" style="font-size:13px; font-weight:700;"><tspan x="400" dy="0">Navigation &amp;</tspan><tspan x="400" dy="16">Architecture</tspan></text>
+                <text x="581" y="167" style="font-size:13px; font-weight:700;"><tspan x="581" dy="0">Contextual AI</tspan><tspan x="581" dy="16">Integration</tspan></text>
+                <text x="512" y="380" style="font-size:13px; font-weight:700;"><tspan x="512" dy="0">Project Dashboards</tspan><tspan x="512" dy="16">&amp; Sandboxes</tspan></text>
+                <text x="288" y="380" style="font-size:13px; font-weight:700;"><tspan x="288" dy="0">Verified</tspan><tspan x="288" dy="16">Templates</tspan></text>
+                <text x="219" y="167" style="font-size:13px; font-weight:700;"><tspan x="219" dy="0">Unified Analytics</tspan><tspan x="219" dy="16">&amp; Aggregation</tspan></text>
+              </g>
+            </svg>
+            <figcaption class="gif-caption">Five separate explorations, one platform: how the pieces above connect</figcaption>
+          </figure>
 
           <figure class="figure" style="margin-top: clamp(32px, 4vw, 56px);">
             <div class="figma-embed">
@@ -413,20 +444,58 @@
                 allowfullscreen>
               </iframe>
             </div>
-            <figcaption class="gif-caption">Post-FICO BTC Prototype</figcaption>
+            <figcaption class="gif-caption">Interactive prototype — explore the Post-FICO concepts firsthand</figcaption>
           </figure>
+
+          <!--
+            TODO (Levona): record a 60-90s narrated walkthrough of the prototype above and
+            embed it here (same .figure + video pattern used elsewhere on the site). Suggested
+            structure:
+              ~10s — name the one gap FICO didn't have bandwidth to solve
+              ~35-40s — click through the AI-suggestion flow and the dashboard/sandbox flow,
+                        narrating the trade-off out loud, not just the happy path
+              ~15s — close with what you'd want to validate/test before treating this as real
+                     (e.g. "I'd want to test whether AI suggestions feel helpful vs. intrusive
+                     before shipping this") — the self-aware caveat is itself a senior signal
+          -->
 
           <div class="subblock">
             <h3 class="subhead">Further Explorations</h3>
-            <div class="gallery-grid">
-              <figure><img src="assets/mytake/btc-1.png" alt="BTC exploration"></figure>
-              <figure><img src="assets/mytake/btc-2.png" alt="BTC exploration"></figure>
-              <figure><img src="assets/mytake/btc-8.png" alt="BTC exploration"></figure>
-              <figure><img src="assets/mytake/btc-6.png" alt="BTC exploration"></figure>
-              <figure><img src="assets/mytake/btc-7.png" alt="BTC exploration"></figure>
-              <figure><img src="assets/mytake/btc-3.png" alt="BTC exploration"></figure>
-              <figure><img src="assets/mytake/btc-5.png" alt="BTC exploration"></figure>
-              <figure><img src="assets/mytake/btc-4.png" alt="BTC exploration"></figure>
+
+            <div class="phase">
+              <span class="phase__title">Contextual AI Integration</span>
+              <figure class="figure">
+                <img src="assets/mytake/btc-8.png" alt="AI Assist chat proposing a junction table for a many-to-many relationship, with its reasoning shown alongside a starting canvas">
+                <figcaption class="gif-caption">AI Assist reasoning through a schema build conversationally, proposing structure with its rationale shown</figcaption>
+              </figure>
+              <div class="lead" style="display:grid; gap:20px;">
+                <p><strong>Reason for design:</strong> The "3+ weeks to seconds" win came from letting users self-serve their own data — but that still assumes users already know their own schema shape going in.</p>
+                <p>I designed an AI assist that asks clarifying questions and proposes structure with its reasoning shown, not just an autofilled result, so users can trust <em>why</em> a suggestion was made instead of accepting a black box.</p>
+              </div>
+            </div>
+
+            <div class="phase">
+              <span class="phase__title">Project Dashboards &amp; Sandboxes</span>
+              <figure class="figure">
+                <img src="assets/mytake/btc-7.png" alt="Schemas workspace showing curated domain templates and a list of projects with version and draft or published status">
+                <figcaption class="gif-caption">A workspace for managing multiple schema projects across draft and published states</figcaption>
+              </figure>
+              <div class="lead" style="display:grid; gap:20px;">
+                <p><strong>Reason for design:</strong> The original BTC flow had no home base — no way to see, resume, or compare in-progress work across projects.</p>
+                <p>I designed a landing workspace with curated domain templates (Credit &amp; Loan Origination, KYC, Compliance, and others) alongside a project list showing version and draft/published status, so teams pick up where they left off instead of hunting for their term set.</p>
+              </div>
+            </div>
+
+            <div class="phase">
+              <span class="phase__title">Verified Templates</span>
+              <figure class="figure">
+                <img src="assets/mytake/btc-6.png" alt="Modal offering to build a schema by describing it to AI Assist, starting from a curated FICO template, or building manually">
+                <figcaption class="gif-caption">One entry point offering AI-generated, curated FICO, and manually-built schemas as equal starting points</figcaption>
+              </figure>
+              <div class="lead" style="display:grid; gap:20px;">
+                <p><strong>Reason for design:</strong> Every team was rebuilding similar schemas (fraud, compliance, lending) from scratch, re-explaining the same governance rules each time.</p>
+                <p>I designed a single "how would you like to build your schema" entry point pairing certified FICO templates with AI-generated starting points, turning tribal schema knowledge into a reusable, auditable asset.</p>
+              </div>
             </div>
           </div>
         </div>
