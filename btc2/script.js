@@ -182,7 +182,7 @@
       document.body.style.overflow = '';
     }
 
-    document.querySelectorAll('.carousel__track img, #process .figure img, #process .compare-pair img').forEach(function (img) {
+    document.querySelectorAll('.carousel__track img, #process .figure img, #process .compare-pair img, #future-vision .figure img').forEach(function (img) {
       img.addEventListener('click', function () { openLightbox(img); });
     });
     // Clicking anywhere in the lightbox (image, caption, backdrop, or the X) closes it.
