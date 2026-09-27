@@ -363,13 +363,14 @@ a { color: inherit; text-decoration: none; }
 }
 
 .cta-section {
+  width: min(1187px, 100%);
+  margin-inline: auto;
   padding-block: clamp(40px, 6vw, 80px) clamp(64px, 9vw, 120px);
   display: grid;
   gap: 16px;
 }
 .cta-section h2 {
-  width: min(1187px, 100%);
-  margin-inline: auto;
+  margin: 0;
   text-align: left;
   font-family: var(--font-display);
   font-size: var(--fs-lead);
@@ -379,8 +380,9 @@ a { color: inherit; text-decoration: none; }
   color: var(--ink);
 }
 .cta-section .lead {
-  width: min(1187px, 100%);
-  margin-inline: auto;
+  margin: 0;
+  width: auto;
+  max-width: none;
   text-align: left;
   font-size: var(--fs-lead);
   line-height: 1.34;
