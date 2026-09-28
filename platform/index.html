@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='GTM'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-KBGVJDGV');</script>
+  <!-- End Google Tag Manager -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FICO | Platform &amp; Alignment Strategy · Levona Yim</title>
+  <meta name="description" content="Case study: designing the first end-to-end blueprint and alignment strategy for the new FICO Platform.">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="icon" type="image/png" href="../assets/favicon-sept2026.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..800&display=swap" rel="stylesheet">
+  <!-- Google Material Symbols: sunny (light mode), dark_mode (dark mode) — same nav icon set as the rest of the site -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=dark_mode,sunny&display=block" />
+  <link rel="stylesheet" href="styles.css">
+
+  <script>
+    // Runs before first paint: mark JS as available and restore a saved theme (no flash).
+    // Shares the homepage's "theme" key so dark/light mode carries over seamlessly
+    // when navigating between the homepage and this case study.
+    document.documentElement.classList.add('js');
+    try {
+      var saved = localStorage.getItem('theme');
+      if (saved) document.documentElement.setAttribute('data-theme', saved);
+    } catch (e) {}
+  </script>
+</head>
+
+<body id="top">
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KBGVJDGV"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="progress" aria-hidden="true"></div>
+
+  <!-- SVG sprite -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="i-user" viewBox="0 0 48 48"><circle cx="24" cy="17" r="8.5"/><path d="M7 45c0-9.6 7.6-16 17-16s17 6.4 17 16z"/></symbol>
+  </svg>
+
+  <!-- ============ NAV ============ -->
+  <header class="site-header">
+    <div class="site-header__inner wrap">
+      <a class="brand" href="../index.html" aria-label="Levona Yim — back to homepage">levona yim</a>
+      <nav class="nav-pill" aria-label="Primary">
+        <a href="../index.html" aria-current="page">work</a>
+        <a href="../about/index.html">about</a>
+        <a href="../play/index.html">play</a>
+        <a href="https://drive.google.com/file/d/1kJueu5DaYzHI15e4sxursLuTW0hQqVcG/view" target="_blank" rel="noopener">resume</a>
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark mode" aria-pressed="false">
+          <span class="material-symbols-outlined icon-sun" aria-hidden="true">sunny</span>
+          <span class="material-symbols-outlined icon-moon" aria-hidden="true">dark_mode</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ============ INTRO ============ -->
+    <section class="intro wrap">
+      <span class="intro-eyebrow reveal" style="--i:0">FICO</span>
+      <h1 class="display reveal" style="--i:0">FICO Platform Alignment</h1>
+
+      <div class="intro__grid">
+        <dl class="meta reveal" style="--i:1">
+          <div>
+            <dt>Role</dt>
+            <dd>Lead Product Designer</dd>
+          </div>
+          <div>
+            <dt>Timeline</dt>
+            <dd>2023–2025</dd>
+          </div>
+          <div>
+            <dt>Team</dt>
+            <dd>
+              <span>Product Managers</span>
+              <span>VP of Architecture</span>
+              <span>Front-End Architect</span>
+              <span>Solution Architect</span>
+              <span>Product Designers</span>
+            </dd>
+          </div>
+        </dl>
+
+        <div class="summary">
+          <p class="lead reveal" style="--i:2">
+            FICO was transforming from a legacy tool into a multi-sector B2B Platform Builder but internal teams were still thinking in legacy silos, with no shared picture of how the new platform actually worked.
+          </p>
+          <p class="lead reveal" style="--i:3">
+           I ran technical stakeholder research and designed the platform's first visual end-to-end blueprint and shared mental model.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ HERO IMAGE ============ -->
+    <section class="showcase" aria-label="FICO Platform blueprint overview">
+      <div class="showcase__frame reveal" style="--i:4">
+        <img
+          src="assets/hero-collage.png"
+          alt="Two boards side by side: the full Platform Flow swimlane diagram, and a high-level house-analogy summary of how FICO Platform's architecture fits together"
+          width="2732" height="2048">
+      </div>
+    </section>
+
+    <!-- ============ OVERVIEW ============ -->
+    <section class="chapter wrap" id="overview">
+      <div class="chapter__grid">
+        <h2 class="chapter__title">Overview</h2>
+        <div class="chapter__body copy-block">
+          <p class="lead">Teams across the org were heads-down building individual capabilities, with no shared visual documentation of how the platform fit together. The architecture diagrams that existed were written for engineers — too technical for the product, design, and business stakeholders who also needed to reason about it.</p>
+          <p class="lead phase-quote">"Does everyone actually understand how this entire platform ecosystem fits together?"</p>
+          <p class="lead"><strong>Teams were building in parallel isolation without a map.</strong> I saw the gap and took ownership of closing it: I conducted stakeholder research across the technical org and produced the platform's first visual end-to-end documentation.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ MY CONTRIBUTION ============ -->
+    <section class="chapter wrap" id="contribution">
+      <div class="chapter__grid">
+        <h2 class="chapter__title">My Contribution</h2>
+        <div class="chapter__body copy-block">
+          <p class="lead">I was the sole driver of this initiative: I defined the scope, interviewed the technical stakeholders, and executed both deliverables independently — balanced alongside my primary workload of scaling the Figma design system and leading design for <a href="../btc2/index.html">Business Terms Capability</a>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ IMPACT ============ -->
+    <section class="chapter wrap" id="impact">
+      <div class="chapter__grid">
+        <h2 class="chapter__title">Impact</h2>
+        <div class="chapter__body">
+          <div class="impact-grid">
+            <div class="impact-item" data-reveal-scroll style="--i:0">
+              <h3>Unified Reference Point</h3>
+              <p>Consolidated scattered screens, decisions, and concepts from across the design team into one continuous, shared picture — for the first time, everyone could see the whole system in one place.</p>
+            </div>
+            <div class="impact-item" data-reveal-scroll style="--i:1">
+              <h3>Simplified Onboarding</h3>
+              <p>The House Analogy gave cross-functional teammates without deep technical backgrounds an intuitive mental model, and became a standing reference for onboarding new team members to the platform.</p>
+            </div>
+            <div class="impact-item" data-reveal-scroll style="--i:2">
+              <h3>Strategic Alignment</h3>
+              <p>The end-to-end blueprint let the team map user archetypes directly to screens and tasks, making it easy to spot system gaps, define MVP priorities, and scope future phases.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <p class="backstory-label wrap">the backstory</p>
+
+    <!-- ============ PROBLEM ============ -->
+    <section class="chapter wrap" id="problem">
+      <div class="chapter__grid">
+        <h2 class="chapter__title">Problem Statement</h2>
+        <div class="chapter__body copy-block">
+          <p class="lead"><strong>Teams had no shared blueprint to align around, which made agreeing on the platform's vision genuinely difficult.</strong></p>
+          <p class="lead">Architecture documentation existed, but it was written in engineering terms that blocked non-technical stakeholders from engaging with it. Without a common reference, onboarding to the platform's strategy and structure was inconsistent across the org — every new teammate had to piece it together on their own.</p>
+        </div>
+      </div>
+    </section>
+
+    <figure class="figure" style="margin-top: clamp(24px, 3vw, 40px);">
+      <img src="assets/workshop-la.jpg" alt="In-person discovery workshop in Los Angeles with technical stakeholders, whiteboarding the platform's structure" width="1600" height="1204">
+      <figcaption class="gif-caption">Discovery workshop with technical stakeholders in Los Angeles</figcaption>
+    </figure>
+
+    <!-- ============ PROCESS ============ -->
+    <section class="chapter wrap" id="process">
+      <div class="chapter__grid">
+        <h2 class="chapter__title">Process</h2>
+        <div class="chapter__body">
+
+          <div class="phase">
+            <span class="phase__title">Phase 1 — Discovery &amp; Alignment</span>
+            <figure class="figure">
+              <img src="assets/before-state-board.png" alt="A board collecting every in-progress screen, decision, and concept designers across the team were working on, gathered into one place for the first time">
+              <figcaption class="gif-caption">Every scattered piece of in-progress work, gathered into one place</figcaption>
+            </figure>
+            <div class="lead" style="display:grid; gap:20px;">
+              <p><strong>Reason for design:</strong> Rather than work from assumptions, I facilitated working sessions with the Front-End Architect and an Engineering Manager to get straight answers, in layman's terms, to the basic questions nobody had documented:</p>
+              <div class="copy-block">
+                <ul class="lead" style="font-size:1rem;">
+                  <li><strong>What are we actually building</strong><span class="li-body"> — in plain language, not architecture jargon</span></li>
+                  <li><strong>How do the capabilities relate to one another</strong><span class="li-body"> — and what does the platform feel like on day one versus six months in</span></li>
+                </ul>
+              </div>
+              <p>I focused on absorbing the technical detail, asking clarifying questions, and mapping what I learned into accessible documentation. <strong>Outcome: the House Analogy concept came to life.</strong></p>
+            </div>
+          </div>
+
+          <div class="phase">
+            <span class="phase__title">Phase 2 — Conceptual Analogy</span>
+            <figure class="figure">
+              <img src="assets/analogy-diagram.png" alt="Diagram mapping FICO's architecture terms (Architectural Service, Business Capability, Asset) to a house-building analogy (materials, composition, assembly, deployment) ending in a client solution">
+              <figcaption class="gif-caption">Platform architecture reframed as a house under construction — foundation, framing, then finished rooms</figcaption>
+            </figure>
+            <div class="lead" style="display:grid; gap:20px;">
+              <p><strong>Reason for design:</strong> Nobody outside engineering could reason about dependencies and build sequence directly from the architecture terms. Everyone, technical or not, already understands that you can't put the roof on before the walls.</p>
+              <p>I reframed the platform as a house under construction — materials, framing, electrical, plumbing — and mapped each platform capability and team role onto a building phase and trade. This made dependencies, ownership, and sequencing tangible, and it became the team's standing reference for onboarding.</p>
+            </div>
+            <figure class="figure" style="margin-top: clamp(24px, 3vw, 40px);">
+              <img src="assets/analogy-slide-phases.png" alt="Presentation slide titled '3 Parts / Phases to the Platform we are building': Phase 1 Creation of the Architectural Services, Phase 2 Creating a Baseline Service, Phase 3 Optimization and Simulation">
+              <figcaption class="gif-caption">From the House Analogy presentation: the 3 build phases this framework organized the platform into</figcaption>
+            </figure>
+          </div>
+
+          <div class="phase">
+            <span class="phase__title">Phase 3 — Final Flow Mapping</span>
+            <figure class="figure">
+              <img src="assets/platform-flow-diagram.png" alt="Full swimlane diagram of the platform flow from FICO Admin and Client Admin setup through SME and Service Creator, showing Day 0 to Day 2" width="2732" height="2048">
+              <figcaption class="gif-caption">Complete Day 0 → Day 2 flow, with user archetypes aligned directly to tasks and screens</figcaption>
+            </figure>
+            <div class="lead" style="display:grid; gap:20px;">
+              <p>The final step mapped the complete Day 0 to Day 2 flow, aligning each user archetype directly to the tasks and screens they'd actually touch.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ IMPACT & VALIDATION ============ -->
+    <section class="chapter wrap" id="impact-validation">
+      <div class="chapter__grid">
+        <h2 class="chapter__title">Impact &amp; Validation</h2>
+        <div class="chapter__body copy-block">
+          <p class="lead">This end-to-end blueprint let the team map user archetypes to specific screens and tasks, making it easy to identify system gaps, define MVP priorities, and scope out future phases.</p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider wrap">
+
+    <!-- ============ FICO WORLD 2026 PREVIEW ============ -->
+    <section class="chapter wrap" id="platform-preview">
+      <div class="chapter__grid">
+        <h2 class="chapter__title">FICO World 2026 — Platform Preview</h2>
+        <div class="chapter__body copy-block">
+          <p class="lead">This concept was later previewed publicly at FICO World 2026 — a supplementary highlight, not a deliverable of this project, but real evidence the work reached beyond the team that commissioned it.</p>
+          <figure class="figure" style="margin-top: clamp(24px, 3vw, 40px);">
+            <div class="figma-embed">
+              <iframe
+                src="https://www.youtube.com/embed/WErSukXdnWo?start=281"
+                title="FICO World 2026 keynote"
+                allowfullscreen>
+              </iframe>
+            </div>
+            <figcaption class="gif-caption">Clip from the FICO World 2026 keynote previewing the Platform</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <hr class="cta-divider reveal" style="--i:7">
+
+    <!-- ============ CLOSING CTA ============ -->
+    <section class="cta-section wrap">
+      <h2 class="reveal" style="--i:8">I'm open to new opportunities &amp; collaboration :)</h2>
+      <p class="lead reveal" style="--i:9">
+        <a href="https://www.linkedin.com/in/levona-yim/" target="_blank" rel="noopener">LinkedIn</a>
+      </p>
+      <p class="lead reveal" style="--i:8">
+        <a href="mailto:levona.yim@gmail.com">levona.yim@gmail.com</a>
+      </p>
+    </section>
+
+  </main>
+
+  <footer class="site-footer wrap">
+    <h2 class="reveal" style="--i:8"><a href="../btc2/index.html">&larr; FICO | Business Terms Capability</a></h2>
+    <h2 class="reveal" style="--i:8"><a href="../kashoofiles/index.html">Kashoo | Web 2.0 &rarr;</a></h2>
+  </footer>
+
+  <!-- ============ IMAGE LIGHTBOX (opened from any carousel image) ============ -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Enlarged screenshot">
+    <button class="lightbox__close" type="button" aria-label="Close">
+      <svg viewBox="0 0 24 24"><line x1="6" y1="6" x2="18" y2="18"></line><line x1="18" y1="6" x2="6" y2="18"></line></svg>
+    </button>
+    <figure class="lightbox__figure">
+      <img class="lightbox__img" alt="">
+      <figcaption class="lightbox__caption"></figcaption>
+    </figure>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

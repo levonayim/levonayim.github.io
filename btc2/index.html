@@ -11,7 +11,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>FICO | Business Terms Capability · Levona Yim</title>
-  <meta name="description" content="Draft case study: designing Business Terms Capability, the FICO Platform's single source of truth for schema management.">
+  <meta name="description" content="Designing Business Terms Capability, the FICO Platform's single source of truth for managing data models.">
   <meta name="theme-color" content="#ffffff">
   <link rel="icon" type="image/png" href="../assets/favicon-sept2026.png">
 
@@ -98,7 +98,7 @@
            On large platforms, teams define the same business concept in different ways, so the same data means different things across products. BTC gives FICO Platform users one shared definition that every product uses.
           </p>
           <p class="lead reveal" style="--i:3">
-            I led its design end to end, from an embeddable component other teams adopted to a standalone workspace for technical and business users.
+            <strong>I led its design end to end, from an embeddable component other teams adopted, to a standalone workspace for technical and business users.</strong>
           </p>
         </div>
       </div>
@@ -177,7 +177,7 @@
         <div class="chapter__body">
           <div class="lead" style="display:grid; gap:20px;">
             <p>BTC is the workspace where FICO Platform users build and manage their data models.</p> 
-            <p>It replaces the fragmented, modal-driven process with a single searchable table where terms are imported once, paired with a plain business definition instead of a technical name, and connected to the terms they relate to.</p>
+            <p>Using Claude Code, I brought my Figma designs to life as an interactive prototype. This transformed our previous fragmented, modal-driven experience into an immersive, all-in-one dynamic interface.</p>
           </div>
         </div>
       </div>
@@ -394,43 +394,60 @@
       <div class="chapter__grid">
         <h2 class="chapter__title">Post-FICO</h2>
         <div class="chapter__body">
-          <p class="lead" style="font-weight:300;">After leaving FICO, I went back to designing and exploring other iterations of BTC on my own time, free of technical constraints, exploring where the concept could go next:</p>
+          <p class="lead" style="font-weight:300;">I continued using Figma x Claude Code on my own time, to design BTC with no technical restrictions and a reimagined version of how it should behave.</p>
+        </div>
+      </div>
+    </section>
 
-          <div class="copy-block">
-            <ul class="lead" style="font-size:1rem;">
-              <li><strong>Scalable navigation &amp; component architecture</strong><span class="li-body"> — re-architected the platform's navigation so switching between Table and Canvas views feels seamless, laying the groundwork for a unified workspace that can grow with the platform</span></li>
-              <li><strong>Contextual AI integration</strong><span class="li-body"> — explored an AI system that reads a user's initial data blocks to predict schema intent, proactively suggesting structural autofills and recommendations as they build</span></li>
-              <li><strong>Project dashboards &amp; draft sandboxes</strong><span class="li-body"> — designed a BTC landing experience to close a gap in the original flow: a way to manage multiple active projects or open a sandbox to prototype freely</span></li>
-              <li><strong>Verified templates</strong><span class="li-body"> — a template library offering both certified FICO frameworks and AI-assisted templates generated from a team's own governance models</span></li>
-              <li><strong>Unified analytics &amp; aggregation</strong><span class="li-body"> — building on the FICO World 2025 feedback, mapped out embedding live data aggregations directly into the core workspace to remove context-switching between tools</span></li>
-            </ul>
-          </div>
+    <!-- ============ FULL WIDTH SCHEMA COMPARISON ============ -->
+    <section class="midpage-image" aria-label="FICO BTC">
+      <div class="midpage-image__frame reveal" style="--i:4">
+        <img src="assets/btc-new-gif.gif" alt="GIF of my take on BTC reimagined">
+      </div>
+    </section>
 
-          <figure class="figure" style="margin-top: clamp(32px, 4vw, 56px);">
-            <div class="figma-embed">
-              <iframe
-                src="https://www.figma.com/embed?embed_host=share&url=https://www.figma.com/proto/TgdZntzJXwQjUzFhPExyDF/BTC-2026---added-interactions?node-id=2-228852&viewport=196%2C742%2C0.12&t=oals6KVcOmtRgbE1-1&scaling=contain&content-scaling=fixed&starting-point-node-id=2%3A264416&page-id=0%3A1&hide-ui=1"
-                allowfullscreen>
-              </iframe>
+
+
+    <!-- ============ POST-FICO ============ -->
+    <section class="chapter wrap" id="future-vision">
+      <div class="chapter__grid">
+        <h2 class="chapter__title">Design Decisions</h2>
+        <div class="chapter__body">
+
+            <div class="phase">
+              <span class="phase__title">Contextual AI Integration</span>
+              <figure class="figure">
+                <img src="assets/mytake/btc-8.png" alt="AI Assist chat proposing a junction table for a many-to-many relationship, with its reasoning shown alongside a starting canvas">
+                <figcaption class="gif-caption">AI Assist reasoning through a data model build conversationally, proposing structure with its rationale shown</figcaption>
+              </figure>
+              <div class="lead" style="display:grid; gap:20px;">
+                <p>I designed an AI assist that asks clarifying questions and proposes structure with its reasoning shown.</p>
+              </div>
             </div>
-            <figcaption class="gif-caption">Post-FICO BTC Prototype</figcaption>
-          </figure>
 
-          <div class="subblock">
-            <h3 class="subhead">Further Explorations</h3>
-            <div class="gallery-grid">
-              <figure><img src="assets/mytake/btc-1.png" alt="BTC exploration"></figure>
-              <figure><img src="assets/mytake/btc-2.png" alt="BTC exploration"></figure>
-              <figure><img src="assets/mytake/btc-8.png" alt="BTC exploration"></figure>
-              <figure><img src="assets/mytake/btc-6.png" alt="BTC exploration"></figure>
-              <figure><img src="assets/mytake/btc-7.png" alt="BTC exploration"></figure>
-              <figure><img src="assets/mytake/btc-3.png" alt="BTC exploration"></figure>
-              <figure><img src="assets/mytake/btc-5.png" alt="BTC exploration"></figure>
-              <figure><img src="assets/mytake/btc-4.png" alt="BTC exploration"></figure>
+            <div class="phase">
+              <span class="phase__title">Project Dashboards &amp; Sandboxes</span>
+              <figure class="figure">
+                <img src="assets/sept-btc-homedashboard.png" alt="Schemas workspace showing curated domain templates and a list of projects with version and draft or published status">
+                <figcaption class="gif-caption">A workspace for managing multiple data models across draft and published states</figcaption>
+              </figure>
+              <div class="lead" style="display:grid; gap:20px;">
+                <p>I designed a landing workspace with curated templates (Credit &amp; Loan Origination, KYC, Compliance, etc) alongside a project list, so users can pick up where they left off.</p>
+              </div>
+            </div>
+
+            <div class="phase">
+              <span class="phase__title">Verified Templates</span>
+              <figure class="figure">
+                <img src="assets/mytake/btc-6.png" alt="Modal offering to build a schema by describing it to AI Assist, starting from a curated FICO template, or building manually">
+                <figcaption class="gif-caption">One entry point offering AI-generated, curated FICO, and manually-built data models as equal starting points</figcaption>
+              </figure>
+              <div class="lead" style="display:grid; gap:20px;">
+                <p>I designed an entry point pairing certified FICO templates with AI-generated starting points, turning domain experet knowledge into a reusable asset.</p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
     </section>
 
     <hr class="section-divider wrap">
@@ -449,8 +466,8 @@
   </main>
 
   <footer class="site-footer wrap">
-    <h2 class="reveal" style="--i:8"><a href="../kashoofiles/index.html">&larr; Kashoo | Web 2.0</a></h2>
-    <h2 class="reveal" style="--i:8"><a href="../index.html">FICO | Onboarding &rarr;</a></h2>
+    <h2 class="reveal" style="--i:8"><a href="../kashoofiles/index.html">Go to: Kashoo | Web 2.0</a></h2>
+    <!-- <h2 class="reveal" style="--i:8"><a href="../platform/index.html">FICO | Platform &rarr;</a></h2> -->
   </footer>
 
   <!-- ============ IMAGE LIGHTBOX (opened from any carousel image) ============ -->

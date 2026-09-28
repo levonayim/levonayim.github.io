@@ -271,12 +271,12 @@ a { color: inherit; }
 .midpage-image {
   padding-block: clamp(28px, 4.6vw, 69px);
   /* Cooler variant of the BTC project card gradient (.grad-a): more blue/purple, less orange */
-  background: conic-gradient(from 90deg at 50% 50%,
+  /*background: conic-gradient(from 90deg at 50% 50%,
     #50dcff -10%, #7cb9d3 -5%, #a896a8 0%, #a878d3 5%, #7c50ff 10%,
     #8354fb 13%, #7c58f6 16%, #9f5fed 21.5%, #b384ea 25%, #c9a9ea 29%,
     #e0f2fe 36%, #d3dbe8 39.5%, #a7c4f0 43%, #7cadf7 46.5%, #5096ff 50%,
     #7c85ee 54.5%, #a873dc 59%, #a962d3 64%, #b950ff 68.5%, #9f73ff 74%,
-    #8596ff 79%, #6ab9ff 84.5%, #50dcff 90%, #7cb9d3 95%, #a896a8 100%);
+    #8596ff 79%, #6ab9ff 84.5%, #50dcff 90%, #7cb9d3 95%, #a896a8 100%);*/
 }
 
 .midpage-image__frame {
@@ -896,7 +896,8 @@ a { color: inherit; }
 /* Carousel images open into this full-screen lightbox */
 .carousel__track img,
 #process .figure img,
-#process .compare-pair img { cursor: zoom-in; }
+#process .compare-pair img,
+#future-vision .figure img { cursor: zoom-in; }
 
 @media (prefers-reduced-motion: reduce) {
   .carousel__track { transition: none; }
