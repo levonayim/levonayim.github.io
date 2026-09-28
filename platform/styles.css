@@ -1,0 +1,986 @@
+/* ==========================================================================
+   Business Terms Capability (BTC2) case study — TEMPORARY DRAFT
+   Same component system/tokens as kashoofiles/styles.css and btc/styles.css:
+   Inter body copy, SF Pro nav/UI, label column on the left / content on the right.
+   ========================================================================== */
+
+/* Native cross-document view transition: Chrome/Edge 126+ cross-fade
+   between same-origin pages (e.g. back to the homepage) instead of a
+   hard cut. No-op (ignored) in browsers that don't support it yet. */
+@view-transition {
+  navigation: auto;
+}
+
+:root {
+  color-scheme: light;
+
+  --bg: #ffffff;
+  --surface: #ffffff;
+  --ink: #030712;
+  --ink-2: #1f2937;
+  --muted: #4b5563;
+  --line: rgba(3, 7, 18, 0.1);
+  --shadow-card: 0 1px 2px rgba(3, 7, 18, 0.06), 0 10px 28px -10px rgba(3, 7, 18, 0.2);
+  --nav-ink: #292a2c;
+  --nav-bg: #ffffff;
+  --shadow-nav: 0 4px 8px rgba(73, 73, 73, 0.16);
+  --header-scrolled-bg: rgba(255, 255, 255, 0.72);
+  --accent: #5f5bf0;
+  --link-accent: #5f72ed;
+  /* Brand wordmark: same ink + typeface as the homepage's .brand, kept separate
+     from --ink (this page's body copy color/typeface) so the two can differ. */
+  --brand-ink: #1f2937;
+  --font-display: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Inter", "Helvetica Neue", Arial, sans-serif;
+
+  --font: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-ui: "SF Pro Text", "SF Pro", -apple-system, BlinkMacSystemFont, "Inter", system-ui, sans-serif;
+
+  /* fluid type: values land on the Figma sizes at a 1512px viewport */
+  --fs-display: clamp(3rem, 8vw, 7.5rem);
+  --fs-h2: clamp(1.75rem, 2.65vw, 2.5rem);
+  --fs-lead: clamp(1.25rem, 2.1vw, 2rem);
+  --track-lead: -0.035em;
+
+  --gutter: clamp(20px, 5.55vw, 84px);
+  --max: 1512px;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --bg: #0a0c12;
+  --surface: #151925;
+  --ink: #f3f4f6;
+  --ink-2: #d1d5db;
+  --muted: #9ca3af;
+  --line: rgba(255, 255, 255, 0.14);
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.5), 0 10px 28px -10px rgba(0, 0, 0, 0.7);
+  --nav-ink: #e5e7eb;
+  --nav-bg: #1c2431;
+  --shadow-nav: 0 4px 12px rgba(0, 0, 0, 0.5);
+  --header-scrolled-bg: rgba(10, 12, 18, 0.72);
+  --brand-ink: #e5e7eb;
+  --accent: #9b8cff;
+  /* Lighter tint of the brand blue-violet — the flat #5f72ed reads too dark against this background. */
+  --link-accent: color-mix(in srgb, #5f72ed 70%, white);
+}
+
+/* ---------- base ---------- */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+img, video { display: block; max-width: 100%; height: auto; margin: auto;}
+h1, h2, h3, p, dl, dd, figure, blockquote, ul, ol { margin: 0; padding: 0; }
+ul, ol { list-style: none; }
+a { color: inherit; }
+
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+.wrap {
+  width: 100%;
+  max-width: var(--max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+  padding-bottom: 2rem;
+}
+
+.skip-link {
+  position: fixed; top: 8px; left: 8px; z-index: 100;
+  padding: 10px 14px; background: var(--ink); color: var(--bg);
+  border-radius: 8px; font: 500 14px var(--font-ui);
+  transform: translateY(-160%);
+}
+.skip-link:focus { transform: none; }
+
+/* ---------- progress + nav ---------- */
+
+.progress {
+  position: fixed; inset: 0 0 auto 0; z-index: 60;
+  height: 3px;
+  background: linear-gradient(90deg, #5081ff, #7c50ff);
+  transform: scaleX(var(--p, 0));
+  transform-origin: left;
+  pointer-events: none;
+}
+
+.site-header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 50;
+  padding-top: 24px;
+  pointer-events: none;
+  transition: background-color .3s ease, padding .3s ease;
+}
+.site-header.is-scrolled {
+  background: var(--header-scrolled-bg);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  padding-top: 20px;
+  padding-bottom: 4px;
+}
+
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 0; /* .wrap's own padding-bottom isn't meant for the nav bar */
+}
+
+.brand {
+  pointer-events: auto;
+  flex: none;
+  white-space: nowrap;
+  font-family: var(--font-display);
+  font-size: 40px;
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  line-height: 1;
+  color: var(--brand-ink);
+  text-decoration: none;
+}
+
+.nav-pill {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  padding: 16px 32px;
+  background: var(--nav-bg);
+  border-radius: 12px;
+  box-shadow: var(--shadow-nav);
+  transition: background-color .3s ease, box-shadow .3s ease;
+  /* Explicit font + line-height so the pill's size never depends on
+     whatever font/line-height a given page sets on <body> — kept in
+     sync with the .nav used on the homepage. */
+  font-family: "SF Pro Text", "SF Pro", -apple-system, BlinkMacSystemFont, "Inter", system-ui, sans-serif;
+  font-size: 18px;
+  line-height: 1.5;
+  white-space: nowrap;
+  color: var(--nav-ink);
+}
+
+.nav-pill a { transition: color .2s ease; text-decoration: none; }
+.nav-pill a:hover, .nav-pill a[aria-current="page"] { color: var(--link-accent); }
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24
+}
+
+.theme-toggle {
+  display: grid;
+  place-items: center;
+  width: 24px; height: 24px;
+  padding: 0; border: 0; background: none; cursor: pointer;
+  color: var(--nav-ink);
+  overflow: hidden;
+  transition: opacity .2s ease, transform .3s ease;
+}
+.theme-toggle:hover { opacity: .65; }
+.theme-toggle:active { transform: rotate(25deg) scale(.92); }
+.theme-toggle:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; border-radius: 6px; }
+.theme-toggle .material-symbols-outlined { font-size: 24px; line-height: 1; }
+/* Light mode → sun, dark mode → moon (pure CSS, so there is no flash on load) */
+.theme-toggle .icon-moon { display: none; }
+:root[data-theme="dark"] .theme-toggle .icon-sun { display: none; }
+:root[data-theme="dark"] .theme-toggle .icon-moon { display: inline; }
+
+/* ---------- intro ---------- */
+
+.intro { padding-top: clamp(112px, 9.5vw, 144px); }
+
+.display {
+  font-size: var(--fs-display);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.012em;
+}
+
+.intro__grid {
+  display: grid;
+  grid-template-columns: minmax(170px, 243px) minmax(0, 1fr);
+  gap: clamp(32px, 3.8vw, 58px);
+  margin-top: clamp(40px, 6.9vw, 104px);
+}
+
+.meta { display: grid; gap: 32px; align-content: start; font-family: var(--font-ui); color: var(--ink-2); }
+.meta dt { font-size: 12px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; }
+.meta dd { margin-top: 7px; font-size: 16px; font-weight: 300; line-height: 1.4; }
+.meta dd span { display: block; }
+
+.lead {
+  font-size: var(--fs-lead);
+  line-height: 1.34;
+  letter-spacing: var(--track-lead);
+  max-width: 1043px;
+}
+.lead strong { font-weight: 700; }
+.summary .lead + .lead { margin-top: clamp(24px, 2.6vw, 40px); }
+
+/* Inline links within lead copy (Overview's FICO Platform link, the closing CTA) */
+.lead a {
+  text-underline-offset: 3px;
+  text-decoration-color: var(--link-accent);
+  text-decoration-style: wavy;
+  text-decoration-thickness: 2px;
+  font-weight: 500;
+  transition: color .2s ease;
+}
+.lead a:hover { color: var(--link-accent); }
+
+/* ---------- hero image ---------- */
+
+.showcase {
+  margin-top: clamp(72px, 9.3vw, 140px);
+  padding-block: clamp(28px, 4.6vw, 69px);
+  /* Same conic gradient as the BTC project card on the homepage (.grad-a) */
+  background: conic-gradient(from 90deg at 50% 50%,
+    #50dcff -10%, #7cb9d3 -5%, #a896a8 0%, #d3737c 5%, #ff5050 10%,
+    #fb5471 13%, #f65893 16%, #ed5fd6 21.5%, #ea84e0 25%, #e7a9ea 29%,
+    #e0f2fe 36%, #e8dbd3 39.5%, #f0c4a7 43%, #f7ad7c 46.5%, #ff9650 50%,
+    #ee857c 54.5%, #dc73a8 59%, #cb62d3 64%, #b950ff 68.5%, #9f73ff 74%,
+    #8596ff 79%, #6ab9ff 84.5%, #50dcff 90%, #7cb9d3 95%, #a896a8 100%);
+}
+
+.showcase__frame {
+  margin-inline: auto;
+}
+.showcase__frame img,
+.showcase__frame .ph {
+  width: 100%;
+}
+
+/* ---------- midpage-image ---------- */
+
+.midpage-image {
+  padding-block: clamp(28px, 4.6vw, 69px);
+  /* Cooler variant of the BTC project card gradient (.grad-a): more blue/purple, less orange */
+  /*background: conic-gradient(from 90deg at 50% 50%,
+    #50dcff -10%, #7cb9d3 -5%, #a896a8 0%, #a878d3 5%, #7c50ff 10%,
+    #8354fb 13%, #7c58f6 16%, #9f5fed 21.5%, #b384ea 25%, #c9a9ea 29%,
+    #e0f2fe 36%, #d3dbe8 39.5%, #a7c4f0 43%, #7cadf7 46.5%, #5096ff 50%,
+    #7c85ee 54.5%, #a873dc 59%, #a962d3 64%, #b950ff 68.5%, #9f73ff 74%,
+    #8596ff 79%, #6ab9ff 84.5%, #50dcff 90%, #7cb9d3 95%, #a896a8 100%);*/
+}
+
+.midpage-image__frame {
+  margin-inline: auto;
+}
+.midpage-image__frame img,
+.midpage-image_frame .ph {
+  width: 70%;
+}
+
+/* placeholder shown by script.js when an image file is missing */
+.ph {
+  display: grid; place-items: center; align-content: center; gap: 6px;
+  min-height: 160px;
+  padding: 24px;
+  text-align: center;
+  background: var(--surface);
+  color: var(--muted);
+  font: 400 14px/1.5 var(--font-ui);
+}
+.ph code { font: 500 13px ui-monospace, SFMono-Regular, Menlo, monospace; background: color-mix(in srgb, var(--ink) 8%, transparent); padding: 2px 6px; border-radius: 4px; color: var(--ink); }
+
+/* ---------- chapters ---------- */
+
+.chapter { padding-block: clamp(56px, 6vw, 96px); }
+
+.chapter__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 37fr) minmax(0, 63fr);
+  gap: clamp(24px, 3vw, 48px);
+}
+
+.chapter__title {
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.033em;
+  padding-top: 0.06em;
+  text-align: left;
+  padding-right: 1rem;
+}
+
+/* #users: bottom-align "Personas" with "Primary Users (Platform wide)" by
+   putting them in a shared grid row, instead of the default top alignment
+   used by every other .chapter__grid on the page. */
+#users .chapter__grid {
+  grid-template-areas:
+    "title label"
+    ".     body";
+  row-gap: clamp(20px, 2.6vw, 28px);
+  align-items: end;
+}
+#users .chapter__title { grid-area: title; }
+#users .users-tier__label { grid-area: label; margin-bottom: 0; }
+#users .chapter__body { grid-area: body; }
+
+.subblock { margin-top: clamp(48px, 5.8vw, 88px); }
+.subhead {
+  margin-bottom: 24px;
+  font: 700 16px/1.3 var(--font-ui);
+  color: var(--ink-2);
+}
+
+/* ---------- quotes ---------- */
+
+.quotes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(24px, 4vw, 64px);
+  align-items: start;
+}
+/* Standalone instance (not nested in a chapter__body): same width as the
+   .people-row illustration above it (both 50% of the section, centered). */
+.quotes--wide {
+  width: 100%;
+  margin-inline: auto;
+  margin: 2rem auto;
+}
+.quotes:not(.quotes--wide) { margin-top: clamp(32px, 4vw, 56px); }
+
+.quotes__col { display: grid; gap: clamp(20px, 2.8vw, 40px); }
+.quotes__col--offset { margin-top: clamp(0px, 3vw, 44px); }
+
+.quote { display: flex; align-items: flex-start; gap: clamp(12px, 1.4vw, 20px); }
+
+.avatar {
+  flex: none;
+  display: grid; place-items: center;
+  width: clamp(48px, 5vw, 72px); aspect-ratio: 1;
+  border-radius: 50%;
+  color: var(--tone);
+  background: color-mix(in srgb, var(--tone) 16%, var(--surface));
+}
+.avatar svg { width: 62%; height: 62%; fill: currentColor; stroke: none; }
+
+.quote__card {
+  flex: 1; min-width: 0;
+  padding: 20px 24px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: var(--shadow-card);
+}
+.quote blockquote p {
+  font-size: clamp(0.9375rem, 1.1vw, 1.0625rem);
+  font-weight: 500;
+  line-height: 1.55;
+  color: var(--ink);
+}
+.quote blockquote p + p { margin-top: 14px; }
+.quote figcaption {
+  margin-top: 14px;
+  font: 500 12px/1.2 var(--font-ui);
+  color: var(--muted);
+}
+
+/* ---------- figures (screenshots used throughout the case study) ---------- */
+
+.figure { margin: 0; }
+.figure img {
+  display: block;
+  width: 100%;
+  border: #B9C2C8, solid, 0.05em;
+}
+/* Breaks out to the full viewport width, ignoring .wrap's gutter */
+.figure--full-bleed {
+  width: 100vw;
+  margin-inline: calc(50% - 50vw);
+}
+.figure--full-bleed img { border-radius: 0; box-shadow: none; }
+
+/* Row of avatar illustrations below the "User Feedback on Kashoo 2.0" title */
+.people-row {
+  width: 75%;
+  margin: 0 auto;
+}
+.people-row img { border-radius: 0; box-shadow: none; }
+
+/* ---------- Kashoo 2.0 banner ---------- */
+
+.brand-banner {
+  padding-top: clamp(56px, 11vw, 170px);
+  padding-bottom: 0;
+  /* Soft 3-color blend, same blue/violet/peach family as the hero's
+     conic gradient above, smoothed into one gentle diagonal sweep */
+  background: linear-gradient(135deg, #5f8dff 0%, #9f73ff 50%, #ff9f7c 100%);
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  overflow: hidden;
+}
+:root[data-theme="dark"] .brand-banner {
+  /* Darker/muted so the banner doesn't blow out against the dark page */
+  background: linear-gradient(135deg,
+    color-mix(in srgb, #5f8dff 60%, black) 0%,
+    color-mix(in srgb, #9f73ff 60%, black) 50%,
+    color-mix(in srgb, #ff9f7c 60%, black) 100%);
+}
+.brand-banner__text {
+  margin: -0.75rem;
+  /* em, not px: scales automatically with font-size (see the breakpoints
+     below) so the glyphs keep touching the left edge at every screen size
+     instead of needing a separate margin override per breakpoint. */
+  margin-left: -0.05em;
+  max-width: 100%;
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: 224px;
+  line-height: 0.85;
+  letter-spacing: -0.02em;
+  color: #fff;
+  text-align: left;
+  overflow-wrap: anywhere;
+}
+/* Fixed-px sizing above doesn't scale itself, so step it down at
+   narrower widths (plain overrides, not clamp) so it doesn't overflow. */
+@media (max-width: 900px) {
+  .brand-banner__text { font-size: 120px; }
+}
+@media (max-width: 520px) {
+  .brand-banner__text { font-size: 64px; }
+}
+:root[data-theme="dark"] .brand-banner__text {
+  /* "Cut-out" look: text matches the page's own near-black background */
+  color: var(--bg);
+}
+
+/* ---------- key design decisions ---------- */
+
+.decisions-list {
+  margin-top: clamp(48px, 5.8vw, 88px);
+  display: grid;
+  gap: clamp(56px, 7vw, 96px);
+}
+.decision-card { display: grid; gap: 24px; }
+.decision-card .subhead { margin-bottom: 0; }
+.decision-card .lead { font-size: 1rem; }
+
+/* ---------- impact ---------- */
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 32px clamp(20px, 3vw, 48px);
+  padding-bottom: clamp(32px, 4vw, 56px);
+  margin-bottom: clamp(32px, 4vw, 56px);
+  border-bottom: 1px solid var(--line);
+}
+.stat__num {
+  display: block;
+  font-size: clamp(2.75rem, 5vw, 4.5rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+}
+.stat__label {
+  display: block; margin-top: 12px; max-width: 20ch;
+  font: 400 15px/1.4 var(--font-ui);
+  color: var(--ink-2);
+}
+
+.impact-list { display: grid; gap: clamp(28px, 3.2vw, 48px); }
+
+/* ---------- section divider ---------- */
+
+.section-divider {
+  border: none;
+  border-top: 1px solid var(--line);
+  margin-block: 0;
+}
+
+/* ---------- reflection ---------- */
+
+.reflection-copy > * + * { margin-top: clamp(20px, 2.2vw, 32px); }
+.reflection-copy ul {
+  list-style: disc;
+  padding-left: 1.25em;
+  display: grid;
+  gap: 10px;
+}
+.reflection-copy li::marker { color: var(--muted); }
+
+/* ---------- footer ---------- */
+
+.site-footer {
+  display: flex; justify-content: space-between; gap: 16px;
+  padding-block: clamp(48px, 8vw, 120px) 48px;
+  font: 400 15px var(--font-ui);
+  color: var(--ink-2);
+}
+.site-footer a { text-decoration: none; }
+.site-footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+/* ---------- suggested sections (hidden unless ?draft or pressing D) ---------- */
+
+.is-draft { display: none; }
+.show-draft .is-draft { display: block; }
+
+.draft-box {
+  padding: 22px 26px;
+  border: 1.5px dashed color-mix(in srgb, var(--accent) 60%, transparent);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--accent) 6%, var(--bg));
+  font: 400 1rem/1.6 var(--font-ui);
+  color: var(--ink-2);
+}
+.draft-box__tag { margin-bottom: 10px; font-size: 12px; font-weight: 700; color: var(--accent); }
+.draft-box ul, .draft-box ol { margin: 0; padding-left: 1.2em; list-style: revert; }
+.draft-box li + li { margin-top: 8px; }
+.draft-box p + p, .draft-box ul + p { margin-top: 12px; }
+.next { padding-block: 24px 0; }
+
+.draft-banner {
+  display: none;
+  position: fixed; left: 50%; bottom: 20px; z-index: 70;
+  transform: translateX(-50%);
+  max-width: calc(100% - 32px);
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: var(--ink); color: var(--bg);
+  font: 500 13px var(--font-ui);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+}
+.show-draft .draft-banner { display: block; }
+
+/* ---------- page-load reveal (one orchestrated moment) ---------- */
+
+.js .reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition-delay: calc(var(--i, 0) * 110ms);
+}
+.js.is-ready .reveal { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .js .reveal { opacity: 1; transform: none; transition: none; }
+  [data-reveal-scroll] { opacity: 1; transform: none; transition: none; }
+  body { transition: none; }
+}
+
+/* ---------- responsive ---------- */
+
+/* Touch devices: larger tap targets in the nav */
+@media (pointer: coarse) {
+  .nav-pill a { padding-block: 8px; }
+  .theme-toggle { width: 32px; height: 32px; }
+}
+
+@media (max-width: 900px) {
+  .brand { font-size: 32px; }
+  .nav-pill { gap: 28px; padding: 14px 24px; font-size: 16px; }
+  .intro__grid { grid-template-columns: 1fr; }
+  .meta { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 24px; }
+  .chapter__grid { grid-template-columns: 1fr; gap: 20px; }
+  #users .chapter__grid {
+    grid-template-areas: "title" "label" "body";
+    align-items: start;
+  }
+  .quotes { grid-template-columns: 1fr; }
+  .quotes__col--offset { margin-top: 0; }
+}
+
+@media (max-width: 640px) {
+  .site-header__inner { justify-content: center; }
+  .brand { display: none; }
+  .nav-pill { gap: 18px; padding: 12px 16px; font-size: 15px; }
+}
+
+@media (max-width: 520px) {
+  .site-header { padding-top: 12px; }
+  .site-header__inner { gap: 8px; }
+  .quote { gap: 10px; }
+  .avatar { width: 40px; }
+  .quote__card { padding: 16px 18px; }
+}
+
+/* Very narrow phones: the brand would crowd the nav pill */
+@media (max-width: 400px) {
+  .nav-pill { gap: 12px; padding: 10px 12px; font-size: 14px; }
+}
+
+/* ---------- BTC2-specific additions ---------- */
+
+/* Small label above the h1, naming the project (e.g. "Business Terms Capability (BTC)") */
+.intro-eyebrow {
+  display: block;
+  margin-bottom: 16px;
+  font: 700 13px/1.3 var(--font-ui);
+  text-transform: uppercase;
+  letter-spacing: 0;
+  color: var(--muted);
+}
+
+/* ---------- closing CTA (shared across all pages — keep in sync) ---------- */
+.cta-divider {
+  width: 454px;
+  max-width: calc(100% - 2 * var(--gutter));
+  margin: 0 auto;
+  border: none;
+  border-top: 1px solid var(--line);
+}
+
+.cta-section {
+  padding-block: clamp(40px, 6vw, 80px) clamp(64px, 9vw, 120px);
+  display: grid;
+  gap: 16px;
+}
+.cta-section h2 {
+  max-width: 1187px;
+  margin: 0;
+  text-align: left;
+  font-family: var(--font-display);
+  font-size: var(--fs-lead);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: var(--ink);
+}
+.cta-section .lead {
+  max-width: 1187px;
+  margin: 0;
+  width: auto;
+  text-align: left;
+}
+.cta-section a {
+  text-underline-offset: 3px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color .2s ease;
+  color: var(--link-accent);
+}
+.cta-section a:hover { color: var(--accent); }
+
+/* "the backstory" divider label, between the Impact and Problem chapters */
+.backstory-label {
+  padding-top: clamp(40px, 5vw, 64px);
+  text-align: center;
+  font: 700 13px/1.3 var(--font-ui);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+
+/* Generic bullet/definition list used outside the Reflection section
+   (Problem's "which meant" list, Post-FICO's exploration list) — same
+   visual treatment as .reflection-copy, kept as its own name so it
+   isn't tied to that one section semantically. */
+.copy-block > * + * { margin-top: clamp(20px, 2.2vw, 32px); }
+.copy-block ul, .copy-block ol {
+  list-style: disc;
+  padding-left: 1.25em;
+  display: grid;
+  gap: 10px;
+}
+.copy-block ol { list-style: decimal; }
+.copy-block li::marker { color: var(--muted); }
+.copy-block li strong { display: block; }
+.copy-block .li-body { color: var(--ink-2); }
+
+/* Three-column qualitative impact summary (BTC has no headline stats
+   like Kashoo's 22.8% growth, so this replaces .stats + .impact-list —
+   a large faint index numeral + bold headline stands in for the number,
+   and each card scroll-reveals in for the same "impact" moment). */
+.impact-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(24px, 3vw, 48px);
+  padding-bottom: 56px;
+}
+.impact-item { position: relative; }
+.impact-item__index {
+  display: block;
+  margin-bottom: 4px;
+  font: 800 clamp(2.25rem, 4vw, 3.25rem)/1 var(--font-ui);
+  letter-spacing: -0.03em;
+  color: color-mix(in srgb, var(--link-accent) 22%, var(--surface));
+}
+.impact-item h3 {
+  font: 800 clamp(1.125rem, 1.6vw, 1.375rem)/1.25 var(--font-ui);
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin-bottom: 10px;
+}
+.impact-item p { font: 400 15px/1.5 var(--font-ui); color: var(--ink-2); }
+
+/* ---------- users: a title per tier (Primary/Secondary/Not-direct),
+   then that tier's personas in one row, left to right ---------- */
+.users-tier + .users-tier { margin-top: clamp(40px, 5vw, 64px); }
+.users-tier__label {
+  display: block;
+  margin-bottom: clamp(20px, 2.6vw, 28px);
+  font: 700 12px/1.3 var(--font-ui);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+.users-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(24px, 3vw, 48px);
+}
+.persona { display: grid; gap: 8px; align-content: start; }
+/* Per-card tag, used when a row mixes categories (e.g. Secondary Users
+   sharing a row with Not a Direct User) so each card is still self-labeled */
+.persona__tag {
+  display: block;
+  margin-bottom: 1rem;
+  font: 700 11px/1.3 var(--font-ui);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+.persona-icon {
+  width: 56px;
+  height: 67.2px;
+  margin-bottom: 4px;
+  fill: none;
+  stroke: var(--link-accent);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.persona-icon__dot { fill: var(--link-accent); stroke: none; }
+.persona h3 { font: 700 1.0625rem/1.3 var(--font-ui); color: var(--ink); }
+.persona p { font: 400 15px/1.5 var(--font-ui); color: var(--ink-2); }
+
+@media (max-width: 900px) {
+  .users-row { grid-template-columns: 1fr; gap: 32px; }
+}
+
+/* Scroll-triggered reveal: fades/slides an element in the moment it
+   enters the viewport (independent of the page-load-only .reveal),
+   used to give the impact cards the same "landing" moment Kashoo's
+   count-up stats get. Staggered via the same --i pattern as .reveal. */
+[data-reveal-scroll] {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition-delay: calc(var(--i, 0) * 120ms);
+}
+[data-reveal-scroll].is-in-view { opacity: 1; transform: none; }
+
+/* Phase sub-sections within Process */
+.phase { display: grid; gap: 1em; }
+.phase + .phase { margin-top: clamp(56px, 7vw, 96px); }
+.phase__title {
+  display: block;
+  font: 800 clamp(1.125rem, 1.6vw, 1.375rem)/1.25 var(--font-ui);
+  letter-spacing: -0.01em;
+  color: var(--accent);
+}
+/* Optically align the first phase title with the bottom of the section's
+   h2 — the h2's own top padding is tuned for the larger .lead text other
+   sections start with, so this smaller label needs its own correction. */
+.phase:first-of-type .phase__title { padding-top: 21px; }
+.phase .lead { font-size: 1rem; }
+.phase-quote {
+  font-style: italic;
+  color: var(--ink-2);
+}
+
+/* 2x2 (or 2-up) grid of supporting screenshots under a phase */
+.shots-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(12px, 1.6vw, 20px);
+}
+.shots-grid figure { margin: 0; }
+
+.gif-caption {
+  display: block;
+  margin-top: 10px;
+  font: 500 13px/1.4 var(--font-ui);
+  color: var(--muted);
+}
+
+/* Figma prototype embed, kept at a fixed aspect ratio */
+.figma-embed {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--line);
+}
+.figma-embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+/* YouTube/video embeds, standard 16:9 responsive wrapper */
+.video-embed {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--line);
+}
+.video-embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+/* User-controlled image carousel: left/right carets step through the
+   slides one at a time and wrap around at either end (infinite loop). */
+.carousel { position: relative; }
+.carousel__viewport { overflow: hidden; border-radius: 8px; }
+.carousel__track {
+  display: flex;
+  transition: transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.carousel__track img {
+  flex: none;
+  width: 100%;
+  border-radius: 8px;
+}
+.carousel__btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--ink);
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+.carousel__btn:hover { opacity: 0.7; }
+.carousel__btn svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.carousel__btn--prev { left: 16px; }
+.carousel__btn--next { right: 16px; }
+
+.carousel__dots {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 16px;
+}
+.carousel__dot {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--line);
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+.carousel__dot:hover { background: var(--muted); }
+.carousel__dot.is-active { background: var(--ink); transform: scale(1.25); }
+
+/* Carousel images open into this full-screen lightbox */
+.carousel__track img,
+#process .figure img,
+#process .compare-pair img,
+#future-vision .figure img { cursor: zoom-in; }
+
+@media (prefers-reduced-motion: reduce) {
+  .carousel__track { transition: none; }
+}
+
+/* ---------- image lightbox ---------- */
+.lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  padding: clamp(24px, 6vw, 72px);
+  background: rgba(3, 7, 18, 0.9);
+  cursor: zoom-out;
+  align-items: center;
+  justify-content: center;
+}
+.lightbox.is-open { display: flex; }
+.lightbox__figure { margin: 0; max-width: 100%; }
+.lightbox__img {
+  display: block;
+  max-width: min(1400px, 100%);
+  max-height: 78vh;
+  width: auto;
+  margin-inline: auto;
+  border-radius: 8px;
+  box-shadow: 0 30px 70px -20px rgba(0, 0, 0, 0.6);
+}
+.lightbox__caption {
+  margin-top: 18px;
+  text-align: center;
+  font: 500 14px/1.5 var(--font-ui);
+  color: #e5e7eb;
+}
+.lightbox__close {
+  position: absolute;
+  top: clamp(16px, 3vw, 32px);
+  right: clamp(16px, 3vw, 32px);
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+.lightbox__close:hover { background: rgba(255, 255, 255, 0.18); }
+.lightbox__close svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
+
+/* Static light/dark screen comparison (replaces the source page's
+   interactive drag-slider, which relied on bespoke JS not part of
+   this component system) */
+.compare-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem 1.5rem;
+}
+.compare-pair figure { margin: 0; }
+.compare-pair figcaption {
+  margin: 1rem 0;
+  text-align: center;
+  font: 500 13px/1.4 var(--font-ui);
+  color: var(--muted);
+}
+
+/* Closing gallery of exploratory full-bleed shots */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(16px, 2vw, 28px);
+}
+.gallery-grid figure { margin: 0; }
+
+@media (max-width: 900px) {
+  .impact-grid { grid-template-columns: 1fr; gap: 32px; padding-bottom: 40px; }
+  .shots-grid { grid-template-columns: 1fr; }
+  .compare-pair { grid-template-columns: 1fr; }
+  .gallery-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 520px) {
+  .impact-grid { padding-bottom: 32px; }
+}
