@@ -10,8 +10,8 @@
   <!-- End Google Tag Manager -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>FICO | Platform &amp; Alignment Strategy · Levona Yim</title>
-  <meta name="description" content="Case study: designing the first end-to-end blueprint and alignment strategy for the new FICO Platform.">
+  <title>FICO | Onboarding &amp; Admin Provisioning · Levona Yim</title>
+  <meta name="description" content="Case study: designing the universal entry point for the FICO Platform">
   <meta name="theme-color" content="#ffffff">
   <link rel="icon" type="image/png" href="../assets/favicon-sept2026.png">
 
@@ -69,7 +69,7 @@
     <!-- ============ INTRO ============ -->
     <section class="intro wrap">
       <span class="intro-eyebrow reveal" style="--i:0">FICO</span>
-      <h1 class="display reveal" style="--i:0">FICO Platform Alignment</h1>
+      <h1 class="display reveal" style="--i:0">User Provisioning &amp; Personalized Workspaces</h1>
 
       <div class="intro__grid">
         <dl class="meta reveal" style="--i:1">
@@ -95,174 +95,368 @@
 
         <div class="summary">
           <p class="lead reveal" style="--i:2">
-            FICO was transforming from a legacy tool into a multi-sector B2B Platform Builder but internal teams were still thinking in legacy silos, with no shared picture of how the new platform actually worked.
-          </p>
+            The FICO Platform serves multiple user roles with different priorities. Without tailored experiences, users face information overload. The homepage was designed to adapt based on the assigned roles.</p>
           <p class="lead reveal" style="--i:3">
-           I ran technical stakeholder research and designed the platform's first visual end-to-end blueprint and shared mental model.
-          </p>
+           I designed the onboarding experience and role-based dashboard system for the FICO Platform, enabling workspace personalization by role.
         </div>
       </div>
     </section>
 
-    <!-- ============ HERO IMAGE ============ -->
-    <section class="showcase" aria-label="FICO Platform blueprint overview">
+     <!-- ============ HERO IMAGE ============ -->
+    <section class="showcase" aria-label="FICO Platform dashboard screen">
       <div class="showcase__frame reveal" style="--i:4">
         <img
-          src="assets/hero-collage.png"
-          alt="Two boards side by side: the full Platform Flow swimlane diagram, and a high-level house-analogy summary of how FICO Platform's architecture fits together"
-          width="2732" height="2048">
+          src="assets/eg-doubleimages.png"
+          alt="FICO Platform dashboard screen"
+          width="1208" height="757">
       </div>
     </section>
-
-    <!-- ============ OVERVIEW ============ -->
-    <section class="chapter wrap" id="overview">
-      <div class="chapter__grid">
-        <h2 class="chapter__title">Overview</h2>
-        <div class="chapter__body copy-block">
-          <p class="lead">Teams across the org were heads-down building individual capabilities, with no shared visual documentation of how the platform fit together. The architecture diagrams that existed were written for engineers — too technical for the product, design, and business stakeholders who also needed to reason about it.</p>
-          <p class="lead phase-quote">"Does everyone actually understand how this entire platform ecosystem fits together?"</p>
-          <p class="lead"><strong>Teams were building in parallel isolation without a map.</strong> I saw the gap and took ownership of closing it: I conducted stakeholder research across the technical org and produced the platform's first visual end-to-end documentation.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ MY CONTRIBUTION ============ -->
-    <section class="chapter wrap" id="contribution">
-      <div class="chapter__grid">
-        <h2 class="chapter__title">My Contribution</h2>
-        <div class="chapter__body copy-block">
-          <p class="lead">I was the sole driver of this initiative: I defined the scope, interviewed the technical stakeholders, and executed both deliverables independently — balanced alongside my primary workload of scaling the Figma design system and leading design for <a href="../btc2/index.html">Business Terms Capability</a>.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ IMPACT ============ -->
-    <section class="chapter wrap" id="impact">
-      <div class="chapter__grid">
-        <h2 class="chapter__title">Impact</h2>
-        <div class="chapter__body">
-          <div class="impact-grid">
-            <div class="impact-item" data-reveal-scroll style="--i:0">
-              <h3>Unified Reference Point</h3>
-              <p>Consolidated scattered screens, decisions, and concepts from across the design team into one continuous, shared picture — for the first time, everyone could see the whole system in one place.</p>
-            </div>
-            <div class="impact-item" data-reveal-scroll style="--i:1">
-              <h3>Simplified Onboarding</h3>
-              <p>The House Analogy gave cross-functional teammates without deep technical backgrounds an intuitive mental model, and became a standing reference for onboarding new team members to the platform.</p>
-            </div>
-            <div class="impact-item" data-reveal-scroll style="--i:2">
-              <h3>Strategic Alignment</h3>
-              <p>The end-to-end blueprint let the team map user archetypes directly to screens and tasks, making it easy to spot system gaps, define MVP priorities, and scope future phases.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <p class="backstory-label wrap">the backstory</p>
 
     <!-- ============ PROBLEM ============ -->
     <section class="chapter wrap" id="problem">
       <div class="chapter__grid">
         <h2 class="chapter__title">Problem Statement</h2>
-        <div class="chapter__body copy-block">
-          <p class="lead"><strong>Teams had no shared blueprint to align around, which made agreeing on the platform's vision genuinely difficult.</strong></p>
-          <p class="lead">Architecture documentation existed, but it was written in engineering terms that blocked non-technical stakeholders from engaging with it. Without a common reference, onboarding to the platform's strategy and structure was inconsistent across the org — every new teammate had to piece it together on their own.</p>
+        <div class="chapter__body">
+          <p class="lead">
+            Homepages cluttered with irrelevant information can overwhelm users and bury what matters. Without personalized experiences, users could waste time navigating to irrelevant features and data.</p>
         </div>
       </div>
     </section>
 
-    <figure class="figure" style="margin-top: clamp(24px, 3vw, 40px);">
-      <img src="assets/workshop-la.jpg" alt="In-person discovery workshop in Los Angeles with technical stakeholders, whiteboarding the platform's structure" width="1600" height="1204">
-      <figcaption class="gif-caption">Discovery workshop with technical stakeholders in Los Angeles</figcaption>
-    </figure>
-
-    <!-- ============ PROCESS ============ -->
-    <section class="chapter wrap" id="process">
+    <!-- ============ LEGACY UI ============ -->
+    <section class="chapter wrap" id="legacy-ui">
       <div class="chapter__grid">
-        <h2 class="chapter__title">Process</h2>
+        <h2 class="chapter__title">The Existing Tool</h2>
+        <div class="chapter__body">
+          <figure class="figure">
+            <div class="carousel" data-carousel aria-roledescription="carousel" aria-label="Legacy DMP screens">
+              <div class="carousel__viewport">
+                <div class="carousel__track">
+                  <img src="assets/dmp/dmp-landingpage.png" alt="First screen users see no matter the type of user." data-caption="This would be the first screen users see no matter the type of user.">
+                  <img src="assets/dmp/dmp-create.png" alt="ew of the inner front pages looked too technical." data-caption="Few of the inner front pages looked too technical.">
+                  <img src="assets/dmp/dmp-catalogue.png" alt="Catalogue pages of the Solutions available." data-caption="Catalogue pages of the Solutions available.">
+                </div>
+              </div>
+              <button class="carousel__btn carousel__btn--prev" type="button" aria-label="Previous image">
+                <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
+              </button>
+              <button class="carousel__btn carousel__btn--next" type="button" aria-label="Next image">
+                <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </button>
+              <div class="carousel__dots">
+                <button class="carousel__dot" type="button" aria-label="Go to image 1"></button>
+                <button class="carousel__dot" type="button" aria-label="Go to image 2"></button>
+                <button class="carousel__dot" type="button" aria-label="Go to image 3"></button>
+              </div>
+            </div>
+            <figcaption class="gif-caption" style="text-align:center;" data-carousel-caption>Many UX issues in Legacy UI</figcaption>
+          </figure>
+
+          <div class="subblock">
+            <p class="lead">
+              Users struggle with the current platform. Too much irrelevant information leaves them confused about what to do next, wasting time navigating a one-size-fits-all interface. The problem is worsened by the inability to organize users by role, which prevents some from accessing their workspaces and forces everyone into the same generic experience.</p>
+              <br>
+            <p class="lead">The result is a one-size-fits-all system that leaves users without visibility into what's actually working or its business impact.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ User Provisioning Flow ============ -->
+    <section class="brand-banner">
+      <p class="brand-banner__text">User Access Setup</p>
+    </section>
+
+    <!-- ============ WHY IT WORKS ============ -->
+    <section class="chapter wrap" id="why-it-works">
+      <div class="chapter__grid">
+        <h2 class="chapter__title">Overview</h2>
+        <div class="chapter__body">
+          <p class="lead">
+            The FICO Platform serves a diverse group of users, from analysts to executives to admins, each with different priorities and goals.
+          </p>
+          <br>
+          <p class="lead">
+           For the initial internal release, the team focused on the admin setup and provisioning of user groups, as they are the essential pre-requisite for all downstream users. Without a seamless admin provisioning, users can't access their workspaces or start working.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FULL WIDTH SCHEMA COMPARISON ============ -->
+    <section class="midpage-image" aria-label="FICO Composition">
+      <div class="midpage-image__frame reveal" style="--i:4">
+        <img src="../assets/eg_home.gif" alt="GIF of most BTC features">
+      </div>
+    </section>
+
+<!-- ============ USERS ============ -->
+    <section class="chapter wrap" id="users">
+      <div class="chapter__grid">
+        <h2 class="chapter__title">Persona</h2>
+        <span class="users-tier__label">Primary User</span>
         <div class="chapter__body">
 
-          <div class="phase">
-            <span class="phase__title">Phase 1 — Discovery &amp; Alignment</span>
-            <figure class="figure">
-              <img src="assets/before-state-board.png" alt="A board collecting every in-progress screen, decision, and concept designers across the team were working on, gathered into one place for the first time">
-              <figcaption class="gif-caption">Every scattered piece of in-progress work, gathered into one place</figcaption>
-            </figure>
-            <div class="lead" style="display:grid; gap:20px;">
-              <p><strong>Reason for design:</strong> Rather than work from assumptions, I facilitated working sessions with the Front-End Architect and an Engineering Manager to get straight answers, in layman's terms, to the basic questions nobody had documented:</p>
-              <div class="copy-block">
-                <ul class="lead" style="font-size:1rem;">
-                  <li><strong>What are we actually building</strong><span class="li-body"> — in plain language, not architecture jargon</span></li>
-                  <li><strong>How do the capabilities relate to one another</strong><span class="li-body"> — and what does the platform feel like on day one versus six months in</span></li>
-                </ul>
+          <div class="users-tier">
+            <div class="users-row">
+              <div class="persona" data-reveal-scroll style="--i:0">
+                <svg class="persona-icon" viewBox="0 0 100 120" aria-hidden="true">
+                  <path d="M17 100 C17 75 30 63 50 63 C70 63 83 75 83 100"></path>
+                  <path d="M40 68 L50 80 L60 68"></path>
+                  <g transform="translate(0,-4)">
+                    <path d="M30 46 C30 22 38 12 50 12 C62 12 70 22 70 46 C70 60 61 66 50 66 C39 66 30 60 30 46 Z"></path>
+                    <path d="M50 8 C39 8 31 15 29 25 C28 33 28 42 26 50 C25 54 26 58 30 60"></path>
+                    <path d="M50 8 C61 8 69 15 71 25 C72 33 72 42 74 50 C75 54 74 58 70 60"></path>
+                    <path d="M34 19 C43 22 53 24 62 26"></path>
+                    <circle class="persona-icon__dot" cx="42" cy="42" r="1.6"></circle>
+                    <circle class="persona-icon__dot" cx="58" cy="42" r="1.6"></circle>
+                    <path d="M44 55 Q50 59.5 56 55"></path>
+                  </g>
+                </svg>
+                <div class="persona__content">
+                  <h3>Admin (FICO &amp; Client)</h3>
+                  <p><strong>Goal:</strong> Be the invisible force that keeps systems stable, secure, and performant with minimal manual intervention.</p>
+                  <p><strong>Pain Points:</strong> Manual, fragmented processes trap them in reactive firefighting instead of proactive governance work.</p>
+                </div>
               </div>
-              <p>I focused on absorbing the technical detail, asking clarifying questions, and mapping what I learned into accessible documentation. <strong>Outcome: the House Analogy concept came to life.</strong></p>
             </div>
           </div>
-
-          <div class="phase">
-            <span class="phase__title">Phase 2 — Conceptual Analogy</span>
-            <figure class="figure">
-              <img src="assets/analogy-diagram.png" alt="Diagram mapping FICO's architecture terms (Architectural Service, Business Capability, Asset) to a house-building analogy (materials, composition, assembly, deployment) ending in a client solution">
-              <figcaption class="gif-caption">Platform architecture reframed as a house under construction — foundation, framing, then finished rooms</figcaption>
-            </figure>
-            <div class="lead" style="display:grid; gap:20px;">
-              <p><strong>Reason for design:</strong> Nobody outside engineering could reason about dependencies and build sequence directly from the architecture terms. Everyone, technical or not, already understands that you can't put the roof on before the walls.</p>
-              <p>I reframed the platform as a house under construction — materials, framing, electrical, plumbing — and mapped each platform capability and team role onto a building phase and trade. This made dependencies, ownership, and sequencing tangible, and it became the team's standing reference for onboarding.</p>
-            </div>
-            <figure class="figure" style="margin-top: clamp(24px, 3vw, 40px);">
-              <img src="assets/analogy-slide-phases.png" alt="Presentation slide titled '3 Parts / Phases to the Platform we are building': Phase 1 Creation of the Architectural Services, Phase 2 Creating a Baseline Service, Phase 3 Optimization and Simulation">
-              <figcaption class="gif-caption">From the House Analogy presentation: the 3 build phases this framework organized the platform into</figcaption>
-            </figure>
-          </div>
-
-          <div class="phase">
-            <span class="phase__title">Phase 3 — Final Flow Mapping</span>
-            <figure class="figure">
-              <img src="assets/platform-flow-diagram.png" alt="Full swimlane diagram of the platform flow from FICO Admin and Client Admin setup through SME and Service Creator, showing Day 0 to Day 2" width="2732" height="2048">
-              <figcaption class="gif-caption">Complete Day 0 → Day 2 flow, with user archetypes aligned directly to tasks and screens</figcaption>
-            </figure>
-            <div class="lead" style="display:grid; gap:20px;">
-              <p>The final step mapped the complete Day 0 to Day 2 flow, aligning each user archetype directly to the tasks and screens they'd actually touch.</p>
-            </div>
-          </div>
-
+      
         </div>
+      </div>
+    </section>    
+
+<!-- ============ PROCESS ============ -->
+    <section class="chapter wrap" id="decisions">
+      <div class="chapter__grid">
+        <h2 class="chapter__title">User Flow</h2>
+            <div class="decision-card">
+              <figure class="figure-userflow">
+                <img class="figure__img--flat userflow-light" src="assets/adminflow.svg" alt="user flow" width="820" height="514">
+                <img class="figure__img--flat userflow-dark" src="assets/adminflow-dark.svg" alt="user flow" width="820" height="514">
+              </figure>
+
+              <ol class="flow-steps">
+                <li>
+                  <h4>Setup</h4>
+                  <ul>
+                    <li>Digitize Contacts</li>
+                    <li>Create Organizational Unit</li>
+                    <li>Create Admin Group &amp; Configure Identity Profile</li>
+                  </ul>
+                </li>
+                <li>
+                  <h4>Configure</h4>
+                  <ul>
+                    <li>FICO Assigns Organization to User Group</li>
+                    <li>Define Policies (Base, Data, SLAs)</li>
+                    <li>Define Deployment Targets</li>
+                    <li>Create Roles &amp; Groups</li>
+                  </ul>
+                </li>
+                <li>
+                  <h4>Assign Access</h4>
+                  <ul>
+                    <li>Assign Users &amp; Roles to Groups</li>
+                    <li>Configure Organizational Structure</li>
+                  </ul>
+                </li>
+                <li>
+                  <h4>Launch &amp; Notify</h4>
+                  <ul>
+                    <li>FICO Admins send Welcome to Admin</li>
+                    <li>Client Admins send Welcome to Users</li>
+                    <li>Platform Established</li>
+                  </ul>
+                </li>
+              </ol>
+
+              <figure class="figure">
+                <img src="assets/kashoo-first-time.png" alt="Inbox feature screenshot" width="820" height="514">
+              </figure>
+            </div>
+
       </div>
     </section>
 
-    <!-- ============ IMPACT & VALIDATION ============ -->
-    <section class="chapter wrap" id="impact-validation">
-      <div class="chapter__grid">
-        <h2 class="chapter__title">Impact &amp; Validation</h2>
-        <div class="chapter__body copy-block">
-          <p class="lead">This end-to-end blueprint let the team map user archetypes to specific screens and tasks, making it easy to identify system gaps, define MVP priorities, and scope out future phases.</p>
-        </div>
-      </div>
+    <!-- ============ User Provisioning Flow ============ -->
+    <section class="brand-banner">
+      <p class="brand-banner__text">Personalized Workspaces</p>
     </section>
 
     <hr class="section-divider wrap">
 
-    <!-- ============ FICO WORLD 2026 PREVIEW ============ -->
-    <section class="chapter wrap" id="platform-preview">
+    <!-- ============ KEY DESIGN DECISIONS ============ -->
+    <section class="chapter wrap" id="decisions">
       <div class="chapter__grid">
-        <h2 class="chapter__title">FICO World 2026 — Platform Preview</h2>
-        <div class="chapter__body copy-block">
-          <p class="lead">This concept was later previewed publicly at FICO World 2026 — a supplementary highlight, not a deliverable of this project, but real evidence the work reached beyond the team that commissioned it.</p>
-          <figure class="figure" style="margin-top: clamp(24px, 3vw, 40px);">
-            <div class="figma-embed">
-              <iframe
-                src="https://www.youtube.com/embed/WErSukXdnWo?start=281"
-                title="FICO World 2026 keynote"
-                allowfullscreen>
-              </iframe>
-            </div>
-            <figcaption class="gif-caption">Clip from the FICO World 2026 keynote previewing the Platform</figcaption>
-          </figure>
+        <h2 class="chapter__title">User Research at FICO World 2025</h2>
+        <div class="chapter__body">
+          <p class="lead">While I wasn’t able to attend FICO World in person, I collaborated with the Product Manager, Front-End Architect, and User Researchers, to determine which screens to be tested.</p>
+          <br>
+          <p class="lead">
+            Optimizing for high-value feedback and tight presentation windows, we decided to narrow our showcase to the landing pages of <strong>3 distinct personas.</strong> The landing pages would be areas with the most diverse information that’s user specific and would be the most revisited. We wanted to make sure we captured deep, actionable insights on the core platform that benefits the experience for each.</p>
+
+
+          <span class="users-tier__label" style="padding-top:3rem;">The three persona landing pages we focused on were:</span>
+          <ol class="archetype-list">
+            <li>Service Creator</li>
+            <li>Business Analyst</li>
+            <li>Solution Creator</li>
+          </ol>
         </div>
       </div>
     </section>
+
+    <!-- ============ USERS ============ -->
+    <section class="chapter wrap" id="personas">
+      <div class="chapter__grid">
+        <h2 class="chapter__title">Personas</h2>
+        <div class="chapter__body">
+
+          <div class="users-tier">
+            <div class="users-row users-row--trio">
+              <div class="persona persona--stacked" data-reveal-scroll style="--i:0">
+                <svg class="persona-icon" viewBox="0 0 100 120" aria-hidden="true">
+                  <path d="M17 100 C17 75 30 63 50 63 C70 63 83 75 83 100"></path>
+                  <path d="M40 68 L50 80 L60 68"></path>
+                  <g transform="translate(0,-4)">
+                    <path d="M30 46 C30 22 38 12 50 12 C62 12 70 22 70 46 C70 60 61 66 50 66 C39 66 30 60 30 46 Z"></path>
+                    <path d="M50 8 C39 8 31 15 29 25 C28 33 28 42 26 50 C25 54 26 58 30 60"></path>
+                    <path d="M50 8 C61 8 69 15 71 25 C72 33 72 42 74 50 C75 54 74 58 70 60"></path>
+                    <path d="M34 19 C43 22 53 24 62 26"></path>
+                    <circle class="persona-icon__dot" cx="42" cy="42" r="1.6"></circle>
+                    <circle class="persona-icon__dot" cx="58" cy="42" r="1.6"></circle>
+                    <path d="M44 55 Q50 59.5 56 55"></path>
+                  </g>
+                </svg>
+                <h3>Service Creator</h3>
+                <p>The day-to-day orchestrator juggling work streams across different tools. Needs one place to see what's due, who owns it, and what needs attention now. Otherwise, deadlines slip and ownership gets lost.</p>
+              </div>
+
+              <div class="persona persona--stacked" data-reveal-scroll style="--i:1">
+                <svg class="persona-icon" viewBox="0 0 100 120" aria-hidden="true">
+                  <path d="M17 100 C17 75 30 63 50 63 C70 63 83 75 83 100"></path>
+                  <path d="M40 68 L50 80 L60 68"></path>
+                  <g transform="translate(0,-4)">
+                    <path d="M30 46 C30 22 38 12 50 12 C62 12 70 22 70 46 C70 60 61 66 50 66 C39 66 30 60 30 46 Z"></path>
+                    <path d="M29.5 34 C29 16 38 9 50 9 C62 9 71 16 70.5 34 C67 22 59 18 50 20 C41 18 33 22 29.5 34 Z"></path>
+                    <path d="M34 19 C43 22 53 24 62 26"></path>
+                    <path d="M29 22 C19 25 14 38 19 52 C22 43 25 35 29 29"></path>
+                    <circle class="persona-icon__dot" cx="42" cy="42" r="1.6"></circle>
+                    <circle class="persona-icon__dot" cx="58" cy="42" r="1.6"></circle>
+                    <path d="M44 55 Q50 59.5 56 55"></path>
+                  </g>
+                </svg>
+                <h3>Business Analyst</h3>
+                <p>The builder and owner of asset relationships. Needs to see dependencies clearly so they can spot reuse opportunities and change safely. Otherwise, they're blind to cost savings and downstream ripples.</p>
+              </div>
+
+              <div class="persona persona--stacked" data-reveal-scroll style="--i:2">
+                <svg class="persona-icon" viewBox="0 0 100 120" aria-hidden="true">
+                  <path d="M17 100 C17 75 30 63 50 63 C70 63 83 75 83 100"></path>
+                  <g transform="translate(0,-4)">
+                    <path d="M30 46 C30 22 38 12 50 12 C62 12 70 22 70 46 C70 60 61 66 50 66 C39 66 30 60 30 46 Z"></path>
+                    <path d="M50 8 C39 8 31 15 29 25 C28 33 28 42 26 50 C25 54 26 58 30 60"></path>
+                    <path d="M50 8 C61 8 69 15 71 25 C72 33 72 42 74 50 C75 54 74 58 70 60"></path>
+                    <path d="M34 19 C43 22 53 24 62 26"></path>
+                    <circle cx="42" cy="42" r="6.5"></circle>
+                    <circle cx="58" cy="42" r="6.5"></circle>
+                    <path d="M48.5 42h3 M35.5 42h-4 M64.5 42h4"></path>
+                    <circle class="persona-icon__dot" cx="42" cy="42" r="1.5"></circle>
+                    <circle class="persona-icon__dot" cx="58" cy="42" r="1.5"></circle>
+                    <path d="M44 55 Q50 59.5 56 55"></path>
+                  </g>
+                </svg>
+                <h3>Solution Creator</h3>
+                <p>The builder and owner of asset relationships and compositions. Needs to see dependencies and reuse clearly so they can spot optimization opportunities and change safely. Otherwise, they're blind to cost savings and the downstream ripples of their changes.</p>
+              </div>
+            </div>
+          </div>
+          
+          <p class="lead" style="padding-top:3em;">All 3 personas share the same underlying pain of missing critical relationships in their domain and being forced to manually piece together what needs unified visibility.</p>
+      
+        </div>
+      </div>
+    </section>
+    <hr class="section-divider wrap">
+
+
+    <!-- ============ RESEARCH FINDINGS ============ -->
+    <section class="chapter wrap" id="impact">
+      <div class="chapter__grid">
+        <h2 class="chapter__title">Research Findings</h2>
+        <div class="chapter__body">
+          <ul class="stats" aria-label="Headline results">
+            <li>
+              <span class="stat__num" data-count="72" data-decimals="0" data-suffix="%">72%</span>
+              <span class="stat__label"> rated personalization as very/extremely important</span>
+            </li>
+            <li>
+              <span class="stat__num" data-count="80" data-decimals="0" data-suffix="%">80%</span>
+              <span class="stat__label">wanted customization capability</span>
+            </li>
+            <li>
+              <span class="stat__num" data-count="8" data-suffix="+">8</span>
+              <span class="stat__label">features confirmed as HIGH priority</span>
+            </li>
+          </ul>
+
+          <div class="impact-list">
+            <p class="lead">Service Creators identified 'My Work' as essential.</p>
+            <p class="lead">Users consistently expected role-based customization and persistent preferences.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+<hr class="section-divider wrap">
+
+    <!-- ============ LANDING PAGES ============ -->
+    <section class="chapter wrap" id="decisions">
+      <div class="chapter__grid chapter__grid--landing">
+        <h2 class="chapter__title">Landing Pages</h2>
+        <h3 class="subhead chapter__label">Service Creator</h3>
+        <div class="chapter__body">
+
+          <div class="decisions-list">
+            <div class="decision-card">
+              <figure class="figure">
+                <img src="assets/kashoo-first-time.png" alt="Inbox feature screenshot" width="820" height="514">
+              </figure>
+              <p class="lead">
+                We know that not all users tend to connect their banks to system until they trust the system enough. With Kashoo, users aren’t needed to connect their banks to the system. However do recommend users to connect their bank for a quicker and accurate process. Also, from our analytics, we learned that when a user connects their bank to the system, they are <strong>4x more likely to subscribe.</strong>
+              </p>
+            </div>
+          </div>
+
+          <div class="decisions-list">
+            <div class="decision-card">
+              <h3 class="subhead">Business Analyst</h3>
+              <figure class="figure">
+                <img src="assets/kashoo-first-time.png" alt="Inbox feature screenshot" width="820" height="514">
+              </figure>
+              <p class="lead">
+                We know that not all users tend to connect their banks to system until they trust the system enough. With Kashoo, users aren’t needed to connect their banks to the system. However do recommend users to connect their bank for a quicker and accurate process. Also, from our analytics, we learned that when a user connects their bank to the system, they are <strong>4x more likely to subscribe.</strong>
+              </p>
+            </div>
+          </div>
+
+          <div class="decisions-list">
+            <div class="decision-card">
+              <h3 class="subhead">Solution Creator</h3>
+              <figure class="figure">
+                <img src="assets/kashoo-first-time.png" alt="Inbox feature screenshot" width="820" height="514">
+              </figure>
+              <p class="lead">
+                We know that not all users tend to connect their banks to system until they trust the system enough. With Kashoo, users aren’t needed to connect their banks to the system. However do recommend users to connect their bank for a quicker and accurate process. Also, from our analytics, we learned that when a user connects their bank to the system, they are <strong>4x more likely to subscribe.</strong>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
 
     <hr class="cta-divider reveal" style="--i:7">
 
