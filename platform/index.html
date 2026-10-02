@@ -178,7 +178,7 @@
           </p>
           <br>
           <p class="lead">
-           For the initial internal release, the team focused on the admin setup and provisioning of user groups, as they are the essential pre-requisite for all downstream users. Without a seamless admin provisioning, users can't access their workspaces or start working.
+           For the initial internal release, the team focused on the admin setup and provisioning of user groups, as they are the essential pre-requisite for all downstream users.
           </p>
         </div>
       </div>
@@ -187,7 +187,7 @@
     <!-- ============ FULL WIDTH SCHEMA COMPARISON ============ -->
     <section class="midpage-image" aria-label="FICO Composition">
       <div class="midpage-image__frame reveal" style="--i:4">
-        <img src="../assets/eg_home.gif" alt="GIF of most BTC features">
+        <img src="../assets/eg_home.gif" alt="eg home preview">
       </div>
     </section>
 
@@ -273,7 +273,7 @@
               </ol>
 
               <figure class="figure">
-                <img src="assets/kashoo-first-time.png" alt="Inbox feature screenshot" width="820" height="514">
+                <video class="autoplay-video" src="assets/provisioningflow.mp4" poster="assets/provisioningflow-poster.jpg" width="820" height="461" loop muted playsinline aria-label="Provisioning flow walkthrough"></video>
               </figure>
             </div>
 
@@ -295,7 +295,7 @@
           <p class="lead">While I wasn’t able to attend FICO World in person, I collaborated with the Product Manager, Front-End Architect, and User Researchers, to determine which screens to be tested.</p>
           <br>
           <p class="lead">
-            Optimizing for high-value feedback and tight presentation windows, we decided to narrow our showcase to the landing pages of <strong>3 distinct personas.</strong> The landing pages would be areas with the most diverse information that’s user specific and would be the most revisited. We wanted to make sure we captured deep, actionable insights on the core platform that benefits the experience for each.</p>
+            Optimizing for high-value feedback and tight presentation windows, we decided to narrow our showcase to the landing pages of <strong>3 distinct personas.</strong> The landing pages would be areas with the most diverse information that’s user specific and would be the most revisited.</p>
 
 
           <span class="users-tier__label" style="padding-top:3rem;">The three persona landing pages we focused on were:</span>
@@ -382,6 +382,56 @@
     <hr class="section-divider wrap">
 
 
+    <!-- ============ LANDING PAGES ============ -->
+    <section class="chapter wrap" id="decisions">
+      <div class="chapter__grid chapter__grid--landing">
+        <h2 class="chapter__title">Landing Pages</h2>
+        <h3 class="subhead chapter__label">Service Creator</h3>
+        <div class="chapter__body">
+
+          <div class="decisions-list">
+            <div class="decision-card">
+              <figure class="figure">
+                <video class="autoplay-video theme-img-light" src="assets/eg-personas/video/ServiceCreator-landingpage.mp4" poster="assets/eg-personas/poster/ServiceCreator-landingpage.jpg" width="820" height="461" loop muted playsinline aria-label="Service Creator landing page"></video>
+                <video class="autoplay-video theme-img-dark" src="assets/eg-personas/video/ServiceCreator-landingpage-dark.mp4" poster="assets/eg-personas/poster/ServiceCreator-landingpage-dark.jpg" width="820" height="461" loop muted playsinline aria-label="Service Creator landing page"></video>
+              </figure>
+              <p class="lead">
+                The Service Creator's homepage is built to <strong>keep every active build in view.</strong> My Work consolidates all in-progress compositions in one place, while quick actions for creating solutions, browsing assets, and finding products sit above the fold for the tasks you do most.
+              </p>
+            </div>
+          </div>
+
+          <div class="decisions-list">
+            <div class="decision-card">
+              <h3 class="subhead">Business Analyst</h3>
+              <figure class="figure">
+                <video class="autoplay-video theme-img-light" src="assets/eg-personas/video/BA-landingpage.mp4" poster="assets/eg-personas/poster/BA-landingpage.jpg" width="820" height="461" loop muted playsinline aria-label="Business Analyst landing page"></video>
+                <video class="autoplay-video theme-img-dark" src="assets/eg-personas/video/BA-landingpage-dark.mp4" poster="assets/eg-personas/poster/BA-landingpage-dark.jpg" width="820" height="461" loop muted playsinline aria-label="Business Analyst landing page"></video>
+              </figure>
+              <p class="lead">
+                The Business Analyst's homepage is built to <strong>surface business performance at a glance.</strong> KPIs for fraud prevention, conversion, profitability, and spend sit up top, while a dedicated panel highlights which assets are driving results — so the Analyst can spot what's working without digging through reports.
+              </p>
+            </div>
+          </div>
+
+          <div class="decisions-list">
+            <div class="decision-card">
+              <h3 class="subhead">Solution Creator</h3>
+              <figure class="figure">
+                <video class="autoplay-video theme-img-light" src="assets/eg-personas/video/SolutionCreator-landingpage.mp4" poster="assets/eg-personas/poster/SolutionCreator-landingpage.jpg" width="820" height="461" loop muted playsinline aria-label="Solution Creator landing page"></video>
+                <video class="autoplay-video theme-img-dark" src="assets/eg-personas/video/SolutionCreator-landingpage-dark.mp4" poster="assets/eg-personas/poster/SolutionCreator-landingpage-dark.jpg" width="820" height="461" loop muted playsinline aria-label="Solution Creator landing page"></video>
+              </figure>
+              <p class="lead">
+                The Solution Creator's homepage is built to <strong>catch problems before they spread.</strong> An asset inventory tracks ownership and status, a live relationship map shows how solutions depend on each other and where work can be reused, and a real-time alert feed surfaces issues as they happen.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+<hr class="cta-divider reveal" style="--i:7">
+
     <!-- ============ RESEARCH FINDINGS ============ -->
     <section class="chapter wrap" id="impact">
       <div class="chapter__grid">
@@ -402,63 +452,36 @@
             </li>
           </ul>
 
-          <div class="impact-list">
-            <p class="lead">Service Creators identified 'My Work' as essential.</p>
-            <p class="lead">Users consistently expected role-based customization and persistent preferences.</p>
-          </div>
-        </div>
-      </div>
-    </section>
+          <ul class="impact-list">
+            <li class="lead">Service Creators identified 'My Work' as essential.</li>
+            <li class="lead">Users consistently expected role-based customization and persistent preferences.</li>
+          </ul>
 
-<hr class="section-divider wrap">
-
-    <!-- ============ LANDING PAGES ============ -->
-    <section class="chapter wrap" id="decisions">
-      <div class="chapter__grid chapter__grid--landing">
-        <h2 class="chapter__title">Landing Pages</h2>
-        <h3 class="subhead chapter__label">Service Creator</h3>
-        <div class="chapter__body">
-
-          <div class="decisions-list">
-            <div class="decision-card">
-              <figure class="figure">
-                <img src="assets/kashoo-first-time.png" alt="Inbox feature screenshot" width="820" height="514">
-              </figure>
-              <p class="lead">
-                We know that not all users tend to connect their banks to system until they trust the system enough. With Kashoo, users aren’t needed to connect their banks to the system. However do recommend users to connect their bank for a quicker and accurate process. Also, from our analytics, we learned that when a user connects their bank to the system, they are <strong>4x more likely to subscribe.</strong>
-              </p>
-            </div>
-          </div>
-
-          <div class="decisions-list">
-            <div class="decision-card">
-              <h3 class="subhead">Business Analyst</h3>
-              <figure class="figure">
-                <img src="assets/kashoo-first-time.png" alt="Inbox feature screenshot" width="820" height="514">
-              </figure>
-              <p class="lead">
-                We know that not all users tend to connect their banks to system until they trust the system enough. With Kashoo, users aren’t needed to connect their banks to the system. However do recommend users to connect their bank for a quicker and accurate process. Also, from our analytics, we learned that when a user connects their bank to the system, they are <strong>4x more likely to subscribe.</strong>
-              </p>
-            </div>
-          </div>
-
-          <div class="decisions-list">
-            <div class="decision-card">
-              <h3 class="subhead">Solution Creator</h3>
-              <figure class="figure">
-                <img src="assets/kashoo-first-time.png" alt="Inbox feature screenshot" width="820" height="514">
-              </figure>
-              <p class="lead">
-                We know that not all users tend to connect their banks to system until they trust the system enough. With Kashoo, users aren’t needed to connect their banks to the system. However do recommend users to connect their bank for a quicker and accurate process. Also, from our analytics, we learned that when a user connects their bank to the system, they are <strong>4x more likely to subscribe.</strong>
-              </p>
-            </div>
+          <div class="subblock">
+            <h3 class="subhead subhead--accent">What I'd measure after launch</h3>
+            <p class="lead" style="margin-bottom:1.5em;">This hasn't shipped yet — these are the targets I'm designing against, not results.</p>
+            <ul class="stats stats--targets" aria-label="Post-launch targets">
+              <li>
+                <span class="stat__num stat__num--target">70%+</span>
+                <span class="stat__label">Target relationship map clarity for Solution Creators, up from 27% pre-launch</span>
+              </li>
+              <li>
+                <span class="stat__num stat__num--target">85%+</span>
+                <span class="stat__label">Target filter/sort persistence adoption across all three personas</span>
+              </li>
+              <li>
+                <span class="stat__num stat__num--target">-30%</span>
+                <span class="stat__label">Target reduction in time to find work for Service Creators</span>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
     </section>
     
 
-    <hr class="cta-divider reveal" style="--i:7">
+    <hr class="section-divider wrap">
+
 
     <!-- ============ CLOSING CTA ============ -->
     <section class="cta-section wrap">
@@ -485,6 +508,7 @@
     </button>
     <figure class="lightbox__figure">
       <img class="lightbox__img" alt="">
+      <video class="lightbox__video" hidden autoplay loop muted playsinline></video>
       <figcaption class="lightbox__caption"></figcaption>
     </figure>
   </div>
