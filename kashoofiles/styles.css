@@ -252,6 +252,7 @@ a { color: inherit; }
   margin-inline: auto;
 }
 .showcase__frame img,
+.showcase__frame video,
 .showcase__frame .ph {
   width: 100%;
   box-shadow: 0 30px 70px -20px rgba(24, 24, 90, 0.5);
