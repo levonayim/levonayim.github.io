@@ -60,6 +60,15 @@
     else img.addEventListener('error', function () { showPlaceholder(img); });
   });
 
+  /* ---------- autoplay videos (converted GIFs): respect reduced-motion ---------- */
+  document.querySelectorAll('video.autoplay-video').forEach(function (video) {
+    if (reduceMotion) {
+      video.pause();
+    } else {
+      video.play();
+    }
+  });
+
   /* ---------- count-up for the impact numbers ---------- */
   function format(value, decimals) {
     return value.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
@@ -157,35 +166,47 @@
     update();
   });
 
-  /* ---------- lightbox: click any carousel image to open it full-screen ---------- */
+  /* ---------- lightbox: click any carousel image (or converted-GIF video) to open it full-screen ---------- */
   var lightbox = document.getElementById('lightbox');
   if (lightbox) {
     var lightboxImg = lightbox.querySelector('.lightbox__img');
+    var lightboxVideo = lightbox.querySelector('.lightbox__video');
     var lightboxCaption = lightbox.querySelector('.lightbox__caption');
 
-    function captionFor(img) {
-      var figure = img.closest('figure');
+    function captionFor(el) {
+      var figure = el.closest('figure');
       var figcaption = figure && figure.querySelector('figcaption');
       if (figcaption && figcaption.textContent.trim()) return figcaption.textContent.trim();
-      return img.getAttribute('data-caption') || img.alt || '';
+      return el.getAttribute('data-caption') || el.getAttribute('aria-label') || el.alt || '';
     }
 
-    function openLightbox(img) {
-      lightboxImg.src = img.src;
-      lightboxImg.alt = img.alt || '';
-      lightboxCaption.textContent = captionFor(img);
+    function openLightbox(el) {
+      var isVideo = el.tagName === 'VIDEO';
+      lightboxImg.hidden = isVideo;
+      lightboxVideo.hidden = !isVideo;
+      if (isVideo) {
+        lightboxVideo.src = el.currentSrc || el.src;
+        lightboxVideo.play();
+      } else {
+        lightboxImg.src = el.src;
+        lightboxImg.alt = el.alt || '';
+      }
+      lightboxCaption.textContent = captionFor(el);
       lightbox.classList.add('is-open');
       document.body.style.overflow = 'hidden';
     }
     function closeLightbox() {
       lightbox.classList.remove('is-open');
       document.body.style.overflow = '';
+      lightboxVideo.pause();
+      lightboxVideo.removeAttribute('src');
+      lightboxVideo.load();
     }
 
-    document.querySelectorAll('.carousel__track img, #process .figure img, #process .compare-pair img, #future-vision .figure img').forEach(function (img) {
-      img.addEventListener('click', function () { openLightbox(img); });
+    document.querySelectorAll('.carousel__track img, #process .figure img, #process .figure video, #process .compare-pair img, #process .compare-pair video, #reimagined .figure img, #reimagined .figure video').forEach(function (el) {
+      el.addEventListener('click', function () { openLightbox(el); });
     });
-    // Clicking anywhere in the lightbox (image, caption, backdrop, or the X) closes it.
+    // Clicking anywhere in the lightbox (image, video, caption, backdrop, or the X) closes it.
     lightbox.addEventListener('click', closeLightbox);
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && lightbox.classList.contains('is-open')) closeLightbox();

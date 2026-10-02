@@ -60,6 +60,15 @@
     else img.addEventListener('error', function () { showPlaceholder(img); });
   });
 
+  /* ---------- autoplay video (hero): respect reduced-motion ---------- */
+  document.querySelectorAll('video.autoplay-video').forEach(function (video) {
+    if (reduceMotion) {
+      video.pause();
+    } else {
+      video.play();
+    }
+  });
+
   /* ---------- count-up for the impact numbers ---------- */
   function format(value, decimals) {
     return value.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
