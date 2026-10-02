@@ -249,13 +249,14 @@ a { color: inherit; }
 .showcase {
   margin-top: clamp(72px, 9.3vw, 140px);
   padding-block: clamp(28px, 4.6vw, 69px);
-  /* Same conic gradient as the BTC project card on the homepage (.grad-a) */
+  /* Purple / magenta / lilac remix of the BTC project card gradient (.grad-a) —
+     same stop positions and brightness rhythm, recolored off the rainbow */
   background: conic-gradient(from 90deg at 50% 50%,
-    #50dcff -10%, #7cb9d3 -5%, #a896a8 0%, #d3737c 5%, #ff5050 10%,
-    #fb5471 13%, #f65893 16%, #ed5fd6 21.5%, #ea84e0 25%, #e7a9ea 29%,
-    #e0f2fe 36%, #e8dbd3 39.5%, #f0c4a7 43%, #f7ad7c 46.5%, #ff9650 50%,
-    #ee857c 54.5%, #dc73a8 59%, #cb62d3 64%, #b950ff 68.5%, #9f73ff 74%,
-    #8596ff 79%, #6ab9ff 84.5%, #50dcff 90%, #7cb9d3 95%, #a896a8 100%);
+    #c4b5fd -10%, #b89ae0 -5%, #a878c9 0%, #d968c9 5%, #e0479f 10%,
+    #dd4ba3 13%, #d851b0 16%, #cd5bc7 21.5%, #c773d9 25%, #c08de8 29%,
+    #e4d4fb 36%, #d9c7f0 39.5%, #c9a8ec 43%, #b98ce8 46.5%, #8c5cff 50%,
+    #9f5ce0 54.5%, #b052d9 59%, #c247d0 64%, #d93fc7 68.5%, #9f73ff 74%,
+    #a888f0 79%, #b89af5 84.5%, #c4b5fd 90%, #b89ae0 95%, #a878c9 100%);
 }
 
 .showcase__frame {
@@ -409,10 +410,11 @@ a { color: inherit; }
 /* ---------- figures (screenshots used throughout the case study) ---------- */
 
 .figure { margin: 0; }
-.figure img {
+.figure img,
+.figure video {
   display: block;
   width: 100%;
-  border: #B9C2C8, solid, 0.05em;
+  border: 1px solid var(--line);
 }
 .figure-userflow img {
   display: block;
@@ -461,6 +463,12 @@ a { color: inherit; }
 .flow-steps li li::marker { color: var(--muted); }
 .figure__img--flat { border: none; }
 
+/* Light/dark screenshot pairs: pass both images with these classes inside
+   any .figure and the right one shows for the active theme. */
+.figure .theme-img-dark { display: none; }
+:root[data-theme="dark"] .figure .theme-img-light { display: none; }
+:root[data-theme="dark"] .figure .theme-img-dark { display: block; }
+
 /* Short numbered list of items in a single row (e.g. the 3 archetypes
    whose landing pages were tested), wraps to multiple lines if needed */
 .archetype-list {
@@ -505,9 +513,9 @@ a { color: inherit; }
 .brand-banner {
   padding-top: clamp(56px, 11vw, 170px);
   padding-bottom: 0;
-  /* Soft 3-color blend, same blue/violet/peach family as the hero's
+  /* Soft 3-color blend, same lilac/purple/magenta family as the hero's
      conic gradient above, smoothed into one gentle diagonal sweep */
-  background: linear-gradient(135deg, #5f8dff 0%, #9f73ff 50%, #ff9f7c 100%);
+  background: linear-gradient(135deg, #c4b5fd 0%, #9f73ff 50%, #e0479f 100%);
   display: flex;
   align-items: flex-end;
   justify-content: flex-start;
@@ -516,9 +524,9 @@ a { color: inherit; }
 :root[data-theme="dark"] .brand-banner {
   /* Darker/muted so the banner doesn't blow out against the dark page */
   background: linear-gradient(135deg,
-    color-mix(in srgb, #5f8dff 60%, black) 0%,
+    color-mix(in srgb, #c4b5fd 60%, black) 0%,
     color-mix(in srgb, #9f73ff 60%, black) 50%,
-    color-mix(in srgb, #ff9f7c 60%, black) 100%);
+    color-mix(in srgb, #e0479f 60%, black) 100%);
 }
 .brand-banner__text {
   margin: -0.75rem;
@@ -582,13 +590,27 @@ a { color: inherit; }
   letter-spacing: -0.04em;
   font-variant-numeric: tabular-nums;
 }
+/* Forward-looking targets (not yet-achieved results) get a visibly
+   quieter treatment than the bold, animated, already-true stats above. */
+.stat__num--target {
+  color: var(--ink-2);
+  font-size: clamp(1.03125rem, 1.875vw, 1.6875rem);
+}
 .stat__label {
   display: block; margin-top: 12px; max-width: 20ch;
   font: 400 15px/1.4 var(--font-ui);
   color: var(--ink-2);
 }
 
-.impact-list { display: grid; gap: clamp(28px, 3.2vw, 48px); }
+/* "What I'd measure after launch": stacked rows, number beside its label
+   instead of the default grid-of-columns-with-label-below layout. */
+.stats--targets { grid-template-columns: 1fr; gap: 32px; }
+.stats--targets li { display: flex; align-items: center; gap: 20px; }
+.stats--targets .stat__label { margin-top: 0; max-width: none; }
+
+.subhead--accent { color: var(--link-accent); }
+
+.impact-list { display: grid; gap: clamp(28px, 3.2vw, 48px); list-style: disc; padding-left: 1.25em; }
 
 /* ---------- section divider ---------- */
 
@@ -1000,7 +1022,8 @@ a { color: inherit; }
 .carousel__track img,
 #process .figure img,
 #process .compare-pair img,
-#future-vision .figure img { cursor: zoom-in; }
+#future-vision .figure img,
+.autoplay-video { cursor: zoom-in; }
 
 @media (prefers-reduced-motion: reduce) {
   .carousel__track { transition: none; }
@@ -1020,7 +1043,8 @@ a { color: inherit; }
 }
 .lightbox.is-open { display: flex; }
 .lightbox__figure { margin: 0; max-width: 100%; }
-.lightbox__img {
+.lightbox__img,
+.lightbox__video {
   display: block;
   max-width: min(1400px, 100%);
   max-height: 78vh;
@@ -1029,6 +1053,7 @@ a { color: inherit; }
   border-radius: 8px;
   box-shadow: 0 30px 70px -20px rgba(0, 0, 0, 0.6);
 }
+.lightbox__video[hidden] { display: none; }
 .lightbox__caption {
   margin-top: 18px;
   text-align: center;
