@@ -342,7 +342,8 @@ a { color: inherit; text-decoration: none; }
     #5095ff 100%);
 }
 /* Screenshot keeps its own proportions (never cropped) and scales with the frame */
-.project-media img {
+.project-media img,
+.project-media video {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -352,6 +353,11 @@ a { color: inherit; text-decoration: none; }
   object-fit: contain;
   transform: translate(-50%, -50%);
 }
+
+/* Light/dark variants of a screenshot: show only the one matching the theme */
+.project-media .theme-dark { display: none; }
+:root[data-theme="dark"] .project-media .theme-light { display: none; }
+:root[data-theme="dark"] .project-media .theme-dark { display: block; }
 
 /* ───────── Closing CTA (shared across all pages — keep in sync) ───────── */
 .cta-divider {
