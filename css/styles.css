@@ -27,7 +27,8 @@
   --page-max: 1512px;
   /* Side padding for the hero text + nav: 5.25rem (84px) on desktop, scaling down fluidly on smaller screens */
   --hero-pad: clamp(1.25rem, 5.556vw, 5.25rem);
-  --edge: var(--hero-pad);
+  /* Header + intro share the work section's content box, so everything lines up */
+  --edge: max(var(--gutter), calc((100% - var(--page-max)) / 2 + var(--gutter)));
 }
 
 @font-face {
@@ -75,17 +76,20 @@ a { color: inherit; text-decoration: none; }
   position: fixed;
   inset: 0 0 auto 0;
   z-index: 50;
-  padding-block: 24px;
+  /* top offset puts the nav text on the same baseline as the intro (name | role) */
+  padding-block: 29.5px 24px;
+  transition: background-color .3s ease, padding .3s ease;
+}
+.site-header.is-scrolled {
   -webkit-backdrop-filter: blur(6px);
   backdrop-filter: blur(6px);
-  transition: background-color .3s ease, padding .3s ease;
 }
 .header-inner {
   /* Hero state: nav sits the same distance from the right edge as the intro text does from the left */
   padding-inline: var(--edge);
   transition: padding .3s ease;
   display: flex;
-  align-items: center;
+  align-items: baseline;
   justify-content: space-between;
   gap: 16px;
 }
@@ -96,28 +100,33 @@ a { color: inherit; text-decoration: none; }
 }
 
 .brand {
-  font-size: 40px;
+  font-size: 36px;
   font-weight: 900;
   color: var(--ink);
   line-height: 1;
   letter-spacing: -0.05em;
   white-space: nowrap;
-  opacity: 0;
-  transform: translateY(-8px);
-  pointer-events: none;
-  transition: opacity .3s ease, transform .3s ease;
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
 }
-.is-scrolled .brand { opacity: 1; transform: none; pointer-events: auto; }
+.brand-sep { font-weight: 100; }
+.brand-role {
+  font-family: "SF Pro Thin", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Inter", "Helvetica Neue", Arial, sans-serif;
+  font-size: 24px;
+  font-weight: 100;
+  letter-spacing: 0;
+  line-height: 1.05;
+  color: #7a808b;
+}
 
 .nav {
   display: flex;
   align-items: center;
   gap: 40px;
-  padding: 16px 32px;
-  background: var(--nav-bg);
-  border-radius: 12px;
-  box-shadow: var(--shadow-nav);
-  transition: background-color .3s ease, box-shadow .3s ease;
+  /* No pill: links sit directly on the page, flush with the content's right edge */
+  padding: 16px 0;
+  background: none;
   /* Explicit font + line-height so the pill's size never depends on
      whatever font/line-height a given page sets on <body> — kept in
      sync with the .nav-pill used on the case-study/about/play pages. */
@@ -158,58 +167,46 @@ a { color: inherit; text-decoration: none; }
 
 /* ───────── Section 1 — Hero ───────── */
 .hero {
-  min-height: 100vh;
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 120px var(--edge) clamp(48px, 15vh, 160px);
+  /* Compact intro, top-left: name + role stack to about the height of the
+     floating nav pill (59px) and share its top offset (24px). */
+  /* Desktop: the name | role lockup lives in the fixed header, so the intro only shows on phones */
+  display: none;
+  flex-direction: row;
+  align-items: baseline;
+  gap: 16px;
+  /* top offset centres the 36px line on the nav pill (24px + (59 - 38) / 2) */
+  padding: 34px var(--edge) 0;
+}
+.hero-sep {
+  font-size: 36px;
+  font-weight: 100;
+  line-height: 1.05;
+  color: var(--ink);
 }
 .hero h1 {
   margin: 0;
-  font-size: clamp(48px, 8.2vw, 124px);
+  font-size: 36px;
   font-weight: 900;
-  line-height: .95;
+  line-height: 1.05;
   letter-spacing: -0.05em;
   color: var(--ink);
   overflow-wrap: anywhere;
 }
 .hero .role {
-  margin: 0 0 clamp(12px, 1.6vw, 24px);
+  margin: 0;
   font-family: "SF Pro Thin", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Inter", "Helvetica Neue", Arial, sans-serif;
-  font-size: clamp(36px, 6.6vw, 100px);
+  font-size: 24px;
   font-weight: 100;
-  line-height: 1.1;
+  line-height: 1.05;
   max-width: 100%;
   width: fit-content;
-  color: transparent;
-  /* Layers (top → bottom): red/orange wash over "pro", orange tip on the "t",
-     then a left→right sweep: soft blue → cyan → blue → magenta → violet.
-     Only the sweep is sized up + animated (background-size/-position keep
-     one "auto auto, auto auto, …" entry per layer) so the two radial washes
-     stay pinned over "pro" and the "t" while the sweep flows underneath. */
-  background-image:
-    radial-gradient(ellipse 26% 80% at 6% 0%, #ff5050 0%, #ff7a50 45%, rgba(255,150,80,0) 100%),
-    radial-gradient(ellipse 9% 60% at 41% 0%, #ff9650 0%, rgba(255,150,80,0) 100%),
-    linear-gradient(90deg,
-      #9db6cc 0%, #6fd0f2 12%, #50dcff 24%, #5cb8ff 36%, #8f8cff 44%,
-      #e05fe4 50%, #ed5fd6 60%, #d55fe6 78%, #c352f2 100%);
-  background-size: auto auto, auto auto, 300% 100%;
-  background-position: 0% 0%, 0% 0%, 0% 50%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  animation: role-gradient-flow 8s ease-in-out infinite;
+  color: #7a808b;
 }
 
-@keyframes role-gradient-flow {
-  0%   { background-position: 0% 0%, 0% 0%, 0% 50%; }
-  50%  { background-position: 0% 0%, 0% 0%, 100% 50%; }
-  100% { background-position: 0% 0%, 0% 0%, 0% 50%; }
-}
 .hero .tagline {
   margin: 0;
-  max-width: 1048px;
-  font-size: clamp(22px, 3.2vw, 48px);
+  max-width: 640px;
+  font-size: clamp(16px, 1.4vw, 20px);
   font-weight: 300;
   line-height: 1.2;
   color: var(--ink);
@@ -219,7 +216,7 @@ a { color: inherit; text-decoration: none; }
 .work {
   max-width: var(--page-max);
   margin: 0 auto;
-  padding: 150px var(--gutter) 160px;
+  padding: 128px var(--gutter) 160px;
   display: flex;
   flex-direction: column;
   gap: clamp(96px, 16vw, 240px);
@@ -432,7 +429,8 @@ a { color: inherit; text-decoration: none; }
 
 /* Tablets (portrait) */
 @media (max-width: 900px) {
-  .brand { font-size: 32px; }
+  .brand { font-size: 28px; gap: 12px; }
+  .brand-role { font-size: 19px; }
   .nav { gap: 28px; padding: 14px 24px; font-size: 16px; }
 }
 
@@ -442,15 +440,16 @@ a { color: inherit; text-decoration: none; }
   .site-header { padding-block: 16px; }
   .site-header.is-scrolled { padding-block: 14px; }
   .header-inner { gap: 12px; padding-inline: var(--gutter) !important; justify-content: center; }
-  .brand { font-size: 24px; display: none; }
+  .brand { display: none; }
   .nav { gap: 18px; padding: 12px 16px; font-size: 15px; }
 
-  .hero { padding-top: 104px; }
-  .hero h1   { font-size: 14vw; }
-  .hero .role { font-size: 10.5vw; }
-  .hero .tagline { font-size: clamp(20px, 5.6vw, 28px); }
+  .hero { display: flex; padding-top: 88px; flex-direction: column; gap: 4px; }
+  .hero-sep { display: none; }
+  .hero h1   { font-size: 26px; }
+  .hero .role { font-size: 18px; }
+  .hero .tagline { font-size: 16px; }
 
-  .work { padding-top: 88px; padding-bottom: 88px; gap: 96px; }
+  .work { padding-top: 40px; padding-bottom: 88px; gap: 96px; }
   .project,
   .project.is-reversed { gap: 24px; }
   .project-client  { font-size: 20px; line-height: 1.6; }
@@ -469,7 +468,7 @@ a { color: inherit; text-decoration: none; }
 
 /* Short landscape screens (phones on their side) */
 @media (max-height: 520px) and (orientation: landscape) {
-  .hero { padding-top: 88px; padding-bottom: 32px; }
+  .hero { padding-top: 88px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -477,3 +476,7 @@ a { color: inherit; text-decoration: none; }
   * { transition: none !important; }
   .hero .role { animation: none; }
 }
+
+/* "Lead Product Designer" stays legible on the dark background: slightly heavier stroke */
+:root[data-theme="dark"] .brand-role,
+:root[data-theme="dark"] .hero .role { font-weight: 200; color: #a0a6b2; }
