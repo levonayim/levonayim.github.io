@@ -28,7 +28,9 @@
     // Shares the site-wide "theme" key so dark/light mode carries over from any other page.
     document.documentElement.classList.add('js');
     try {
+      // Saved choice wins; otherwise follow the visitor's system setting.
       var saved = localStorage.getItem('theme');
+      if (!saved && window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches) saved = 'dark';
       if (saved) document.documentElement.setAttribute('data-theme', saved);
     } catch (e) {}
   </script>
@@ -44,7 +46,7 @@
   <!-- ============ NAV (same component as the Kashoo / BTC case studies) ============ -->
   <header class="site-header">
     <div class="site-header__inner wrap">
-      <a class="brand" href="../index.html" aria-label="Levona Yim — back to homepage">levona yim</a>
+      <a class="brand" href="../index.html" aria-label="Levona Yim — back to homepage"><span class="brand-name">levona yim</span><span class="brand-sep" aria-hidden="true">|</span><span class="brand-role">Lead Product Designer</span></a>
       <nav class="nav-pill" aria-label="Primary">
         <a href="../index.html">work</a>
         <a href="index.html" aria-current="page">about</a>
@@ -59,39 +61,28 @@
 
   <main id="main">
 
-    <!-- ============ INTRO: "hello!" + photo ============ -->
+    <!-- ============ INTRO + BIO: "hello!" and photo on the left, bio on the right ============ -->
     <section class="about-hero wrap">
-      <div class="about-hero__intro reveal" style="--i:0">
-        <h1 class="about-hello">hello!</h1>
-        <p class="about-nice">nice to meet you :)</p>
+      <div class="about-hero__left">
+        <div class="about-hero__intro reveal" style="--i:0">
+          <h1 class="about-hello">hello!</h1>
+          <p class="about-nice">nice to meet you :)</p>
+        </div>
+        <figure class="about-photo">
+          <img src="assets/about-photo-2021.jpg" alt="Portrait of Levona Yim" width="1399" height="931">
+        </figure>
       </div>
-      <figure class="about-photo reveal" style="--i:1">
-        <!--
-          Drop your photo in as about/assets/about-photo.jpg (or update the src below).
-          Until then this renders the same "export this image" placeholder used on the
-          Kashoo case study page. Cropped to a 735:674 rounded rect, desaturated, per the Figma file.
-        -->
-        <img src="assets/about-photo.png" alt="Portrait of Levona Yim" width="735" height="674">
-      </figure>
-    </section>
-
-    <!-- ============ BIO ============ -->
-    <section class="about-bio wrap">
-      <p class="lead reveal" style="--i:2">
-        I’m a Product Designer based in Vancouver, Canada. I have 7+ years of design experience in B2B enterprise software and user-centric B2C solutions.
-      </p>
-      <p class="lead reveal" style="--i:3">
-        Previously I was a Product Designer at <a href="https://www.fico.com/" target="_blank" rel="noopener">FICO</a> for 4.5 years focusing on the data side of the FICO Platform. I’ve also worked at <a href="https://kashoo.com/" target="_blank" rel="noopener">Kashoo</a>, <a href="https://www.keeyora.com/" target="_blank" rel="noopener">Rectxt</a> (now known as Keeyora), <a href="https://www.mothersmatter.ca/" target="_blank" rel="noopener">Mothers Matter Centre</a>, <a href="https://www.surrey.ca/" target="_blank" rel="noopener">City of Surrey</a>, and <a href="https://scentuals.com/" target="_blank" rel="noopener">Scentuals Body Care</a>.
-      </p>
-      <p class="lead reveal" style="--i:4">
-        I love to explore and experiment by being more hands-on and creating. I believe design is a way of thinking, as well as tool to communicate an idea to a broader audience. I’m passionate about finding solutions to real world problems, from complex social issues to improved experiences and services encountered in daily life.
-      </p>
-      <p class="lead reveal" style="--i:5">
-        Recently, I’ve been tinkering around and exploring the possibilities of artificial intelligence and how to utilize its positives into our workflow and expand new ideas.
-      </p>
-      <p class="lead reveal" style="--i:6">
-        On the side, I love drawing <a href="https://giphy.com/thefriendlycheeseboll" target="_blank" rel="noopener">cartoon stickers/gifs</a> (which you may have seen when you entered into this page or another page), and experimenting through vibe coding small apps. When I’m not designing, I enjoy lifting weights, hiking, and going on long walks.
-      </p>
+      <div class="about-bio">
+        <p class="lead reveal" style="--i:2">
+          I’m a Product Designer based in Vancouver, Canada. I have 7+ years of design experience in B2B enterprise software and user-centric B2C solutions.
+        </p>
+        <p class="lead reveal" style="--i:3">
+          Previously I was a Product Designer at <a href="https://www.fico.com/" target="_blank" rel="noopener">FICO</a> for 4.5 years focusing on the data side of the FICO Platform. I’ve also worked at <a href="https://kashoo.com/" target="_blank" rel="noopener">Kashoo</a>, <a href="https://www.keeyora.com/" target="_blank" rel="noopener">Rectxt</a> (now known as Keeyora), <a href="https://www.mothersmatter.ca/" target="_blank" rel="noopener">Mothers Matter Centre</a>, <a href="https://www.surrey.ca/" target="_blank" rel="noopener">City of Surrey</a>, and <a href="https://scentuals.com/" target="_blank" rel="noopener">Scentuals Body Care</a>.
+        </p>
+        <p class="lead reveal" style="--i:6">
+          On the side, I love drawing <a href="https://giphy.com/thefriendlycheeseboll" target="_blank" rel="noopener">cartoon stickers/gifs</a> and experimenting through vibe coding small apps. When I’m not designing, I enjoy lifting weights, hiking, and going on long walks.
+        </p>
+      </div>
     </section>
 
     <hr class="cta-divider reveal" style="--i:7">

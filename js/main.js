@@ -1,28 +1,27 @@
 /* ------------------------------------------------------------------
    Levona Yim — portfolio
-   1) Theme: apply saved theme immediately (runs in <head>, before paint)
-   2) Header: morphs once the hero scrolls out of view
+   1) Theme: saved choice, else the system setting (runs in <head>, before paint)
+   2) Header: frosted bar once scrolled
    3) Theme toggle: sun icon in the nav
 ------------------------------------------------------------------- */
 
 // 1) Apply saved theme before first paint
+// Saved choice wins; otherwise follow the visitor's system setting.
 try {
-  if (localStorage.getItem('theme') === 'dark') {
-    document.documentElement.setAttribute('data-theme', 'dark');
-  }
+  var saved = localStorage.getItem('theme');
+  var dark = saved ? saved === 'dark'
+    : !!(window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches);
+  if (dark) document.documentElement.setAttribute('data-theme', 'dark');
 } catch (e) {}
 
 document.addEventListener('DOMContentLoaded', function () {
 
-  // 2) Header morph — once the hero is mostly out of view:
-  // hero state = nav pill only; scrolled state = name + nav.
+  // 2) Header: gains its frosted bar once the page is scrolled (name | role lockup is always visible)
   (function () {
     var header = document.getElementById('siteHeader');
-    var hero = document.getElementById('hero');
-    if (!('IntersectionObserver' in window)) { header.classList.add('is-scrolled'); return; }
-    new IntersectionObserver(function (entries) {
-      header.classList.toggle('is-scrolled', !entries[0].isIntersecting);
-    }, { threshold: 0.35 }).observe(hero);
+    function update() { header.classList.toggle('is-scrolled', window.scrollY > 8); }
+    window.addEventListener('scroll', update, { passive: true });
+    update();
   })();
 
   // 3) Light / dark toggle (sun icon in the nav)
@@ -37,6 +36,17 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     apply(root.getAttribute('data-theme') === 'dark');
+
+    // No saved choice: follow the system setting live as it changes.
+    if (window.matchMedia) {
+      var mq = matchMedia('(prefers-color-scheme: dark)');
+      var follow = function (e) {
+        var saved = null;
+        try { saved = localStorage.getItem('theme'); } catch (err) {}
+        if (!saved) apply(e.matches);
+      };
+      if (mq.addEventListener) mq.addEventListener('change', follow); else if (mq.addListener) mq.addListener(follow);
+    }
 
     btn.addEventListener('click', function () {
       var dark = root.getAttribute('data-theme') !== 'dark';

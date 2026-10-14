@@ -42,7 +42,7 @@
   --fs-lead: clamp(1.25rem, 2.1vw, 2rem);
   --track-lead: -0.035em;
 
-  --gutter: clamp(20px, 5.55vw, 84px);
+  --gutter: 40px; /* matches the header: content starts at the "l" in levona yim */
   --max: 1512px;
 }
 
@@ -599,3 +599,73 @@ a { color: inherit; }
 @media (max-width: 400px) {
   .nav-pill { gap: 12px; padding: 10px 12px; font-size: 14px; }
 }
+
+/* ---------- brand lockup: "levona yim | Lead Product Designer" (same on every page) ---------- */
+.brand {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  font-size: 36px;
+  opacity: 1;
+  transform: none;
+}
+.brand-sep { font-weight: 100; color: var(--brand-ink); }
+.brand-role {
+  font-family: "SF Pro Thin", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Inter", "Helvetica Neue", Arial, sans-serif;
+  font-size: 24px;
+  font-weight: 100;
+  letter-spacing: 0;
+  line-height: 1.05;
+  color: #7a808b;
+}
+@media (max-width: 900px) {
+  .brand { font-size: 28px; gap: 12px; }
+  .brand-role { font-size: 19px; }
+}
+@media (max-width: 640px) {
+  .brand { display: none; }
+}
+
+/* ---------- header = homepage header (kept in sync with css/styles.css) ----------
+   Same position, spacing and bare nav (no pill) on every page, so the header
+   doesn't shift when moving between the homepage and the case studies. */
+.site-header { padding-top: 29.5px; padding-bottom: 0; }
+.site-header.is-scrolled { padding-top: 20px; padding-bottom: 20px; }
+.site-header__inner.wrap {
+  max-width: none;
+  margin-inline: 0;
+  padding-inline: max(40px, calc((100% - 1512px) / 2 + 40px));
+  padding-bottom: 0;
+  align-items: baseline;
+}
+.nav-pill {
+  gap: 40px;
+  padding: 16px 0;
+  background: none;
+  box-shadow: none;
+}
+@media (max-width: 900px) {
+  .nav-pill { gap: 28px; padding: 14px 0; font-size: 16px; }
+}
+@media (max-width: 640px) {
+  .site-header { padding-top: 16px; }
+  .site-header.is-scrolled { padding-top: 14px; padding-bottom: 14px; }
+  .site-header__inner.wrap { padding-inline: 20px; justify-content: center; align-items: center; }
+  .nav-pill { gap: 18px; padding: 12px 0; font-size: 15px; }
+}
+@media (max-width: 400px) {
+  .nav-pill { gap: 12px; padding: 10px 0; font-size: 14px; }
+}
+
+/* Phones: header and content both use a 20px side gutter */
+@media (max-width: 640px) {
+  :root { --gutter: 20px; }
+}
+
+/* Case-study content hangs off the same left edge as the header (the "l" in levona yim) */
+.showcase__frame,
+.midpage-image__frame { margin-inline: 0; }
+
+/* "Lead Product Designer" stays legible on the dark background: slightly heavier stroke */
+:root[data-theme="dark"] .brand-role,
+:root[data-theme="dark"] .hero .role { font-weight: 200; color: #a0a6b2; }

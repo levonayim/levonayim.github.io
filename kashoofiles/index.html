@@ -28,7 +28,9 @@
     // carries over seamlessly when navigating between the homepage and this case study.
     document.documentElement.classList.add('js');
     try {
+      // Saved choice wins; otherwise follow the visitor's system setting.
       var saved = localStorage.getItem('theme');
+      if (!saved && window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches) saved = 'dark';
       if (saved) document.documentElement.setAttribute('data-theme', saved);
     } catch (e) {}
   </script>
@@ -50,7 +52,7 @@
   <!-- ============ NAV ============ -->
   <header class="site-header">
     <div class="site-header__inner wrap">
-      <a class="brand" href="../index.html" aria-label="Levona Yim — back to homepage">levona yim</a>
+      <a class="brand" href="../index.html" aria-label="Levona Yim — back to homepage"><span class="brand-name">levona yim</span><span class="brand-sep" aria-hidden="true">|</span><span class="brand-role">Lead Product Designer</span></a>
       <nav class="nav-pill" aria-label="Primary">
         <a href="../index.html" aria-current="page">work</a>
         <a href="../about/index.html">about</a>
