@@ -23,7 +23,7 @@
   --font-display: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Inter", "Helvetica Neue", Arial, sans-serif;
   --font-ui: "Inter", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
   --fs-lead: clamp(1.25rem, 2.1vw, 2rem);
-  --gutter: 40px;
+  --gutter: clamp(24px, 4.4vw, 64px); /* side padding: header and content share it */
   --page-max: 1512px;
   /* Side padding for the hero text + nav: 5.25rem (84px) on desktop, scaling down fluidly on smaller screens */
   --hero-pad: clamp(1.25rem, 5.556vw, 5.25rem);
