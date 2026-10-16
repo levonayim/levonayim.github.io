@@ -434,7 +434,7 @@ a { color: inherit; text-decoration: none; }
 @media (max-width: 900px) {
   .brand { font-size: 28px; gap: 12px; }
   .brand-role { font-size: 19px; }
-  .nav { gap: 28px; padding: 14px 24px; font-size: 16px; }
+  .nav { gap: 28px; padding: 14px 0; font-size: 16px; }
 }
 
 /* Phones */
@@ -442,17 +442,16 @@ a { color: inherit; text-decoration: none; }
   :root { --gutter: 20px; }
   .site-header { padding-block: 16px; }
   .site-header.is-scrolled { padding-block: 14px; }
-  .header-inner { gap: 12px; padding-inline: var(--card-inset); justify-content: center; }
-  .brand { display: none; }
-  .nav { gap: 18px; padding: 12px 16px; font-size: 15px; }
+  /* One row in the fixed header: name stacked over role on the left, nav on the right */
+  .header-inner { flex-direction: row; align-items: center; justify-content: space-between; gap: 12px; padding-inline: var(--card-inset); }
+  .brand { flex-direction: column; align-items: flex-start; gap: 2px; font-size: 22px; line-height: 1; }
+  .brand-sep { display: none; }
+  .brand-role { font-size: 13px; }
+  .nav { gap: 14px; padding: 0; font-size: 14px; }
 
-  .hero { display: flex; padding-inline: var(--card-inset); padding-top: 88px; flex-direction: column; gap: 4px; }
-  .hero-sep { display: none; }
-  .hero h1   { font-size: 26px; }
-  .hero .role { font-size: 18px; }
-  .hero .tagline { font-size: 16px; }
+  .hero { display: none; }
 
-  .work { padding-top: 40px; padding-bottom: 88px; gap: 96px; }
+  .work { padding-top: 112px; padding-bottom: 88px; gap: 96px; }
   .project-media { aspect-ratio: 4 / 5; }
   .project-media img, .project-media video { width: 90%; top: 54%; }
   .project-client  { font-size: 20px; line-height: 1.6; }
@@ -461,12 +460,10 @@ a { color: inherit; text-decoration: none; }
   .project-media   { border-radius: 16px; }
 }
 
-/* Very narrow phones: the brand would crowd the nav, so keep the nav only */
-@media (max-width: 520px) {
-  .is-scrolled .brand { display: none; }
-}
 @media (max-width: 400px) {
-  .nav { gap: 12px; padding: 10px 12px; font-size: 14px; }
+  .nav { gap: 10px; padding: 0; font-size: 13px; }
+  .brand { font-size: 20px; }
+  .brand-role { font-size: 12px; }
 }
 
 /* Short landscape screens (phones on their side) */
