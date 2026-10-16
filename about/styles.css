@@ -457,3 +457,25 @@ a { color: inherit; }
 /* "Lead Product Designer" stays legible on the dark background: slightly heavier stroke */
 :root[data-theme="dark"] .brand-role,
 :root[data-theme="dark"] .hero .role { font-weight: 200; color: #a0a6b2; }
+
+/* ---------- alignment: content shares the header's 7.5% side inset at every width ---------- */
+.about-hero.wrap,
+.cta-section.wrap {
+  max-width: none;
+  margin-inline: 0;
+  padding-inline: 7.5%;
+}
+.about-photo { margin-inline: 0; }
+
+/* Phones: same one-row header as the homepage (name over role on the left, nav on the right) */
+@media (max-width: 640px) {
+  .site-header__inner.wrap { justify-content: space-between; }
+  .brand { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; font-size: 22px; }
+  .brand-sep { display: none; }
+  .brand-role { font-size: 13px; }
+  .nav-pill { gap: 14px; font-size: 14px; }
+}
+
+/* Photo: as wide as the greeting ("…meet you :)") and 25% shorter than before at desktop (278px → ~208px); the ratio keeps it wider than tall at every width */
+.about-hero__left { width: fit-content; justify-items: stretch; }
+.about-photo { width: 100%; aspect-ratio: 1.69; contain: inline-size; }
