@@ -1061,3 +1061,7 @@ a { color: inherit; }
 /* "Lead Product Designer" stays legible on the dark background: slightly heavier stroke */
 :root[data-theme="dark"] .brand-role,
 :root[data-theme="dark"] .hero .role { font-weight: 200; color: #a0a6b2; }
+
+/* ---------- alignment: content shares the header's 7.5% side inset at every width ---------- */
+:root { --gutter: 7.5vw; }
+.wrap { max-width: none; padding-inline: 7.5%; }
