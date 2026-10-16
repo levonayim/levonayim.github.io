@@ -634,7 +634,7 @@ a { color: inherit; }
 .site-header__inner.wrap {
   max-width: none;
   margin-inline: 0;
-  padding-inline: max(var(--gutter), calc((100% - 1512px) / 2 + var(--gutter)));
+  padding-inline: 7.5%; /* same inset as the homepage header and its 85%-wide cards */
   padding-bottom: 0;
   align-items: baseline;
 }
@@ -650,7 +650,7 @@ a { color: inherit; }
 @media (max-width: 640px) {
   .site-header { padding-top: 16px; }
   .site-header.is-scrolled { padding-top: 14px; padding-bottom: 14px; }
-  .site-header__inner.wrap { padding-inline: 20px; justify-content: center; align-items: center; }
+  .site-header__inner.wrap { padding-inline: 7.5%; justify-content: center; align-items: center; }
   .nav-pill { gap: 18px; padding: 12px 0; font-size: 15px; }
 }
 @media (max-width: 400px) {
