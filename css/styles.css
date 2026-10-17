@@ -458,6 +458,7 @@ a { color: inherit; text-decoration: none; }
   .project-title   { font-size: clamp(32px, 9.5vw, 40px); line-height: 1.05; }
   .project-summary { font-size: 22px; padding-bottom: 8px; }
   .project-media   { border-radius: 16px; }
+  .project-label   { font-size: clamp(11px, 3.7vw, 16px); white-space: nowrap; }
 }
 
 @media (max-width: 400px) {
