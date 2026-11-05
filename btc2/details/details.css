@@ -1,6 +1,6 @@
 /* Full details view for the BTC (Data Models) case study (gated).
    Shown inside the homepage modal (?embed=1) or on its own. Same page shell as platform/details; BTC sections are appended at the end. */
-:root {
+:root, :host {
   --ink: #030712;
   --ink-soft: #1c1b1f;
   --label: #9a9aa5;
@@ -18,7 +18,7 @@
   --ink-2: #1f2937;
   --indent: clamp(0px, 12%, 160px); /* same rule as the preview modal: 12% of the content width, max 160px */
 }
-:root[data-theme="dark"] {
+:root[data-theme="dark"], :host([data-theme="dark"]) {
   --ink: #f3f4f6;
   --ink-soft: #f3f4f6;
   --label: #8b91a3;
@@ -35,7 +35,7 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
-body {
+body, .d-body {
   margin: 0;
   background: var(--page);
   color: var(--ink);
@@ -97,7 +97,7 @@ b, strong { font-weight: 700; }
 .persona img { flex: 1; min-width: 0; -webkit-user-drag: none; }
 /* "Show notes" switch (Figma: label + toggle, 11px apart) */
 .notes-toggle { display: flex; align-items: center; gap: 11px; font-family: "SF Pro Display", "SF Pro Text", -apple-system, BlinkMacSystemFont, system-ui, sans-serif; font-weight: 700; font-size: 16px; color: #202334; }
-:root[data-theme="dark"] .notes-toggle { color: var(--ink); }
+:root[data-theme="dark"] .notes-toggle, :host([data-theme="dark"]) .notes-toggle { color: var(--ink); }
 .switch {
   position: relative; flex: none; width: 52px; height: 32px; padding: 0; border: 0; border-radius: 16px;
   background: #c9cad3; cursor: pointer; transition: background .25s ease;
@@ -165,13 +165,13 @@ b, strong { font-weight: 700; }
 /* Standalone page chrome (hidden when embedded in the homepage modal) */
 .back { display: inline-block; margin: 24px var(--indent) 24px; color: var(--ink); font-size: 14px; text-decoration: none; opacity: .7; }
 .back:hover { opacity: 1; }
-body { max-width: 1332px; margin-inline: auto; padding: 0 clamp(20px, 5vw, 48px) 80px; }
-html.embed body { max-width: none; padding: 0 var(--bleed, 0px); background: transparent; }
-html.embed .back { display: none; }
+body, .d-body { max-width: 1332px; margin-inline: auto; padding: 0 clamp(20px, 5vw, 48px) 80px; }
+html.embed body, .d-body.embed { max-width: none; padding: 0 var(--bleed, 0px); background: transparent; }
+html.embed .back, .d-body.embed .back { display: none; }
 html.embed { background: transparent; }
 
 @media (max-width: 760px) {
-  :root { --indent: 0px; }
+  :root, :host { --indent: 0px; }
   .details { gap: 56px; }
   .insights { grid-template-columns: 1fr; }
   .persona { flex-direction: column; align-items: stretch; gap: 20px; }
@@ -228,8 +228,8 @@ html.embed { background: transparent; }
 .d-footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
 @media (max-width: 760px) { .d-footer { flex-direction: column; } }
 /* inside the modal the panel already has bottom padding, so tighten the end of the page */
-html.embed .d-cta { padding-bottom: 80px; }
-html.embed .d-footer { padding-bottom: 0; }
+html.embed .d-cta, .d-body.embed .d-cta { padding-bottom: 80px; }
+html.embed .d-footer, .d-body.embed .d-footer { padding-bottom: 0; }
 
 /* ───── BTC (Data Models) sections ───── */
 .d-lead-b { font-weight: 700; color: var(--ink-soft); }
@@ -253,7 +253,7 @@ html.embed .d-footer { padding-bottom: 0; }
   display: grid; place-items: center;
 }
 .d-banner video, .d-banner img { width: min(60%, 800px); height: auto; border-radius: 8px; box-shadow: 0 4px 10px rgba(0, 0, 0, .15); }
-:root[data-theme="dark"] { --banner-bg: linear-gradient(135deg, #1d2d4d, #1a3e4d); }
+:root[data-theme="dark"], :host([data-theme="dark"]) { --banner-bg: linear-gradient(135deg, #1d2d4d, #1a3e4d); }
 
 /* Design decisions */
 .decision { display: flex; flex-direction: column; gap: 16px; }
@@ -315,10 +315,17 @@ img.redesign-main { cursor: zoom-in; }
 .dcar-dots { display: flex; gap: 8px; }
 .dcar-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--rule); transition: background .2s ease, transform .2s ease; }
 .dcar-dot.is-on { background: #5f5bf0; transform: scale(1.25); }
-:root[data-theme="dark"] .dcar-viewport { background: #1b2233; }
+:root[data-theme="dark"] .dcar-viewport, :host([data-theme="dark"]) .dcar-viewport { background: #1b2233; }
 @media (prefers-reduced-motion: reduce) { .dcar-viewport { scroll-behavior: auto; } }
 /* phones: no room beside the image, so arrows sit under it either side of the dots */
 @media (max-width: 760px) {
   .dcar { grid-template-columns: auto minmax(0, 1fr) auto; grid-template-areas: "view view view" "prev dots next"; }
   .dcar-btn[data-dir="-1"], .dcar-btn[data-dir="1"] { justify-self: center; margin: 0; }
 }
+
+/* Dark mode touches for hard-coded colors (blank image boxes, the off switch) */
+:root[data-theme="dark"] .switch:not([aria-checked="true"]), :host([data-theme="dark"]) .switch:not([aria-checked="true"]) { background: #4a5163; }
+:root[data-theme="dark"] .cmp img.redesign, :root[data-theme="dark"] .cmp video.redesign, :host([data-theme="dark"]) .cmp img.redesign, :host([data-theme="dark"]) .cmp video.redesign { background: #1b2233; }
+:root[data-theme="dark"] .decision h4, :host([data-theme="dark"]) .decision h4 { color: #aab3ff; }
+:root[data-theme="dark"] .decision img, :host([data-theme="dark"]) .decision img { background: #1b2233; }
+:root[data-theme="dark"] .handoff, :host([data-theme="dark"]) .handoff { background: #1b2233; }

@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     });
 
-    // Larger view of a screen from the full details (opened from inside the iframe, shown here so it covers the whole window)
+    // Larger view of a screen from the full details (shown here so it covers the whole window)
     var lightbox = null;
     function openLightbox(src, alt) {
       var u; try { u = new URL(src, location.href); } catch (e) { return; }
@@ -122,72 +122,178 @@ document.addEventListener('DOMContentLoaded', function () {
       lightbox.showModal();
     }
 
-    // "Enter password to see full details": the modal expands to full screen and the bar is swapped
-    // for the gated page in an iframe. That page is its own (encrypted) document, so the password
-    // prompt and the content both live inside it. Closing the modal resets everything.
+    // "Enter password to see full details": the dashed bar turns into a password field right in the modal.
+    // The gated page is still an encrypted file (staticrypt), but it is fetched and decrypted here (same scheme and the same
+    // 7-day "remember me" as the standalone prompt), then shown inside the modal in a shadow root: no iframe, no second page.
+    // Closing the modal resets everything.
+    var KEY_PASS = 'staticrypt_passphrase', KEY_EXP = 'staticrypt_expiration';
+    var FORWARD = { persona_carousel: 1, annotations_toggle: 1, image_enlarged: 1, footer_link_click: 1 };   // events the details may ask us to send
+    var te = new TextEncoder(), subtle = window.crypto && crypto.subtle;
+    function toHex(buf) { return Array.prototype.map.call(new Uint8Array(buf), function (b) { return (b < 16 ? '0' : '') + b.toString(16); }).join(''); }
+    function fromHex(h) { var a = new Uint8Array(h.length / 2); for (var i = 0; i < a.length; i++) a[i] = parseInt(h.substr(i * 2, 2), 16); return a; }
+    function pbkdf2(pw, salt, iter, hash) {
+      return subtle.importKey('raw', te.encode(pw), 'PBKDF2', false, ['deriveBits']).then(function (k) {
+        return subtle.deriveBits({ name: 'PBKDF2', hash: hash, iterations: iter, salt: te.encode(salt) }, k, 256);
+      }).then(toHex);
+    }
+    function hashPassword(pw, salt) {   // staticrypt's three rounds (600k iterations in total)
+      return pbkdf2(pw, salt, 1000, 'SHA-1').then(function (h) { return pbkdf2(h, salt, 14000, 'SHA-256'); }).then(function (h) { return pbkdf2(h, salt, 585000, 'SHA-256'); });
+    }
+    function decode(signed, hashed) {   // resolves with the page's HTML, or null when the password is wrong
+      var mac = signed.slice(0, 64), msg = signed.slice(64), raw = fromHex(hashed);
+      return subtle.importKey('raw', raw, { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']).then(function (hk) {
+        return subtle.sign('HMAC', hk, te.encode(msg));
+      }).then(function (sig) {
+        if (toHex(sig) !== mac) return null;
+        return subtle.importKey('raw', raw, 'AES-CBC', false, ['decrypt']).then(function (k) {
+          return subtle.decrypt({ name: 'AES-CBC', iv: fromHex(msg.slice(0, 32)) }, k, fromHex(msg.slice(32)));
+        }).then(function (out) { return new TextDecoder().decode(out); });
+      }).catch(function () { return null; });
+    }
+    function rememberedHash() {   // the hashed password saved by an earlier unlock, unless its 7 days are over
+      try {
+        var exp = localStorage.getItem(KEY_EXP), h = localStorage.getItem(KEY_PASS);
+        if (exp && Date.now() > parseInt(exp, 10)) { localStorage.removeItem(KEY_PASS); localStorage.removeItem(KEY_EXP); return null; }
+        return h || null;
+      } catch (e) { return null; }
+    }
+    function remember(hashed) {
+      try { localStorage.setItem(KEY_PASS, hashed); localStorage.setItem(KEY_EXP, String(Date.now() + 7 * 24 * 60 * 60 * 1000)); } catch (e) {}
+    }
+    function forget() { try { localStorage.removeItem(KEY_PASS); localStorage.removeItem(KEY_EXP); } catch (e) {} }
+
     document.querySelectorAll('a[data-details-frame]').forEach(function (cta) {
       var dlg = cta.closest('dialog');
       var panel = dlg.querySelector('.case-modal-panel');
-      var frame = null, raf = 0, unlockedSent = false;
-      var FORWARD = { persona_carousel: 1, annotations_toggle: 1, image_enlarged: 1, footer_link_click: 1 };   // events the details page may ask us to send
-      function sendView() {   // tell the page which part of it is on screen (it can't see the modal's scrolling itself)
-        raf = 0;
-        if (!frame || !frame.contentWindow) return;
-        var r = frame.getBoundingClientRect(), pr = panel.getBoundingClientRect();
-        try { frame.contentWindow.postMessage({ type: 'platform-details-view', top: pr.top - r.top, bottom: pr.bottom - r.top }, location.origin); } catch (e) {}
+      var pageUrl = new URL(cta.getAttribute('data-details-frame').split('?')[0], location.href);   // the encrypted page; its images, css and links resolve from here
+      var payload = null;            // promise: { msg, salt }
+      var gate = null, host = null, themeObs = null, unlocked = false;
+
+      function loadPayload() {      // fetched once, ahead of the click when possible, so unlocking only has the maths left
+        if (!payload) payload = fetch(pageUrl.href).then(function (r) { if (!r.ok) throw new Error('fetch'); return r.text(); }).then(function (t) {
+          var m = /staticryptConfig\s*=\s*(\{[^}]*\})/.exec(t); if (!m) throw new Error('format');
+          var c = JSON.parse(m[1]);
+          return { msg: c.staticryptEncryptedMsgUniqueVariableName, salt: c.staticryptSaltUniqueVariableName };
+        });
+        payload.catch(function () { payload = null; });
+        return payload;
       }
-      function queueView() { if (!raf) raf = setTimeout(sendView, 40); }   // small throttle while scrolling
-      // Title + X shrink once the unlocked details are scrolled away from the top (never on the modal or the password prompt)
-      function updateCompact() {
-        if (!frame || !unlockedSent) { dlg.classList.remove('is-compact'); return; }
-        var past = panel.scrollTop;   // big only at the very top; hysteresis avoids flicker
-        if (past > 12) dlg.classList.add('is-compact'); else if (past < 4) dlg.classList.remove('is-compact');
+      ['pointerenter', 'touchstart', 'focus'].forEach(function (t) { cta.addEventListener(t, loadPayload, { once: true, passive: true }); });
+
+      function updateCompact() {   // title + X shrink once the unlocked details are scrolled away from the top (hysteresis avoids flicker)
+        if (!unlocked) { dlg.classList.remove('is-compact'); return; }
+        var y = panel.scrollTop;
+        if (y > 12) dlg.classList.add('is-compact'); else if (y < 4) dlg.classList.remove('is-compact');
       }
-      function onPanelScroll() { queueView(); updateCompact(); }
-      function bleedPx() { return Math.round(parseFloat(getComputedStyle(panel).paddingLeft) || 0); }
-      function sendBleed() {
-        if (!frame || !frame.contentWindow) return;
-        try { frame.contentWindow.postMessage({ type: 'platform-details-bleed', px: bleedPx() }, location.origin); } catch (e) {}
-      }
-      function onMessage(ev) {
-        if (!frame || ev.origin !== location.origin || ev.source !== frame.contentWindow) return;
-        var d = ev.data; if (!d) return;
-        if (d.type === 'platform-details-ready') {
-          // the details page only runs once it has been decrypted, so its first message means the password worked
-          if (!unlockedSent) { unlockedSent = true; track(currentProject + '_details_unlocked'); }
-          sendBleed(); sendView(); updateCompact(); return;
-        }
-        if (d.type === 'platform-details-track' && FORWARD[d.event]) {
-          var p = {}, src = d.params || {};
+
+      var HOST = {
+        embedded: true,
+        track: function (event, src) {
+          if (!FORWARD[event]) return;
+          var p = {}; src = src || {};
           for (var k in src) { var v = src[k]; if (typeof v === 'string') p[k] = v.slice(0, 120); else if (typeof v === 'number' || typeof v === 'boolean') p[k] = v; }
-          track(d.event, p); return;
-        }
-        if (d.type === 'platform-details-lightbox') { openLightbox(d.src, d.alt); return; }
-        if (d.type === 'platform-details-height' && d.height > 0) { frame.style.height = Math.ceil(d.height) + 'px'; queueView(); }
+          track(event, p);
+        },
+        lightbox: openLightbox,
+        navigate: function (u) { location.href = u; }
+      };
+
+      function abs(doc) {   // relative paths in the page point at its own folder, not the homepage's
+        doc.querySelectorAll('[src],[poster],[href]').forEach(function (el) {
+          ['src', 'poster', 'href'].forEach(function (a) {
+            var v = el.getAttribute(a);
+            if (v && v.charAt(0) !== '#' && !/^(?:[a-z][a-z0-9+.-]*:|\/\/)/i.test(v)) el.setAttribute(a, new URL(v, pageUrl).href);
+          });
+        });
       }
+
+      function show(html) {
+        var doc = new DOMParser().parseFromString(html, 'text/html');
+        abs(doc);
+        var codes = Array.prototype.map.call(doc.querySelectorAll('body script'), function (s) { return s.textContent; });
+        doc.querySelectorAll('script, .back').forEach(function (n) { n.remove(); });
+        return fetch(new URL('details.css', pageUrl).href).then(function (r) { return r.text(); }).then(function (css) {
+          host = document.createElement('div');
+          host.className = 'cm-details';
+          var sr = host.attachShadow({ mode: 'open' });
+          var st = document.createElement('style'); st.textContent = css;
+          var wrap = document.createElement('div'); wrap.className = 'd-body embed';
+          Array.prototype.slice.call(doc.body.childNodes).forEach(function (n) { wrap.appendChild(document.importNode(n, true)); });
+          sr.append(st, wrap);
+          function syncTheme() { if (document.documentElement.getAttribute('data-theme') === 'dark') host.setAttribute('data-theme', 'dark'); else host.removeAttribute('data-theme'); }
+          syncTheme();
+          themeObs = new MutationObserver(syncTheme); themeObs.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+          dlg.classList.add('is-full');   // the modal grows to full screen once we're in
+          if (gate) gate.replaceWith(host); else cta.replaceWith(host);
+          gate = null;
+          codes.forEach(function (code) { try { new Function('R', 'HOST', code)(sr, HOST); } catch (e) { if (window.console) console.error(e); } });
+          unlocked = true;
+          panel.addEventListener('scroll', updateCompact, { passive: true });
+          track(currentProject + '_details_unlocked');
+          requestAnimationFrame(function () { requestAnimationFrame(function () { host.classList.add('is-in'); }); });
+          setTimeout(function () { if (host) host.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 350);
+        });
+      }
+
+      function unlockWith(hashed) {   // true when the hash opens the page
+        return loadPayload().then(function (p) { return decode(p.msg, hashed); }).then(function (html) {
+          if (html === null) return false;
+          return show(html).then(function () { return true; });
+        });
+      }
+
+      function showForm(note) {
+        gate = document.createElement('form');
+        gate.className = 'cm-gate'; gate.noValidate = true;
+        gate.innerHTML = '<label class="cm-gate-title" for="gatePw-' + dlg.id + '">Enter password to see full details</label>' +
+          '<div class="cm-gate-row"><input id="gatePw-' + dlg.id + '" class="cm-gate-input" type="password" autocomplete="current-password" placeholder="Password" required />' +
+          '<button class="cm-gate-btn" type="submit">Unlock</button></div>' +
+          '<label class="cm-gate-remember"><input type="checkbox" checked /> Remember me for 7 days</label>' +
+          '<p class="cm-gate-msg" role="alert" aria-live="polite"></p>';
+        var input = gate.querySelector('input[type=password]'), btn = gate.querySelector('button'), msg = gate.querySelector('.cm-gate-msg'), rem = gate.querySelector('input[type=checkbox]');
+        if (note) msg.textContent = note;
+        gate.addEventListener('submit', function (e) {
+          e.preventDefault();
+          if (!input.value) { input.focus(); return; }
+          input.disabled = btn.disabled = true; gate.classList.add('is-busy'); msg.textContent = 'Unlocking…';
+          loadPayload().then(function (p) { return hashPassword(input.value, p.salt); }).then(function (hashed) {
+            return unlockWith(hashed).then(function (ok) {
+              if (ok) { if (rem.checked) remember(hashed); return; }
+              input.disabled = btn.disabled = false; gate.classList.remove('is-busy');
+              msg.textContent = 'That password didn’t work. Please try again.';
+              gate.classList.remove('is-wrong'); void gate.offsetWidth; gate.classList.add('is-wrong');
+              input.select();
+            });
+          }).catch(function () {
+            input.disabled = btn.disabled = false; gate.classList.remove('is-busy');
+            msg.textContent = 'Couldn’t load the details. Check your connection and try again.';
+          });
+        });
+        cta.replaceWith(gate);
+        setTimeout(function () { input.focus({ preventScroll: true }); gate.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 60);
+      }
+
       function reset() {
-        unlockedSent = false;
+        unlocked = false;
         dlg.classList.remove('is-full', 'is-compact');
-        window.removeEventListener('message', onMessage);
-        panel.removeEventListener('scroll', onPanelScroll); window.removeEventListener('resize', queueView); window.removeEventListener('resize', sendBleed);
-        if (frame) { frame.replaceWith(cta); frame = null; }
+        panel.removeEventListener('scroll', updateCompact);
+        if (themeObs) { themeObs.disconnect(); themeObs = null; }
+        if (host) { host.replaceWith(cta); host = null; } else if (gate) { gate.replaceWith(cta); }
+        gate = null;
       }
       dlg.addEventListener('close', reset);
+
       cta.addEventListener('click', function (e) {
         if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
         e.preventDefault();
         track(currentProject + '_details_click');
-        frame = document.createElement('iframe');
-        frame.className = 'cm-frame';
-        frame.title = 'Full case study details';
-        dlg.classList.add('is-full');   // set first, so the padding we read below is the final (full-screen) one
-        frame.src = cta.getAttribute('data-details-frame') + '&bleed=' + bleedPx();
-        frame.setAttribute('scrolling', 'no');
-        window.addEventListener('message', onMessage);
-        panel.addEventListener('scroll', onPanelScroll, { passive: true }); window.addEventListener('resize', queueView); window.addEventListener('resize', sendBleed);
-        cta.replaceWith(frame);
-        // once the modal has grown, bring the prompt / content into view
-        setTimeout(function () { if (frame) frame.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 450);
+        var saved = rememberedHash();
+        if (!saved) { showForm(); return; }
+        cta.classList.add('is-busy'); cta.textContent = 'Unlocking…';   // a still-valid remembered password opens it straight away
+        unlockWith(saved).then(function (ok) {
+          if (ok) return;
+          forget(); cta.classList.remove('is-busy'); cta.textContent = 'Enter password to see full details'; showForm();
+        }).catch(function () { cta.classList.remove('is-busy'); cta.textContent = 'Enter password to see full details'; showForm(); });
       });
     });
   })();

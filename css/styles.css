@@ -628,9 +628,38 @@ html:has(dialog.case-modal[open]) { overflow: hidden; scroll-snap-type: none; }
 .case-modal-panel > * { flex-shrink: 0; }
 .case-modal, .case-modal-panel { outline: none; }
 
-/* Gated full-details content (own encrypted page) shown in place of the password bar */
-/* when the page is scrolled into view, stop below the pinned title bar (its top padding + close button + bottom padding) with a little room, so the top of the strip isn't hidden */
-.cm-frame { scroll-margin-top: calc(var(--pad-y) + clamp(36px, 3.2vw, 48px) + 16px + 24px); display: block; width: calc(100% + 2 * var(--pad-x)); margin-inline: calc(-1 * var(--pad-x)); height: 420px; border: 0; background: transparent; }
+/* Password prompt: the dashed "Enter password…" bar opens into a field right in the modal (no separate page) */
+.cm-cta.is-busy { opacity: .7; pointer-events: none; }
+.cm-gate {
+  display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 24px var(--indent);
+  border: 1px dashed var(--modal-cta-ink); border-radius: 8px; background: var(--modal-cta-bg); color: var(--modal-cta-ink);
+  scroll-margin-top: calc(var(--pad-y) + clamp(36px, 3.2vw, 48px) + 16px + 24px);
+  animation: cm-gate-in .3s ease both;
+}
+.cm-gate-title { font-size: clamp(17px, 1.6vw, 24px); letter-spacing: -.02em; text-align: center; }
+.cm-gate-row { display: flex; gap: 8px; width: min(100%, 420px); }
+.cm-gate-input {
+  flex: 1; min-width: 0; padding: 12px 14px; border: 1px solid color-mix(in srgb, var(--modal-cta-ink) 45%, transparent); border-radius: 8px;
+  background: var(--modal-bg); color: var(--modal-ink); font: inherit; font-size: 16px;
+}
+.cm-gate-input:focus-visible { outline: 2px solid #5f5bf0; outline-offset: 1px; }
+.cm-gate-btn { padding: 12px 20px; border: 0; border-radius: 8px; background: #5f5bf0; color: #fff; font: inherit; font-size: 16px; cursor: pointer; transition: filter .2s ease; }
+.cm-gate-btn:hover { filter: brightness(1.1); }
+.cm-gate-btn:focus-visible { outline: 2px solid #5f5bf0; outline-offset: 2px; }
+.cm-gate-btn:disabled, .cm-gate-input:disabled { opacity: .6; cursor: default; }
+.cm-gate-remember { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--modal-label); cursor: pointer; }
+.cm-gate-msg { margin: 0; min-height: 1.4em; font-size: 14px; color: var(--modal-label); }
+.cm-gate.is-wrong .cm-gate-msg { color: #d6336c; }
+:root[data-theme="dark"] .cm-gate.is-wrong .cm-gate-msg { color: #ff8fb1; }
+.cm-gate.is-wrong .cm-gate-row { animation: cm-gate-shake .35s ease; }
+@keyframes cm-gate-in { from { opacity: 0; transform: translateY(6px); } }
+@keyframes cm-gate-shake { 20%, 60% { transform: translateX(-6px); } 40%, 80% { transform: translateX(6px); } }
+
+/* The unlocked details sit in the modal's own page (shadow root); they run edge to edge across the modal and fade in. */
+.cm-details { --bleed: var(--pad-x); display: block; width: calc(100% + 2 * var(--pad-x)); margin-inline: calc(-1 * var(--pad-x)); opacity: 0; transition: opacity .5s ease;
+  scroll-margin-top: calc(var(--pad-y) + clamp(36px, 3.2vw, 48px) + 16px + 24px); }
+.cm-details.is-in { opacity: 1; }
+@media (prefers-reduced-motion: reduce) { .cm-details { transition: none; } .cm-gate, .cm-gate.is-wrong .cm-gate-row { animation: none; } }
 
 /* ───── Expand to full screen ("Enter password…" pressed) ───── */
 .case-modal {
