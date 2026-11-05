@@ -15,7 +15,9 @@
   <link rel="icon" type="image/png" href="assets/favicon-sept2026.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;600;700;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;600;700;900&family=Source+Serif+4:wght@400&display=swap" rel="stylesheet" />
+  <!-- SF Pro Display Semibold (modal title "FICO"); family name: "SF Pro Display Semibold" -->
+  <link href="https://db.onlinewebfonts.com/c/179429c3795fb9aed42c526bd1133cc0?family=SF+Pro+Display+Semibold" rel="stylesheet">
   <!-- Google Material Symbols: sunny (light mode), dark_mode (dark mode), lock (case study badge) -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=dark_mode,lock,sunny&display=block" />
   <!-- Loaded in <head> (no defer) so the saved theme applies before first paint -->
@@ -56,7 +58,21 @@
     <section class="work" id="work" aria-label="Selected work">
 
       <article class="project">
-        <a class="media-link" href="btc2/index.html" aria-label="View Case Study: Business Terms Capability">
+        <a class="media-link" href="platform/index.html" data-modal="platformModal" aria-haspopup="dialog" aria-label="Preview Case Study: Personalized Dashboards">
+          <div class="project-media grad-b">
+            <p class="project-label"><strong>FICO</strong> | <span>Personalized Dashboards | 2025</span></p>
+            <video class="theme-light" autoplay loop muted playsinline poster="assets/platform-home-cover-poster.jpg" aria-label="FICO Platform dashboard preview">
+              <source src="assets/platform-home-cover.mp4" type="video/mp4">
+            </video>
+            <video class="theme-dark" autoplay loop muted playsinline poster="assets/platform-home-cover-poster.jpg" aria-label="FICO Platform dashboard preview">
+              <source src="assets/platform-home-cover.mp4" type="video/mp4">
+            </video>
+          </div>
+        </a>
+      </article>
+
+      <article class="project">
+        <a class="media-link" href="btc2/index.html" data-modal="btcModal" aria-haspopup="dialog" aria-label="Preview Case Study: Data Models">
           <div class="project-media grad-a">
             <p class="project-label"><strong>FICO</strong> | <span>Data Models | 2025</span></p>
             <video class="theme-light" autoplay loop muted playsinline poster="assets/btc-table-home-light-poster.jpg" aria-label="Business Terms Capability workspace showing connected logical schemas">
@@ -64,20 +80,6 @@
             </video>
             <video class="theme-dark" autoplay loop muted playsinline poster="assets/btc-table-home-dark-poster.jpg" aria-label="Business Terms Capability workspace showing connected logical schemas">
               <source src="assets/btc-table-home-dark.mp4" type="video/mp4">
-            </video>
-          </div>
-        </a>
-      </article>
-
-      <article class="project">
-        <a class="media-link" href="platform/index.html" aria-label="View Case Study: User Group Setup &amp; Dashboards">
-          <div class="project-media grad-b">
-            <p class="project-label"><strong>FICO</strong> | <span>Onboarding &amp; Dashboards | 2025</span></p>
-            <video class="theme-light" autoplay loop muted playsinline poster="assets/platform-home-light-poster.jpg" aria-label="FICO Platform dashboard preview">
-              <source src="assets/platform-home-light.mp4" type="video/mp4">
-            </video>
-            <video class="theme-dark" autoplay loop muted playsinline poster="assets/platform-home-dark-poster.jpg" aria-label="FICO Platform dashboard preview">
-              <source src="assets/platform-home-dark.mp4" type="video/mp4">
             </video>
           </div>
         </a>
@@ -107,6 +109,69 @@
       </p>
     </section>
   </main>
+
+  <!-- ============ PLATFORM PREVIEW MODAL ============ -->
+  <dialog class="case-modal" id="platformModal" data-project="platform" aria-labelledby="platformModalTitle">
+    <div class="case-modal-panel">
+      <header class="cm-head">
+        <h2 class="cm-title" id="platformModalTitle"><strong>FICO</strong> <span>• Personalized Dashboards • 2025</span></h2>
+        <button class="cm-close" type="button" data-close aria-label="Close preview"><img src="assets/platform-modal/close.svg" alt="" /></button>
+      </header>
+
+      <dl class="cm-meta">
+        <div><dt>Timeline</dt><dd>2025</dd></div>
+        <div><dt>Role</dt><dd>Lead Product Designer</dd></div>
+        <div class="cm-team"><dt>Team</dt><dd><ul><li>Product Managers</li><li>VP of Architecture</li><li>Engineering</li></ul><ul><li>Architect</li><li>Sales</li><li>UX Research</li></ul></dd></div>
+      </dl>
+
+      <div class="cm-hero"><video autoplay loop muted playsinline poster="assets/platform-home-cover-poster.jpg" aria-label="FICO Platform home dashboard: hovering the loans originated chart"><source src="assets/platform-home-cover.mp4" type="video/mp4"></video></div>
+
+      <section class="cm-block">
+        <h3 class="cm-label">Context &amp; Problem</h3>
+        <p>FICO is best known for creating the credit scoring system, but many people don’t realize it also offers the <strong>FICO Platform</strong>.</p>
+        <p>This software automates data-driven decisions that work behind the scenes, such as fraud detection, credit approval, risk assessment, and customer decisions. It’s built for businesses that need to make high-volume decisions quickly and consistently.</p>
+      </section>
+
+      <section class="cm-question">
+        <p class="cm-q">How can we create an experience that fits the unique needs of various users?</p>
+        <p class="cm-a">The FICO Platform serves a wide range of people, from <strong>technical specialists</strong> like Data Scientists and Business Analysts to <strong>operational users</strong> like Admins and Business Owners. Because each role has different goals and tasks, <strong>the platform delivers role-based views that surface each user’s most critical work first.</strong></p>
+      </section>
+
+
+      <a class="cm-cta" href="platform/details/index.html" data-details-frame="platform/details/index.html?embed=1">Enter password to see full details</a>
+    </div>
+  </dialog>
+
+  <!-- ============ BTC (DATA MODELS) PREVIEW MODAL ============ -->
+  <dialog class="case-modal" id="btcModal" data-project="btc" aria-labelledby="btcModalTitle">
+    <div class="case-modal-panel">
+      <header class="cm-head">
+        <h2 class="cm-title" id="btcModalTitle"><strong>FICO</strong> <span>• Data Models • 2025</span></h2>
+        <button class="cm-close" type="button" data-close aria-label="Close preview"><img src="assets/platform-modal/close.svg" alt="" /></button>
+      </header>
+
+      <dl class="cm-meta">
+        <div><dt>Timeline</dt><dd>2025</dd></div>
+        <div><dt>Role</dt><dd>Lead Product Designer</dd></div>
+        <div class="cm-team"><dt>Team</dt><dd><ul><li>Product Managers</li><li>VP of Architecture</li><li>Engineering</li></ul><ul><li>Architect</li><li>Sales</li><li>UX Research</li></ul></dd></div>
+      </dl>
+
+      <div class="cm-hero cm-hero-pink"><video autoplay loop muted playsinline poster="assets/btc-table-home-light-poster.jpg" aria-label="Business Terms Capability: a term set open in the table view"><source src="assets/btc-table-home-light.mp4" type="video/mp4"></video></div>
+
+      <section class="cm-block">
+        <h3 class="cm-label">Context &amp; Problem</h3>
+        <p>The <strong>FICO Platform</strong> is a software that automates data-driven decisions that work behind the scenes, such as fraud detection, credit approval, risk assessment, and customer decisions. It’s built for businesses that need to make high-volume decisions quickly and consistently.</p>
+        <p>The FICO Platform contains many kinds of models, and one of them is the <strong>Business Terms Capability (aka data models)</strong>. A data model defines how information is structured and how its pieces relate.</p>
+      </section>
+
+      <section class="cm-question">
+        <p class="cm-q">How can we help teams agree on what their data means, so every product builds on the same understanding?</p>
+        <p class="cm-a">When each team defines data its own way, products start to conflict. Teams spend time untangling mismatches, asking for help, or rebuilding work that already exists. <strong>Without a shared data model, the result is slower delivery and more costly mistakes.</strong></p>
+      </section>
+
+      <a class="cm-cta" href="btc2/details/index.html" data-details-frame="btc2/details/index.html?embed=1">Enter password to see full details</a>
+    </div>
+  </dialog>
 
 </body>
 </html>

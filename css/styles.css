@@ -494,3 +494,181 @@ a { color: inherit; text-decoration: none; }
 /* "Lead Product Designer" stays legible on the dark background: slightly heavier stroke */
 :root[data-theme="dark"] .brand-role,
 :root[data-theme="dark"] .hero .role { font-weight: 200; color: #a0a6b2; }
+
+
+/* ───────── Case study preview modal (homepage) ───────── */
+:root {
+  --modal-bg: #ffffff;
+  --modal-ink: #1c1b1f;
+  --modal-label: #9a9aa5;
+  --modal-strip: #f5f6fe;
+  --modal-media: linear-gradient(180deg, #e0eeff, #e5e6ff);
+  --modal-cta-bg: #f7f8ff;
+  --modal-cta-ink: #505fff;
+  --modal-media-pink: linear-gradient(135deg, #f8a8e0 0%, #9fe6fb 45%, #d9a8f8 70%, #ffc9a3 100%);
+}
+:root[data-theme="dark"] {
+  --modal-bg: #141a26;
+  --modal-ink: #f3f4f6;
+  --modal-label: #8b91a3;
+  --modal-strip: #1b2233;
+  --modal-media: linear-gradient(180deg, #1d2840, #231f45);
+  --modal-cta-bg: #1a1f38;
+  --modal-cta-ink: #a9b1ff;
+  --modal-media-pink: linear-gradient(135deg, #5a2e55 0%, #1d4c5a 45%, #402a5c 70%, #5c3a2c 100%);
+}
+:root[data-theme="dark"] .cm-close img { filter: invert(1); }
+
+html:has(dialog.case-modal[open]) { overflow: hidden; scroll-snap-type: none; }
+
+.case-modal {
+  --pad: clamp(20px, 4.4vw, 80px);   /* panel padding (80px in design) */
+  --pad-y: 4rem;  /* panel padding, top/bottom */
+  --pad-x: 6rem;  /* panel padding, left/right (the strip bleeds out by this much) */
+  --meta-inset: clamp(12px, 2.78vw, 40px); /* shared left inset: title + Timeline row */
+  --indent: clamp(0px, 12%, 160px); /* text indent inside the panel: 160px of the 1332px content in the design = 12% */
+  /*width: min(1492px, calc(100% - 2 * clamp(12px, 2.6vw, 40px)));*/
+  width: min(1492px, calc(100% - 2 * clamp(12px, 4.6vw, 120px)));
+  max-width: none;
+  height: 95dvh;
+  max-height: none;
+  margin: auto;
+  padding: 0;
+  border: 0;
+  border-radius: clamp(24px, 3.2vw, 48px);
+  background: var(--modal-bg);
+  color: var(--modal-ink);
+  font-family: var(--font-display);
+  overflow: hidden;
+}
+.case-modal::backdrop { background: rgba(0, 0, 0, .35); }
+.case-modal[open] { animation: cm-in .28s ease both; }
+.case-modal[open]::backdrop { animation: cm-fade .28s ease both; }
+@keyframes cm-in { from { opacity: 0; transform: translateY(16px) scale(.985); } }
+@keyframes cm-fade { from { opacity: 0; } }
+
+.case-modal-panel {
+  height: 100%;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: var(--pad-y) var(--pad-x);
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.cm-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.cm-title { margin: 0; font-family: "SF Pro Display", "SF Pro Text", "SF Pro", -apple-system, BlinkMacSystemFont, system-ui, "Helvetica Neue", Arial, sans-serif; font-size: clamp(18px, 2.15vw, 32px); line-height: 1.2; font-weight: 590; }
+.cm-title strong { font-family: "SF Pro Display Semibold", "SF Pro Display", -apple-system, BlinkMacSystemFont, system-ui, sans-serif; font-weight: 400; } /* weight is baked into the font file; 400 stops faux-bold */
+.cm-title span { font-weight: 300; }
+.cm-close {
+  flex: none; width: clamp(36px, 3.2vw, 48px); height: clamp(36px, 3.2vw, 48px);
+  padding: 0; border: 0; border-radius: 50%; background: none; cursor: pointer;
+  transition: background .2s ease;
+}
+.cm-close img { display: block; width: 100%; height: 100%; }
+.cm-close:hover { background: rgba(127, 127, 127, .16); }
+.cm-close:focus-visible, .cm-cta:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.cm-meta {
+  margin: 0;
+  display: grid; grid-template-columns: 1fr 1fr 480px; gap: 48px;
+  font-family: var(--font-ui); font-size: 14px; line-height: 1.48;
+}
+.cm-meta dt { margin-bottom: 12px; font-weight: 300; line-height: 1.08; letter-spacing: -.012em; text-transform: uppercase; color: var(--modal-label); }
+.cm-meta dd { margin: 0; }
+.cm-team dd { display: flex; gap: 16px; }
+.cm-team ul { flex: 1; margin: 0; padding: 0; list-style: none; }
+
+.cm-hero {
+  aspect-ratio: 1332 / 737; border-radius: clamp(14px, 1.6vw, 24px);
+  background: var(--modal-media); display: grid; place-items: center; overflow: hidden;
+}
+.cm-hero-pink { background: var(--modal-media-pink); }
+.cm-hero video {
+  width: 60%; height: auto; border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, .15);
+}
+
+.cm-block, .cm-question { padding-inline: var(--indent); }
+.cm-block { display: grid; gap: 24px; }
+.cm-block p, .cm-a { margin: 0; font-size: 16px; line-height: 1.48; }
+.cm-block p + p { margin-top: -8px; }
+.cm-block strong, .cm-a strong { font-weight: 700; }
+.cm-label { margin: 0; font-family: var(--font-ui); font-size: 14px; font-weight: 300; line-height: 1.08; letter-spacing: -.012em; text-transform: uppercase; color: var(--modal-label); }
+.cm-question { display: flex; gap: 120px; align-items: flex-start; }
+.cm-q { flex: 1; margin: 0; font-family: "Source Serif 4", "Source Serif Pro", Georgia, serif; font-size: clamp(24px, 2.15vw, 32px); line-height: 1.18; letter-spacing: -.02em; }
+.cm-a { flex: 0 0 min(515px, 42%); }
+
+.cm-cta {
+  display: block; padding: 24px var(--indent); border: 1px dashed var(--modal-cta-ink); border-radius: 8px;
+  background: var(--modal-cta-bg); color: var(--modal-cta-ink); text-align: center; text-decoration: none;
+  font-size: clamp(17px, 1.6vw, 24px); letter-spacing: -.02em; transition: background .2s ease;
+}
+.cm-cta:hover { background: color-mix(in srgb, var(--modal-cta-ink) 12%, var(--modal-cta-bg)); }
+
+@media (max-width: 900px) {
+  .case-modal { --pad-x: 2.5rem; --pad-y: 2.5rem; }
+  .cm-meta { grid-template-columns: 1fr 1fr; gap: 24px 32px; }
+  .cm-team { grid-column: 1 / -1; }
+  .cm-block, .cm-question { padding-inline: 0; }
+  .cm-question { flex-direction: column; gap: 20px; }
+  .cm-a { flex: none; }
+  .cm-hero video { width: 76%; }
+}
+@media (max-width: 640px) {
+  .case-modal { width: calc(100% - 16px); --pad-x: 1.25rem; --pad-y: 1.5rem; }
+  .cm-title span { display: block; }
+  .cm-meta { grid-template-columns: 1fr; }
+  .cm-hero { aspect-ratio: 4 / 3; }
+  .cm-hero video { width: 88%; }
+  .cm-cta { padding-inline: 16px; }
+}
+@media (prefers-reduced-motion: reduce) { .case-modal[open], .case-modal[open]::backdrop { animation: none; } }
+.case-modal-panel > * { flex-shrink: 0; }
+.case-modal, .case-modal-panel { outline: none; }
+
+/* Gated full-details content (own encrypted page) shown in place of the password bar */
+/* when the page is scrolled into view, stop below the pinned title bar (its top padding + close button + bottom padding) with a little room, so the top of the strip isn't hidden */
+.cm-frame { scroll-margin-top: calc(var(--pad-y) + clamp(36px, 3.2vw, 48px) + 16px + 24px); display: block; width: calc(100% + 2 * var(--pad-x)); margin-inline: calc(-1 * var(--pad-x)); height: 420px; border: 0; background: transparent; }
+
+/* ───── Expand to full screen ("Enter password…" pressed) ───── */
+.case-modal {
+  transition: width .55s cubic-bezier(.2, .8, .2, 1), height .55s cubic-bezier(.2, .8, .2, 1), border-radius .55s cubic-bezier(.2, .8, .2, 1);
+}
+.case-modal.is-full {
+  width: 100vw; height: 100vh; height: 100dvh;
+  border-radius: 0;
+  /* on very wide screens the content stays a 1332px column; the screenshot strip still bleeds edge to edge */
+  --pad-x: max(6rem, calc((100vw - 1332px) / 2));
+}
+@media (max-width: 900px) { .case-modal.is-full { --pad-x: 2.5rem; } }
+@media (max-width: 640px) { .case-modal.is-full { --pad-x: 1.25rem; } }
+/* title + close stay pinned while the full details scroll underneath */
+.case-modal.is-full .cm-head {
+  position: sticky; top: calc(-1 * var(--pad-y)); z-index: 3;
+  margin: calc(-1 * var(--pad-y)) calc(-1 * var(--pad-x)) 0;
+  padding: 3rem var(--pad-x) 16px;
+  background: var(--modal-bg);
+}
+
+/* once the unlocked details are scrolled, the pinned title and the X shrink together (rem-based, scale with the screen) */
+.case-modal.is-full .cm-title { transition: font-size .2s ease; }
+.case-modal.is-full .cm-close { transition: background .2s ease, width .2s ease, height .2s ease; }
+.case-modal.is-full.is-compact .cm-title { font-size: clamp(1rem, 0.6rem + 0.7vw, 1.25rem); }
+.case-modal.is-full.is-compact .cm-close { width: clamp(1.75rem, 1.2rem + 0.9vw, 2rem); height: clamp(1.75rem, 1.2rem + 0.9vw, 2rem); }
+
+/* ───── Larger view of a screenshot (sits above the full-screen modal) ───── */
+.lightbox {
+  width: 100vw; height: 100vh; height: 100dvh; max-width: none; max-height: none;
+  margin: 0; padding: 0; border: 0; background: transparent; overflow: hidden;
+}
+.lightbox[open] { display: grid; place-items: center; animation: cm-fade .25s ease both; }
+.lightbox::backdrop { background: rgba(8, 10, 16, .82); }
+.lb-panel {
+  display: flex; cursor: zoom-out; padding: clamp(8px, 1.2vw, 14px);
+  background: var(--modal-bg); border-radius: 16px; max-width: 96vw; max-height: 94dvh;
+  animation: cm-in .28s ease both;
+}
+.lb-img { display: block; width: auto; height: auto; max-width: calc(96vw - 2 * clamp(8px, 1.2vw, 14px)); max-height: calc(94dvh - 2 * clamp(8px, 1.2vw, 14px)); }
+@media (prefers-reduced-motion: reduce) { .lightbox[open], .lb-panel { animation: none; } }
