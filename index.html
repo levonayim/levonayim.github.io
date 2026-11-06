@@ -86,7 +86,7 @@
       </article>
 
       <article class="project">
-        <a class="media-link" href="kashoofiles/index.html" aria-label="View Case Study: Kashoo 2.0">
+        <a class="media-link" href="kashoofiles/index.html" data-modal="kashooModal" aria-haspopup="dialog" aria-label="View Case Study: Kashoo 2.0">
           <div class="project-media grad-c">
             <p class="project-label"><strong>Kashoo</strong> | <span>Cloud Accounting | 2021</span></p>
             <img src="assets/kashoo_home.gif" alt="Glimpse of Kashoo 2.0 UI" />
@@ -170,6 +170,25 @@
       </section>
 
       <a class="cm-cta" href="btc2/details/index.html" data-details-frame="btc2/details/index.html?embed=1">Enter password to see full details</a>
+    </div>
+  </dialog>
+
+  <!-- ============ KASHOO PREVIEW MODAL (no password: opens straight into the full case study) ============ -->
+  <dialog class="case-modal" id="kashooModal" data-project="kashoo" aria-labelledby="kashooModalTitle">
+    <div class="case-modal-panel">
+      <header class="cm-head">
+        <h2 class="cm-title" id="kashooModalTitle"><strong>Kashoo</strong> <span>• Cloud Accounting • 2021</span></h2>
+        <button class="cm-close" type="button" data-close aria-label="Close case study"><img src="assets/platform-modal/close.svg" alt="" /></button>
+      </header>
+
+      <dl class="cm-meta">
+        <div><dt>Timeline</dt><dd>2019–2021</dd></div>
+        <div><dt>Role</dt><dd>Lead UX Designer</dd></div>
+        <div class="cm-team"><dt>Team</dt><dd><ul><li>Product Manager</li><li>3 full-stack engineers</li></ul><ul><li>CEO</li></ul></dd></div>
+      </dl>
+
+      <!-- the full case study is loaded here as soon as the modal opens (kashoofiles/details/index.html); this link is the no-JS fallback -->
+      <a class="cm-cta cm-cta-auto" href="kashoofiles/details/index.html" data-details-frame="kashoofiles/details/index.html?embed=1" data-details-auto>View the full case study</a>
     </div>
   </dialog>
 

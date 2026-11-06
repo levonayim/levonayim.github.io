@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kashoo 2.0 Web — Case study</title>
+  <meta name="description" content="Lead UX case study: redesigning Kashoo's bookkeeping platform for freelancers and sole proprietors, driving 22.8% subscriber growth." />
+  <link rel="icon" type="image/png" href="../../assets/favicon-sept2026.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Source+Serif+4:wght@400;600&display=swap" rel="stylesheet" />
+  <link href="https://db.onlinewebfonts.com/c/179429c3795fb9aed42c526bd1133cc0?family=SF+Pro+Display+Semibold" rel="stylesheet" />
+  <script>
+    // Same theme the homepage uses (saved choice, else system).
+    try {
+      var t = localStorage.getItem('theme');
+      var dark = t ? t === 'dark' : !!(window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches);
+      if (dark) document.documentElement.setAttribute('data-theme', 'dark');
+    } catch (e) {}
+    // R = where the page's elements live (the document here; a shadow root when the homepage shows this inside its modal).
+    // HOST = what the homepage provides (analytics, larger view, navigation). On its own the page uses harmless stand-ins.
+    var R = document, HOST = { embedded: false, track: function () {}, lightbox: null, navigate: null };
+  </script>
+  <link rel="stylesheet" href="details.css" />
+</head>
+<body>
+
+  <a class="back" href="../../index.html#work">&larr; Back to work</a>
+
+  <main class="details">
+
+    <!-- HERO: the edit-invoice recording on the Kashoo gradient -->
+    <div class="d-hero">
+      <div class="d-hero-frame">
+        <video class="d-vid" muted loop playsinline preload="metadata" poster="../assets/kashoo-inner-hero-poster.jpg" width="1800" height="974" aria-label="Kashoo 2.0 edit-invoice screen showing line items, tax and a running total">
+          <source src="../assets/kashoo-inner-hero.mp4" type="video/mp4" />
+        </video>
+      </div>
+    </div>
+
+    <!-- CONTEXT & PROBLEM -->
+    <section class="d-sec">
+      <h3 class="d-label">Context &amp; Problem</h3>
+      <div class="d-question">
+        <h2 class="d-h">How can we make bookkeeping feel manageable for small business owners who aren’t accountants?</h2>
+        <div class="d-answer">
+          <p>Freelancers, contractors, and sole proprietors need to keep their books, but most bookkeeping software is built for accountants. Kashoo Classic had the core features, but its interface had stopped keeping up with the people it was built for.</p>
+          <p>The average small business owner spends an estimated <strong>6.8 hours a week</strong> on finances. Many of them use tools that were built for larger businesses, which leaves them with features they don’t need and workflows that slow them down.</p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="d-rule" />
+
+    <!-- RESEARCH -->
+    <section class="d-sec">
+      <h3 class="d-label">Research</h3>
+      <p>Before I joined, the team was already collecting feedback from existing users through Intercom conversations, surveys, and cancellation forms. I used that feedback to understand where Kashoo Classic was failing.</p>
+
+      <figure class="d-fig is-flat">
+        <img src="../assets/kashoo-classic-main.png" width="1278" height="1062" alt="Kashoo Classic’s main dashboard" loading="lazy" />
+        <figcaption>Kashoo Classic</figcaption>
+      </figure>
+
+      <p class="d-sub">Four themes came out of it:</p>
+      <ol class="insights">
+        <li><h4>Reports and data access</h4><p>Users said the reports were limited and that they couldn’t drill into specific charges.</p></li>
+        <li><h4>Real-time visibility</h4><p>Users wanted to see their numbers as they changed, not after the fact.</p></li>
+        <li><h4>Visual clutter</h4><p>The interface didn’t distinguish income from expenses, and it was hard to find key actions.</p></li>
+        <li><h4>Slow everyday tasks</h4><p>Routine actions like a quick payment took too many clicks.</p></li>
+      </ol>
+
+      <div class="d-quotes" aria-label="Feedback from Kashoo Classic users">
+        <div style="display:grid;gap:24px">
+          <blockquote class="d-quote" style="--tone:#be185d">
+            <p>“We switched to quickbooks. We needed much more in the way of reports and accessing information, this note applies to both of our accounts. The inability to see specific charges by account within a project when clicking on that charge was very frustrating.</p>
+            <p>The report options were silly, and lacked some basic reports needed for business. Quickbooks offers so much more. Sorry.”</p>
+          </blockquote>
+          <blockquote class="d-quote" style="--tone:#b45309">
+            <p>“I wanted something that was easy to just track the transactions, categorize them, as well as potentially create Pro Forma statements for me based off my data. The main reason why I didn't like Kashoo was because data was not disclosed in REAL-TIME!!!”</p>
+          </blockquote>
+        </div>
+        <div style="display:grid;gap:24px">
+          <blockquote class="d-quote" style="--tone:#0f766e">
+            <p>“I recommend Kashoo to people all the time.... The only hesitation I sense from people I mention it to ask me why they should choose it over Quickbooks Online which is priced similarly and has the same or more features.”</p>
+          </blockquote>
+          <blockquote class="d-quote" style="--tone:#15803d">
+            <p>“The site needs more color... expenses needs to be different from income. Some short cuts up top in the blue area, perhaps where you can choose your own short cuts for sections that you always go to. A quick pay button, where you can choose your favorite account.... Right now it takes 5 clicks to do so, if you want to quick pay a few things without going to the check printing section, you are stuck clicking away.”</p>
+          </blockquote>
+        </div>
+      </div>
+
+      <div class="d-callout">
+        <b>4×</b>
+        <span><strong>One analytics finding shaped the whole project:</strong> users who connected their bank were 4× more likely to subscribe. That made bank connection a priority, and it also made the first-time experience critical.</span>
+      </div>
+    </section>
+
+    <!-- BRAND BANNER -->
+    <div class="d-banner" aria-hidden="true"><p>Kashoo 2.0</p></div>
+
+    <!-- KEY DESIGN DECISIONS -->
+    <section class="d-sec">
+      <h3 class="d-label">Key Design Decisions</h3>
+      <p>I was brought on to refresh the visual design. After analyzing the feedback, I realized that aesthetics alone wouldn’t fix the core usability problems, so <strong>I remapped the user journey from an experienced user’s perspective</strong> instead.</p>
+    </section>
+
+    <section class="d-sec">
+      <article class="decision">
+        <div class="decision-head"><span class="num">1.</span><h4>Designing for users who haven’t connected a bank yet</h4></div>
+        <div class="decision-body">
+          <div class="decision-copy"><dl>
+            <div><dt>What we heard</dt><dd>Many users won’t connect their bank until they trust the product.</dd></div>
+            <div><dt>What we changed</dt><dd>Kashoo works without a bank connection, and the Inbox guides users through both paths. Connecting a bank is recommended but never required.</dd></div>
+            <div><dt>Why</dt><dd>The Inbox is the first thing new users see, so it had to make sense whether or not they had connected anything.</dd></div>
+          </dl></div>
+          <figure class="d-fig is-ph"><img src="../assets/kashoo-first-time.png" width="3584" height="2012" alt="The Kashoo 2.0 Inbox as a first-time user sees it" loading="lazy" /></figure>
+        </div>
+      </article>
+    </section>
+
+    <section class="d-sec">
+      <article class="decision is-wide">
+        <div class="decision-head"><span class="num">2.</span><h4>Making editable and locked data obvious</h4></div>
+        <div class="decision-body">
+          <div class="decision-copy"><dl>
+            <div><dt>What we heard</dt><dd>Users expected inline editing but couldn’t tell which fields they could change.</dd></div>
+            <div><dt>What we changed</dt><dd>Manual inputs are blue and editable. Fields pulled from a connected bank are gray and locked.</dd></div>
+            <div><dt>Why</dt><dd>The color difference tells users what they control without needing a label.</dd></div>
+          </dl></div>
+          <figure class="d-fig"><video class="d-vid" muted loop playsinline preload="metadata" width="2408" height="534" aria-label="Inline editing: blue fields can be edited, gray fields from the bank are locked"><source src="../assets/InlineEditing.mp4" type="video/mp4" /></video></figure>
+        </div>
+      </article>
+    </section>
+
+    <section class="d-sec">
+      <article class="decision is-wide">
+        <div class="decision-head"><span class="num">3.</span><h4>Redesigning the editor as a split view</h4></div>
+        <div class="decision-body">
+          <div class="decision-copy"><dl>
+            <div><dt>What we heard</dt><dd>Editing a transaction and understanding its totals were happening in the same cramped space.</dd></div>
+            <div><dt>What we changed</dt><dd>The editor uses a split layout. Details are on the left and totals are on the right, inspired by ecommerce checkout.</dd></div>
+            <div><dt>Why</dt><dd>Users were already familiar with this pattern from shopping online, so the totals sat where they expected them.</dd></div>
+          </dl></div>
+          <figure class="d-fig"><video class="d-vid" muted loop playsinline preload="metadata" width="3584" height="1940" aria-label="The split-view editor: details on the left, totals on the right"><source src="../assets/Modals-shortened.mp4" type="video/mp4" /></video></figure>
+        </div>
+      </article>
+    </section>
+
+    <section class="d-sec">
+      <article class="decision is-wide">
+        <div class="decision-head"><span class="num">4.</span><h4>Differentiating invoices from transactions</h4></div>
+        <div class="decision-body">
+          <div class="decision-copy"><dl>
+            <div><dt>What we heard</dt><dd>Users confused invoices with the Inbox editor when the two shared a layout.</dd></div>
+            <div><dt>What we changed</dt><dd>I first planned to reuse the Inbox modal for Invoices and Bills to Pay. After discussing it with the team and the PM, we gave those pages their own layout built around a table.</dd></div>
+            <div><dt>Why</dt><dd>Sharing a layout had caused confusion in Kashoo Classic, and a table fits the work of reviewing many invoices at once.</dd></div>
+          </dl></div>
+          <figure class="d-fig"><video class="d-vid" muted loop playsinline preload="metadata" width="3584" height="1940" aria-label="The Invoices page with its own table layout"><source src="../assets/Invoices.mp4" type="video/mp4" /></video></figure>
+        </div>
+      </article>
+    </section>
+
+    <section class="d-sec">
+      <p class="d-sub">Smaller decisions</p>
+      <div class="gallery">
+        <figure class="d-fig">
+          <video class="d-vid" muted loop playsinline preload="metadata" width="3040" height="1926" aria-label="The Kashoo 2.0 dashboard in its soft blue and purple palette"><source src="../assets/Dashboard.mp4" type="video/mp4" /></video>
+          <figcaption><b>Accessible palette</b><p>A soft blue and purple palette, chosen for contrast so elements stay distinguishable without feeling jarring.</p></figcaption>
+        </figure>
+        <figure class="d-fig">
+          <video class="d-vid" muted loop playsinline preload="metadata" width="2604" height="1434" aria-label="Selecting several similar items and editing them together"><source src="../assets/BulkEditing.mp4" type="video/mp4" /></video>
+          <figcaption><b>Bulk editing</b><p>Select multiple like items and edit them as a group instead of one at a time.</p></figcaption>
+        </figure>
+        <figure class="d-fig">
+          <video class="d-vid" muted loop playsinline preload="metadata" width="3584" height="1940" aria-label="Reports with dynamic date ranges such as Current Fiscal Year"><source src="../assets/Reports.mp4" type="video/mp4" /></video>
+          <figcaption><b>Dynamic date ranges</b><p>Ranges like “Current Fiscal Year” and “Last Fiscal Quarter”, since fiscal dates vary from business to business.</p></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <hr class="d-rule" />
+
+    <!-- IMPACT -->
+    <section class="d-sec">
+      <h3 class="d-label">Impact</h3>
+      <dl class="stats">
+        <div><dt><span class="count" data-to="4" data-suffix="×">4×</span></dt><dd>more likely to subscribe after connecting a bank</dd></div>
+        <div><dt><span class="count" data-to="22.8" data-dec="1" data-suffix="%">22.8%</span></dt><dd>subscriber growth after launch</dd></div>
+        <div><dt><span class="count" data-to="1000" data-suffix="+">1,000+</span></dt><dd>new users on the platform</dd></div>
+      </dl>
+    </section>
+
+    <hr class="d-rule" />
+
+    <!-- USER FEEDBACK ON 2.0 -->
+    <section class="d-sec">
+      <h3 class="d-label">User feedback on Kashoo 2.0</h3>
+      <figure class="d-fig is-flat d-people"><img src="../assets/kashoo-ppl.png" width="1075" height="115" alt="" loading="lazy" /></figure>
+      <div class="d-quotes" aria-label="Feedback from Kashoo 2.0 users">
+        <div style="display:grid;gap:24px">
+          <blockquote class="d-quote" style="--tone:#be185d"><p>“As mentioned, I do like the overall features and interface a lot, the program uses restrictions that effectively guide clients towards doing more accurate book keeping and keeps them on the right track away from making mistakes.”</p></blockquote>
+          <blockquote class="d-quote" style="--tone:#b45309"><p>“As far as I can tell on Kashoo2.0 there is no feature to import a chart of accounts, which is unfortunately a big issue in setting it up agriculture clients as the only option is to manually set up each individual account, and may even end up being a deal breaker for most of these types of clients.”</p></blockquote>
+          <blockquote class="d-quote" style="--tone:#15803d"><p>“I loved the Kashoo interface! Way better than Quickbooks. Customer service through CHAT is AWESOME!”</p></blockquote>
+        </div>
+        <div style="display:grid;gap:24px">
+          <blockquote class="d-quote" style="--tone:#6d28d9"><p>“This is really easy to use! I tried FreshBooks and it was less easy to use. Specifically, in Kashoo your application lets me quickly add/subtract accounts to match my schedule C categories. This is great app for the Schedule C.”</p></blockquote>
+          <blockquote class="d-quote" style="--tone:#b45309"><p>“We are a small Community Interest Company run totally by volunteers and for us most of the functionality that we need is there. The interface is friendly and fairly easy for someone with dyslexia to use.”</p></blockquote>
+          <blockquote class="d-quote" style="--tone:#1d4ed8"><p>“I appreciate the effort to make a layer that is simple and accessible, but I was surprised that there was not more access to the underlying structure.</p><p>Useful for those who don't care about accounting. Impossible for those who do...”</p></blockquote>
+        </div>
+      </div>
+    </section>
+
+    <hr class="d-rule" />
+
+    <!-- REFLECTION -->
+    <section class="d-sec">
+      <h3 class="d-label">Reflection</h3>
+      <p>Looking back, I’d make four changes. I’d let users <strong>import past expenses</strong>, so they have a way in without connecting a bank or entering everything by hand. I’d add <strong>duplicate detection and automation rules</strong>: the system could flag duplicates, let users set rules for repetitive tasks, and suggest rules based on patterns it sees. I’d make <strong>AI that doesn’t get in the way</strong>, with smarter automation that works quietly instead of feeling intrusive. And I’d add an <strong>accountant handoff</strong>, a checklist or full document export that makes tax prep easier and removes a major friction point.</p>
+    </section>
+
+    <hr class="d-rule" />
+
+  </main>
+
+  <!-- ============ CLOSING CTA ============ -->
+  <section class="d-cta">
+    <h2>I’m open to new opportunities &amp; collaboration :)</h2>
+    <p class="lead"><a href="https://www.linkedin.com/in/levona-yim/" target="_blank" rel="noopener">LinkedIn</a></p>
+    <p class="lead"><a href="mailto:levona.yim@gmail.com">levona.yim@gmail.com</a></p>
+  </section>
+
+  <dialog class="lb" id="lb" aria-label="Larger view"><img alt="" hidden /><video controls loop playsinline hidden></video></dialog>
+
+  <script>
+    // Analytics: this page has no Tag Manager of its own inside the modal, so events go to the homepage, which sends them.
+    window.__track = function (event, params) { try { HOST.track(event, params || {}); } catch (e) {} };
+  </script>
+  <script>
+    // Click any screenshot or recording to see it larger (the homepage shows it above the full-screen modal; click outside to close).
+    (function () {
+      var lb = R.getElementById('lb');
+      if (lb) lb.addEventListener('click', function (e) { if (e.target.tagName !== 'VIDEO') { lb.close(); } });
+      if (lb) lb.addEventListener('close', function () { var v = lb.querySelector('video'); if (v) { v.pause(); v.removeAttribute('src'); v.load(); } });
+      R.querySelectorAll('.d-fig img, .d-fig video, .d-hero video').forEach(function (el) {
+        var isVid = el.tagName === 'VIDEO', label = el.alt || el.getAttribute('aria-label') || (isVid ? 'recording' : 'screenshot');
+        el.setAttribute('role', 'button'); el.setAttribute('tabindex', '0'); el.setAttribute('aria-label', 'View larger: ' + label);
+        el.classList.add('is-zoomable');
+        function open() {
+          var src = el.currentSrc || el.src;
+          window.__track('image_enlarged', { persona: '', view: label.slice(0, 80), type: isVid ? 'video' : 'image' });
+          if (HOST.embedded && HOST.lightbox) { try { HOST.lightbox(src, label, isVid ? 'video' : 'image'); } catch (e) {} return; }
+          if (!lb) return;
+          lb.querySelector('img').hidden = isVid; lb.querySelector('video').hidden = !isVid;
+          if (isVid) { var v = lb.querySelector('video'); v.src = src; v.play().catch(function () {}); } else { lb.querySelector('img').src = src; lb.querySelector('img').alt = label; }
+          lb.showModal();
+        }
+        el.addEventListener('click', open);
+        el.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } });
+      });
+    })();
+  </script>
+  <script>
+    // Recordings: play while on screen, pause when not (poster/first frame with reduced motion).
+    (function () {
+      var vids = Array.prototype.slice.call(R.querySelectorAll('video.d-vid')); if (!vids.length) return;
+      var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduce) { vids.forEach(function (v) { v.controls = true; }); return; }
+      function setPlaying(v, on) { if (on) { var p = v.play(); if (p && p.catch) p.catch(function () {}); } else v.pause(); }
+      if ('IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function (en) { en.forEach(function (e) { setPlaying(e.target, e.isIntersecting); }); }, { threshold: 0.25 });
+        vids.forEach(function (v) { io.observe(v); });
+      } else vids.forEach(function (v) { v.autoplay = true; });
+    })();
+  </script>
+  <script>
+    // Impact numbers count up the first time they scroll into view.
+    (function () {
+      var stats = R.querySelector('.stats'); if (!stats) return;
+      var nums = Array.prototype.slice.call(stats.querySelectorAll('.count'));
+      var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduce || !('IntersectionObserver' in window)) return;   // they already show their final values
+      function fmt(el, v) { var d = +(el.getAttribute('data-dec') || 0); return v.toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d }) + (el.getAttribute('data-suffix') || ''); }
+      nums.forEach(function (el) { el.textContent = fmt(el, 0); });
+      stats.classList.add('is-armed');
+      var io = new IntersectionObserver(function (en) {
+        if (!en.some(function (e) { return e.isIntersecting; })) return;
+        io.disconnect(); stats.classList.add('is-in');
+        nums.forEach(function (el, i) {
+          var to = +el.getAttribute('data-to'), start = null, delay = i * 90, dur = 1300;
+          function step(t) {
+            if (start === null) start = t + delay;
+            var p = Math.min(Math.max((t - start) / dur, 0), 1), e = 1 - Math.pow(1 - p, 3);
+            el.textContent = fmt(el, to * e);
+            if (p < 1) requestAnimationFrame(step);
+          }
+          requestAnimationFrame(step);
+        });
+      }, { threshold: 0.35 });
+      io.observe(stats);
+    })();
+  </script>
+  <script>
+    // Closing links: report the click to the homepage.
+    (function () {
+      R.querySelectorAll('.d-cta a').forEach(function (a) {
+        a.addEventListener('click', function () {
+          var href = a.getAttribute('href') || '';
+          window.__track('footer_link_click', { page: 'kashoo_details', link: /^mailto:/.test(href) ? 'email' : 'linkedin', url: href });
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

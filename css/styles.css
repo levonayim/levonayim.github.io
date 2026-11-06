@@ -630,6 +630,7 @@ html:has(dialog.case-modal[open]) { overflow: hidden; scroll-snap-type: none; }
 
 /* Password prompt: the dashed "Enter password…" bar opens into a field right in the modal (no separate page) */
 .cm-cta.is-busy { opacity: .7; pointer-events: none; }
+.cm-cta-auto { visibility: hidden; }   /* Kashoo: placeholder until its page arrives, then replaced by it */
 .cm-gate {
   display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 24px var(--indent);
   border: 1px dashed var(--modal-cta-ink); border-radius: 8px; background: var(--modal-cta-bg); color: var(--modal-cta-ink);
@@ -700,4 +701,5 @@ html:has(dialog.case-modal[open]) { overflow: hidden; scroll-snap-type: none; }
   animation: cm-in .28s ease both;
 }
 .lb-img { display: block; width: auto; height: auto; max-width: calc(96vw - 2 * clamp(8px, 1.2vw, 14px)); max-height: calc(94dvh - 2 * clamp(8px, 1.2vw, 14px)); }
+.lb-img[hidden] { display: none; }
 @media (prefers-reduced-motion: reduce) { .lightbox[open], .lb-panel { animation: none; } }

@@ -80,6 +80,7 @@ document.addEventListener('DOMContentLoaded', function () {
         track(currentProject + '_modal_open');
         dlg.showModal();
         dlg.querySelector('.case-modal-panel').scrollTop = 0;
+        dlg.dispatchEvent(new Event('cm:open'));   // lets an open-straight-in modal (no password) start loading its content
       });
     });
     document.querySelectorAll('dialog.case-modal').forEach(function (dlg) {
@@ -106,19 +107,22 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Larger view of a screen from the full details (shown here so it covers the whole window)
     var lightbox = null;
-    function openLightbox(src, alt) {
+    function openLightbox(src, alt, type) {
       var u; try { u = new URL(src, location.href); } catch (e) { return; }
       if (u.origin !== location.origin) return;
       if (!lightbox) {
         lightbox = document.createElement('dialog');
         lightbox.className = 'lightbox';
         lightbox.setAttribute('aria-label', 'Larger view');
-        lightbox.innerHTML = '<div class="lb-panel"><img class="lb-img" alt="" /></div>';
-        lightbox.addEventListener('click', function () { lightbox.close(); });   // click/tap anywhere (or Esc) closes
+        lightbox.innerHTML = '<div class="lb-panel"><img class="lb-img" alt="" /><video class="lb-img lb-video" controls loop playsinline hidden></video></div>';
+        lightbox.addEventListener('click', function (e) { if (e.target.tagName !== 'VIDEO') lightbox.close(); });   // click/tap anywhere outside a video's controls (or Esc) closes
+        lightbox.addEventListener('close', function () { var v = lightbox.querySelector('video'); v.pause(); v.removeAttribute('src'); v.load(); });
         document.body.appendChild(lightbox);
       }
-      var img = lightbox.querySelector('.lb-img');
-      img.src = u.href; img.alt = typeof alt === 'string' ? alt : '';
+      var img = lightbox.querySelector('img.lb-img'), vid = lightbox.querySelector('video');
+      img.hidden = type === 'video'; vid.hidden = type !== 'video';
+      if (type === 'video') { vid.src = u.href; var pp = vid.play(); if (pp && pp.catch) pp.catch(function () {}); }
+      else { img.src = u.href; img.alt = typeof alt === 'string' ? alt : ''; }
       lightbox.showModal();
     }
 
@@ -231,7 +235,7 @@ document.addEventListener('DOMContentLoaded', function () {
           panel.addEventListener('scroll', updateCompact, { passive: true });
           track(currentProject + '_details_unlocked');
           requestAnimationFrame(function () { requestAnimationFrame(function () { host.classList.add('is-in'); }); });
-          setTimeout(function () { if (host) host.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 350);
+          if (!cta.hasAttribute('data-details-auto')) setTimeout(function () { if (host) host.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 350);
         });
       }
 
@@ -282,6 +286,18 @@ document.addEventListener('DOMContentLoaded', function () {
         gate = null;
       }
       dlg.addEventListener('close', reset);
+
+      // No password (Kashoo): the modal opens straight into the full page, from the top. The page is plain HTML, fetched and shown the same way.
+      if (cta.hasAttribute('data-details-auto')) {
+        dlg.addEventListener('cm:open', function () {
+          track(currentProject + '_details_click');
+          fetch(pageUrl.href).then(function (r) { if (!r.ok) throw new Error('fetch'); return r.text(); }).then(function (html) {
+            if (!dlg.open || unlocked) return;   // closed again before it arrived
+            return show(html).then(function () { panel.scrollTop = 0; });
+          }).catch(function () { cta.textContent = 'Couldn’t load the case study. Open it as a page instead.'; cta.classList.remove('cm-cta-auto'); });
+        });
+        return;
+      }
 
       cta.addEventListener('click', function (e) {
         if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
