@@ -26,19 +26,84 @@
   <link rel="stylesheet" href="details.css" />
 </head>
 <body>
+<div id="share-top"></div>
+<template id="share-hero"><header class="site-header"><div class="site-header__inner wrap"><div class="brand" aria-label="Levona Yim, Lead Product Designer"><span class="brand-name">levona yim</span><span class="brand-sep" aria-hidden="true">|</span><span class="brand-role">Lead Product Designer</span></div></div></header><main><section class="intro wrap">
+      <h1 class="display" style="--i:0">Kashoo 2.0 Web</h1>
+
+      <div class="intro__grid">
+        <dl class="meta" style="--i:1">
+          <div>
+            <dt>Role</dt>
+            <dd>Lead UX Designer</dd>
+          </div>
+          <div>
+            <dt>Timeline</dt>
+            <dd>2019–2021</dd>
+          </div>
+          <div>
+            <dt>Team</dt>
+            <dd>
+              <span>Product Manager</span>
+              <span>3 full-stack engineers</span>
+              <span>CEO</span>
+            </dd>
+          </div>
+        </dl>
+
+        <div class="summary">
+          <p class="lead" style="--i:2">
+            Contractors, freelancers and digital professionals often struggle with overly complicated bookkeeping software.
+            Kashoo 2.0 <strong>simplifies financial management by automating tedious data entry and tracking.</strong>
+          </p>
+          <p class="lead" style="--i:3">
+            I <strong>designed and shipped the new end-to-end Kashoo 2.0 experience</strong> in November 2019 that
+            <strong>increased subscribers by 22.8%, and driving over 1,000+ new users to the platform.</strong>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ HERO IMAGE ============ -->
+    <section class="showcase" aria-label="Kashoo 2.0 invoice screen">
+      <div class="showcase__frame" style="--i:4">
+        <video
+          class="autoplay-video"
+          autoplay loop muted playsinline
+          poster="/kashoofiles/assets/kashoo-inner-hero-poster.jpg"
+          aria-label="Kashoo 2.0 edit-invoice screen showing line items, tax and a running total"
+          width="1800" height="974">
+          <source src="/kashoofiles/assets/kashoo-inner-hero.mp4" type="video/mp4">
+        </video>
+      </div>
+    </section></main></template>
+
+<script>
+(function () {
+  var host = document.getElementById('share-top'), tpl = document.getElementById('share-hero');
+  try {
+    var t = localStorage.getItem('theme');
+    var dark = t ? t === 'dark' : !!(window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches);
+    if (dark) host.setAttribute('data-theme', 'dark');
+  } catch (e) {}
+  var root = host.attachShadow({ mode: 'open' });
+  var extra = ':host{display:block;background:var(--bg);color:var(--ink);font-family:var(--font);line-height:1.5;-webkit-font-smoothing:antialiased}' +
+    '.site-header{position:static!important}.brand{display:inline-flex!important;pointer-events:none;cursor:default;text-decoration:none}' +
+    '.site-header__inner.wrap{justify-content:flex-start}@media(max-width:700px){.site-header__inner.wrap{justify-content:center}}';
+  root.appendChild(tpl.content.cloneNode(true));
+  fetch('/kashoofiles/styles.css').then(function (r) { return r.text(); }).then(function (css) {
+    css = css.replace(/:root\[data-theme="dark"\]/g, ':host([data-theme="dark"])').replace(/:root/g, ':host');
+    var s = document.createElement('style'); s.textContent = css + extra; root.appendChild(s);
+  });
+})();
+</script>
+
 
   
 
   <main class="details">
 
     <!-- HERO: the edit-invoice recording on the Kashoo gradient -->
-    <div class="d-hero">
-      <div class="d-hero-frame">
-        <video class="d-vid" muted loop playsinline preload="metadata" poster="../assets/kashoo-inner-hero-poster.jpg" width="1800" height="974" aria-label="Kashoo 2.0 edit-invoice screen showing line items, tax and a running total">
-          <source src="../assets/kashoo-inner-hero.mp4" type="video/mp4" />
-        </video>
-      </div>
-    </div>
+    
 
     <!-- CONTEXT & PROBLEM -->
     <section class="d-sec">

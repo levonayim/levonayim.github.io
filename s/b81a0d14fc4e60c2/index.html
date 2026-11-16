@@ -32,6 +32,72 @@
   <link rel="stylesheet" href="details.css" />
 </head>
 <body>
+<div id="share-top"></div>
+<template id="share-hero"><header class="site-header"><div class="site-header__inner wrap"><div class="brand" aria-label="Levona Yim, Lead Product Designer"><span class="brand-name">levona yim</span><span class="brand-sep" aria-hidden="true">|</span><span class="brand-role">Lead Product Designer</span></div></div></header><main><section class="intro wrap">
+      <span class="intro-eyebrow" style="--i:0">FICO</span>
+      <h1 class="display" style="--i:0">Onboarding <span style="white-space:nowrap">&amp; Dashboards</span></h1>
+
+      <div class="intro__grid">
+        <dl class="meta" style="--i:1">
+          <div>
+            <dt>Role</dt>
+            <dd>Lead Product Designer</dd>
+          </div>
+          <div>
+            <dt>Timeline</dt>
+            <dd>2023–2025</dd>
+          </div>
+          <div>
+            <dt>Team</dt>
+            <dd>
+              <span>Product Managers</span>
+              <span>VP of Architecture</span>
+              <span>Front-End Architect</span>
+              <span>Solution Architect</span>
+              <span>Product Designers</span>
+            </dd>
+          </div>
+        </dl>
+
+        <div class="summary">
+          <p class="lead" style="--i:2">
+            Every user of the FICO Platform landed on the same generic screen, whether they were an admin, an analyst or a solution builder. I led the design of two things that fix that: the admin flow that provisions users and roles, and the role-based homepages that make the platform show each person what matters to them.</p>
+          <p class="lead" style="--i:3">
+            I owned the design strategy end to end, from the admin provisioning flow to the persona landing pages. I worked with the Product Managers and architects to decide what shipped first and what we tested at FICO World. The first internal release focused on admin provisioning, since every other user depends on it.</p>
+        </div>
+      </div>
+    </section>
+
+     <!-- ============ HERO IMAGE ============ -->
+    <section class="showcase" aria-label="FICO Platform dashboard screen">
+      <div class="showcase__frame" style="--i:4">
+        <img
+          src="/platform/assets/eg-doubleimages.png"
+          alt="FICO Platform dashboard screen"
+          width="1208" height="757">
+      </div>
+    </section></main></template>
+
+<script>
+(function () {
+  var host = document.getElementById('share-top'), tpl = document.getElementById('share-hero');
+  try {
+    var t = localStorage.getItem('theme');
+    var dark = t ? t === 'dark' : !!(window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches);
+    if (dark) host.setAttribute('data-theme', 'dark');
+  } catch (e) {}
+  var root = host.attachShadow({ mode: 'open' });
+  var extra = ':host{display:block;background:var(--bg);color:var(--ink);font-family:var(--font);line-height:1.5;-webkit-font-smoothing:antialiased}' +
+    '.site-header{position:static!important}.brand{display:inline-flex!important;pointer-events:none;cursor:default;text-decoration:none}' +
+    '.site-header__inner.wrap{justify-content:flex-start}@media(max-width:700px){.site-header__inner.wrap{justify-content:center}}';
+  root.appendChild(tpl.content.cloneNode(true));
+  fetch('/platform/styles.css').then(function (r) { return r.text(); }).then(function (css) {
+    css = css.replace(/:root\[data-theme="dark"\]/g, ':host([data-theme="dark"])').replace(/:root/g, ':host');
+    var s = document.createElement('style'); s.textContent = css + extra; root.appendChild(s);
+  });
+})();
+</script>
+
 
   
 
