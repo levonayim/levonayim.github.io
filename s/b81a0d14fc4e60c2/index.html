@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <base href="/platform/details/" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex" />
+  <title>FICO Personalized Dashboards — Full details</title>
+  <link rel="icon" type="image/png" href="../../assets/favicon-sept2026.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&family=Source+Serif+4:wght@400;600&display=swap" rel="stylesheet" />
+  <link href="https://db.onlinewebfonts.com/c/179429c3795fb9aed42c526bd1133cc0?family=SF+Pro+Display+Semibold" rel="stylesheet" />
+  <script>
+    // Same theme the homepage uses (saved choice, else system), plus embed mode for the homepage modal.
+    try {
+      var t = localStorage.getItem('theme');
+      var dark = t ? t === 'dark' : !!(window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches);
+      if (dark) document.documentElement.setAttribute('data-theme', 'dark');
+    } catch (e) {}
+    if (/[?&]embed=1\b/.test(location.search) && window.parent !== window) document.documentElement.classList.add('embed');
+    // Inside the homepage modal the page is as wide as the whole modal; --bleed is the modal's side padding, so content stays aligned and the strip can run edge to edge.
+    var bm = /[?&]bleed=(\d+)/.exec(location.search);
+    if (bm && document.documentElement.classList.contains('embed')) document.documentElement.style.setProperty('--bleed', bm[1] + 'px');
+    // R = where the page's elements live (the document here; a shadow root when the homepage shows this inside its modal). HOST = what the homepage provides (analytics, larger view, navigation).
+    var R = document, HOST = { embedded: false, track: function () {}, lightbox: null, navigate: null };
+    window.addEventListener('message', function (ev) {
+      if (ev.origin === location.origin && ev.source === window.parent && ev.data && ev.data.type === 'platform-details-bleed') document.documentElement.style.setProperty('--bleed', (+ev.data.px || 0) + 'px');
+    });
+  </script>
+  <link rel="stylesheet" href="details.css" />
+</head>
+<body>
+
+  
+
+  <main class="details">
+
+    <!-- SCREENSHOT STRIP (was in the public preview; now only visible after the password) -->
+    <div class="d-strip" aria-hidden="true">
+      <img src="../assets/details/strip-1.png" width="1440" height="1313" alt="" loading="lazy" />
+      <img src="../assets/details/strip-2.png" width="1920" height="1080" alt="" loading="lazy" />
+      <img src="../assets/details/strip-4.png" width="1920" height="1080" alt="" loading="lazy" />
+    </div>
+
+    <!-- ROLE BLURB -->
+    <section class="d-sec">
+      <p class="d-lead">I led the design strategy end to end, from the admin provisioning flow to the persona landing pages. I worked with the product managers, architects, and engineering to decide what to ship first for the internal release.</p>
+    </section>
+
+    <!-- RESEARCH -->
+    <section class="d-sec">
+      <h3 class="d-label">Research</h3>
+      <!-- <h2 class="d-h">Early Insights</h2> -->
+      <p>To understand the problems new users face, I partnered with the product manager and spoke with internal sales team members about the issues with the old platform. I also worked with user researchers to evaluate the needs of different users of this type of system. We identified 4 key priorities for the homepages:</p>
+      <!-- <p>Before designing the dashboards, I gathered the following insights:</p> -->
+      <ol class="insights">
+        <li><h4>Unified Entry Point</h4><p>One starting point for all users connects every feature and tool, tailored to each person’s role and preferences.</p></li>
+        <li><h4>Easy Onboarding</h4><p>New users need quick orientation through step-by-step guides, pop-up tips, and clear checklists.</p></li>
+        <li><h4>Engaging and Interactive</h4><p>Clear action buttons, interactive tools, and easy-to-read dashboards help users see and act on what needs doing.</p></li>
+        <li><h4>Secure &amp; Role-Based Access</h4><p>Users expect secure sign-in and should only see the tools and data meant for their role.</p></li>
+      </ol>
+    </section>
+
+    <hr class="d-rule" />
+
+    <!-- PROCESS -->
+    <section class="d-sec">
+      <h3 class="d-label">Process</h3>
+      <!-- <h2 class="d-h">Design Decisions</h2> -->
+      <p>For the MVP, I focused on <strong>4 core persona types</strong> and designed a standard default landing page for each: Business Stakeholder, Solution Owner, Technical Expert, and Admin.</p>
+      <div class="notes-toggle">
+        <span id="notesLabel">Show annotations</span>
+        <button class="switch" id="notesSwitch" type="button" role="switch" aria-checked="true" aria-labelledby="notesLabel"><span class="knob"></span></button>
+      </div>
+    </section>
+
+    <section class="d-sec">
+      <div class="pcar" role="region" aria-roledescription="carousel" aria-label="Initial designs by persona">
+        <div class="pcar-viewport" tabindex="0">
+          <div class="pcar-track">
+      <article class="persona">
+        <div class="persona-text">
+          <h4>Business Stakeholder</h4>
+          <p><b>Core Priorities:</b> Hitting P&amp;L and KPI targets by spotting performance changes early and deciding what to escalate or act on, with minimal time in the tool.</p>
+        </div>
+        <img class="img-notes" src="../assets/details/bo-notes.png" width="1621" height="1102" alt="Business Stakeholder default landing page with annotations" loading="lazy" draggable="false" />
+        <img class="img-plain" src="../assets/details/bo-screen.png" width="1964" height="1124" alt="Business Stakeholder default landing page, without annotations" loading="lazy" draggable="false" />
+      </article>
+      <article class="persona">
+        <div class="persona-text">
+          <h4>Solution Owner</h4>
+          <p><b>Core Priorities:</b> Turning multiple compositions and assets into a complete solution that delivers a business outcome, from onboarding through release and sales.</p>
+        </div>
+        <img class="img-notes" src="../assets/details/so-notes-v2.png" width="1597" height="1102" alt="Solution Owner default landing page with annotations" loading="lazy" draggable="false" />
+        <img class="img-plain" src="../assets/details/so-screen.png" width="1964" height="1124" alt="Solution Owner default landing page, without annotations" loading="lazy" draggable="false" />
+      </article>
+      <article class="persona">
+        <div class="persona-text">
+          <h4>Technical Expert</h4>
+          <p><b>Core Priorities:</b> Building and testing predictive and prescriptive models and data pipelines, with full visibility into how they behave in production.</p>
+        </div>
+        <img class="img-notes" src="../assets/details/te-notes.png" width="1608" height="910" alt="Technical Expert default landing page with annotations" loading="lazy" draggable="false" />
+        <img class="img-plain" src="../assets/details/te-screen.jpg" width="1964" height="1124" alt="Technical Expert default landing page, without annotations" loading="lazy" draggable="false" />
+      </article>
+      <article class="persona">
+        <div class="persona-text">
+          <h4>Admin</h4>
+          <p><b>Core Priorities:</b> Keeping the system stable, secure, and compliant, with users supported and access controlled.</p>
+        </div>
+        <img class="img-notes" src="../assets/details/admin-notes.png" width="1314" height="944" alt="Admin default landing page with annotations" loading="lazy" draggable="false" />
+        <img class="img-plain" src="../assets/details/admin-screen.png" width="1964" height="1124" alt="Admin default landing page, without annotations" loading="lazy" draggable="false" />
+      </article>
+          </div>
+        </div>
+        <div class="pcar-nav">
+          <button class="pcar-btn" type="button" data-dir="-1" aria-label="Previous persona"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M12.5 4L6.5 10l6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <div class="pcar-dots" aria-hidden="true"></div>
+          <button class="pcar-btn" type="button" data-dir="1" aria-label="Next persona"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M7.5 4l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        </div>
+      </div>
+    </section>
+
+    <hr class="d-rule" />
+
+    <!-- USER TESTING -->
+    <section class="d-sec">
+      <h3 class="d-label">User testing</h3>
+      <!-- <h2 class="d-h">FICO World 2025</h2> -->
+      <p>While I wasn’t able to attend FICO World 2025 in person, I collaborated with the Product Manager, Architect, and User Researchers, to determine what questions to ask and which features to get more information on.</p>
+    </section>
+
+    <section class="d-sec">
+      <div class="workshop">
+        <div class="workshop-text">
+          <p><b>Workshop Details</b></p>
+          <div class="workshop-facts">
+            <ul>
+              <li>38 Participants</li>
+              <li>150 min workshop</li>
+              <li>Tool: Slido (Live polling)</li>
+            </ul>
+            <ul>
+              <li>25 questions</li>
+              <li>389 responses</li>
+            </ul>
+          </div>
+          <p class="semi">Few of the questions asked:</p>
+          <ul>
+            <li>From 1 to 5, how would you rate the layout of this page?</li>
+            <li>Imagine you’re using the chatbot to help you navigate this platform or complete a work-related task. What are two example prompts would ask?</li>
+            <li>On a scale of 1 to 5, how important is having a personalized homepage to you?</li>
+            <li>What type of tasks do you expect to find here?</li>
+            <li>Did you find anything on the page confusing or unclear?</li>
+            <li>What stands out to you as the most on this page?</li>
+          </ul>
+        </div>
+        <img class="workshop-photo" src="../assets/details/workshop-crop.jpg" width="1210" height="902" alt="Workshop session at FICO World 2025" loading="lazy" />
+      </div>
+
+      <hr class="d-short-rule" />
+      <h4 class="d-sub">Research Findings</h4>
+      <p>The workshop consisted of 38 participants across 3 personas, generating 389 responses that revealed critical UX gaps and validated feature priorities. These insights shaped the future roadmap, prioritizing high-confidence improvements (hierarchy &amp; personalization).</p>
+      <dl class="stats">
+        <div><dt><span class="count" data-to="90">90</span>%</dt><dd>said interface is overcrowded</dd></div>
+        <div><dt><span class="count" data-to="85">85</span>%</dt><dd>expect filter/sort settings to persist</dd></div>
+        <div><dt><span class="count" data-to="93">93</span>%</dt><dd>identify My Work as essential</dd></div>
+        <div><dt><span class="count" data-to="72">72</span>%</dt><dd>rated personalization as very/extremely important</dd></div>
+        <div><dt><span class="count" data-to="80">80</span>%</dt><dd>wanted customization capability</dd></div>
+        <div><dt><span class="count" data-to="67">67</span>%</dt><dd>want per-tab filtering (12% against)</dd></div>
+      </dl>
+    </section>
+
+    <section class="d-sec">
+      <p class="notice">~ Oct 2025 I was laid off, however I kept designing ~</p>
+    </section>
+
+    <!-- POST-FICO -->
+    <section class="d-sec">
+      <h3 class="d-label">Initial Designs vs Redesigned</h3>
+      <!-- <h2 class="d-h">Initial Designs vs Redesigned</h2> -->
+      <p>Post-FICO, I continued using Figma x Claude Code on my own time. I attempted to redesign 3 of the core landing pages (excluding the Admin) with no technical restrictions and focusing on the feedback from FICO World.</p>
+    </section>
+
+    <section class="d-sec compare">
+      <h4 class="d-persona">Business Stakeholder</h4>
+      <div class="cmp">
+        <figure><figcaption>Presented at FICO World 2025</figcaption><img src="../assets/details/ba-initial.png" width="1920" height="1080" alt="Business Stakeholder page as presented at FICO World 2025" loading="lazy" /></figure>
+        <div class="cmp-main">
+          <figcaption>My Redesign</figcaption>
+          <video class="redesign" muted loop playsinline preload="none" width="1280" height="706" poster="../assets/details/redesign-bo-dashboard-poster.jpg" aria-label="Screen recording of my redesign of the Business Stakeholder dashboard"><source src="../assets/details/redesign-bo-dashboard.mp4" type="video/mp4"></video>
+          <p><b>Value the Redesign Provides:</b> The redesign now supports decisions, not just status checks. Each savings opportunity shows its dollar value, supporting evidence, and effect on the rest of the business. The user is also able to customize their dashboard to their liking.</p>
+          <p><b>Pain Point Relieved:</b> Business Stakeholders can configure to their liking of which and however many metrics they want see without clutter.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="d-sec compare">
+      <h4 class="d-persona">Solution Owner</h4>
+      <div class="cmp">
+        <figure><figcaption>Presented at FICO World 2025</figcaption><img src="../assets/details/so-initial.png" width="1920" height="1080" alt="Solution Owner page as presented at FICO World 2025" loading="lazy" /></figure>
+        <div class="cmp-main">
+          <figcaption>My Redesign</figcaption>
+          <video class="redesign" muted loop playsinline preload="none" width="1280" height="706" poster="../assets/details/redesign-so-poster.jpg" aria-label="Screen recording of my redesign of the Solution Owner page: the redesigned flow"><source src="../assets/details/redesign-so.mp4" type="video/mp4"></video>
+          <p><b>Value the Redesign Provides:</b> An interactive map shows how assets connect. The optimization view flags unused and duplicate assets, with links to each one, and alerts and fraud losses prevented sit alongside them.</p>
+          <p><b>Pain Point Relieved:</b> Users couldn’t see asset dependencies or duplicates, so they missed savings and couldn’t predict the effects of changes. Now they can see those connections and optimize with confidence.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="d-sec compare">
+      <h4 class="d-persona">Technical Expert</h4>
+      <div class="cmp">
+        <figure><figcaption>Presented at FICO World 2025</figcaption><img src="../assets/details/te-initial.jpg" width="1920" height="1080" alt="Technical Expert page as presented at FICO World 2025" loading="lazy" /></figure>
+        <div class="cmp-main">
+          <figcaption>My Redesign</figcaption>
+          <video class="redesign" muted loop playsinline preload="none" width="1280" height="706" poster="../assets/details/redesign-te-poster.jpg" aria-label="Screen recording of my redesign of the Technical Expert page"><source src="../assets/details/redesign-te.mp4" type="video/mp4"></video>
+          <p><b>Value the Redesign Provides:</b> For the redesign, I kept most of the original structure, since it follows a familiar workplace dashboard layout. I removed the Reports section to cut down on clutter, and combined the search bar with the AI assistant. This way, users can start any task, whether searching for something or creating a new model or asset, from one place.</p>
+          <p><b>Pain Point Relieved:</b> Removed unnecessary clutter so Technical Experts can focus on getting into their work.</p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="d-rule" />
+
+    <!-- REFLECTION -->
+    <section class="d-sec">
+      <h3 class="d-label">Learning &amp; Retrospective</h3>
+      <!-- <h2 class="d-h">Learning &amp; Retrospective</h2> -->
+      <p>Working on a large enterprise dashboard project taught me that the most useful feedback often comes from the least convenient sources. Getting real users in front of designs is difficult because of security constraints, so when a session is possible, I plan it carefully.</p>
+    
+      <p>If I did this again, I would push harder to involve users earlier while designs are still rough, so problems surface before the design is locked in.</p>
+    </section>
+
+    <hr class="d-rule" />
+
+  </main>
+
+  <!-- ============ CLOSING CTA + case study links (same as the other case studies) ============ -->
+  <section class="d-cta">
+    <h2>I’m open to new opportunities &amp; collaboration :)</h2>
+    <p class="lead"><a href="https://www.linkedin.com/in/levona-yim/" target="_blank" rel="noopener">LinkedIn</a></p>
+    <p class="lead"><a href="mailto:levona.yim@gmail.com">levona.yim@gmail.com</a></p>
+  </section>
+
+  <footer class="d-footer">
+<!--     <h2><a href="../../btc2/index.html" target="_top">&larr; FICO | Business Terms Capability</a></h2>
+    <h2><a href="../../kashoofiles/index.html" target="_top">Kashoo | Web 2.0 &rarr;</a></h2> -->
+  </footer>
+
+  <script>
+    // Infinite carousel for the persona screens: drag/swipe, arrows, keys or side-scroll, loops in both directions.
+    (function () {
+      var root = R.querySelector('.pcar'); if (!root) return;
+      // Analytics: this page has no Tag Manager of its own, so events are handed to the homepage window, which sends them.
+      function sendTrack(event, params) {
+        try { HOST.track(event, params || {}); } catch (e) {}
+      }
+      window.__track = sendTrack;
+      var vp = root.querySelector('.pcar-viewport'), track = root.querySelector('.pcar-track');
+      var slides = Array.prototype.slice.call(track.children), n = slides.length;
+      var dotsEl = root.querySelector('.pcar-dots'), dots = [];
+      slides.forEach(function (s, i) {
+        var d = document.createElement('span'); d.className = 'pcar-dot'; dotsEl.appendChild(d); dots.push(d);
+        s.setAttribute('role', 'group'); s.setAttribute('aria-label', (i + 1) + ' of ' + n);
+      });
+      slides.forEach(function (s) {   // every screen can be opened larger (set before cloning)
+        s.querySelectorAll('img').forEach(function (im) {
+          im.setAttribute('role', 'button'); im.setAttribute('tabindex', '0'); im.setAttribute('aria-label', 'View larger: ' + im.alt);
+        });
+      });
+      var first = slides[0].cloneNode(true), last = slides[n - 1].cloneNode(true);
+      [first, last].forEach(function (c) {
+        c.setAttribute('aria-hidden', 'true'); c.removeAttribute('role'); c.removeAttribute('aria-label');
+        c.querySelectorAll('img').forEach(function (im) { im.removeAttribute('role'); im.removeAttribute('aria-label'); im.setAttribute('tabindex', '-1'); });
+      });
+      var embedded = HOST.embedded, downImg = null;
+      function openLarger(img) {
+        var src = img.currentSrc || img.src;
+        var pn = img.closest('.persona') && img.closest('.persona').querySelector('h4');
+        sendTrack('image_enlarged', { persona: pn ? pn.textContent : '', view: img.classList.contains('img-plain') ? 'plain' : 'annotated' });
+        if (embedded) { try { HOST.lightbox(src, img.alt); } catch (e) {} return; }
+        var lb = R.getElementById('lb'); if (!lb) return;
+        lb.querySelector('img').src = src; lb.querySelector('img').alt = img.alt; lb.showModal();
+      }
+      track.addEventListener('keydown', function (e) {
+        var im = e.target.closest && e.target.closest('img');
+        if (im && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); openLarger(im); }
+      });
+      track.insertBefore(last, slides[0]); track.appendChild(first);
+      var index = 1, w = 0, dragging = false, startX = 0, dx = 0, busy = false, wheelAt = 0;
+      function place(animate, extra) {
+        track.style.transition = animate ? '' : 'none';
+        track.style.transform = 'translate3d(calc(' + (-index) + ' * (100% + var(--pcar-gap)) + ' + (extra || 0) + 'px),0,0)'; // one slide + the gap per step
+        var cur = ((index - 1) % n + n) % n;
+        dots.forEach(function (d, i) { d.classList.toggle('is-on', i === cur); });
+      }
+      function measure() { w = vp.clientWidth; place(false); }
+      var timer = null;
+      function settle() {   // after a move: unlock, and jump from a clone to its twin (no animation, so it's invisible)
+        clearTimeout(timer); busy = false;
+        if (index === 0) { index = n; place(false); } else if (index === n + 1) { index = 1; place(false); }
+      }
+      function move() { busy = true; place(true); clearTimeout(timer); timer = setTimeout(settle, 650); } // timer covers reduced motion (no transitionend)
+      function personaName() { var s = slides[((index - 1) % n + n) % n].querySelector('h4'); return s ? s.textContent : ''; }
+      function go(dir, method) { if (busy) return; index += dir; move(); sendTrack('persona_carousel', { method: method || 'arrow', direction: dir > 0 ? 'next' : 'previous', persona: personaName() }); }
+      track.addEventListener('transitionend', function (e) { if (e.target === track) settle(); });
+      root.querySelectorAll('.pcar-btn').forEach(function (b) { b.addEventListener('click', function () { go(+b.dataset.dir, 'arrow'); }); });
+      vp.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1, 'keyboard'); } else if (e.key === 'ArrowRight') { e.preventDefault(); go(1, 'keyboard'); }
+      });
+      vp.addEventListener('pointerdown', function (e) {
+        if (busy || (e.pointerType === 'mouse' && e.button !== 0)) return;
+        downImg = e.target.closest ? e.target.closest('img') : null;
+        dragging = true; startX = e.clientX; dx = 0; vp.setPointerCapture(e.pointerId); vp.classList.add('is-dragging'); place(false);
+      });
+      vp.addEventListener('pointermove', function (e) { if (dragging) { dx = e.clientX - startX; place(false, dx); } });
+      function release() {
+        if (!dragging) return; dragging = false; vp.classList.remove('is-dragging');
+        if (Math.abs(dx) > w * 0.18) { index += dx < 0 ? 1 : -1; move(); sendTrack('persona_carousel', { method: 'swipe', direction: dx < 0 ? 'next' : 'previous', persona: personaName() }); } else { place(true); }
+      }
+      vp.addEventListener('pointerup', function () {   // a tap (barely moved) opens the image; a drag just moves the carousel
+        var img = downImg, tap = dragging && Math.abs(dx) < 6; downImg = null; release(); if (tap && img) openLarger(img);
+      });
+      vp.addEventListener('pointercancel', function () { downImg = null; release(); });
+      vp.addEventListener('wheel', function (e) {
+        if (Math.abs(e.deltaX) <= Math.abs(e.deltaY) || Math.abs(e.deltaX) < 8) return;
+        e.preventDefault();
+        var now = Date.now(); if (now - wheelAt < 500) return; wheelAt = now; go(e.deltaX > 0 ? 1 : -1, 'scroll');
+      }, { passive: false });
+      if (window.ResizeObserver) new ResizeObserver(measure).observe(vp); else window.addEventListener('resize', measure);
+      measure();
+    })();
+  </script>
+  <dialog class="lb" id="lb" aria-label="Larger view">
+    <img alt="" />
+  </dialog>
+  <script>
+    (function () {
+      var lb = R.getElementById('lb'); if (!lb) return;
+      lb.addEventListener('click', function () { lb.close(); });   // click/tap anywhere (or Esc) closes
+    })();
+  </script>
+  <script>
+    // Research numbers count up the first time they scroll into view.
+    // On its own the page uses IntersectionObserver; inside the homepage modal the homepage tells us which part of the page is visible.
+    (function () {
+      var stats = R.querySelector('.stats'); if (!stats) return;
+      var nums = Array.prototype.slice.call(stats.querySelectorAll('.count'));
+      var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduce) return;   // they already show their final values
+      var embedded = false, done = false;
+      nums.forEach(function (el) { el.textContent = '0'; });
+      stats.classList.add('is-armed');
+      function reveal() {
+        if (done) return; done = true; stats.classList.add('is-in');
+        nums.forEach(function (el, i) {
+          var to = +el.getAttribute('data-to'), start = null, delay = i * 90, dur = 1300;
+          function step(t) {
+            if (start === null) start = t + delay;
+            var p = Math.min(Math.max((t - start) / dur, 0), 1), e = 1 - Math.pow(1 - p, 3);
+            el.textContent = Math.round(to * e);
+            if (p < 1) requestAnimationFrame(step);
+          }
+          requestAnimationFrame(step);
+        });
+      }
+      if (embedded) {
+        window.addEventListener('message', function (ev) {
+          if (ev.origin !== location.origin || ev.source !== window.parent || !ev.data || ev.data.type !== 'platform-details-view') return;
+          var r = stats.getBoundingClientRect(), seen = Math.min(r.bottom, ev.data.bottom) - Math.max(r.top, ev.data.top);
+          if (seen > r.height * 0.35) reveal();
+        });
+        try { window.parent.postMessage({ type: 'platform-details-ready' }, location.origin); } catch (e) {}
+      } else if ('IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function (en) { if (en.some(function (e) { return e.isIntersecting; })) { io.disconnect(); reveal(); } }, { threshold: 0.35 });
+        io.observe(stats);
+      } else reveal();
+    })();
+  </script>
+  <script>
+    // Closing links: report the click to the homepage. Links that leave the modal wait a moment so the event is sent before the page changes.
+    (function () {
+      R.querySelectorAll('.d-cta a, .d-footer a').forEach(function (a) {
+        a.addEventListener('click', function (e) {
+          var href = a.getAttribute('href') || '', link;
+          if (/^mailto:/.test(href)) link = 'email';
+          else if (/linkedin/.test(href)) link = 'linkedin';
+          else if (/btc2/.test(href)) link = 'previous_case_study';
+          else link = 'next_case_study';
+          if (window.__track) window.__track('footer_link_click', { page: 'platform_details', link: link, url: href });
+          var leaves = a.target === '_top' && !(e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0);
+          if (leaves && HOST.navigate) {
+            e.preventDefault();
+            setTimeout(function () { HOST.navigate(a.href); }, 200);
+          }
+        });
+      });
+    })();
+  </script>
+  <script>
+    // Show-annotations switch: on = annotated screens, off = the same screens without annotations.
+    (function () {
+      var sw = R.getElementById('notesSwitch'), car = R.querySelector('.pcar'); if (!sw || !car) return;
+      sw.addEventListener('click', function () {
+        var on = sw.getAttribute('aria-checked') !== 'true';
+        sw.setAttribute('aria-checked', String(on));
+        if (window.__track) window.__track('annotations_toggle', { state: on ? 'on' : 'off' });
+        car.classList.toggle('notes-off', !on);
+      });
+    })();
+  </script>
+  <script>
+    // Redesign recordings: load when they come near the screen, play while visible, pause when not.
+    // On its own the page uses IntersectionObserver; inside the homepage modal the homepage tells us what part of the page is visible.
+    (function () {
+      var vids = Array.prototype.slice.call(R.querySelectorAll('video.redesign')); if (!vids.length) return;
+      var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduce) { vids.forEach(function (v) { v.controls = true; }); return; }   // no autoplay: poster + play button
+      function setPlaying(v, on) {
+        if (on) { var p = v.play(); if (p && p.catch) p.catch(function () {}); } else v.pause();
+      }
+      if (false) {
+        window.addEventListener('message', function (ev) {
+          if (ev.origin !== location.origin || ev.source !== window.parent || !ev.data || ev.data.type !== 'platform-details-view') return;
+          vids.forEach(function (v) {
+            var r = v.getBoundingClientRect(), near = r.bottom > ev.data.top - 300 && r.top < ev.data.bottom + 300;
+            var seen = r.bottom > ev.data.top && r.top < ev.data.bottom;
+            if (near && v.preload === 'none') v.preload = 'auto';   // start fetching a little before it's visible
+            setPlaying(v, seen);
+          });
+        });
+        try { window.parent.postMessage({ type: 'platform-details-ready' }, location.origin); } catch (e) {}
+      } else if ('IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function (en) { en.forEach(function (e) { setPlaying(e.target, e.isIntersecting); }); }, { rootMargin: '0px', threshold: 0.2 });
+        vids.forEach(function (v) { io.observe(v); });
+      } else vids.forEach(function (v) { v.autoplay = true; });
+    })();
+  </script>
+  <script>
+    // When shown inside the homepage modal, tell it how tall this content is so the modal can fit it.
+    (function () {
+      if (window.parent === window) return;
+      function send() {
+        try { window.parent.postMessage({ type: 'platform-details-height', height: document.documentElement.getBoundingClientRect().height }, location.origin); } catch (e) {}
+      }
+      if (window.ResizeObserver) new ResizeObserver(send).observe(document.documentElement);
+      window.addEventListener('load', send);
+      window.addEventListener('resize', send);
+    })();
+  </script>
+</body>
+</html>

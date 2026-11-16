@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <base href="/btc2/details/" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex" />
+  <title>FICO Data Models — Full details</title>
+  <link rel="icon" type="image/png" href="../../assets/favicon-sept2026.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <link href="https://db.onlinewebfonts.com/c/179429c3795fb9aed42c526bd1133cc0?family=SF+Pro+Display+Semibold" rel="stylesheet" />
+  <script>
+    // Same theme the homepage uses (saved choice, else system), plus embed mode for the homepage modal.
+    try {
+      var t = localStorage.getItem('theme');
+      var dark = t ? t === 'dark' : !!(window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches);
+      if (dark) document.documentElement.setAttribute('data-theme', 'dark');
+    } catch (e) {}
+    if (/[?&]embed=1\b/.test(location.search) && window.parent !== window) document.documentElement.classList.add('embed');
+    // Inside the homepage modal the page is as wide as the whole modal; --bleed is the modal's side padding, so content stays aligned and the strip can run edge to edge.
+    var bm = /[?&]bleed=(\d+)/.exec(location.search);
+    if (bm && document.documentElement.classList.contains('embed')) document.documentElement.style.setProperty('--bleed', bm[1] + 'px');
+    // R = where the page's elements live (the document here; a shadow root when the homepage shows this inside its modal). HOST = what the homepage provides (analytics, larger view, navigation).
+    var R = document, HOST = { embedded: false, track: function () {}, lightbox: null, navigate: null };
+    window.addEventListener('message', function (ev) {
+      if (ev.origin === location.origin && ev.source === window.parent && ev.data && ev.data.type === 'platform-details-bleed') document.documentElement.style.setProperty('--bleed', (+ev.data.px || 0) + 'px');
+    });
+  </script>
+  <link rel="stylesheet" href="details.css" />
+</head>
+<body>
+
+  
+
+  <main class="details">
+
+    <!-- SCREENSHOT STRIP (../assets/nov-redesign/btc-strip1-3.png, all shown at the same 16:9 size) -->
+    <div class="d-strip" aria-hidden="true">
+      <img src="../assets/nov-redesign/btc-strip1.png" width="1440" height="810" alt="" loading="lazy" />
+      <img src="../assets/nov-redesign/btc-strip2.png" width="1440" height="810" alt="" loading="lazy" />
+      <img src="../assets/nov-redesign/btc-strip3.png" width="1440" height="810" alt="" loading="lazy" />
+    </div>
+
+    <!-- ROLE BLURB -->
+    <section class="d-sec">
+      <p class="d-lead-b">As the sole designer, I led the end-to-end design of the data models and schema management for FICO’s BTC project. I also designed a reusable data model framework that internal teams adopted as a shared foundation, reducing duplicated design effort across products.</p>
+    </section>
+
+    <!-- RESEARCH -->
+    <section class="d-sec">
+      <h3 class="d-label">Research</h3>
+      <p>To understand the pain points of data models, I teamed up with our ux research to interview 5 solution architects/consultants who worked directly with clients through the current system. Through these conversations, I learned:</p>
+      <div class="research-cols">
+        <div>
+          <h4>General Pain Points</h4>
+          <ol class="pains">
+            <li><h5>Navigation and Discoverability</h5><ul><li>Hard to find where fields and relationships</li><li>No way to see the whole model at once</li></ul></li>
+            <li><h5>Relationships and Structure</h5><ul><li>Diagrams become unreadable as models grow</li><li>Distinctions between similar concepts are unclear</li><li>Changes don’t preview their impact</li></ul></li>
+            <li><h5>Schema Management</h5><ul><li>Poor migration tooling and no clear version history</li></ul></li>
+          </ol>
+        </div>
+        <div>
+          <h4>Needs for Core Users</h4>
+          <div class="needs">
+            <div><h5>Business Expert:</h5><ul><li>Ability to writes using plain definitions</li></ul></div>
+            <div><h5>Solution Owner:</h5><ul><li>Needs one consistent model to reuse work and catch cross-team impact early.</li></ul></div>
+            <div><h5>Technical Expert:</h5><ul><li>Needs to see dependencies to change things without surprises.</li></ul></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BANNER -->
+    <div class="d-banner">
+      <video muted loop playsinline preload="none" class="redesign" poster="../assets/poster/btc-fico-recording.jpg" aria-label="Screen recording of the Business Terms Capability built at FICO"><source src="../assets/video/btc-fico-recording.mp4" type="video/mp4"></video>
+    </div>
+
+    <!-- DESIGN DECISIONS -->
+    <section class="d-sec d-decisions">
+      <div class="d-sec" style="padding-inline:0">
+        <h3 class="d-label">Design Decisions</h3>
+        <p>Three main decisions shaped the design the Data Model. Each decision came from something we heard in interviews, and each one had to work for all three personas, from business experts to technical experts.</p>
+      </div>
+
+      <article class="decision">
+        <h4>Visibility for users to know impact of change</h4>
+        <!-- p><b>Problem:</b> The main concern of the 3 personas was the fear the impact a change they make could have.</p>
+        <p><b>Design Solution:</b> I designed the interface to keep cross-domain usage constantly visible. When a user selects an Entity or Attribute, it shows users the impact and which domains would be affected.</p> -->
+        <div class="dcar" role="region" aria-roledescription="carousel" aria-label="Visibility for users to know impact of change" style="--dcar-ratio: 2000 / 1453">
+          <div class="dcar-viewport" tabindex="0">
+            <div class="dcar-slide" role="group" aria-label="1 of 2: design">
+              <img class="zoomable" src="../assets/details/decision-1.png" width="2000" height="1453" alt="Used By column and a High impact warning showing which rules, models and reports a term affects" loading="lazy" />
+            </div>
+            <div class="dcar-slide" role="group" aria-label="2 of 2: recording">
+              <video class="dvid" muted loop playsinline preload="none" poster="../assets/poster/btc-table-visibilitytousers.jpg" aria-label="Screen recording: selecting a business term shows its usage count and the impact across domains"><source src="../assets/video/btc-table-visibilitytousers.mp4" type="video/mp4"></video>
+            </div>
+          </div>
+          <div class="dcar-nav">
+            <button class="dcar-btn" type="button" data-dir="-1" aria-label="Previous"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M12.5 4L6.5 10l6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <div class="dcar-dots" aria-hidden="true"></div>
+            <button class="dcar-btn" type="button" data-dir="1" aria-label="Next"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M7.5 4l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          </div>
+        </div>
+      </article>
+
+      <article class="decision">
+        <h4>Handling 1000s of attributes</h4>
+        <!-- <p><b>Problem:</b> Pagination and search alone wouldn’t be able to handle schemas this large.</p>
+        <p><b>Design Solution:</b> I designed the interface to have collapsible nested groups with visible paths and counts, a side-panel outline for jumping between sets, and search with contextual filters.</p> -->
+        <div class="dcar" role="region" aria-roledescription="carousel" aria-label="Handling 1000s of attributes" style="--dcar-ratio: 2000 / 1453">
+          <div class="dcar-viewport" tabindex="0">
+            <div class="dcar-slide" role="group" aria-label="1 of 2: design">
+              <img class="zoomable" src="../assets/details/decision-2.png" width="2000" height="1453" alt="Nested term list with counts, a sticky group header, and search results shown in context" loading="lazy" />
+            </div>
+            <div class="dcar-slide" role="group" aria-label="2 of 2: recording">
+              <video class="dvid" muted loop playsinline preload="none" poster="../assets/poster/navigate1000terms.jpg" aria-label="Screen recording: navigating thousands of business terms with nested groups, counts and search"><source src="../assets/video/navigate1000terms.mp4" type="video/mp4"></video>
+            </div>
+          </div>
+          <div class="dcar-nav">
+            <button class="dcar-btn" type="button" data-dir="-1" aria-label="Previous"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M12.5 4L6.5 10l6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <div class="dcar-dots" aria-hidden="true"></div>
+            <button class="dcar-btn" type="button" data-dir="1" aria-label="Next"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M7.5 4l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          </div>
+        </div>
+      </article>
+
+      <article class="decision">
+        <h4>Designing data models for reuse across services</h4>
+        <!-- <p><b>Problem:</b> Currently users need to switch back and forth between different services to do their work.</p>
+        <p><b>Design Solution:</b> I designed an embeddable component that consists of the main parts of the data model that <b>other teams could</b> integrate into their services.</p> -->
+        <div class="dcar" role="region" aria-roledescription="carousel" aria-label="Designing data models for reuse across services" style="--dcar-ratio: 901 / 506">
+          <div class="dcar-viewport" tabindex="0">
+            <div class="dcar-slide" role="group" aria-label="1 of 2: design">
+              <img class="zoomable" src="../assets/details/decision-3.png" width="901" height="506" alt="The Add Aggregation form with the embedded business term set picker open in a side panel" loading="lazy" />
+            </div>
+            <div class="dcar-slide" role="group" aria-label="2 of 2: recording">
+              <video class="dvid" muted loop playsinline preload="none" poster="../assets/poster/bt-in-ag.jpg" aria-label="Screen recording: the business term picker embedded inside the Add Aggregation form"><source src="../assets/video/bt-in-ag.mp4" type="video/mp4"></video>
+            </div>
+          </div>
+          <div class="dcar-nav">
+            <button class="dcar-btn" type="button" data-dir="-1" aria-label="Previous"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M12.5 4L6.5 10l6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <div class="dcar-dots" aria-hidden="true"></div>
+            <button class="dcar-btn" type="button" data-dir="1" aria-label="Next"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M7.5 4l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- DEVELOPER HAND-OFF -->
+    <section class="d-sec">
+      <h3 class="d-label">Developer Hand-off</h3>
+      <img class="handoff zoomable" src="../assets/details/dev-handoff.png" width="2400" height="1767" alt="Developer hand-off specs for the Business Term table: annotated measurements, header row, toolbar and responsive rules" loading="lazy" />
+    </section>
+
+    <hr class="d-rule" />
+
+    <!-- IMPACT -->
+    <section class="d-sec">
+      <h3 class="d-label">Impact</h3>
+      <p>For the initial release, we decided to focus solely and ship the table version of the data model first. The impact it made:</p>
+      <dl class="stats stats-3">
+        <div><dt>3+ weeks → secs</dt><dd>of consultant support to self-service setup</dd></div>
+        <div><dt><span class="count" data-to="5">5</span>+</dt><dd>teams integrated the data model without custom design rework</dd></div>
+        <div><dt>High</dt><dd>demand from Solution Consultants and FICO World 2025 attendees</dd></div>
+      </dl>
+      <p class="d-quote">“I don’t understand why Features Aggregation and Data Models still haven’t been merged. They are interdependent. We’ve been dealing with this issue for a long time, and we need this integration in the next release.” - FICO World 2025 Attendee</p>
+    </section>
+
+    <hr class="d-rule" />
+
+    <section class="d-sec">
+      <p class="notice">~ Oct 2025 I was laid off, however I kept designing ~</p>
+    </section>
+
+    <!-- POST-FICO -->
+    <section class="d-sec">
+      <h3 class="d-label">Initial Designs vs Redesigned</h3>
+      <p>Post-FICO, I continued using Figma x Claude Code on my own time, to design BTC with no technical restrictions and a reimagined version of how it should behave.</p>
+      <video muted loop playsinline preload="none" class="redesign redesign-main" width="1600" height="882" poster="../assets/poster/btc-redesign-recording.jpg" aria-label="Screen recording of the redesigned BTC canvas: term sets, linked schema cards and term set details"><source src="../assets/video/btc-redesign-recording.mp4" type="video/mp4"></video>
+    </section>
+
+    <section class="d-sec">
+      <div class="rd-grid">
+        <figure>
+          <img class="zoomable" src="../assets/details/redesign-workspace.png" width="1600" height="920" alt="Redesigned landing workspace with templates and a project list" loading="lazy" />
+          <figcaption><b>A Main Workspace</b><span>Designed a landing workspace with curated templates alongside a project list, so users can pick up where they left off.</span></figcaption>
+        </figure>
+        <figure>
+          <img class="zoomable" src="../assets/details/redesign-ai.png" width="1600" height="900" alt="AI assistant panel helping to build a schema" loading="lazy" />
+          <figcaption><b>Contextual AI Integration</b><span>Designed an AI assistant that helps users throughout the workflow process and proposes solutions with its reasoning.</span></figcaption>
+        </figure>
+        <figure>
+          <img class="zoomable" src="../assets/details/redesign-ai.png" width="1600" height="900" alt="AI assistant panel helping to build a schema" loading="lazy" />
+          <figcaption><b>Contextual AI Integration</b><span>Designed an AI assistant that helps users throughout the workflow process and proposes solutions with its reasoning.</span></figcaption>
+        </figure>
+        <figure>
+          <img class="zoomable" src="../assets/details/redesign-templates.png" width="1600" height="900" alt="Dialog for building a schema from an AI prompt or a certified FICO template" loading="lazy" />
+          <figcaption><b>Generated Templates</b><span>Designed an entry point pairing certified FICO templates with AI-generated starting points, turning expert knowledge into a reusable asset.</span></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <hr class="d-rule" />
+
+    <!-- REFLECTION -->
+    <section class="d-sec">
+      <h3 class="d-label">Learning &amp; Retrospective</h3>
+      <p>A key challenge was that a change to a data model can ripple outward, affecting what people see and who can access it. My early design focused on making connections easy to draw, which felt safe but missed the real test: whether it works in practice, with real users and thousands of data points.</p>
+      <p>Using Claude Code has made it far faster to prototype at that scale. If I did this again, I’d put working prototypes in front of real users much earlier.</p>
+    </section>
+
+    <hr class="d-rule" />
+
+  </main>
+
+  <!-- ============ CLOSING CTA + case study links (same as the other case studies) ============ -->
+  <section class="d-cta">
+    <h2>I’m open to new opportunities &amp; collaboration :)</h2>
+    <p class="lead"><a href="https://www.linkedin.com/in/levona-yim/" target="_blank" rel="noopener">LinkedIn</a></p>
+    <p class="lead"><a href="mailto:levona.yim@gmail.com">levona.yim@gmail.com</a></p>
+  </section>
+
+  <footer class="d-footer">
+<!--     <h2><a href="../../platform/index.html" target="_top">&larr; FICO | Personalized Dashboards</a></h2>
+    <h2><a href="../../kashoofiles/index.html" target="_top">Kashoo | Web 2.0 &rarr;</a></h2> -->
+  </footer>
+
+  <dialog class="lb" id="lb" aria-label="Larger view">
+    <img alt="" />
+  </dialog>
+
+  <script>
+    // Analytics: this page has no Tag Manager of its own, so events are handed to the homepage window, which sends them.
+    function sendTrack(event, params) {
+      try { HOST.track(event, params || {}); } catch (e) {}
+    }
+    window.__track = sendTrack;
+
+    // Tap/click any screen to see it larger (inside the homepage modal the homepage shows it, so it covers the whole window).
+    (function () {
+      var embedded = HOST.embedded;
+      var lb = R.getElementById('lb');
+      if (lb) lb.addEventListener('click', function () { lb.close(); });
+      function label(img) {
+        var f = img.closest('article, figure'), h = f && f.querySelector('h4, figcaption b');
+        return h ? h.textContent : (img.alt || '').slice(0, 60);
+      }
+      function open(img) {
+        var src = img.currentSrc || img.src;
+        sendTrack('image_enlarged', { persona: label(img), view: 'screen' });
+        if (embedded) { try { HOST.lightbox(src, img.alt); } catch (e) {} return; }
+        if (!lb) return;
+        lb.querySelector('img').src = src; lb.querySelector('img').alt = img.alt; lb.showModal();
+      }
+      R.querySelectorAll('img.zoomable').forEach(function (im) {
+        im.setAttribute('role', 'button'); im.setAttribute('tabindex', '0'); im.setAttribute('aria-label', 'View larger: ' + im.alt);
+        im.addEventListener('click', function () { open(im); });
+        im.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(im); } });
+      });
+    })();
+  </script>
+  <script>
+    // Count-up for the "5+" stat the first time it scrolls into view.
+    // On its own the page uses IntersectionObserver; inside the homepage modal the homepage tells us which part of the page is visible.
+    (function () {
+      var stats = R.querySelector('.stats'); if (!stats) return;
+      var nums = Array.prototype.slice.call(stats.querySelectorAll('.count'));
+      var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduce) return;   // they already show their final values
+      var embedded = false, done = false;
+      nums.forEach(function (el) { el.textContent = '0'; });
+      stats.classList.add('is-armed');
+      function reveal() {
+        if (done) return; done = true; stats.classList.add('is-in');
+        nums.forEach(function (el) {
+          var to = +el.getAttribute('data-to'), start = null, dur = 1300;
+          function step(t) {
+            if (start === null) start = t;
+            var p = Math.min(Math.max((t - start) / dur, 0), 1), e = 1 - Math.pow(1 - p, 3);
+            el.textContent = Math.round(to * e);
+            if (p < 1) requestAnimationFrame(step);
+          }
+          requestAnimationFrame(step);
+        });
+      }
+      if (embedded) {
+        window.addEventListener('message', function (ev) {
+          if (ev.origin !== location.origin || ev.source !== window.parent || !ev.data || ev.data.type !== 'platform-details-view') return;
+          var r = stats.getBoundingClientRect(), seen = Math.min(r.bottom, ev.data.bottom) - Math.max(r.top, ev.data.top);
+          if (seen > r.height * 0.35) reveal();
+        });
+      } else if ('IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function (en) { if (en.some(function (e) { return e.isIntersecting; })) { io.disconnect(); reveal(); } }, { threshold: 0.35 });
+        io.observe(stats);
+      } else reveal();
+    })();
+  </script>
+  <script>
+    // Design-decision carousels: swipe (touch / trackpad), arrows, dots or arrow keys. The recording plays only while its slide is on screen.
+    (function () {
+      var cars = Array.prototype.slice.call(R.querySelectorAll('.dcar')); if (!cars.length) return;
+      var embedded = false;
+      var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var view = null;                       // inside the modal: the part of this page that is on screen (sent by the homepage)
+      var inViewSet = [];                    // standalone: carousels currently on screen
+      function onScreen(car) {
+        if (embedded) {
+          if (!view) return false;
+          var r = car.getBoundingClientRect(); return r.bottom > view.top && r.top < view.bottom;
+        }
+        return inViewSet.indexOf(car) > -1;
+      }
+      function sync(car) {
+        var v = car.querySelector('video.dvid'), on = car._idx === 1 && onScreen(car);
+        if (!v) return;
+        if (reduce) { v.controls = true; return; }
+        if (on) { if (v.preload === 'none') v.preload = 'auto'; var p = v.play(); if (p && p.catch) p.catch(function () {}); } else v.pause();
+      }
+      cars.forEach(function (car) {
+        var vp = car.querySelector('.dcar-viewport'), slides = car.querySelectorAll('.dcar-slide'), n = slides.length;
+        var dotsEl = car.querySelector('.dcar-dots'), dots = [], title = (car.getAttribute('aria-label') || '');
+        car._idx = 0;
+        for (var i = 0; i < n; i++) { var d = document.createElement('span'); d.className = 'dcar-dot'; dotsEl.appendChild(d); dots.push(d); }
+        function paint() {
+          dots.forEach(function (d, i) { d.classList.toggle('is-on', i === car._idx); });
+          car.querySelector('[data-dir="-1"]').disabled = car._idx === 0;
+          car.querySelector('[data-dir="1"]').disabled = car._idx === n - 1;
+        }
+        function go(i, method) {
+          i = Math.max(0, Math.min(n - 1, i)); if (i === car._idx && method) return;
+          vp.scrollTo({ left: i * vp.clientWidth, behavior: reduce ? 'auto' : 'smooth' });
+        }
+        var t = 0;
+        vp.addEventListener('scroll', function () {
+          clearTimeout(t);
+          t = setTimeout(function () {
+            var i = Math.round(vp.scrollLeft / Math.max(1, vp.clientWidth));
+            if (i !== car._idx) {
+              var dir = i > car._idx ? 'next' : 'previous'; car._idx = i; paint(); sync(car);
+              sendTrack('persona_carousel', { method: car._method || 'swipe', direction: dir, persona: title + (i === 1 ? ' (recording)' : ' (design)') });
+            }
+            car._method = null;
+          }, 90);
+        }, { passive: true });
+        car.querySelectorAll('.dcar-btn').forEach(function (b) { b.addEventListener('click', function () { car._method = 'arrow'; go(car._idx + (+b.dataset.dir), 'arrow'); }); });
+        vp.addEventListener('keydown', function (e) {
+          if (e.key === 'ArrowLeft') { e.preventDefault(); car._method = 'keyboard'; go(car._idx - 1, 'keyboard'); }
+          else if (e.key === 'ArrowRight') { e.preventDefault(); car._method = 'keyboard'; go(car._idx + 1, 'keyboard'); }
+        });
+        window.addEventListener('resize', function () { vp.scrollLeft = car._idx * vp.clientWidth; });
+        paint();
+      });
+      if (embedded) {
+        window.addEventListener('message', function (ev) {
+          if (ev.origin !== location.origin || ev.source !== window.parent || !ev.data || ev.data.type !== 'platform-details-view') return;
+          view = { top: ev.data.top, bottom: ev.data.bottom };
+          cars.forEach(sync);
+        });
+      } else if ('IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function (en) {
+          en.forEach(function (e) { var k = inViewSet.indexOf(e.target); if (e.isIntersecting && k < 0) inViewSet.push(e.target); else if (!e.isIntersecting && k > -1) inViewSet.splice(k, 1); sync(e.target); });
+        }, { threshold: 0.3 });
+        cars.forEach(function (c) { io.observe(c); });
+      }
+    })();
+  </script>
+  <script>
+    // Banner recording: load when it comes near the screen, play while visible, pause when not.
+    (function () {
+      var vids = Array.prototype.slice.call(R.querySelectorAll('video.redesign')); if (!vids.length) return;
+      var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduce) { vids.forEach(function (v) { v.controls = true; }); return; }
+      function setPlaying(v, on) {
+        if (on) { var p = v.play(); if (p && p.catch) p.catch(function () {}); } else v.pause();
+      }
+      if (false) {
+        window.addEventListener('message', function (ev) {
+          if (ev.origin !== location.origin || ev.source !== window.parent || !ev.data || ev.data.type !== 'platform-details-view') return;
+          vids.forEach(function (v) {
+            var r = v.getBoundingClientRect(), near = r.bottom > ev.data.top - 300 && r.top < ev.data.bottom + 300;
+            var seen = r.bottom > ev.data.top && r.top < ev.data.bottom;
+            if (near && v.preload === 'none') v.preload = 'auto';
+            setPlaying(v, seen);
+          });
+        });
+        // the homepage's first reply to this message is the view that drives stats + video above
+        try { window.parent.postMessage({ type: 'platform-details-ready' }, location.origin); } catch (e) {}
+      } else if ('IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function (en) { en.forEach(function (e) { setPlaying(e.target, e.isIntersecting); }); }, { threshold: 0.2 });
+        vids.forEach(function (v) { io.observe(v); });
+      } else vids.forEach(function (v) { v.autoplay = true; });
+    })();
+  </script>
+  <script>
+    // Closing links: report the click to the homepage. Links that leave the modal wait a moment so the event is sent before the page changes.
+    (function () {
+      R.querySelectorAll('.d-cta a, .d-footer a').forEach(function (a) {
+        a.addEventListener('click', function (e) {
+          var href = a.getAttribute('href') || '', link;
+          if (/^mailto:/.test(href)) link = 'email';
+          else if (/linkedin/.test(href)) link = 'linkedin';
+          else if (/platform/.test(href)) link = 'previous_case_study';
+          else link = 'next_case_study';
+          sendTrack('footer_link_click', { page: 'btc_details', link: link, url: href });
+          var leaves = a.target === '_top' && !(e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0);
+          if (leaves && HOST.navigate) {
+            e.preventDefault();
+            setTimeout(function () { HOST.navigate(a.href); }, 200);
+          }
+        });
+      });
+    })();
+  </script>
+  <script>
+    // When shown inside the homepage modal, tell it how tall this content is so the modal can fit it.
+    (function () {
+      if (window.parent === window) return;
+      function send() {
+        try { window.parent.postMessage({ type: 'platform-details-height', height: document.documentElement.getBoundingClientRect().height }, location.origin); } catch (e) {}
+      }
+      if (window.ResizeObserver) new ResizeObserver(send).observe(document.documentElement);
+      window.addEventListener('load', send);
+      window.addEventListener('resize', send);
+    })();
+  </script>
+</body>
+</html>
