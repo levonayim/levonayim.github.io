@@ -30,76 +30,59 @@
     });
   </script>
   <link rel="stylesheet" href="details.css" />
+
+<style id="share-top-css">
+:root { --s-label:#9a9aa5; --s-media:linear-gradient(180deg,#e0eeff,#e5e6ff); --s-pink:linear-gradient(135deg,#f8a8e0 0%,#9fe6fb 45%,#d9a8f8 70%,#ffc9a3 100%); }
+:root[data-theme="dark"] { --s-label:#8b91a3; --s-media:linear-gradient(180deg,#1d2840,#231f45); --s-pink:linear-gradient(135deg,#5a2e55 0%,#1d4c5a 45%,#402a5c 70%,#5c3a2c 100%); }
+.share-brand { display:flex; align-items:baseline; gap:16px; padding:28px 0 8px; white-space:nowrap; line-height:1; letter-spacing:-.05em; font-family:var(--semibold); font-weight:400; font-size:clamp(24px,2.6vw,34px); color:var(--ink); cursor:default; user-select:none; pointer-events:none; }
+.share-brand .sep { font-weight:100; }
+.share-brand .role { font-family:"SF Pro Thin","SF Pro Display",-apple-system,BlinkMacSystemFont,"Inter","Helvetica Neue",Arial,sans-serif; font-weight:300; font-size:.7em; letter-spacing:-.02em; color:var(--label); }
+@media (max-width:640px){ .share-brand .sep{display:none} .share-brand{gap:10px} .share-brand .role{font-size:.5em} }
+.share-top { display:flex; flex-direction:column; gap:3rem; padding-top:24px; margin-bottom:3rem; }
+.share-top .cm-title { margin:0; font-family:"SF Pro Display","SF Pro Text","SF Pro",-apple-system,BlinkMacSystemFont,system-ui,"Helvetica Neue",Arial,sans-serif; font-size:clamp(18px,2.15vw,32px); line-height:1.2; font-weight:590; }
+.share-top .cm-title strong { font-family:"SF Pro Display Semibold","SF Pro Display",-apple-system,BlinkMacSystemFont,system-ui,sans-serif; font-weight:400; }
+.share-top .cm-title span { font-weight:300; }
+.share-top .cm-meta { margin:0; display:grid; grid-template-columns:1fr 1fr 480px; gap:48px; font-family:"Inter",var(--sans); font-size:14px; line-height:1.48; }
+.share-top .cm-meta dt { margin-bottom:12px; font-weight:300; line-height:1.08; letter-spacing:-.012em; text-transform:uppercase; color:var(--s-label); }
+.share-top .cm-meta dd { margin:0; }
+.share-top .cm-team dd { display:flex; gap:16px; }
+.share-top .cm-team ul { flex:1; margin:0; padding:0; list-style:none; }
+.share-top .cm-hero { aspect-ratio:1332/737; border-radius:clamp(14px,1.6vw,24px); background:var(--s-media); display:grid; place-items:center; overflow:hidden; }
+.share-top .cm-hero-pink { background:var(--s-pink); }
+.share-top .cm-hero video { width:60%; height:auto; border-radius:8px; box-shadow:0 4px 10px rgba(0,0,0,.15); }
+.share-top .cm-block, .share-top .cm-question { padding-inline:var(--indent); }
+.share-top .cm-block { display:grid; gap:24px; }
+.share-top .cm-block p, .share-top .cm-a { margin:0; font-size:16px; line-height:1.48; }
+.share-top .cm-block p + p { margin-top:-8px; }
+.share-top .cm-block strong, .share-top .cm-a strong { font-weight:700; }
+.share-top .cm-label { margin:0; font-family:"Inter",var(--sans); font-size:14px; font-weight:300; line-height:1.08; letter-spacing:-.012em; text-transform:uppercase; color:var(--s-label); }
+.share-top .cm-question { display:flex; gap:120px; align-items:flex-start; }
+.share-top .cm-q { flex:1; margin:0; font-family:"Source Serif 4","Source Serif Pro",Georgia,serif; font-size:clamp(24px,2.15vw,32px); line-height:1.18; letter-spacing:-.02em; }
+.share-top .cm-a { flex:0 0 min(515px,42%); }
+@media (max-width:900px){ .share-top .cm-meta{grid-template-columns:1fr 1fr;gap:24px 32px} .share-top .cm-team{grid-column:1/-1} .share-top .cm-block,.share-top .cm-question{padding-inline:0} .share-top .cm-question{flex-direction:column;gap:20px} .share-top .cm-a{flex:none} .share-top .cm-hero video{width:76%} }
+@media (max-width:640px){ .share-top .cm-title span{display:block} .share-top .cm-meta{grid-template-columns:1fr} .share-top .cm-hero{aspect-ratio:4/3} .share-top .cm-hero video{width:88%} }
+</style>
 </head>
 <body>
-<div id="share-top"></div>
-<template id="share-hero"><header class="site-header"><div class="site-header__inner wrap"><div class="brand" aria-label="Levona Yim, Lead Product Designer"><span class="brand-name">levona yim</span><span class="brand-sep" aria-hidden="true">|</span><span class="brand-role">Lead Product Designer</span></div></div></header><main><section class="intro wrap">
-      <span class="intro-eyebrow" style="--i:0">FICO</span>
-      <h1 class="display" style="--i:0">Business Terms Capability</h1>
-
-      <div class="intro__grid">
-        <dl class="meta" style="--i:1">
-          <div>
-            <dt>Role</dt>
-            <dd>Lead Product Designer</dd>
-          </div>
-          <div>
-            <dt>Timeline</dt>
-            <dd>2023–2025</dd>
-          </div>
-          <div>
-            <dt>Team</dt>
-            <dd>
-              <span>Product Managers</span>
-              <span>VP of Architecture</span>
-              <span>Front-End Architect</span>
-              <span>Engineering Team</span>
-              <span>Solution Architect</span>
-            </dd>
-          </div>
-        </dl>
-
-        <div class="summary">
-          <p class="lead" style="--i:2">
-           On large platforms, teams define the same business concept in different ways, so the same data means different things across products. BTC gives FICO Platform users one shared definition that every product uses.
-          </p>
-          <p class="lead" style="--i:3">
-            <strong>I led its design end to end, from an embeddable component other teams adopted, to a standalone workspace for technical and business users.</strong>
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ HERO IMAGE ============ -->
-    <section class="showcase" aria-label="FICO Composition">
-      <div class="showcase__frame" style="--i:4">
-        <img
-          src="/btc2/assets/BTC-table.png"
-          alt="BTC gif clip of all features"
-          width="1512" height="945">
-      </div>
-    </section></main></template>
-
-<script>
-(function () {
-  var host = document.getElementById('share-top'), tpl = document.getElementById('share-hero');
-  try {
-    var t = localStorage.getItem('theme');
-    var dark = t ? t === 'dark' : !!(window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches);
-    if (dark) host.setAttribute('data-theme', 'dark');
-  } catch (e) {}
-  var root = host.attachShadow({ mode: 'open' });
-  var extra = ':host{display:block;background:var(--bg);color:var(--ink);font-family:var(--font);line-height:1.5;-webkit-font-smoothing:antialiased;padding-bottom:72px}' +
-    '.site-header{position:static!important}.brand{display:inline-flex!important;pointer-events:none;cursor:default;text-decoration:none}' +
-    '.site-header__inner.wrap{justify-content:flex-start}@media(max-width:700px){.site-header__inner.wrap{justify-content:center}}';
-  root.appendChild(tpl.content.cloneNode(true));
-  fetch('/btc2/styles.css').then(function (r) { return r.text(); }).then(function (css) {
-    css = css.replace(/:root\[data-theme="dark"\]/g, ':host([data-theme="dark"])').replace(/:root/g, ':host');
-    var s = document.createElement('style'); s.textContent = css + extra; root.appendChild(s);
-  });
-})();
-</script>
-
+<div class="share-brand" aria-label="Levona Yim, Lead Product Designer"><span>levona yim</span><span class="sep" aria-hidden="true">|</span><span class="role">Lead Product Designer</span></div>
+<div class="share-top">
+<h2 class="cm-title" id="btcModalTitle"><strong>FICO</strong> <span>• Data Models • 2025</span></h2>
+<dl class="cm-meta">
+        <div><dt>Timeline</dt><dd>2025</dd></div>
+        <div><dt>Role</dt><dd>Lead Product Designer</dd></div>
+        <div class="cm-team"><dt>Team</dt><dd><ul><li>Product Managers</li><li>VP of Architecture</li><li>Engineering</li></ul><ul><li>Architect</li><li>Sales</li><li>UX Research</li></ul></dd></div>
+      </dl>
+<div class="cm-hero cm-hero-pink"><video autoplay loop muted playsinline poster="/assets/btc-table-home-light-poster.jpg" aria-label="Business Terms Capability: a term set open in the table view"><source src="/assets/btc-table-home-light.mp4" type="video/mp4"></video></div>
+<section class="cm-block">
+        <h3 class="cm-label">Context &amp; Problem</h3>
+        <p>The <strong>FICO Platform</strong> is a software that automates data-driven decisions that work behind the scenes, such as fraud detection, credit approval, risk assessment, and customer decisions. It’s built for businesses that need to make high-volume decisions quickly and consistently.</p>
+        <p>The FICO Platform contains many kinds of models, and one of them is the <strong>Business Terms Capability (aka data models)</strong>. A data model defines how information is structured and how its pieces relate.</p>
+      </section>
+<section class="cm-question">
+        <p class="cm-q">How can we help teams agree on what their data means, so every product builds on the same understanding?</p>
+        <p class="cm-a">When each team defines data its own way, products start to conflict. Teams spend time untangling mismatches, asking for help, or rebuilding work that already exists. <strong>Without a shared data model, the result is slower delivery and more costly mistakes.</strong></p>
+      </section>
+</div>
 
   
 

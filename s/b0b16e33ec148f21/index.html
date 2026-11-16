@@ -24,86 +24,62 @@
     var R = document, HOST = { embedded: false, track: function () {}, lightbox: null, navigate: null };
   </script>
   <link rel="stylesheet" href="details.css" />
+
+<style id="share-top-css">
+:root { --s-label:#9a9aa5; --s-media:linear-gradient(180deg,#e0eeff,#e5e6ff); --s-pink:linear-gradient(135deg,#f8a8e0 0%,#9fe6fb 45%,#d9a8f8 70%,#ffc9a3 100%); }
+:root[data-theme="dark"] { --s-label:#8b91a3; --s-media:linear-gradient(180deg,#1d2840,#231f45); --s-pink:linear-gradient(135deg,#5a2e55 0%,#1d4c5a 45%,#402a5c 70%,#5c3a2c 100%); }
+.share-brand { display:flex; align-items:baseline; gap:16px; padding:28px 0 8px; white-space:nowrap; line-height:1; letter-spacing:-.05em; font-family:var(--semibold); font-weight:400; font-size:clamp(24px,2.6vw,34px); color:var(--ink); cursor:default; user-select:none; pointer-events:none; }
+.share-brand .sep { font-weight:100; }
+.share-brand .role { font-family:"SF Pro Thin","SF Pro Display",-apple-system,BlinkMacSystemFont,"Inter","Helvetica Neue",Arial,sans-serif; font-weight:300; font-size:.7em; letter-spacing:-.02em; color:var(--label); }
+@media (max-width:640px){ .share-brand .sep{display:none} .share-brand{gap:10px} .share-brand .role{font-size:.5em} }
+.share-top { display:flex; flex-direction:column; gap:3rem; padding-top:24px; margin-bottom:3rem; }
+.share-top .cm-title { margin:0; font-family:"SF Pro Display","SF Pro Text","SF Pro",-apple-system,BlinkMacSystemFont,system-ui,"Helvetica Neue",Arial,sans-serif; font-size:clamp(18px,2.15vw,32px); line-height:1.2; font-weight:590; }
+.share-top .cm-title strong { font-family:"SF Pro Display Semibold","SF Pro Display",-apple-system,BlinkMacSystemFont,system-ui,sans-serif; font-weight:400; }
+.share-top .cm-title span { font-weight:300; }
+.share-top .cm-meta { margin:0; display:grid; grid-template-columns:1fr 1fr 480px; gap:48px; font-family:"Inter",var(--sans); font-size:14px; line-height:1.48; }
+.share-top .cm-meta dt { margin-bottom:12px; font-weight:300; line-height:1.08; letter-spacing:-.012em; text-transform:uppercase; color:var(--s-label); }
+.share-top .cm-meta dd { margin:0; }
+.share-top .cm-team dd { display:flex; gap:16px; }
+.share-top .cm-team ul { flex:1; margin:0; padding:0; list-style:none; }
+.share-top .cm-hero { aspect-ratio:1332/737; border-radius:clamp(14px,1.6vw,24px); background:var(--s-media); display:grid; place-items:center; overflow:hidden; }
+.share-top .cm-hero-pink { background:var(--s-pink); }
+.share-top .cm-hero video { width:60%; height:auto; border-radius:8px; box-shadow:0 4px 10px rgba(0,0,0,.15); }
+.share-top .cm-block, .share-top .cm-question { padding-inline:var(--indent); }
+.share-top .cm-block { display:grid; gap:24px; }
+.share-top .cm-block p, .share-top .cm-a { margin:0; font-size:16px; line-height:1.48; }
+.share-top .cm-block p + p { margin-top:-8px; }
+.share-top .cm-block strong, .share-top .cm-a strong { font-weight:700; }
+.share-top .cm-label { margin:0; font-family:"Inter",var(--sans); font-size:14px; font-weight:300; line-height:1.08; letter-spacing:-.012em; text-transform:uppercase; color:var(--s-label); }
+.share-top .cm-question { display:flex; gap:120px; align-items:flex-start; }
+.share-top .cm-q { flex:1; margin:0; font-family:"Source Serif 4","Source Serif Pro",Georgia,serif; font-size:clamp(24px,2.15vw,32px); line-height:1.18; letter-spacing:-.02em; }
+.share-top .cm-a { flex:0 0 min(515px,42%); }
+@media (max-width:900px){ .share-top .cm-meta{grid-template-columns:1fr 1fr;gap:24px 32px} .share-top .cm-team{grid-column:1/-1} .share-top .cm-block,.share-top .cm-question{padding-inline:0} .share-top .cm-question{flex-direction:column;gap:20px} .share-top .cm-a{flex:none} .share-top .cm-hero video{width:76%} }
+@media (max-width:640px){ .share-top .cm-title span{display:block} .share-top .cm-meta{grid-template-columns:1fr} .share-top .cm-hero{aspect-ratio:4/3} .share-top .cm-hero video{width:88%} }
+</style>
 </head>
 <body>
-<div id="share-top"></div>
-<template id="share-hero"><header class="site-header"><div class="site-header__inner wrap"><div class="brand" aria-label="Levona Yim, Lead Product Designer"><span class="brand-name">levona yim</span><span class="brand-sep" aria-hidden="true">|</span><span class="brand-role">Lead Product Designer</span></div></div></header><main><section class="intro wrap">
-      <h1 class="display" style="--i:0">Kashoo 2.0 Web</h1>
-
-      <div class="intro__grid">
-        <dl class="meta" style="--i:1">
-          <div>
-            <dt>Role</dt>
-            <dd>Lead UX Designer</dd>
-          </div>
-          <div>
-            <dt>Timeline</dt>
-            <dd>2019–2021</dd>
-          </div>
-          <div>
-            <dt>Team</dt>
-            <dd>
-              <span>Product Manager</span>
-              <span>3 full-stack engineers</span>
-              <span>CEO</span>
-            </dd>
-          </div>
-        </dl>
-
-        <div class="summary">
-          <p class="lead" style="--i:2">
-            Contractors, freelancers and digital professionals often struggle with overly complicated bookkeeping software.
-            Kashoo 2.0 <strong>simplifies financial management by automating tedious data entry and tracking.</strong>
-          </p>
-          <p class="lead" style="--i:3">
-            I <strong>designed and shipped the new end-to-end Kashoo 2.0 experience</strong> in November 2019 that
-            <strong>increased subscribers by 22.8%, and driving over 1,000+ new users to the platform.</strong>
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ HERO IMAGE ============ -->
-    <section class="showcase" aria-label="Kashoo 2.0 invoice screen">
-      <div class="showcase__frame" style="--i:4">
-        <video
-          class="autoplay-video"
-          autoplay loop muted playsinline
-          poster="/kashoofiles/assets/kashoo-inner-hero-poster.jpg"
-          aria-label="Kashoo 2.0 edit-invoice screen showing line items, tax and a running total"
-          width="1800" height="974">
-          <source src="/kashoofiles/assets/kashoo-inner-hero.mp4" type="video/mp4">
-        </video>
-      </div>
-    </section></main></template>
-
-<script>
-(function () {
-  var host = document.getElementById('share-top'), tpl = document.getElementById('share-hero');
-  try {
-    var t = localStorage.getItem('theme');
-    var dark = t ? t === 'dark' : !!(window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches);
-    if (dark) host.setAttribute('data-theme', 'dark');
-  } catch (e) {}
-  var root = host.attachShadow({ mode: 'open' });
-  var extra = ':host{display:block;background:var(--bg);color:var(--ink);font-family:var(--font);line-height:1.5;-webkit-font-smoothing:antialiased;padding-bottom:72px}' +
-    '.site-header{position:static!important}.brand{display:inline-flex!important;pointer-events:none;cursor:default;text-decoration:none}' +
-    '.site-header__inner.wrap{justify-content:flex-start}@media(max-width:700px){.site-header__inner.wrap{justify-content:center}}';
-  root.appendChild(tpl.content.cloneNode(true));
-  fetch('/kashoofiles/styles.css').then(function (r) { return r.text(); }).then(function (css) {
-    css = css.replace(/:root\[data-theme="dark"\]/g, ':host([data-theme="dark"])').replace(/:root/g, ':host');
-    var s = document.createElement('style'); s.textContent = css + extra; root.appendChild(s);
-  });
-})();
-</script>
-
+<div class="share-brand" aria-label="Levona Yim, Lead Product Designer"><span>levona yim</span><span class="sep" aria-hidden="true">|</span><span class="role">Lead Product Designer</span></div>
+<div class="share-top">
+<h2 class="cm-title" id="kashooModalTitle"><strong>Kashoo</strong> <span>• Cloud Accounting • 2021</span></h2>
+<dl class="cm-meta">
+        <div><dt>Timeline</dt><dd>2019–2021</dd></div>
+        <div><dt>Role</dt><dd>Lead UX Designer</dd></div>
+        <div class="cm-team"><dt>Team</dt><dd><ul><li>Product Manager</li><li>3 full-stack engineers</li></ul><ul><li>CEO</li></ul></dd></div>
+      </dl>
+</div>
 
   
 
   <main class="details">
 
     <!-- HERO: the edit-invoice recording on the Kashoo gradient -->
-    
+    <div class="d-hero">
+      <div class="d-hero-frame">
+        <video class="d-vid" muted loop playsinline preload="metadata" poster="../assets/kashoo-inner-hero-poster.jpg" width="1800" height="974" aria-label="Kashoo 2.0 edit-invoice screen showing line items, tax and a running total">
+          <source src="../assets/kashoo-inner-hero.mp4" type="video/mp4" />
+        </video>
+      </div>
+    </div>
 
     <!-- CONTEXT & PROBLEM -->
     <section class="d-sec">

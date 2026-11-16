@@ -30,74 +30,59 @@
     });
   </script>
   <link rel="stylesheet" href="details.css" />
+
+<style id="share-top-css">
+:root { --s-label:#9a9aa5; --s-media:linear-gradient(180deg,#e0eeff,#e5e6ff); --s-pink:linear-gradient(135deg,#f8a8e0 0%,#9fe6fb 45%,#d9a8f8 70%,#ffc9a3 100%); }
+:root[data-theme="dark"] { --s-label:#8b91a3; --s-media:linear-gradient(180deg,#1d2840,#231f45); --s-pink:linear-gradient(135deg,#5a2e55 0%,#1d4c5a 45%,#402a5c 70%,#5c3a2c 100%); }
+.share-brand { display:flex; align-items:baseline; gap:16px; padding:28px 0 8px; white-space:nowrap; line-height:1; letter-spacing:-.05em; font-family:var(--semibold); font-weight:400; font-size:clamp(24px,2.6vw,34px); color:var(--ink); cursor:default; user-select:none; pointer-events:none; }
+.share-brand .sep { font-weight:100; }
+.share-brand .role { font-family:"SF Pro Thin","SF Pro Display",-apple-system,BlinkMacSystemFont,"Inter","Helvetica Neue",Arial,sans-serif; font-weight:300; font-size:.7em; letter-spacing:-.02em; color:var(--label); }
+@media (max-width:640px){ .share-brand .sep{display:none} .share-brand{gap:10px} .share-brand .role{font-size:.5em} }
+.share-top { display:flex; flex-direction:column; gap:3rem; padding-top:24px; margin-bottom:3rem; }
+.share-top .cm-title { margin:0; font-family:"SF Pro Display","SF Pro Text","SF Pro",-apple-system,BlinkMacSystemFont,system-ui,"Helvetica Neue",Arial,sans-serif; font-size:clamp(18px,2.15vw,32px); line-height:1.2; font-weight:590; }
+.share-top .cm-title strong { font-family:"SF Pro Display Semibold","SF Pro Display",-apple-system,BlinkMacSystemFont,system-ui,sans-serif; font-weight:400; }
+.share-top .cm-title span { font-weight:300; }
+.share-top .cm-meta { margin:0; display:grid; grid-template-columns:1fr 1fr 480px; gap:48px; font-family:"Inter",var(--sans); font-size:14px; line-height:1.48; }
+.share-top .cm-meta dt { margin-bottom:12px; font-weight:300; line-height:1.08; letter-spacing:-.012em; text-transform:uppercase; color:var(--s-label); }
+.share-top .cm-meta dd { margin:0; }
+.share-top .cm-team dd { display:flex; gap:16px; }
+.share-top .cm-team ul { flex:1; margin:0; padding:0; list-style:none; }
+.share-top .cm-hero { aspect-ratio:1332/737; border-radius:clamp(14px,1.6vw,24px); background:var(--s-media); display:grid; place-items:center; overflow:hidden; }
+.share-top .cm-hero-pink { background:var(--s-pink); }
+.share-top .cm-hero video { width:60%; height:auto; border-radius:8px; box-shadow:0 4px 10px rgba(0,0,0,.15); }
+.share-top .cm-block, .share-top .cm-question { padding-inline:var(--indent); }
+.share-top .cm-block { display:grid; gap:24px; }
+.share-top .cm-block p, .share-top .cm-a { margin:0; font-size:16px; line-height:1.48; }
+.share-top .cm-block p + p { margin-top:-8px; }
+.share-top .cm-block strong, .share-top .cm-a strong { font-weight:700; }
+.share-top .cm-label { margin:0; font-family:"Inter",var(--sans); font-size:14px; font-weight:300; line-height:1.08; letter-spacing:-.012em; text-transform:uppercase; color:var(--s-label); }
+.share-top .cm-question { display:flex; gap:120px; align-items:flex-start; }
+.share-top .cm-q { flex:1; margin:0; font-family:"Source Serif 4","Source Serif Pro",Georgia,serif; font-size:clamp(24px,2.15vw,32px); line-height:1.18; letter-spacing:-.02em; }
+.share-top .cm-a { flex:0 0 min(515px,42%); }
+@media (max-width:900px){ .share-top .cm-meta{grid-template-columns:1fr 1fr;gap:24px 32px} .share-top .cm-team{grid-column:1/-1} .share-top .cm-block,.share-top .cm-question{padding-inline:0} .share-top .cm-question{flex-direction:column;gap:20px} .share-top .cm-a{flex:none} .share-top .cm-hero video{width:76%} }
+@media (max-width:640px){ .share-top .cm-title span{display:block} .share-top .cm-meta{grid-template-columns:1fr} .share-top .cm-hero{aspect-ratio:4/3} .share-top .cm-hero video{width:88%} }
+</style>
 </head>
 <body>
-<div id="share-top"></div>
-<template id="share-hero"><header class="site-header"><div class="site-header__inner wrap"><div class="brand" aria-label="Levona Yim, Lead Product Designer"><span class="brand-name">levona yim</span><span class="brand-sep" aria-hidden="true">|</span><span class="brand-role">Lead Product Designer</span></div></div></header><main><section class="intro wrap">
-      <span class="intro-eyebrow" style="--i:0">FICO</span>
-      <h1 class="display" style="--i:0">Onboarding <span style="white-space:nowrap">&amp; Dashboards</span></h1>
-
-      <div class="intro__grid">
-        <dl class="meta" style="--i:1">
-          <div>
-            <dt>Role</dt>
-            <dd>Lead Product Designer</dd>
-          </div>
-          <div>
-            <dt>Timeline</dt>
-            <dd>2023–2025</dd>
-          </div>
-          <div>
-            <dt>Team</dt>
-            <dd>
-              <span>Product Managers</span>
-              <span>VP of Architecture</span>
-              <span>Front-End Architect</span>
-              <span>Solution Architect</span>
-              <span>Product Designers</span>
-            </dd>
-          </div>
-        </dl>
-
-        <div class="summary">
-          <p class="lead" style="--i:2">
-            Every user of the FICO Platform landed on the same generic screen, whether they were an admin, an analyst or a solution builder. I led the design of two things that fix that: the admin flow that provisions users and roles, and the role-based homepages that make the platform show each person what matters to them.</p>
-          <p class="lead" style="--i:3">
-            I owned the design strategy end to end, from the admin provisioning flow to the persona landing pages. I worked with the Product Managers and architects to decide what shipped first and what we tested at FICO World. The first internal release focused on admin provisioning, since every other user depends on it.</p>
-        </div>
-      </div>
-    </section>
-
-     <!-- ============ HERO IMAGE ============ -->
-    <section class="showcase" aria-label="FICO Platform dashboard screen">
-      <div class="showcase__frame" style="--i:4">
-        <img
-          src="/platform/assets/eg-doubleimages.png"
-          alt="FICO Platform dashboard screen"
-          width="1208" height="757">
-      </div>
-    </section></main></template>
-
-<script>
-(function () {
-  var host = document.getElementById('share-top'), tpl = document.getElementById('share-hero');
-  try {
-    var t = localStorage.getItem('theme');
-    var dark = t ? t === 'dark' : !!(window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches);
-    if (dark) host.setAttribute('data-theme', 'dark');
-  } catch (e) {}
-  var root = host.attachShadow({ mode: 'open' });
-  var extra = ':host{display:block;background:var(--bg);color:var(--ink);font-family:var(--font);line-height:1.5;-webkit-font-smoothing:antialiased;padding-bottom:72px}' +
-    '.site-header{position:static!important}.brand{display:inline-flex!important;pointer-events:none;cursor:default;text-decoration:none}' +
-    '.site-header__inner.wrap{justify-content:flex-start}@media(max-width:700px){.site-header__inner.wrap{justify-content:center}}';
-  root.appendChild(tpl.content.cloneNode(true));
-  fetch('/platform/styles.css').then(function (r) { return r.text(); }).then(function (css) {
-    css = css.replace(/:root\[data-theme="dark"\]/g, ':host([data-theme="dark"])').replace(/:root/g, ':host');
-    var s = document.createElement('style'); s.textContent = css + extra; root.appendChild(s);
-  });
-})();
-</script>
-
+<div class="share-brand" aria-label="Levona Yim, Lead Product Designer"><span>levona yim</span><span class="sep" aria-hidden="true">|</span><span class="role">Lead Product Designer</span></div>
+<div class="share-top">
+<h2 class="cm-title" id="platformModalTitle"><strong>FICO</strong> <span>• Personalized Dashboards • 2025</span></h2>
+<dl class="cm-meta">
+        <div><dt>Timeline</dt><dd>2025</dd></div>
+        <div><dt>Role</dt><dd>Lead Product Designer</dd></div>
+        <div class="cm-team"><dt>Team</dt><dd><ul><li>Product Managers</li><li>VP of Architecture</li><li>Engineering</li></ul><ul><li>Architect</li><li>Sales</li><li>UX Research</li></ul></dd></div>
+      </dl>
+<div class="cm-hero"><video autoplay loop muted playsinline poster="/assets/platform-home-cover-poster.jpg" aria-label="FICO Platform home dashboard: hovering the loans originated chart"><source src="/assets/platform-home-cover.mp4" type="video/mp4"></video></div>
+<section class="cm-block">
+        <h3 class="cm-label">Context &amp; Problem</h3>
+        <p>FICO is best known for creating the credit scoring system, but many people don’t realize it also offers the <strong>FICO Platform</strong>.</p>
+        <p>This software automates data-driven decisions that work behind the scenes, such as fraud detection, credit approval, risk assessment, and customer decisions. It’s built for businesses that need to make high-volume decisions quickly and consistently.</p>
+      </section>
+<section class="cm-question">
+        <p class="cm-q">How can we create an experience that fits the unique needs of various users?</p>
+        <p class="cm-a">The FICO Platform serves a wide range of people, from <strong>technical specialists</strong> like Data Scientists and Business Analysts to <strong>operational users</strong> like Admins and Business Owners. Because each role has different goals and tasks, <strong>the platform delivers role-based views that surface each user’s most critical work first.</strong></p>
+      </section>
+</div>
 
   
 
