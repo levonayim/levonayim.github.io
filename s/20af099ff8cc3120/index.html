@@ -89,7 +89,7 @@
     if (dark) host.setAttribute('data-theme', 'dark');
   } catch (e) {}
   var root = host.attachShadow({ mode: 'open' });
-  var extra = ':host{display:block;background:var(--bg);color:var(--ink);font-family:var(--font);line-height:1.5;-webkit-font-smoothing:antialiased}' +
+  var extra = ':host{display:block;background:var(--bg);color:var(--ink);font-family:var(--font);line-height:1.5;-webkit-font-smoothing:antialiased;padding-bottom:72px}' +
     '.site-header{position:static!important}.brand{display:inline-flex!important;pointer-events:none;cursor:default;text-decoration:none}' +
     '.site-header__inner.wrap{justify-content:flex-start}@media(max-width:700px){.site-header__inner.wrap{justify-content:center}}';
   root.appendChild(tpl.content.cloneNode(true));
